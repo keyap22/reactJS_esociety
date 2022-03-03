@@ -18,7 +18,7 @@ export const Navbar = () => {
 
             <nav id="navbar" className="navbar">
               <ul>
-                <li><a className="nav-link scrollto active" href="#hero">Home</a></li>
+                <li><Link className="nav-link scrollto active" to="/home">Home</Link></li>
                 <li><Link className="nav-link scrollto" to="/about">About</Link></li>
                 <li><a className="nav-link scrollto" href="#services">Services</a></li>
                 <li><a className="nav-link scrollto " href="#portfolio">Portfolio</a></li>
