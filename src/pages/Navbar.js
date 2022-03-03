@@ -30,9 +30,9 @@ export const Navbar = () => {
                       <ul>
                         <li><a href="#">Name</a></li>
                         <li><a href="#">Contact Number</a></li>
-                         <li><a href="#"></a></li>
+                         {/* <li><a href="#"></a></li>
                         <li><a href="#">Deep Drop Down 4</a></li>
-                        <li><a href="#">Deep Drop Down 5</a></li> 
+                        <li><a href="#">Deep Drop Down 5</a></li>  */}
                       </ul>
                     </li>
                     <li><a href="#">Delete Member</a></li>

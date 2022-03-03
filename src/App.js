@@ -7,6 +7,7 @@ import { Contact } from './pages/Contact';
 import { Home } from './pages/Home';
 import { LoginForm } from './components/LoginForm';
 import { SignupForm } from './components/SignupForm';
+import {Footer} from './pages/Footer';
 
 function App() {
   
@@ -22,8 +23,9 @@ function App() {
        <Route path="/login" element={<LoginForm/>}></Route>
        
        <Route path="/signup" element={<SignupForm/>}></Route>
+       
      </Routes>
-     
+     <Footer/>
       
     </div>
   );
