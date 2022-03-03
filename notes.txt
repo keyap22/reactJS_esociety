@@ -1,0 +1,7 @@
+Tasks -
+
+first name nd last name same col 
+select ma dropdown arrow
+Colon alignment in signupform
+adding notes.txt file
+with and without hover different shade of green color - like login button in NavBar ==> need to be updated in login, signup form
