@@ -21,18 +21,18 @@ export const Navbar = () => {
                 <li><Link className="nav-link scrollto active" to="/home">Home</Link></li>
                 <li><Link className="nav-link scrollto" to="/about">About</Link></li>
                 <li><a className="nav-link scrollto" href="#services">Services</a></li>
-                <li><a className="nav-link scrollto " href="#portfolio">Visitor Tracking</a></li>
-                <li><a className="nav-link scrollto" href="#team">Add Pre-request</a></li>
-                <li className="dropdown"><a href="#"><span>Edit Members</span> <i className="bi bi-chevron-down"></i></a>
+                {/* <li><a className="nav-link scrollto " href="#portfolio">Visitor Tracking</a></li>
+                <li><a className="nav-link scrollto" href="#team">Add Pre-request</a></li>*/}
+                <li className="dropdown"><a href="#"><span>Edit Members</span> <i className="bi bi-chevron-down"></i></a> 
                   <ul>
                     <li><a href="#">Add member</a></li>
                     <li className="dropdown"><a href="#"><span>Update member</span> <i className="bi bi-chevron-right"></i></a>
                       <ul>
                         <li><a href="#">Name</a></li>
                         <li><a href="#">Contact Number</a></li>
-                        {/* <li><a href="#"></a></li>
+                         <li><a href="#"></a></li>
                         <li><a href="#">Deep Drop Down 4</a></li>
-                        <li><a href="#">Deep Drop Down 5</a></li> */}
+                        <li><a href="#">Deep Drop Down 5</a></li> 
                       </ul>
                     </li>
                     <li><a href="#">Delete Member</a></li>
@@ -41,7 +41,7 @@ export const Navbar = () => {
                   </ul>
                 </li>
                 <li><Link className="nav-link" to="/contact">Contact</Link></li>
-                <li><a className="getstarted scrollto" href="#about">Get Started</a></li>
+                <li><Link className="getstarted scrollto" to ="/login">Login</Link></li>
               </ul>
               <i className="bi bi-list mobile-nav-toggle"></i>
             </nav>

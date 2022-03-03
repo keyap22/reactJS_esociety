@@ -1,8 +1,25 @@
 import React from 'react'
+import { useState } from 'react'
 
 export const Contact = () => {
+
+  const [email, setemail] = useState('')
+  
+   
+    const emailHandler = (e) => {
+        
+        console.log(e.target.value)
+        setemail(e.target.value)
+    }
+    
+  const submit = (e)=>{
+
+    e.preventDefault()
+    alert("email: "+email)
+    console.log("submit called.....")
+}
   return (
-    <section id="contact" classNameName="contact">
+    <section id="contact" className="contact">
       <div className="container">
         <div className="row">
           <div className="col-lg-4" data-aos="fade-right">
@@ -37,13 +54,13 @@ export const Contact = () => {
               </div>
             </div>
 
-            <form action="" method="post" role="form" className="">
+            <form  onSubmit = {submit} role="form" className="">
               <div className="row">
                 <div className="col-md-6 form-group">
                   <input type="text" name="name" className="form-control" id="name" placeholder="Your Name" required/>
                 </div>
                 <div className="col-md-6 form-group mt-3 mt-md-0">
-                  <input type="email" className="form-control" name="email" id="email" placeholder="Your Email" required/>
+                  <input type="email" className="form-control" name="email" id="email" placeholder="Your Email" required  onChange= {(e)=>{emailHandler(e)}}/>
                 </div>
               </div>
               <div className="form-group mt-3">
@@ -52,11 +69,11 @@ export const Contact = () => {
               <div className="form-group mt-3">
                 <textarea className="form-control" name="message" rows="5" placeholder="Message" required></textarea>
               </div>
-              <div className="my-3">
+              {/* <div className="my-3">
                 <div className="loading">Loading</div>
                 <div className="error-message"></div>
                 <div className="sent-message">Your message has been sent. Thank you!</div>
-              </div>
+              </div> */}
               <div className="text-center"><button type="submit">Send Message</button></div>
             </form>
           </div>
