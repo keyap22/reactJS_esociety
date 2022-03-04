@@ -44,8 +44,9 @@ export const LoginForm = () => {
                         <input className="form-check-input" type="checkbox" name="remember" /> Remember me
                     </label>
                 </div>
-
+               
                 <input type="submit" className='btn-centre' value="Login" />
+               
             </form>
         </div>
     )
