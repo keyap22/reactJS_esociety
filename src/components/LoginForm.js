@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export const LoginForm = () => {
     const [email, setemail] = useState('')
@@ -26,6 +27,8 @@ export const LoginForm = () => {
         <div className="form-center">
 
             <form className="login-form" align="center" onSubmit={submit}>
+
+                <h1 className="align-title my-5">LOGIN FORM</h1>
 
                 {/* <div className="form-group row mb-3 mt-3">
                     <label for="email" className="col-form-label"><strong>Email : </strong></label>
@@ -66,7 +69,12 @@ export const LoginForm = () => {
                     </label>
                 </div>
 
-                <input type="submit" className='btn-centre' value="Login" />
+                <div className="my-1">
+                    <input type="submit" className='btn-centre' value="Login" /><br />
+
+                New User?
+                <Link to="/signup" className="my-1"> Create an account</Link>
+                </div>
 
             </form>
         </div>
