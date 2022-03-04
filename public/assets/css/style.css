@@ -13,6 +13,12 @@ body {
   color: #444444;
 }
 
+.login-form{
+  display:block;
+  width:40%;
+  margin:0 auto; 
+}
+
 .form-horizontal{
   display:block;
   width:80%;
@@ -20,6 +26,10 @@ body {
 }
 
 .form-group{
+  text-align: left;
+}
+
+.form-label{
   text-align: left;
 }
 
