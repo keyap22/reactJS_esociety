@@ -78,8 +78,23 @@ const submit = (e) => {
         <div className="align-items-center">
             <form className="form-horizontal" align="center" onSubmit={submit}>
 
-               <div className="form-group row my-3 mr-2 mb-3"> 
-                     {/* <div className="form-group col">*/}
+            <div class="form-row">
+    <div class="form-group col-md-2 my-4">
+      <label for="inputEmail4"><strong>First Name</strong></label>
+      </div>
+     
+      <div class="form-group col-md-4 my-4 mx-2"> <input type="text" class="form-control" name="firstName" id="FirstName" placeholder="Enter Your First Name"
+      required onChange={(e) => {firstNameHandler(e)}}/>
+    </div>
+    <div class="form-group col-md-1.5 my-4">
+      <label for="inputPassword4"><strong>Last Name</strong></label></div>
+      <div class="form-group col-md-4 my-4">
+      <input type="LastName" class="form-control" id="LastName"  name="firstName" placeholder="Enter Your Last Name" required onChange={(e) => {lastNameHandler(e)}}/>
+    </div>
+  </div>
+
+               {/* <div className="form-group row my-3 mr-2 mb-3"> 
+                     <div className="form-group col">
                         <label for="FirstName" className="col-sm-2 col-form-label"><strong>First Name  </strong></label>
                         <div className="col-sm-10">
                             <input type="text" id="FirstName" className="form-control" name="firstName" 
@@ -87,14 +102,14 @@ const submit = (e) => {
                         </div>
                     </div>
 
-                    {/* <div className="form-group col"> */}
+                  <div className="form-group col"> 
                     <div className="form-group row my-3 mr-2 mb-3">
                         <label for="LastName" className="col-sm-2 col-form-label"><strong>Last Name  </strong></label>
                         <div className="col-sm-10">
                             <input type="text" id="LastName" className="form-control" name="lastName" 
                             placeholder="Enter Your Last Name" required onChange={(e) => {lastNameHandler(e)}} />
                         </div>
-                    </div>
+                    </div> */}
                 {/* </div> */}
 
                 <div className="form-group row my-3 mr-2 mb-3">
