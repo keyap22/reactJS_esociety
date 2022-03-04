@@ -55,7 +55,7 @@ export const LoginForm = () => {
                     <label htmlFor="Password1" className="col-sm-2 col-form-label"><strong>Password  </strong></label>
                     <div className="col-sm-10">
                         <input type="password" id="Password1" className="form-control" name="Password1"
-                            placeholder="Create a strong password" required onChange={(e) => { passwordHandler(e) }} />
+                            placeholder="Enter your password" required onChange={(e) => { passwordHandler(e) }} />
                     </div>
                 </div>
 
