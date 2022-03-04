@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 export const Footer = () => {
     return (
@@ -12,7 +12,7 @@ export const Footer = () => {
 
                             <div className="col-lg-3 col-md-6 footer-contact">
                                 <h3>Unnati Informatics LLP.</h3>
-                                <p>C/204, 2nd Floor, Shivam Complex,<br/>
+                                <p>C/204, 2nd Floor, Shivam Complex,<br />
                                     Bhuyangdev Circle, Ghatlodiya,  <br />
                                     Ahmedabad, Gujarat 380061<br />
                                     India<br /><br />
@@ -62,9 +62,11 @@ Best SEO Service Ahmedabad | Customised Mobile Application Development | Web Hos
                         <div className="copyright">
                             &copy; Copyright <strong><span>Unnati Informatics LLP</span></strong>. All Rights Reserved
                                                 </div>
-                        <div className="credits">
-                            Designed by <a href="https://www.linkedin.com/in/keya-patel-84047a1b5/">Keya Patel</a><br/>
-                            <a href="https://www.linkedin.com/in/jeel-jadawala/">Jeel Jadawala</a>
+                        {/* <div className="credits"> */}
+                        <div className="me-md-auto text-center text-md-start">
+                            Designed by <br />
+                            <a href="https://www.linkedin.com/in/keya-patel-84047a1b5/">Keya Patel </a> and
+                            <a href="https://www.linkedin.com/in/jeel-jadawala/"> Jeel Jadawala</a>
                         </div>
                     </div>
                     <div className="social-links text-center text-md-right pt-3 pt-md-0">
