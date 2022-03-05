@@ -34,7 +34,7 @@ export const LoginForm = () => {
 
                     <div className="form-group row my-3 mr-2 mb-3 ">
                         <label htmlFor="Email" className="col-sm-2 col-form-label"><strong>Email</strong></label>
-                        <div className="col-sm-10">
+                        <div className="col-sm-9 ml-3">
                             <input type="email" id="Email" className="form-control" name="email"
                                 placeholder="Enter Your Email" required onChange={(e) => { emailHandler(e) }} />
                         </div>
@@ -42,7 +42,7 @@ export const LoginForm = () => {
 
                     <div className="form-group row my-3 mr-2 mb-3">
                         <label htmlFor="Password1" className="col-sm-2 col-form-label"><strong>Password</strong></label>
-                        <div className="col-sm-10 ">
+                        <div className="col-sm-9 ml-3">
                             <input type="password" id="Password1" className="form-control" name="Password1"
                                 placeholder="Enter your password" required onChange={(e) => { passwordHandler(e) }} />
 
