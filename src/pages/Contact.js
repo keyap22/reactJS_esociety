@@ -25,7 +25,8 @@ export const Contact = () => {
           <div className="col-lg-4" data-aos="fade-right">
             <div className="section-title">
               <h2>Contact</h2>
-              <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+              <p>Have any questions ? We'd love to hear from you.</p>
+              <p>We try to respond to all requests within 24 hours(weekdays).</p>
             </div>
           </div>
 
@@ -35,19 +36,20 @@ export const Contact = () => {
             <div className="info mt-4">
               <i className="bi bi-geo-alt"></i>
               <h4>Location:</h4>
-              <p>A108 Adam Street, New York, NY 535022</p>
+              <p>C/204, 2nd Floor, Shivam Complex,Bhuyangdev Circle, Ghatlodiya,</p>
+              <p>Ahmedabad-380061</p>
             </div>
             <div className="row">
               <div className="col-lg-6 mt-4">
                 <div className="info">
                   <i className="bi bi-envelope"></i>
                   <h4>Email:</h4>
-                  <p>info@example.com</p>
+                  <p>info@unnatiinformatics.com</p>
                 </div>
               </div>
               <div className="col-lg-6">
                 <div className="info w-100 mt-4">
-                <i class="bi bi-telephone-fill"></i>
+                <i class="bi bi-telephone"></i>
                   <h4>Call:</h4>
                   <p>9876543210</p>
                 </div>
