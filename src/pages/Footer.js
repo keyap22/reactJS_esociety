@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 export const Footer = () => {
     return (
@@ -77,6 +78,10 @@ Best SEO Service Ahmedabad | Customised Mobile Application Development | Web Hos
                     </div>
                 </div>
             </footer>
+
+            {/* end footer */}
+            <Link to="/home" class="back-to-top d-flex align-items-center justify-content-center active">
+                <i class="bi bi-arrow-up-short"></i></Link>
         </>
     )
 }

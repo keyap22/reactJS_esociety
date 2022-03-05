@@ -21,6 +21,10 @@ body {
   margin:0 auto; 
 }
 
+.forgotPassword {
+  text-align: left;
+}
+
 .align-title{
   color: #009970;
 }

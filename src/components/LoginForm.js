@@ -59,6 +59,7 @@ export const LoginForm = () => {
                     <div className="col-sm-10">
                         <input type="password" id="Password1" className="form-control" name="Password1"
                             placeholder="Enter your password" required onChange={(e) => { passwordHandler(e) }} />
+
                     </div>
                 </div>
 
@@ -69,13 +70,16 @@ export const LoginForm = () => {
                     </label>
                 </div>
 
-                <div className="my-1">
+                <div className="my-2">
                     <input type="submit" className='btn-centre' value="Login" /><br />
 
                 New User?
                 <Link to="/signup" className="my-1"> Create an account</Link>
                 </div>
 
+                <div className="my-2">
+                    <Link to="/forgotpassword" className="forgotPassword">Forgot Password?</Link>
+                </div>
             </form>
         </div>
     )

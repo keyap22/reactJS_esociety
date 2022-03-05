@@ -20,7 +20,7 @@ export const Navbar = () => {
               <ul>
                 <li><Link className="nav-link scrollto active" to="/home">Home</Link></li>
                 <li><Link className="nav-link scrollto" to="/about">About</Link></li>
-                <li><a className="nav-link scrollto" href="#services">Services</a></li>
+                <li><Link className="nav-link scrollto" to="/services">Services</Link></li>
                 {/* <li><a className="nav-link scrollto " href="#portfolio">Visitor Tracking</a></li>
                 <li><a className="nav-link scrollto" href="#team">Add Pre-request</a></li>*/}
                 <li className="dropdown"><a href="#"><span>Edit Members</span> <i className="bi bi-chevron-down"></i></a> 

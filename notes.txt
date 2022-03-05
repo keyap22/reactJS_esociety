@@ -2,5 +2,5 @@ Tasks -
 
 card container for sign up and login form
 contact form - call icon
-forget password page
-services - project key features
+services - project key features(content change)
+footer upward arrow - add link 
