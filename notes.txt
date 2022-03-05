@@ -1,6 +1,6 @@
 Tasks -
 
-card container for sign up and login form
-contact form - call icon
+
+card container add background gray(in login and signup page ) just like services page 
 services - project key features(content change)
 footer upward arrow - add link 

@@ -75,49 +75,31 @@ export const SignupForm = () => {
     }
 
     return (
-
+        <div className='mycard my-5 '>
         <div className="align-items-center">
             <form className="form-horizontal" align="center" onSubmit={submit}>
 
-                <h1 className="align-title my-5">SIGN UP FORM</h1>
+                <h3 className="align-title my-5"><strong>CREATE ACCOUNT</strong></h3>
 
                 <div class="form-row">
                     
                     <div class="form-group col-md-2 my-3">
                         <label for="firstName"><strong>First Name</strong></label></div>
-                    <div class="form-group col-md-4 my-3">
+                    <div class="form-group col-md-3 my-3 mr-5 ">
                         <input type="text" class="form-control" name="firstName" id="FirstName"
                             placeholder="Enter Your First Name" required onChange={(e) => { firstNameHandler(e) }} />
                     </div>
 
-                    <div class="form-group col-md-0.1 my-3 mx-4">
+                    <div class="form-group col-md-0.1 my-3 mx-5">
                         <label for="lastName"><strong>Last Name</strong></label></div>
-                    <div class="form-group col-md-4 my-3">
+                    <div class="form-group col-md-3 my-3">
                         <input type="LastName" class="form-control" id="LastName" name="firstName"
                             placeholder="Enter Your Last Name" required onChange={(e) => { lastNameHandler(e) }} />
                     </div>
 
                 </div>
 
-                {/* <div className="form-group row my-3 mr-2 mb-3"> 
-                     <div className="form-group col">
-                        <label for="FirstName" className="col-sm-2 col-form-label"><strong>First Name  </strong></label>
-                        <div className="col-sm-10">
-                            <input type="text" id="FirstName" className="form-control" name="firstName" 
-                            placeholder="Enter Your First Name" required onChange={(e) => {firstNameHandler(e)}}/>
-                        </div>
-                    </div>
-
-                  <div className="form-group col"> 
-                    <div className="form-group row my-3 mr-2 mb-3">
-                        <label for="LastName" className="col-sm-2 col-form-label"><strong>Last Name  </strong></label>
-                        <div className="col-sm-10">
-                            <input type="text" id="LastName" className="form-control" name="lastName" 
-                            placeholder="Enter Your Last Name" required onChange={(e) => {lastNameHandler(e)}} />
-                        </div>
-                    </div> */}
-                {/* </div> */}
-
+               
                 <div className="form-group row my-3 mr-2 mb-3">
                     <label htmlFor="Email" className="col-sm-2 col-form-label"><strong>Email  </strong></label>
                     <div className="col-sm-10">
@@ -201,6 +183,7 @@ export const SignupForm = () => {
 
             </form>
 
+        </div>
         </div>
     )
 }

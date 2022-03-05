@@ -47,10 +47,9 @@ export const Contact = () => {
               </div>
               <div className="col-lg-6">
                 <div className="info w-100 mt-4">
-                  <i className="bi bi-phone"></i>
-
+                <i class="bi bi-telephone-fill"></i>
                   <h4>Call:</h4>
-                  <p>+1 5589 55488 55s</p>
+                  <p>9876543210</p>
                 </div>
               </div>
             </div>
