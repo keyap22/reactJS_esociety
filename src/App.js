@@ -11,6 +11,7 @@ import {Footer} from './pages/Footer';
 import {ForgotPassword} from './components/ForgotPassword'
 import {Services} from './pages/Services'
 import {RoleAPI} from './components/RoleAPI'
+import { ChildScheduleAPI } from './components/ChildScheduleAPI';
 
 function App() {
   
@@ -21,6 +22,7 @@ function App() {
       <Home/>
 
 <RoleAPI />
+<ChildScheduleAPI/>
 
      <Routes>
      <Route path="/contact" element={<Contact/>}></Route>
