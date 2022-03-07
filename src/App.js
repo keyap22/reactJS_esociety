@@ -13,6 +13,7 @@ import { Services } from './pages/Services'
 import { RoleAPI } from './components/RoleAPI'
 import { ChildScheduleAPI } from './components/ChildScheduleAPI';
 import { VisitorCategoryAPI } from './components/VisitorCategoryAPI'
+import { DeliverableAPI } from './components/DeliverableAPI';
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
       <RoleAPI />
       <ChildScheduleAPI />
       <VisitorCategoryAPI />
+      <DeliverableAPI/>
       
       <Routes>
         <Route path="/contact" element={<Contact />}></Route>
