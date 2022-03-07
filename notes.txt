@@ -6,3 +6,6 @@ footer upward arrow - add link
 login page - add show button in password field, if user clicks show then it will display the password
 add user in sign up page
 display all members - display all users/only society members
+delete society member
+display specific society member through ID by using useParams()
+update details using useEffect() hook

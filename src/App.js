@@ -10,6 +10,7 @@ import { SignupForm } from './components/SignupForm';
 import {Footer} from './pages/Footer';
 import {ForgotPassword} from './components/ForgotPassword'
 import {Services} from './pages/Services'
+import {RoleAPI} from './components/RoleAPI'
 
 function App() {
   
@@ -18,6 +19,9 @@ function App() {
 
       <Navbar/>
       <Home/>
+
+<RoleAPI />
+
      <Routes>
      <Route path="/contact" element={<Contact/>}></Route>
        <Route path="/about" element={<About/>}></Route>
