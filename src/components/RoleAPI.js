@@ -12,7 +12,7 @@ export const RoleAPI = () => {
     const postRole = () => {
 
         var role = {
-            roleName : 'y'
+            roleName: 'y'
         }
 
         axios.post('http://localhost:4000/roles/', role).then(res => {
@@ -24,7 +24,7 @@ export const RoleAPI = () => {
 
         var id = "6225ac606d4dfb9cf4bfe679"
 
-        axios.delete(`http://localhost:4000/roles/`+id).then(res => {
+        axios.delete(`http://localhost:4000/roles/` + id).then(res => {
             console.log(res)
         })
     }
@@ -32,7 +32,7 @@ export const RoleAPI = () => {
     const updateRole = () => {
 
         var role = {
-            roleName : 'y'
+            roleName: 'y'
         }
         var id = "620de87cbe1ad93e25b557c9";
 
@@ -41,13 +41,21 @@ export const RoleAPI = () => {
         })
     }
 
+    const getRoleByID = () => {
+        var id = "620dd424e608c720fa0f1be8"
+        axios.get(`http://localhost:4000/roles/` + id).then(res => {
+            console.log(res)
+        })
+    }
+
     return (
         <>
-            <h3>Role API</h3>
-            <input type="button" className="btn btn-primary mx-3" value="get role" onClick={getRole}/>
-            <input type="button" className="btn btn-primary mx-3" value="post role" onClick={postRole}/>
-            <input type="button" className="btn btn-primary mx-3" value="delete role" onClick={deleteRole}/>
-            <input type="button" className="btn btn-primary mx-3" value="update role" onClick={updateRole}/>
+            <h3 className="my-3">Role API</h3>
+            <input type="button" className="btn btn-primary mx-3" value="get role" onClick={getRole} />
+            <input type="button" className="btn btn-primary mx-3" value="post role" onClick={postRole} />
+            <input type="button" className="btn btn-primary mx-3" value="delete role" onClick={deleteRole} />
+            <input type="button" className="btn btn-primary mx-3" value="update role" onClick={updateRole} />
+            <input type="button" className="btn btn-primary mx-3" value="get role by ID" onClick={getRoleByID} />
         </>
     )
 }
