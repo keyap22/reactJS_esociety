@@ -17,6 +17,7 @@ import { DeliverableAPI } from './components/DeliverableAPI';
 import {SecurityGuardAPI} from './components/SecurityGuardAPI'
 import { MemberAPI } from './components/MemberAPI';
 import { VehicleAPI } from './components/VehicleAPI';
+import {SecurityGuardAttendanceAPI} from './components/SecurityGuardAttendanceAPI'
 
 function App() {
 
@@ -25,7 +26,6 @@ function App() {
 
       <Navbar />
       <Home />
-
       <RoleAPI />
       <ChildScheduleAPI />
       <VisitorCategoryAPI />
@@ -33,6 +33,7 @@ function App() {
       <SecurityGuardAPI />
       <MemberAPI/>
       <VehicleAPI/>
+      <SecurityGuardAttendanceAPI />
       
       <Routes>
         <Route path="/contact" element={<Contact />}></Route>
@@ -42,6 +43,7 @@ function App() {
         <Route path="/signup" element={<SignupForm />}></Route>
         <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
         <Route path="/services" element={<Services />}></Route>
+        <Route path="/" element={<Home />}></Route>
 
 
       </Routes>
