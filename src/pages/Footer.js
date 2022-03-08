@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 export const Footer = () => {
     return (
@@ -70,18 +70,18 @@ Best SEO Service Ahmedabad | Customised Mobile Application Development | Web Hos
                         </div>
                     </div>
                     <div className="social-links text-center text-md-right pt-3 pt-md-0">
-                        <a href="#" className="twitter"><i className="bx bxl-twitter"></i></a>
-                        <a href="https://www.facebook.com/UnnatiInformatics/" className="facebook"><i className="bx bxl-facebook"></i></a>
-                        <a href="https://www.instagram.com/unnati_informatics/" className="instagram"><i className="bx bxl-instagram"></i></a>
-                        <a href="skype:salesarth" className="google-plus"><i className="bx bxl-skype"></i></a>
-                        <a href="https://www.linkedin.com/company/unnati-infomatics-llp/?viewAsMember=true" className="linkedin"><i className="bx bxl-linkedin"></i></a>
+                        <a href="https://in.pinterest.com/campusdeansoftware/unnati-informatics-llp-it-company/" className="pinterest" target="_blank"><i className="bx bxl-pinterest"></i></a>
+                        <a href="https://www.facebook.com/UnnatiInformatics/" className="facebook" target="_blank"><i className="bx bxl-facebook"></i></a>
+                        <a href="https://www.instagram.com/unnati_informatics/" className="instagram" target="_blank"><i className="bx bxl-instagram"></i></a>
+                        <a href="skype:salesarth" className="google-plus" target="_blank"><i className="bx bxl-skype"></i></a>
+                        <a href="https://www.linkedin.com/company/unnati-infomatics-llp/?viewAsMember=true" className="linkedin" target="_blank"><i className="bx bxl-linkedin"></i></a>
                     </div>
                 </div>
             </footer>
 
             {/* end footer */}
-            <Link to="/navbar#navbar" className="back-to-top d-flex align-items-center justify-content-center active">
-                <i className="bi bi-arrow-up-short"></i></Link>
+            <a href="#" className="back-to-top d-flex align-items-center justify-content-center active">
+                <i className="bi bi-arrow-up-short"></i></a>
         </>
     )
 }

@@ -13,15 +13,15 @@ export const UserAPI = () => {
 
         var user = {
             email: "abc@gmail.com",
-        password : "abc",
-        mobileNo : "1234567890",
-        firstName : "abc",
-        lastName : "xyz",
-        role: "admin",
-        profilePhoto : "profilePhoto"
+            password: "abc",
+            mobileNo: "1234567890",
+            firstName: "abc",
+            lastName: "xyz",
+            role: "admin",
+            profilePhoto: "profilePhoto"
         }
 
-        axios.post('http://localhost:4000/Users/', User).then(res => {
+        axios.post('http://localhost:4000/Users/', user).then(res => {
             console.log(res)
         })
     }
@@ -38,7 +38,8 @@ export const UserAPI = () => {
     const updateUser = () => {
 
         var user = {
-           email : "xyz@gmail.com"}
+            email: "xyz@gmail.com"
+        }
         var id = "622740a09d7544ebc551ba15";
 
         axios.put(`http://localhost:4000/users/` + id, user).then(res => {

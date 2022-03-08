@@ -1,8 +1,6 @@
 Tasks -
 
 card container add background gray(in login and signup page ) just like services page 
-services - project key features(content change)
-footer upward arrow - add link 
 add user in sign up page
 display all members - display all users/only society members
 delete society member
