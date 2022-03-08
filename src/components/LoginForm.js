@@ -23,6 +23,17 @@ export const LoginForm = () => {
         alert("email: " + email)
         console.log("submit called.....")
     }
+
+    const showPassword = () => {
+        // console.log("show password method")
+        var x = document.getElementById("password");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+
     return (
         <div className='mycard my-5 '>
             <div className="form-center " >
@@ -42,13 +53,17 @@ export const LoginForm = () => {
 
                     <div className="form-group row my-3 mr-2 mb-3">
                         <label htmlFor="Password1" className="col-sm-2 col-form-label"><strong>Password</strong></label>
-                        <div className="col-sm-9 ml-3">
-                            <input type="password" id="Password1" className="form-control" name="Password1"
+                        <div className="formField col-sm-9 ml-3">
+                            {/* <input type="password" id="Password1" className="form-control md-9" name="Password1"
                                 placeholder="Enter your password" required onChange={(e) => { passwordHandler(e) }} />
+                            <div className="md-3"> </div> */}
 
+                            <input type="password" id="password" name="password" className="form-control" maxLength="14" placeholder="Enter your password" required
+                                autoComplete="off" onChange={(e) => { passwordHandler(e) }} />
+
+                            <Link to="" className="showPassword" onClick={(e) => { showPassword(e) }}><i className="bi bi-eye-fill"></i></Link>
                         </div>
                     </div>
-
 
                     <div className="form-group form-check mb-3">
                         <label className="form-check-label">
@@ -56,7 +71,7 @@ export const LoginForm = () => {
                         </label>
                     </div>
 
-                    <div className="my-2">
+                    <div className="my-5">
                         <input type="submit" className='btn-centre' value="Login" /><br />
 
                         New User?
@@ -69,6 +84,6 @@ export const LoginForm = () => {
                 </form>
             </div>
         </div>
-       
+
     )
 }

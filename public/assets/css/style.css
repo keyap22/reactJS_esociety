@@ -9,6 +9,11 @@
 # General
 --------------------------------------------------------------*/
 
+.formField a.showPassword {
+  position: absolute;
+  right: 20px;
+  top: 5px;
+}
 
 body {
   font-family: "Open Sans", sans-serif;
@@ -1309,9 +1314,6 @@ position: relative;
   padding: 8px 29px;
 }
 
-
-
-
 .btn-centre{
   
   background-color: #009970;
@@ -1321,4 +1323,5 @@ position: relative;
   text-decoration: none;
   display: inline-block;
   border-radius: 8px; 
+  width: 80%;
 }

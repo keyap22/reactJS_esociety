@@ -80,8 +80,8 @@ Best SEO Service Ahmedabad | Customised Mobile Application Development | Web Hos
             </footer>
 
             {/* end footer */}
-            <Link to="/home" class="back-to-top d-flex align-items-center justify-content-center active">
-                <i class="bi bi-arrow-up-short"></i></Link>
+            <Link to="/home" className="back-to-top d-flex align-items-center justify-content-center active">
+                <i className="bi bi-arrow-up-short"></i></Link>
         </>
     )
 }
