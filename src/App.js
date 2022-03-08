@@ -16,6 +16,7 @@ import { VisitorCategoryAPI } from './components/VisitorCategoryAPI'
 import { DeliverableAPI } from './components/DeliverableAPI';
 import {SecurityGuardAPI} from './components/SecurityGuardAPI'
 import { MemberAPI } from './components/MemberAPI';
+import { VehicleAPI } from './components/VehicleAPI';
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
       <DeliverableAPI/>
       <SecurityGuardAPI />
       <MemberAPI/>
+      <VehicleAPI/>
       
       <Routes>
         <Route path="/contact" element={<Contact />}></Route>
