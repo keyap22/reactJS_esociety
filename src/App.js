@@ -15,6 +15,7 @@ import { ChildScheduleAPI } from './components/ChildScheduleAPI';
 import { VisitorCategoryAPI } from './components/VisitorCategoryAPI'
 import { DeliverableAPI } from './components/DeliverableAPI';
 import {SecurityGuardAPI} from './components/SecurityGuardAPI'
+import { MemberAPI } from './components/MemberAPI';
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
       <VisitorCategoryAPI />
       <DeliverableAPI/>
       <SecurityGuardAPI />
+      <MemberAPI/>
       
       <Routes>
         <Route path="/contact" element={<Contact />}></Route>
