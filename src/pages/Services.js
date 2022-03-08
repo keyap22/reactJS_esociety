@@ -18,32 +18,35 @@ export const Services = () => {
                             <div className="col-md-6 d-flex align-items-stretch">
                                 <div className="icon-box aos-init aos-animate" data-aos="zoom-in" data-aos-delay="100">
                                     <div className="icon"><i className="bx bxl-dribbble"></i></div>
-                                    <h4><a href="">Lorem Ipsum</a></h4>
-                                    <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
+                                    <h4><a href="">Gate/Security Management</a></h4>
+                                    <p>Handling Unexpected Guests by spotting entry at gate triggering notification/IVR calls for approval.</p>
+                                    <p>Prescheduling the time of expected guests ,parcel.</p>
+                                    <p>Track the entry/exits of water tankers, diesel and garbage trucks along with their details</p>
                                 </div>
                             </div>
 
                             <div className="col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
                                 <div className="icon-box aos-init aos-animate" data-aos="zoom-in" data-aos-delay="200">
                                     <div className="icon"><i className="bx bx-file"></i></div>
-                                    <h4><a href="">Sed ut perspiciatis</a></h4>
-                                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
+                                    <h4><a href="">Vehicle Management</a></h4>
+                                    <p>Allocate approved number of parking slots to each flat/villa.</p>
                                 </div>
                             </div>
 
                             <div className="col-md-6 d-flex align-items-stretch mt-4">
                                 <div className="icon-box aos-init aos-animate" data-aos="zoom-in" data-aos-delay="300">
                                     <div className="icon"><i className="bx bx-tachometer"></i></div>
-                                    <h4><a href="">Magni Dolores</a></h4>
-                                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
+                                    <h4><a href="">Child Safety Alert</a></h4>
+                                    <p>To monitor/control children exiting the campus (goes to residents).</p>
+                                    <p>To schedule restrict/permit children from exiting the society.</p>
                                 </div>
                             </div>
 
                             <div className="col-md-6 d-flex align-items-stretch mt-4">
                                 <div className="icon-box aos-init aos-animate" data-aos="zoom-in" data-aos-delay="400">
                                     <div className="icon"><i className="bx bx-world"></i></div>
-                                    <h4><a href="">Nemo Enim</a></h4>
-                                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
+                                    <h4><a href="">Security Staff Attendence</a></h4>
+                                    <p>Detailed reports with flexibility to define multiple configurable shifts for different type of staff.</p>
                                 </div>
                             </div>
 
