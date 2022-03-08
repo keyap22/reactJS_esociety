@@ -18,6 +18,7 @@ import {SecurityGuardAPI} from './components/SecurityGuardAPI'
 import { MemberAPI } from './components/MemberAPI';
 import { VehicleAPI } from './components/VehicleAPI';
 import {SecurityGuardAttendanceAPI} from './components/SecurityGuardAttendanceAPI'
+import {VisitorAPI} from './components/VisitorAPI'
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
       <MemberAPI/>
       <VehicleAPI/>
       <SecurityGuardAttendanceAPI />
+      <VisitorAPI />
       
       <Routes>
         <Route path="/contact" element={<Contact />}></Route>
