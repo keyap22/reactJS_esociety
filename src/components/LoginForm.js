@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 export const LoginForm = () => {
     const [email, setemail] = useState('')
     const [password, setpassword] = useState('')
+    const [visibility, setvisibility]=useState('')
 
     const emailHandler = (e) => {
 
@@ -23,14 +24,18 @@ export const LoginForm = () => {
         alert("email: " + email)
         console.log("submit called.....")
     }
-
+    
     const showPassword = () => {
+        
         // console.log("show password method")
         var x = document.getElementById("password");
         if (x.type === "password") {
             x.type = "text";
+            setvisibility(true);
+           
         } else {
             x.type = "password";
+            setvisibility(false)
         }
     }
 
@@ -61,7 +66,7 @@ export const LoginForm = () => {
                             <input type="password" id="password" name="password" className="form-control" maxLength="14" placeholder="Enter your password" required
                                 autoComplete="off" onChange={(e) => { passwordHandler(e) }} />
 
-                            <Link to="" className="showPassword" onClick={(e) => { showPassword(e) }}><i className="bi bi-eye-fill"></i></Link>
+                            <Link to="" className="showPassword" onClick={(e) => { showPassword(e) }}><i className={`bi ${visibility ? "bi-eye" : "bi-eye-slash" }`} id="visibility" name="visibility"></i></Link>
                         </div>
                     </div>
 
