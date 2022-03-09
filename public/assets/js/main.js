@@ -1,11 +1,7 @@
-/**
-* Template Name: Bethany - v4.7.0
-* Template URL: https://bootstrapmade.com/bethany-free-onepage-bootstrap-theme/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
 (function() {
   "use strict";
+
+  console.log("in main.js file")
 
   /**
    * Easy selector helper function
@@ -76,8 +72,12 @@
   /**
    * Toggle .header-scrolled class to #header when page is scrolled
    */
-  let selectHeader = select('#header')
+  
+  
+  
+   let selectHeader = select('#header')
   if (selectHeader) {
+    console.log("in select header if statement")
     const headerScrolled = () => {
       if (window.scrollY > 100) {
         selectHeader.classList.add('header-scrolled')

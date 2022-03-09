@@ -49,7 +49,7 @@ export const Contact = () => {
               </div>
               <div className="col-lg-6">
                 <div className="info w-100 mt-4">
-                <i class="bi bi-telephone"></i>
+                <i className="bi bi-telephone"></i>
                   <h4>Call:</h4>
                   <p>9876543210</p>
                 </div>
