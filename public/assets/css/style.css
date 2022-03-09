@@ -9,53 +9,9 @@
 # General
 --------------------------------------------------------------*/
 
-
-
-#header {
-  transition: all 0.5s;
-  z-index: 997;
-  transition: all 0.5s;
-  top: 20px;
-}
-
-.align-items-center {
-  align-items: center!important;
-}
-
-.d-flex {
-  display: flex!important;
-}
-
-.fixed-top {
-  position: fixed;
-  /*top: 0;*/
-  right: 0;
-  left: 0;
-  /*z-index: 1030;*/
-}
-
-*, ::after, ::before {
-  box-sizing: border-box;
-}
-
-#header.header-scrolled {
-  background: #fff;
-  box-shadow: 0px 2px 15px rgb(0 0 0 / 10%);
-  top: 0;
-}
-#header {
-  transition: all 0.5s;
-  z-index: 997;
- /*top: 20px;*/
-}
-
-
-#header .header-container {
-  background: #fff;
-}
-
-.justify-content-between {
-  justify-content: space-between!important;
+.back-to-top:hover {
+  background: #00c28e;
+  color: #fff;
 }
 
 .back-to-top {

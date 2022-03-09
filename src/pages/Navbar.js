@@ -7,8 +7,7 @@ export const Navbar = () => {
     <>
 
 
-      <div >
-        <header id="header" className="fixed-top d-flex align-items-center">
+      <div><header id="header" className="fixed-top d-flex align-items-center">
         <div className="container">
           <div className="header-container d-flex align-items-center justify-content-between">
             <div className="logo">
