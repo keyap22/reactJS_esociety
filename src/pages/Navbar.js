@@ -1,6 +1,6 @@
 import React from 'react'
-import { Link} from 'react-router-dom'
-import {useState } from 'react'
+import { Link } from 'react-router-dom'
+import { useState } from 'react'
 
 export const Navbar = () => {
 
@@ -17,9 +17,9 @@ export const Navbar = () => {
   return (
     <>
       <div>
-        <header id="header" className={headerpos} onScroll={(e) => { headerScrolled() }} >
-          {/* <header id="header" className={window.scrollY > 100 ? "fixed-top d-flex align-items-center header-scrolled" : "fixed-top d-flex align-items-center"}> */}
-          {/* <header id="header" className="fixed-top d-flex align-items-center"> */}
+        {/* <header id="header" className={headerpos} onScroll={(e) => { headerScrolled() }} > */}
+        {/* <header id="header" className={window.scrollY > 100 ? "fixed-top d-flex align-items-center header-scrolled" : "fixed-top d-flex align-items-center"}> */}
+        <header id="header" className="fixed-top d-flex align-items-center">
           <div className="container">
             <div className="header-container d-flex align-items-center justify-content-between">
               <div className="logo">

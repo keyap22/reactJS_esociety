@@ -1,6 +1,6 @@
 Tasks -
 
-add user in sign up page
+add validations in form(signup, login)
 display all members - display all users/only society members
 delete society member
 display specific society member through ID by using useParams()
