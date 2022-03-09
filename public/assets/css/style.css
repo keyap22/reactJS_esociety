@@ -1330,6 +1330,7 @@ section {
   border-radius: 20px;
   transition: 0.3s;
   padding: 2px 16px;
+  background-color: white;
 }
 
 .form-horizontal{
@@ -1340,6 +1341,7 @@ position: relative;
   border-radius: 20px;
   transition: 0.3s;
   padding: 8px 29px;
+  background-color: white;
 }
 
 .btn-centre{

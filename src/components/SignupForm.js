@@ -75,6 +75,8 @@ export const SignupForm = () => {
     }
 
     return (
+        <section id="services" className="services section-bg">
+  
         <div className='mycard my-5 '>
         <div className="align-items-center">
             <form className="form-horizontal" align="center" onSubmit={submit}>
@@ -185,5 +187,6 @@ export const SignupForm = () => {
 
         </div>
         </div>
+        </section>
     )
 }

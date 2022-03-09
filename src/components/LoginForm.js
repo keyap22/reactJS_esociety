@@ -40,6 +40,8 @@ export const LoginForm = () => {
     }
 
     return (
+        <section id="services" className="services section-bg">
+  
         <div className='mycard my-5 '>
             <div className="form-center " >
 
@@ -89,6 +91,7 @@ export const LoginForm = () => {
                 </form>
             </div>
         </div>
+        </section>
 
     )
 }
