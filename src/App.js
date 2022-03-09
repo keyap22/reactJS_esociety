@@ -21,6 +21,7 @@ import {SecurityGuardAttendanceAPI} from './components/SecurityGuardAttendanceAP
 import {VisitorAPI} from './components/VisitorAPI'
 import {HouseAPI} from './components/HouseAPI'
 import { UserAPI } from './components/UserAPI';
+import { ListMembersAPI } from './components/ListMembersAPI';
 
 function App() {
 
@@ -49,6 +50,7 @@ function App() {
         <Route path="/signup" element={<SignupForm />}></Route>
         <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
         <Route path="/services" element={<Services />}></Route>
+        <Route path='/listmembers' element={<ListMembersAPI/>}></Route>
         
 
       </Routes>
