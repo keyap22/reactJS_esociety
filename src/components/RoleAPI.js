@@ -6,6 +6,10 @@ export const RoleAPI = () => {
     const getRole = () => {
         axios.get('http://localhost:4000/roles/').then(res => {
             console.log(res)
+            var role = res.data.data
+            role.map((role) => {
+                console.log(role.roleName)
+                })
         })
     }
 

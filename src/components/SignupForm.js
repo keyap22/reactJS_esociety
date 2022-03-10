@@ -14,6 +14,8 @@ export const SignupForm = () => {
     const [role, setRole] = useState('')
     const [profilePhoto, setProfilePhoto] = useState('')
 
+    var roleID = []
+    var roleName = []
 
     var user = {
         email: email,
@@ -66,6 +68,21 @@ export const SignupForm = () => {
         setProfilePhoto(e.target.value)
     }
 
+    const displayRole = (e) => {
+        axios.get('http://localhost:4000/roles/').then(res => {
+            console.log("response - ",res)
+            var role = res.data.data
+            role.map((role) => {
+                <option value={role._id}>{role.roleName}</option>
+                roleID.push(role._id)
+                roleName.push(role.roleName)
+            })
+
+        })
+        console.log("role id : ", roleID)
+        console.log("role name : ", roleName)
+    }
+
     const submit = (e) => {
         e.preventDefault()
         if (password !== password2) {
@@ -81,7 +98,7 @@ export const SignupForm = () => {
         //console.log(`email : ${email}, password : ${password},password2 : ${password2}, first name : ${firstName}, last name : ${lastName}`)
         //console.log(`contact number : ${contactNumber}, role : ${role}, profile photo : ${profilePhoto}`)
         alert("Submitted successfully!")
-        
+
         //clearing out the details of the form after pressing submit button
         e.target.reset()
     }
@@ -153,12 +170,15 @@ export const SignupForm = () => {
                         <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>Role  </strong></label>
                             <div className="col-sm-10">
-                                <select className="form-select" id="role" required onChange={(e) => { roleHandler(e) }}>
+                                <select className="form-select" id="role" required onClick={(e) => { displayRole(e) }} onChange={(e) => { roleHandler(e) }}>
                                     <option>Select your role</option>
-                                    <option value="620dd50cbaf661b44817ee61">Admin</option>
-                                    <option value="620dd424e608c720fa0f1be8">Society Member</option>
+
+
+                                    {/* <option value={roleID}>{roleName}</option> */}
+
+                                    {/* <option value="620dd424e608c720fa0f1be8">Society Member</option>
                                     <option value="620c88535e051978662b0379">Security guard</option>
-                                    <option value="620dda4cbaf661b44817ee63">Chairman</option>
+                                    <option value="620dda4cbaf661b44817ee63">Chairman</option>  */}
                                 </select>
                             </div>
                         </div>

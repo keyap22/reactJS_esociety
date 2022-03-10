@@ -12,10 +12,10 @@ export const MemberAPI = () => {
     const postMember = () => {
 
         var member = {
-            memberName:"riya",
-    age: 22,
-    user:"621320a4ac402afe2f0b3760",
-    house:"620f42b212ae7571cfedecdc"
+            memberName: "riya",
+            age: 22,
+            user: "62131ac4efdec58582ade501",
+            house: "6210bc00af171efad4239afd"
         }
 
         axios.post('http://localhost:4000/members/', member).then(res => {
@@ -35,7 +35,8 @@ export const MemberAPI = () => {
     const updateMember = () => {
 
         var member = {
-           memberName:"ria"}
+            memberName: "ria"
+        }
         var id = "622740a09d7544ebc551ba15";
 
         axios.put(`http://localhost:4000/members/` + id, member).then(res => {
