@@ -15,10 +15,6 @@ export const SignupForm = () => {
     const [profilePhoto, setProfilePhoto] = useState('')
     const [roleList, setroleList] = useState([])
 
-
-   /* var roleID = []
-    var roleName = []*/
-
     var user = {
         email: email,
         password: password,
@@ -32,47 +28,48 @@ export const SignupForm = () => {
     // const postUser = () => {
 
     const firstNameHandler = (e) => {
-        console.log(e.target.value)
+        //console.log(e.target.value)
         setFirstName(e.target.value)
     }
 
     const lastNameHandler = (e) => {
-        console.log(e.target.value)
+        //console.log(e.target.value)
         setLastName(e.target.value)
     }
 
     const emailHandler = (e) => {
-        console.log(e.target.value)
+        //console.log(e.target.value)
         setEmail(e.target.value)
     }
 
     const passwordHandler = (e) => {
-        console.log(e.target.value)
+        //console.log(e.target.value)
         setPassword(e.target.value)
     }
     const confirmpasswordHandler = (e) => {
-        console.log(e.target.value)
+        //console.log(e.target.value)
         setPassword2(e.target.value)
     }
 
     const contactNumberHandler = (e) => {
-        console.log(e.target.value)
+        //console.log(e.target.value)
         setContactNumber(e.target.value)
     }
 
     const roleHandler = (e) => {
-        console.log(e.target.value)
+        //console.log(e.target.value)
         setRole(e.target.value)
     }
 
     const profilePhotoHandler = (e) => {
-        console.log(e.target.value)
+        //console.log(e.target.value)
+        //setProfilePhoto(e.target.files[0])
         setProfilePhoto(e.target.value)
     }
 
     const displayRole = () => {
         axios.get("http://localhost:4000/roles/").then(res => {
-            console.log(res.data.data)
+            //console.log(res.data.data)
             setroleList(res.data.data)
         })
 
@@ -93,6 +90,10 @@ export const SignupForm = () => {
         //console.log(`email : ${email}, password : ${password},password2 : ${password2}, first name : ${firstName}, last name : ${lastName}`)
         //console.log(`contact number : ${contactNumber}, role : ${role}, profile photo : ${profilePhoto}`)
         alert("Submitted successfully!")
+
+        // if(role=="society member"){
+
+        // }
 
         //clearing out the details of the form after pressing submit button
         e.target.reset()
@@ -168,20 +169,13 @@ export const SignupForm = () => {
                                 <select className="form-select" id="role" required onClick={(e) => { displayRole(e) }} onChange={(e) => { roleHandler(e) }}>
                                     <option>Select your role</option>
                                     {
-                        roleList.map((role) => {
-                            
-                            return ( 
-                                <option value={role._id}>{role.roleName}</option>
-                            )
-                        })
-                    }
+                                        roleList.map((role) => {
 
-
-                                    {/* <option value={roleID}>{roleName}</option> */}
-
-                                    {/* <option value="620dd424e608c720fa0f1be8">Society Member</option>
-                                    <option value="620c88535e051978662b0379">Security guard</option>
-                                    <option value="620dda4cbaf661b44817ee63">Chairman</option>  */}
+                                            return (
+                                                <option value={role._id}>{role.roleName}</option>
+                                            )
+                                        })
+                                    }
                                 </select>
                             </div>
                         </div>
@@ -190,7 +184,7 @@ export const SignupForm = () => {
                             <label className="col-sm-2 col-form-label"><strong>Profile Photo  </strong></label>
                             <div className="col-sm-10">
                                 <input type="file" id="ProfilePhoto" className="form-control-file" name="profilePhoto"
-                                    placeholder="Upload Your Profile Photo" onChange={(e) => { profilePhotoHandler(e) }} />
+                                    placeholder="Upload Your Profile Photo" onChange={(e => { profilePhotoHandler(e) })} />
                             </div>
                         </div>
 

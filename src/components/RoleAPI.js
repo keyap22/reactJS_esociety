@@ -9,7 +9,7 @@ export const RoleAPI = () => {
             var role = res.data.data
             role.map((role) => {
                 console.log(role.roleName)
-                })
+            })
         })
     }
 
