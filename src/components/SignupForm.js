@@ -13,9 +13,11 @@ export const SignupForm = () => {
     const [contactNumber, setContactNumber] = useState('')
     const [role, setRole] = useState('')
     const [profilePhoto, setProfilePhoto] = useState('')
+    const [roleList, setroleList] = useState([])
 
-    var roleID = []
-    var roleName = []
+
+   /* var roleID = []
+    var roleName = []*/
 
     var user = {
         email: email,
@@ -68,19 +70,12 @@ export const SignupForm = () => {
         setProfilePhoto(e.target.value)
     }
 
-    const displayRole = (e) => {
-        axios.get('http://localhost:4000/roles/').then(res => {
-            console.log("response - ",res)
-            var role = res.data.data
-            role.map((role) => {
-                <option value={role._id}>{role.roleName}</option>
-                roleID.push(role._id)
-                roleName.push(role.roleName)
-            })
-
+    const displayRole = () => {
+        axios.get("http://localhost:4000/roles/").then(res => {
+            console.log(res.data.data)
+            setroleList(res.data.data)
         })
-        console.log("role id : ", roleID)
-        console.log("role name : ", roleName)
+
     }
 
     const submit = (e) => {
@@ -172,6 +167,14 @@ export const SignupForm = () => {
                             <div className="col-sm-10">
                                 <select className="form-select" id="role" required onClick={(e) => { displayRole(e) }} onChange={(e) => { roleHandler(e) }}>
                                     <option>Select your role</option>
+                                    {
+                        roleList.map((role) => {
+                            
+                            return ( 
+                                <option value={role._id}>{role.roleName}</option>
+                            )
+                        })
+                    }
 
 
                                     {/* <option value={roleID}>{roleName}</option> */}
