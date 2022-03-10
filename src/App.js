@@ -29,8 +29,9 @@ function App() {
     <div>
 
       <Navbar />
+      
       <Home />
-      <RoleAPI />
+      {/* <RoleAPI />
       <ChildScheduleAPI />
       <VisitorCategoryAPI />
       <DeliverableAPI/>
@@ -40,7 +41,7 @@ function App() {
       <SecurityGuardAttendanceAPI />
       <VisitorAPI />
       <HouseAPI />
-      <UserAPI/>
+      <UserAPI/> */}
 
       <Routes>
         <Route path="/contact" element={<Contact />}></Route>

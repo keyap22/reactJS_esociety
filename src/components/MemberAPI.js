@@ -12,7 +12,7 @@ export const MemberAPI = () => {
     const postMember = () => {
 
         var member = {
-            memberName: "riya",
+            memberName: "kia",
             age: 22,
             user: "62131ac4efdec58582ade501",
             house: "6210bc00af171efad4239afd"

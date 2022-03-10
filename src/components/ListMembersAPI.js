@@ -5,6 +5,15 @@ import axios from 'axios'
 export const ListMembersAPI = () => {
     const [memberList, setmemberList] = useState([])
 
+    const deleteMember = (e) => {
+
+        console.log(e.target.value)
+
+        axios.delete(`http://localhost:4000/members/` + e.target.value).then(res => {
+            console.log(res)
+        })
+    }
+
     const getData = () => {
         axios.get("http://localhost:4000/members/").then(res => {
             console.log(res.data.data)
@@ -18,11 +27,11 @@ export const ListMembersAPI = () => {
     var counter = 0
 
     return (
-        <div className="container">
-            <table className="table my-3">
-                <thead className="thead-dark">
+        <div className="container table-responsive-md ">
+            <table className="table table-hover my-3">
+                <thead className="table_head">
                     <tr>
-                        <th scope="col">Sr. No.</th>
+                        <th scope="col" className=''>Sr. No.</th>
                         <th scope="col">First Name</th>
                         <th scope="col">Last Name</th>
                         <th scope="col">Email</th>
@@ -47,7 +56,7 @@ export const ListMembersAPI = () => {
                                     <td>{member.house.houseTitle}</td>
                                     <td>{member.age}</td>
                                     <td>
-                                        <button className="btn btn-danger mx-2">DELETE</button>
+                                        <button className="btn btn-danger mx-2" value={member._id} onClick={(e) => { deleteMember(e) }}>DELETE</button>
                                         <button className="btn btn-primary">UPDATE</button>
                                     </td>
                                 </tr>
