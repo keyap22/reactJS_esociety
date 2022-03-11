@@ -14,6 +14,21 @@ export const ListMembersAPI = () => {
         })
     }
 
+    const updateMember = (e) => {
+
+        var member = {
+            memberName: "ria",
+            // age : 20,
+            // user : "",
+            // house : ""
+        }
+        var id = e.target.value;
+
+        axios.put(`http://localhost:4000/members/` + id, member).then(res => {
+            console.log(res)
+        })
+    }
+
     const getData = () => {
         axios.get("http://localhost:4000/members/").then(res => {
             console.log(res.data.data)
@@ -24,6 +39,7 @@ export const ListMembersAPI = () => {
     useEffect(() => {
         getData()
     }, [])
+
     var counter = 0
 
     return (
@@ -56,8 +72,8 @@ export const ListMembersAPI = () => {
                                     <td>{member.house.houseTitle}</td>
                                     <td>{member.age}</td>
                                     <td>
-                                        <button className="btn btn-danger mx-2" value={member._id} onClick={(e) => { deleteMember(e) }}>DELETE</button>
-                                        <button className="btn btn-primary">UPDATE</button>
+                                        <button className="btn btn-sm btn-danger mx-2" value={member._id} onClick={(e) => { deleteMember(e) }}><i className="bi bi-trash"></i></button>
+                                        <button className="btn btn-sm btn-primary" value={member._id} onClick={(e) => { updateMember(e) }}><i className="bi bi-pencil"></i></button>
                                     </td>
                                 </tr>
                             )

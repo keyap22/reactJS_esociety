@@ -89,6 +89,7 @@ export const SignupForm = () => {
         console.log("submit called.....")
         //console.log(`email : ${email}, password : ${password},password2 : ${password2}, first name : ${firstName}, last name : ${lastName}`)
         //console.log(`contact number : ${contactNumber}, role : ${role}, profile photo : ${profilePhoto}`)
+        console.log(`role : ${role}`)
         alert("Submitted successfully!")
 
         // if(role=="society member"){
