@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 export const LoginForm = () => {
     const [email, setemail] = useState('')
@@ -21,7 +22,18 @@ export const LoginForm = () => {
     const submit = (e) => {
 
         e.preventDefault()
-        alert("email: " + email)
+        var formdata = {
+            email : email,
+            password : password
+       }
+
+       axios.post('http://localhost:4000/login/', formdata).then(res => {
+           console.log(res)
+           if (res.data.msg==="Login....")
+           {
+               localStorage.setItem('email',email)
+           }
+       })
         console.log("submit called.....")
     }
     

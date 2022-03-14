@@ -22,6 +22,7 @@ import {VisitorAPI} from './components/VisitorAPI'
 import {HouseAPI} from './components/HouseAPI'
 import { UserAPI } from './components/UserAPI';
 import { ListMembersAPI } from './components/ListMembersAPI';
+import { Profile } from './components/Profile';
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
       <Navbar />
       
       <Home />
+      <UserAPI/>
       {/* <RoleAPI />
       <ChildScheduleAPI />
       <VisitorCategoryAPI />
@@ -52,6 +54,8 @@ function App() {
         <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
         <Route path="/services" element={<Services />}></Route>
         <Route path='/listmembers' element={<ListMembersAPI/>}></Route>
+        <Route path='/profile' element={<Profile/>}></Route>
+        
         
 
       </Routes>

@@ -12,12 +12,12 @@ export const UserAPI = () => {
     const postUser = () => {
 
         var user = {
-            email: "abc@gmail.com",
-            password: "abc",
+            email: "xyz@gmail.com",
+            password: "xyz",
             mobileNo: "1234567890",
             firstName: "abc",
             lastName: "xyz",
-            role: "admin",
+            role: "620f3b201424f45461f2b425",
             profilePhoto: "profilePhoto"
         }
 
