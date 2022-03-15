@@ -209,7 +209,7 @@ export const SignupForm = () => {
 
                         <div className="form-grp row my-3">
                             <div className="col-sm-10">
-                                Already a User?
+                                Already have an account?
                                 <Link to="/login"> Login</Link>
                             </div>
                         </div>

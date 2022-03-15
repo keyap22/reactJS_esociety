@@ -5,3 +5,14 @@ Tasks -
 -display specific society member through ID by using useParams()
 -update details using useEffect() hook
 - profile picture file upload(datatype : string) in user model
+
+
+Login form details disappear after pressing submit button
+
+If incorrect credentials....using h tags print incorrect credentials
+
+If correct credentials --> redirect to profile page
+
+In visitor api, using js date class we can pass current date, time to post variable and can store it in db(we have to convert it to string)
+
+If press logout --> redirect to login page
