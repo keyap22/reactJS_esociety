@@ -31,7 +31,14 @@ export const LoginForm = () => {
             console.log(res)
             if (res.data.status === 200) {
                 console.log("Login successful")
-                localStorage.setItem('email', email)
+              
+                if (localStorage.getItem("email") === null) {
+                    localStorage.setItem('email', email)
+                }
+                else {
+                    JSON.parse(localStorage.getItem("email"))
+                }
+                
             }
             else if (res.data.status === -1) {
 

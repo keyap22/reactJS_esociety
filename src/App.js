@@ -33,6 +33,7 @@ function App() {
       
       <Home />
       <UserAPI/>
+      <MemberAPI/>
       {/* <RoleAPI />
       <ChildScheduleAPI />
       <VisitorCategoryAPI />

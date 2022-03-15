@@ -14,6 +14,9 @@ export const SignupForm = () => {
     const [role, setRole] = useState('')
     const [profilePhoto, setProfilePhoto] = useState('')
     const [roleList, setroleList] = useState([])
+    const [age, setAge] = useState('')
+    const [houseTitle, setHouseTitle] = useState()
+    const [userID, setUserID] = useState('')
 
     var user = {
         email: email,
@@ -23,6 +26,13 @@ export const SignupForm = () => {
         lastName: lastName,
         role: role,
         profilePhoto: profilePhoto
+    }
+
+    var member = {
+        age: age,
+        house: "6210bc00af171efad4239afd",
+        user: userID.toString(),
+        memberName: firstName + lastName
     }
 
     // const postUser = () => {
@@ -67,6 +77,18 @@ export const SignupForm = () => {
         setProfilePhoto(e.target.value)
     }
 
+    const ageHandler = (e) => {
+        console.log("Age : ", e.target.value)
+        //setProfilePhoto(e.target.files[0])
+        setAge(e.target.value)
+    }
+
+    const houseTitleHandler = (e) => {
+        console.log("House title : ", e.target.value)
+        //setProfilePhoto(e.target.files[0])
+        setHouseTitle(e.target.value)
+    }
+
     const displayRole = () => {
         axios.get("http://localhost:4000/roles/").then(res => {
             //console.log(res.data.data)
@@ -83,18 +105,23 @@ export const SignupForm = () => {
         else {
             axios.post('http://localhost:4000/Users/', user).then(res => {
                 console.log(res.status)
-                console.log(res.data)
+                console.log("user id : ", res.data.data._id)
+                setUserID(res.data.data._id)
             })
+
+            if (role === "620dd424e608c720fa0f1be8") {
+
+                axios.post('http://localhost:4000/members/', member).then(res => {
+                    console.log(res)
+                })
+            }
         }
         console.log("submit called.....")
         //console.log(`email : ${email}, password : ${password},password2 : ${password2}, first name : ${firstName}, last name : ${lastName}`)
         //console.log(`contact number : ${contactNumber}, role : ${role}, profile photo : ${profilePhoto}`)
         console.log(`role : ${role}`)
+        //console.log(e.target)
         alert("Submitted successfully!")
-
-        // if(role=="society member"){
-
-        // }
 
         //clearing out the details of the form after pressing submit button
         e.target.reset()
@@ -186,6 +213,22 @@ export const SignupForm = () => {
                             <div className="col-sm-10">
                                 <input type="file" id="ProfilePhoto" className="form-control-file" name="profilePhoto"
                                     placeholder="Upload Your Profile Photo" onChange={(e => { profilePhotoHandler(e) })} />
+                            </div>
+                        </div>
+
+                        <div className="form-group row my-3 mr-2 mb-3">
+                            <label className="col-sm-2 col-form-label"><strong>Age </strong></label>
+                            <div className="col-sm-10">
+                                <input type="number" min="0" max="150" id="age" className="form-control" name="age"
+                                    placeholder="Enter your age" onChange={(e => { ageHandler(e) })} />
+                            </div>
+                        </div>
+
+                        <div className="form-group row my-3 mr-2 mb-3">
+                            <label className="col-sm-2 col-form-label"><strong>House Title  </strong></label>
+                            <div className="col-sm-10">
+                                <input type="text" id="houseT" className="form-control" name="houseTitle"
+                                    placeholder="Enter House Title" onChange={(e => { houseTitleHandler(e) })} />
                             </div>
                         </div>
 

@@ -5,11 +5,11 @@ import axios from 'axios'
 export const ListMembersAPI = () => {
     const [memberList, setmemberList] = useState([])
 
-    const deleteMember = (e) => {
+    const deleteMember = (id) => {
 
-        console.log(e.target.value)
+        console.log(id)
 
-        axios.delete(`http://localhost:4000/members/` + e.target.value).then(res => {
+        axios.delete(`http://localhost:4000/members/` + id).then(res => {
             console.log(res)
         })
     }
@@ -72,7 +72,7 @@ export const ListMembersAPI = () => {
                                     <td>{member.house.houseTitle}</td>
                                     <td>{member.age}</td>
                                     <td>
-                                        <button className="btn btn-sm btn-danger mx-2" value={member._id} onClick={(e) => { deleteMember(e) }}><i className="bi bi-trash"></i></button>
+                                        <button className="btn btn-sm btn-danger mx-2" onClick={() => { deleteMember(member._id) }}><i className="bi bi-trash"></i></button>
                                         <button className="btn btn-sm btn-primary" value={member._id} onClick={(e) => { updateMember(e) }}><i className="bi bi-pencil"></i></button>
                                     </td>
                                 </tr>
