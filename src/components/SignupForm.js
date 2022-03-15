@@ -13,10 +13,14 @@ export const SignupForm = () => {
     const [contactNumber, setContactNumber] = useState('')
     const [role, setRole] = useState('')
     const [profilePhoto, setProfilePhoto] = useState('')
-    const [roleList, setroleList] = useState([])
     const [age, setAge] = useState('')
-    const [houseTitle, setHouseTitle] = useState()
+    const [house, setHouse] = useState()
     const [userID, setUserID] = useState('')
+
+
+    const [roleList, setroleList] = useState([])
+    const [houseList, sethouseList] = useState([])
+   
 
     var user = {
         email: email,
@@ -30,7 +34,7 @@ export const SignupForm = () => {
 
     var member = {
         age: age,
-        house: "6210bc00af171efad4239afd",
+        house: house,
         user: userID.toString(),
         memberName: firstName + lastName
     }
@@ -83,16 +87,24 @@ export const SignupForm = () => {
         setAge(e.target.value)
     }
 
-    const houseTitleHandler = (e) => {
-        console.log("House title : ", e.target.value)
+    const houseHandler = (e) => {
+        console.log("House id : ", e.target.value)
         //setProfilePhoto(e.target.files[0])
-        setHouseTitle(e.target.value)
+        setHouse(e.target.value)
     }
 
     const displayRole = () => {
         axios.get("http://localhost:4000/roles/").then(res => {
             //console.log(res.data.data)
             setroleList(res.data.data)
+        })
+
+    }
+
+    const displayHouse = () => {
+        axios.get("http://localhost:4000/houses/").then(res => {
+            //console.log(res.data.data)
+            sethouseList(res.data.data)
         })
 
     }
@@ -109,7 +121,7 @@ export const SignupForm = () => {
                 setUserID(res.data.data._id)
             })
 
-            if (role === "620dd424e608c720fa0f1be8") {
+            if (role === "620de87cbe1ad93e25b557c9") {
 
                 axios.post('http://localhost:4000/members/', member).then(res => {
                     console.log(res)
@@ -227,9 +239,19 @@ export const SignupForm = () => {
                         <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>House Title  </strong></label>
                             <div className="col-sm-10">
-                                <input type="text" id="houseT" className="form-control" name="houseTitle"
-                                    placeholder="Enter House Title" onChange={(e => { houseTitleHandler(e) })} />
-                            </div>
+                            <select className="form-select" id="house" required onClick={(e) => { displayHouse(e) }} onChange={(e) => { houseHandler(e) }}>
+                                    <option>Select your house title</option>
+                                    {
+                                        houseList.map((house) => {
+
+                                            return (
+                                                <option value={house._id}>{house.houseTitle}</option>
+                                            )
+                                        })
+                                    }
+                                </select>
+                                
+                                  </div>
                         </div>
 
                         <div className="form-group my-3">

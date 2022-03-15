@@ -12,8 +12,8 @@ export const UserAPI = () => {
     const postUser = () => {
 
         var user = {
-            email: "xyz@gmail.com",
-            password: "xyz",
+            email: "j@gmail.com",
+            password: "j",
             mobileNo: "1234567890",
             firstName: "abc",
             lastName: "xyz",
