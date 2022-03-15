@@ -23,6 +23,7 @@ import {HouseAPI} from './components/HouseAPI'
 import { UserAPI } from './components/UserAPI';
 import { ListMembersAPI } from './components/ListMembersAPI';
 import { Profile } from './components/Profile';
+import {VisitorForm} from './components/VisitorForm'
 
 function App() {
 
@@ -56,6 +57,7 @@ function App() {
         <Route path="/services" element={<Services />}></Route>
         <Route path='/listmembers' element={<ListMembersAPI/>}></Route>
         <Route path='/profile' element={<Profile/>}></Route>
+        <Route path="/addvisitor" element={<VisitorForm />}></Route>
         
         
 

@@ -1,10 +1,10 @@
 Tasks -
 
--add validations in form(signup, login)
--delete society member's corresponding user
--display specific society member through ID by using useParams()
--update details using useEffect() hook
+- add validations in form(signup, login)
+- display specific society member through ID by using useParams()
+- update details using useEffect() hook
 - profile picture file upload(datatype : string) in user model
+- display visitor list
 
 
 Login form details disappear after pressing submit button
@@ -16,3 +16,10 @@ If correct credentials --> redirect to profile page
 In visitor api, using js date class we can pass current date, time to post variable and can store it in db(we have to convert it to string)
 
 If press logout --> redirect to login page
+
+
+
+Profiles -
+
+Security guard - their attendance record, list of pre scheduled visitors, members list, vehicle record, child schedule record, deliverables record
+admin - CRUD operation in user

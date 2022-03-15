@@ -161,7 +161,7 @@ export const SignupForm = () => {
                             <div className="form-group col-md-0.1 my-3 mx-5">
                                 <label><strong>Last Name</strong></label></div>
                             <div className="form-group col-md-3 my-3">
-                                <input type="LastName" className="form-control" id="LastName" name="firstName"
+                                <input type="text" className="form-control" id="LastName" name="lastName"
                                     placeholder="Enter Your Last Name" required onChange={(e) => { lastNameHandler(e) }} />
                             </div>
 
@@ -180,7 +180,7 @@ export const SignupForm = () => {
                         <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>Password  </strong></label>
                             <div className="col-sm-10">
-                                <input type="password" id="Password1" className="form-control" name="Password1"
+                                <input type="password" id="Password1" className="form-control" name="Password1" autocomplete="off"
                                     placeholder="Create a strong password" required onChange={(e) => { passwordHandler(e) }} />
                                 <small id="passwordHelpBlock" className="form-text text-muted">
                                     Your password  MUST contain at least 8 characters,at least one uppercase letter,at least one number and at least one special character.
@@ -191,7 +191,8 @@ export const SignupForm = () => {
                         <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>Confirm Password  </strong></label>
                             <div className="col-sm-10">
-                                <input type="password" id="Password2" className="form-control" name="Password2" placeholder="Re-enter password" required onChange={(e) => { confirmpasswordHandler(e) }} />
+                                <input type="password" id="Password2" className="form-control" name="Password2" autocomplete="off"
+                                placeholder="Re-enter password" required onChange={(e) => { confirmpasswordHandler(e) }} />
                             </div>
                         </div>
 
