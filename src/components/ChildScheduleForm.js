@@ -66,7 +66,7 @@ export const ChildScheduleForm = () => {
         <section id="services" className="services section-bg">
 
             <div className='mycard my-5 '>
-                <div className="form-center " >
+                <div className="form-horizontal " >
 
                     <form className="vehicle-form" align="center" onSubmit={submit}>
 
