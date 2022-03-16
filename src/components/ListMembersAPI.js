@@ -19,20 +19,20 @@ export const ListMembersAPI = () => {
         })
     }
 
-    const updateMember = (e) => {
+    // const updateMember = (e) => {
 
-        var member = {
-            memberName: "ria",
-            // age : 20,
-            // user : "",
-            // house : ""
-        }
-        var id = e.target.value;
+    //     var member = {
+    //         memberName: "ria",
+    //         // age : 20,
+    //         // user : "",
+    //         // house : ""
+    //     }
+    //     var id = e.target.value;
 
-        axios.put(`http://localhost:4000/members/` + id, member).then(res => {
-            console.log(res)
-        })
-    }
+    //     axios.put(`http://localhost:4000/members/` + id, member).then(res => {
+    //         console.log(res)
+    //     })
+    // }
 
     const getData = () => {
         axios.get("http://localhost:4000/members/").then(res => {
@@ -78,7 +78,7 @@ export const ListMembersAPI = () => {
                                     <td>{member.age}</td>
                                     <td>
                                         <Link className="btn btn-sm btn-danger mx-2" onClick={() => { deleteMember(member._id, member.user._id) }}><i className="bi bi-trash"></i></Link>
-                                        <Link className="btn btn-sm btn-primary" value={member._id} onClick={(e) => { updateMember(e) }}><i className="bi bi-pencil"></i></Link>
+                                        <Link to ={`/listmembers/update/${member._id}/${member.user._id}`} className="btn btn-sm btn-primary" value={member._id} ><i className="bi bi-pencil"></i></Link>
                                     </td>
                                 </tr>
                             )
