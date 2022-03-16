@@ -2,8 +2,8 @@ Tasks -
 
 - add validations in form(signup, login)
 - display specific society member through ID by using useParams()
-- profile picture file upload(datatype : string) in user model
-- display visitor list
+- profile picture file upload(datatype : string) in user, visitor model
+- display isAllowed, isPreScheduled, profilePhoto in visitor list
 
 
 Login form details disappear after pressing submit button

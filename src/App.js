@@ -26,6 +26,7 @@ import { Profile } from './components/Profile';
 import {VisitorForm} from './components/VisitorForm'
 import {VehicleForm} from './components/VehicleForm'
 import {ChildScheduleForm} from './components/ChildScheduleForm'
+import {ListVisitorsAPI} from './components/ListVisitorsAPI'
 
 function App() {
 
@@ -61,7 +62,7 @@ function App() {
         <Route path="/addvisitor" element={<VisitorForm />}></Route>
         <Route path="/addvehicle" element={<VehicleForm />}></Route>
         <Route path="/childschedule" element={<ChildScheduleForm />}></Route>
-        
+        <Route path='/listvisitors' element={<ListVisitorsAPI/>}></Route>
 
       </Routes>
       <Footer />

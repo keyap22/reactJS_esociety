@@ -51,7 +51,7 @@ export const Navbar = () => {
                       </li>
                       <li><Link to="childschedule">Add Child Schedule</Link></li>
                       <li><Link to="listmembers">Display all Society members</Link></li>
-                      <li><a href="#">Display all Visitor</a></li>
+                      <li><Link to="listvisitors">Display all Visitor</Link></li>
                     </ul>
                   </li>
                   <li><Link className="nav-link" to="/contact">Contact</Link></li>
