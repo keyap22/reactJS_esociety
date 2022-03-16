@@ -52,11 +52,12 @@ export const VehicleForm = () => {
 
                 console.log("Incorrect credentials.....Please enter correct credentials")
 
-                //clearing out the details of the form after pressing submit button
-                e.target.reset()
-
+               
             }
         })
+         //clearing out the details of the form after pressing submit button
+         e.target.reset()
+
         console.log("submit called.....")
     }
 
