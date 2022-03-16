@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-
+import { Link } from 'react-router-dom'
 
 export const ListMembersAPI = () => {
     const [memberList, setmemberList] = useState([])
@@ -77,8 +77,8 @@ export const ListMembersAPI = () => {
                                     <td>{member.house.houseTitle}</td>
                                     <td>{member.age}</td>
                                     <td>
-                                        <button className="btn btn-sm btn-danger mx-2" onClick={() => { deleteMember(member._id, member.user._id) }}><i className="bi bi-trash"></i></button>
-                                        <button className="btn btn-sm btn-primary" value={member._id} onClick={(e) => { updateMember(e) }}><i className="bi bi-pencil"></i></button>
+                                        <Link className="btn btn-sm btn-danger mx-2" onClick={() => { deleteMember(member._id, member.user._id) }}><i className="bi bi-trash"></i></Link>
+                                        <Link className="btn btn-sm btn-primary" value={member._id} onClick={(e) => { updateMember(e) }}><i className="bi bi-pencil"></i></Link>
                                     </td>
                                 </tr>
                             )

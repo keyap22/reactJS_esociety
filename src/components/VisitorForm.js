@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 export const VisitorForm = () => {
@@ -20,6 +19,8 @@ export const VisitorForm = () => {
     const [visitorCategoryList, setVisitorCategoryList] = useState([])
     const [houseList, sethouseList] = useState([])
 
+    const [isVisitor,setIsVisitor] = useState(true)
+
     var Visitor = {
         visitorName: visitorName,
         purpose: purpose,
@@ -38,16 +39,6 @@ export const VisitorForm = () => {
         isPickup: isPickup,
         house: house,
         date: date.toString(),
-    }
-
-    const visitorNameHandler = (e) => {
-        //console.log(e.target.value)
-        setVisitorName(e.target.value)
-    }
-
-    const purposeHandler = (e) => {
-        //console.log(e.target.value)
-        setPurpose(e.target.value)
     }
 
     const dateHandler = (e) => {
@@ -88,26 +79,19 @@ export const VisitorForm = () => {
     }
 
     const isPreScheduledHandler = (e) => {
-        //console.log("Age : ", e.target.value)
-        //setProfilePhoto(e.target.files[0])
         setIsPreScheduled(e.target.value)
     }
 
     const houseHandler = (e) => {
         console.log("House id : ", e.target.value)
-        //setProfilePhoto(e.target.files[0])
         setHouse(e.target.value)
     }
 
     const isAllowedHandler = (e) => {
-        //console.log("Age : ", e.target.value)
-        //setProfilePhoto(e.target.files[0])
         setIsAllowed(e.target.value)
     }
 
     const isPickupHandler = (e) => {
-        //console.log("Age : ", e.target.value)
-        //setProfilePhoto(e.target.files[0])
         setIsPickup(e.target.value)
     }
 
@@ -116,7 +100,6 @@ export const VisitorForm = () => {
             //console.log(res.data.data)
             setVisitorCategoryList(res.data.data)
         })
-
     }
 
     const displayHouse = () => {
@@ -126,7 +109,7 @@ export const VisitorForm = () => {
         })
     }
 
-    const submit = (e) => {
+    const submitVisitor = (e) => {
         e.preventDefault()
 
         axios.post('http://localhost:4000/visitors/', Visitor).then(res => {
@@ -145,22 +128,51 @@ export const VisitorForm = () => {
         //clearing out the details of the form after pressing submit button
         e.target.reset()
     }
-    //}
+
+    const submitDeliverable = (e) => {
+        e.preventDefault()
+        axios.post('http://localhost:4000/deliverables/', deliverable).then(res => {
+            console.log(res)
+            console.log(res.data.status)
+        })
+        console.log("submit called.....")
+        alert("Deliverable added successfully!")
+
+        //clearing out the details of the form after pressing submit button
+        e.target.reset()
+    }
+
+    const visitorSelected = (e) => {
+        setIsVisitor(true)
+    }
+
+    const deliverableSelected = (e) => {
+        setIsVisitor(false)
+    }
 
     return (
         <section id="services" className="services section-bg">
 
             <div className='mycard my-5 '>
                 <div className="align-items-center">
-                    <form className="form-horizontal" align="center" id="signIn" onSubmit={submit}>
+
+                    <input className="radios mx-2" type="radio" name="radios" value="Visitor" onClick={(e) => visitorSelected(e)} />
+                    <label className="radios mx-2">ADD VISITOR</label>
+
+                    <input className="radios mx-2" type="radio" name="radios" value="Deliverable" onClick={(e) => deliverableSelected(e)} />
+                    <label className="radios mx-2">ADD DELIVERABLE</label>
+
+                    <form style={{display : `${isVisitor ? "block" : "none"}`}} className="form-horizontal" method="post" align="center" id="visitorForm" onSubmit={submitVisitor}>
 
                         <h3 className="align-title my-3"><strong>ADD VISITOR</strong></h3>
+
 
                         <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>Visitor Name  </strong></label>
                             <div className="col-sm-10">
                                 <input type="text" id="visitorName" className="form-control" name="VisitorName"
-                                    placeholder="Enter Visitor's Name" required onChange={(e) => { visitorNameHandler(e) }} />
+                                    placeholder="Enter Visitor's Name" required
+                                    onChange={(e) => { setVisitorName(e.target.value) }} />
                             </div>
                         </div>
 
@@ -168,7 +180,8 @@ export const VisitorForm = () => {
                             <label className="col-sm-2 col-form-label"><strong>Purpose  </strong></label>
                             <div className="col-sm-10">
                                 <textarea id="purpose" className="form-control" name="Purpose" rows="4" cols="50"
-                                    placeholder="Enter Visitor's Purpose" required onChange={(e) => { purposeHandler(e) }} />
+                                    placeholder="Enter Visitor's Purpose" required 
+                                    onChange={(e) => { setPurpose(e.target.value) }} />
                             </div>
                         </div>
 
@@ -263,12 +276,60 @@ export const VisitorForm = () => {
                             </div>
                         </div>
 
+
+
                         <div className="form-grp row my-3">
                             <div className="col-sm-10">
                                 <input type="submit" className='btn-centre' value="Add Visitor" />
                             </div>
                         </div>
                     </form>
+
+                    <form style={{display : `${isVisitor ? "none" : "block"}`}} className="form-horizontal deliverable" align="center" method="post" id="deliverableForm" onSubmit={submitDeliverable}>
+
+                        <h3 className="align-title my-5"><strong>ADD DELIVERABLE</strong></h3>
+
+                        <div className="form-group row my-3 mr-2 mb-3">
+                            <label className="col-sm-2 col-form-label"><strong>Date </strong></label>
+                            <div className="col-sm-10">
+                                <input type="date" id="date" className="form-control" name="Date"
+                                    required onChange={(e) => { dateHandler(e) }} />
+                            </div>
+                        </div>
+
+                        <div className="form-group row my-3 mr-2 mb-3">
+                            <label className="col-sm-2 col-form-label"><strong>House Title  </strong></label>
+                            <div className="col-sm-10">
+                                <select className="form-select" id="house" required onClick={(e) => { displayHouse(e) }} onChange={(e) => { houseHandler(e) }}>
+                                    <option>Select your house title</option>
+                                    {
+                                        houseList.map((house) => {
+
+                                            return (
+                                                <option value={house._id}>{house.houseTitle}</option>
+                                            )
+                                        })
+                                    }
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div className="form-group row my-3 mr-2 mb-3">
+                            <label className="col-sm-2 col-form-label"><strong>isPickup  </strong></label>
+                            <div className="form-check col-sm-10 my-1">
+                                <input type="radio" className="mx-3" name="isPickup" value="true" onClick={(e) => { isPickupHandler(e) }} />Yes
+                                <input type="radio" className="mx-3" name="isPickup" value="false" onClick={(e) => { isPickupHandler(e) }} />No
+                            </div>
+                        </div>
+
+                        <div className="form-grp row my-3">
+                            <div className="col-sm-10">
+                                <input type="submit" className='btn-centre' value="Add Deliverable" />
+                            </div>
+                        </div>
+                    </form>
+
                 </div>
             </div>
         </section>

@@ -95,10 +95,10 @@ export const VehicleForm = () => {
                             <div className="formField col-sm-9 ml-3">
                                 <div className="col-sm-10">
                                     <select className="form-select" id="vehicleType" required  onChange={(e) => { setVehicleType(e.target.value)}}>
-                                        <option>Select your role</option>
+                                        <option>Select Vehicle Type</option>
                                         <option value="two wheeler">2 - wheeler</option>
                                         <option value="three wheeler">3 - wheeler</option>
-
+                                        <option value="four wheeler">4 - wheeler</option>
 
                                     </select>
                                 </div>

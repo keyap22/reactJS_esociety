@@ -39,13 +39,6 @@ export const SignupForm = () => {
         memberName: firstName + lastName
     }
 
-    // const postUser = () => {
-
-    const firstNameHandler = (e) => {
-        //console.log(e.target.value)
-        setFirstName(e.target.value)
-    }
-
     const lastNameHandler = (e) => {
         //console.log(e.target.value)
         setLastName(e.target.value)
@@ -155,7 +148,7 @@ export const SignupForm = () => {
                                 <label><strong>First Name</strong></label></div>
                             <div className="form-group col-md-3 my-3 mr-5 ">
                                 <input type="text" className="form-control" name="firstName" id="FirstName"
-                                    placeholder="Enter Your First Name" required onChange={(e) => { firstNameHandler(e) }} />
+                                    placeholder="Enter Your First Name" required onChange={(e) => { setFirstName(e.target.value) }} />
                             </div>
 
                             <div className="form-group col-md-0.1 my-3 mx-5">

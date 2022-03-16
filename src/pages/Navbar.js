@@ -35,20 +35,22 @@ export const Navbar = () => {
                   <li><Link className="nav-link scrollto" to="/services">Services</Link></li>
                   {/* <li><a className="nav-link scrollto " href="#portfolio">Visitor Tracking</a></li>
                 <li><a className="nav-link scrollto" href="#team">Add Pre-request</a></li>*/}
-                  <li className="dropdown"><a href="#"><span>Edit Visitors</span> <i className="bi bi-chevron-down"></i></a>
+                  <li className="dropdown"><a href="#"><span>Edit</span> <i className="bi bi-chevron-down"></i></a>
                     <ul>
                       <li><Link to="addvisitor">Add Visitor</Link></li>
-                      <li className="dropdown"><a href="#"><span>Update Visitor</span> <i className="bi bi-chevron-right"></i></a>
-                        <ul>
+                      <li className="dropdown"><Link to="addvehicle"><span>Add Vehicle</span> 
+                      {/* <i className="bi bi-chevron-right"></i> */}
+                      </Link>
+                        {/* <ul>
                           <li><a href="#">Name</a></li>
                           <li><a href="#">Contact Number</a></li>
                           {/* <li><a href="#"></a></li>
                         <li><a href="#">Deep Drop Down 4</a></li>
-                        <li><a href="#">Deep Drop Down 5</a></li>  */}
-                        </ul>
+                        <li><a href="#">Deep Drop Down 5</a></li>  
+                        </ul> */}
                       </li>
-                      <li><a href="#">Delete Visitor</a></li>
-                      <li><a href="#">Search Visitor</a></li>
+                      <li><a href="#">Add Child Schedule</a></li>
+                      <li><a href="#">Display Security Guard Attendance</a></li>
                       <li><a href="#">Display all Visitor</a></li>
                     </ul>
                   </li>

@@ -24,6 +24,7 @@ import { UserAPI } from './components/UserAPI';
 import { ListMembersAPI } from './components/ListMembersAPI';
 import { Profile } from './components/Profile';
 import {VisitorForm} from './components/VisitorForm'
+import {VehicleForm} from './components/VehicleForm'
 
 function App() {
 
@@ -33,8 +34,7 @@ function App() {
       <Navbar />
       
       <Home />
-      <UserAPI/>
-      <MemberAPI/>
+      
       {/* <RoleAPI />
       <ChildScheduleAPI />
       <VisitorCategoryAPI />
@@ -58,7 +58,7 @@ function App() {
         <Route path='/listmembers' element={<ListMembersAPI/>}></Route>
         <Route path='/profile' element={<Profile/>}></Route>
         <Route path="/addvisitor" element={<VisitorForm />}></Route>
-        
+        <Route path="/addvehicle" element={<VehicleForm />}></Route>
         
 
       </Routes>
