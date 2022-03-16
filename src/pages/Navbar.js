@@ -1,18 +1,18 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
+//import { useState } from 'react'
 
 export const Navbar = () => {
 
-  const [headerpos, setheaderpos] = useState('')
+  // const [headerpos, setheaderpos] = useState('')
 
-  const headerScrolled = (e) => {
-    if (window.scrollY > 100) {
-      setheaderpos("fixed-top d-flex align-items-center header-scrolled ")
-    } else {
-      setheaderpos("fixed-top d-flex align-items-center")
-    }
-  }
+  // const headerScrolled = (e) => {
+  //   if (window.scrollY > 100) {
+  //     setheaderpos("fixed-top d-flex align-items-center header-scrolled ")
+  //   } else {
+  //     setheaderpos("fixed-top d-flex align-items-center")
+  //   }
+  // }
 
   return (
     <>
@@ -49,13 +49,15 @@ export const Navbar = () => {
                         <li><a href="#">Deep Drop Down 5</a></li>  
                         </ul> */}
                       </li>
-                      <li><a href="#">Add Child Schedule</a></li>
-                      <li><a href="#">Display Security Guard Attendance</a></li>
+                      <li><Link to="childschedule">Add Child Schedule</Link></li>
+                      <li><Link to="listmembers">Display all Society members</Link></li>
                       <li><a href="#">Display all Visitor</a></li>
                     </ul>
                   </li>
                   <li><Link className="nav-link" to="/contact">Contact</Link></li>
+                  <li><Link to="/profile">Profile</Link></li>
                   <li><Link className="getstarted scrollto" to="/login">Login</Link></li>
+                  
                 </ul>
                 <i className="bi bi-list mobile-nav-toggle"></i>
               </nav>

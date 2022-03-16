@@ -124,7 +124,7 @@ export const ChildScheduleForm = () => {
                         <div className="form-group row my-3 mr-2 mb-3">
                             <label htmlFor="house" className="col-sm-2 col-form-label"><strong>House Number</strong></label>
                             <div className="formField col-sm-9 ml-3">
-                                <div className="col-sm-10">
+                                {/* <div className="col-sm-10"> */}
                                     <select className="form-select" id="house" required onClick={(e) => { getHouses(e) }} onChange={(e) => setHouse(e.target.value)}>
                                         <option>Please Select</option>
                                         {
@@ -136,7 +136,7 @@ export const ChildScheduleForm = () => {
                                         })
                                     }
                                     </select>
-                                </div>
+                                {/* </div> */}
                             </div>
                         </div>
 
