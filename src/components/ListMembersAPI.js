@@ -42,6 +42,7 @@ export const ListMembersAPI = () => {
 
     }
     useEffect(() => {
+        console.log("use effect hook implemented")
         getData()
     }, [])
 
@@ -59,6 +60,7 @@ export const ListMembersAPI = () => {
                         <th scope="col">Contact Number</th>
                         <th scope="col">House Title</th>
                         <th scope="col">Age</th>
+                        <th scope="col">Profile Photo</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -76,9 +78,10 @@ export const ListMembersAPI = () => {
                                     <td>{member.user.mobileNo}</td>
                                     <td>{member.house.houseTitle}</td>
                                     <td>{member.age}</td>
+                                    <td><img src = {member.user.profilePhoto} alt="No image"></img></td>
                                     <td>
-                                        <Link className="btn btn-sm btn-danger mx-2" onClick={() => { deleteMember(member._id, member.user._id) }}><i className="bi bi-trash"></i></Link>
-                                        <Link className="btn btn-sm btn-primary" value={member._id} onClick={(e) => { updateMember(e) }}><i className="bi bi-pencil"></i></Link>
+                                        <Link to="/listmembers" className="btn btn-sm btn-danger mx-2" onClick={() => { deleteMember(member._id, member.user._id) }}><i className="bi bi-trash"></i></Link>
+                                        <Link to="/listmembers" className="btn btn-sm btn-primary" value={member._id} onClick={(e) => { updateMember(e) }}><i className="bi bi-pencil"></i></Link>
                                     </td>
                                 </tr>
                             )
