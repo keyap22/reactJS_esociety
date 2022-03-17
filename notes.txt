@@ -5,15 +5,8 @@ Tasks -
 - profile picture file upload(datatype : string) in user, visitor model
 - display isAllowed, isPreScheduled, profilePhoto in visitor list
 
-
-Login form details disappear after pressing submit button
-
-If incorrect credentials....using h tags print incorrect credentials
-
-If correct credentials --> redirect to profile page
-
 If press logout --> redirect to login page
-
+successful sign up --> redirect to login page 
 
 
 Profiles -

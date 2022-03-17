@@ -1,9 +1,11 @@
 import React from 'react'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 export const SignupForm = () => {
+
+    const navigation = useNavigate()
 
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
@@ -46,8 +48,8 @@ export const SignupForm = () => {
 
     const profilePhotoHandler = (e) => {
         //console.log(e.target.value)
-        setProfilePhoto(e.target.files[0])
-        //setProfilePhoto(e.target.value)
+        //setProfilePhoto(e.target.files[0])
+        setProfilePhoto(e.target.value)
     }
 
     const displayRole = () => {
@@ -71,7 +73,10 @@ export const SignupForm = () => {
         else {
             axios.post('http://localhost:4000/Users/', user).then(res => {
                 console.log(res.status)
+                alert("Account created successfully!")
+                navigation('/login')
                 console.log("user id : ", res.data.data._id)
+                console.log("type of user id : ", typeof(res.data.data._id))
                 console.log("type of profile photo : ", typeof(profilePhoto))
                 setUserID(res.data.data._id)
             })

@@ -1,12 +1,14 @@
 import React from 'react'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 export const LoginForm = () => {
     const [email, setemail] = useState('')
     const [password, setpassword] = useState('')
     const [visibility, setvisibility] = useState('')
+
+    const navigation = useNavigate()
 
     const emailHandler = (e) => {
 
@@ -31,7 +33,8 @@ export const LoginForm = () => {
             console.log(res)
             if (res.data.status === 200) {
                 console.log("Login successful")
-              
+                navigation('/profile')
+
                 if (localStorage.getItem("email") === null) {
                     localStorage.setItem('email', email)
                 }
@@ -42,7 +45,7 @@ export const LoginForm = () => {
             }
             else if (res.data.status === -1) {
 
-                console.log("Incorrect credentials.....Please enter correct credentials")
+                alert("Incorrect credentials.....Please enter correct credentials")
 
                 //clearing out the details of the form after pressing submit button
                 e.target.reset()
