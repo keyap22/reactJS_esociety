@@ -2,9 +2,28 @@ import React from 'react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import { useParams } from 'react-router'
+import { useEffect } from 'react'
 
 export const UpdateForm = () => {
+    var memberId = useParams().id2;
+    var userId = useParams().id1;
+    
 
+    useEffect(() => {
+        getMemberById()
+        getUserById()
+        // getHouseById()
+        // getRoleById()
+       console.log(userId)
+    console.log(memberId)
+
+
+    
+    }, [])
+
+
+   
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [email, setEmail] = useState('')
@@ -22,9 +41,11 @@ export const UpdateForm = () => {
     const [houseList, sethouseList] = useState([])
     const [userList, setuserList] = useState([])
     const [memberList, setmemberList] = useState([])
-    
-   
+    const [roleById, setRoleById] = useState([])
+    const [houseById,setHouseById] = useState([])
 
+    
+    
     var user = {
         email: email,
         password: password,
@@ -44,17 +65,17 @@ export const UpdateForm = () => {
 
     //add id 
     const getUserById = () =>{
-      axios.get("http://localhost:4000/users/ ").then(res => {
-            //console.log(res.data.data)
+      axios.get("http://localhost:4000/users/" + userId).then(res => {
+            console.log(res.data.data)
             setuserList(res.data.data)
-        })
+             })
 
     }
 
     //add id in url
     const getMemberById = () =>{
-      axios.get("http://localhost:4000/members/ ").then(res => {
-            //console.log(res.data.data)
+      axios.get("http://localhost:4000/members/" + memberId).then(res => {
+            console.log(res.data.data)
             setmemberList(res.data.data)
         })
 
@@ -76,6 +97,20 @@ export const UpdateForm = () => {
         setProfilePhoto(e.target.value)
     }
 
+    const getRoleById = () => {
+        console.log(userList.role)
+        axios.get("http://localhost:4000/roles/" + userList.role).then(res => {
+            //console.log(res.data.data)
+            setRoleById(res.data.data)
+        })
+    }
+    const getHouseById = () =>{
+        axios.get("http://localhost:4000/houses/" + memberList.house).then(res => {
+              console.log(res.data.data)
+              setHouseById(res.data.data)
+               })
+  
+      }
    
     const displayRole = () => {
         axios.get("http://localhost:4000/roles/").then(res => {
@@ -138,14 +173,14 @@ export const UpdateForm = () => {
                             <div className="form-group col-md-2 my-3">
                                 <label><strong>First Name</strong></label></div>
                             <div className="form-group col-md-3 my-3 mr-5 ">
-                                <input type="text" className="form-control" name="firstName" id="FirstName"
+                                <input type="text" className="form-control" name="firstName" id="FirstName" value = {userList.firstName}
                                     placeholder="Enter Your First Name" required onChange={(e) => { setFirstName(e.target.value) }} />
                             </div>
 
                             <div className="form-group col-md-0.1 my-3 mx-5">
                                 <label><strong>Last Name</strong></label></div>
                             <div className="form-group col-md-3 my-3">
-                                <input type="text" className="form-control" id="LastName" name="lastName"
+                                <input type="text" className="form-control" id="LastName" name="lastName" value={userList.lastName}
                                     placeholder="Enter Your Last Name" required onChange={(e) => {setLastName(e.target.value) }} />
                             </div>
 
@@ -155,7 +190,7 @@ export const UpdateForm = () => {
                         <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>Email  </strong></label>
                             <div className="col-sm-10">
-                                <input type="email" id="Email" className="form-control" name="email"
+                                <input type="email" id="Email" className="form-control" name="email" value={userList.email}
                                     placeholder="Enter Your Email" required onChange={(e) => setEmail(e.target.value)} />
                                 <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
                             </div>
@@ -183,7 +218,7 @@ export const UpdateForm = () => {
                         <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>Contact Number  </strong></label>
                             <div className="col-sm-10">
-                                <input type="tel" id="ContactNumber" className="form-control" name="contactNumber"
+                                <input type="tel" id="ContactNumber" className="form-control" name="contactNumber" value ={ userList.mobileNo}
                                     placeholder="Enter Your Mobile Number" required onChange={(e) => { setContactNumber(e.target.value)}} />
                             </div>
                         </div>
@@ -191,7 +226,7 @@ export const UpdateForm = () => {
                         <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>Role  </strong></label>
                             <div className="col-sm-10">
-                                <select className="form-select" id="role" required onClick={(e) => { displayRole(e) }} onChange={(e) => { setRole(e.target.value) }}>
+                                <select className="form-select" id="role" required  onClick={(e) => { displayRole(e) }} onChange={(e) => { setRole(e.target.value) }}>
                                     <option>Select your role</option>
                                     {
                                         roleList.map((role) => {
@@ -209,14 +244,14 @@ export const UpdateForm = () => {
                             <label className="col-sm-2 col-form-label"><strong>Profile Photo  </strong></label>
                             <div className="col-sm-10">
                                 <input type="file" id="ProfilePhoto" className="form-control-file" name="profilePhoto"
-                                    placeholder="Upload Your Profile Photo" onChange={(e => { profilePhotoHandler(e) })} />
+                                    placeholder="Upload Your Profile Photo"  onChange={(e => { profilePhotoHandler(e) })} />
                             </div>
                         </div>
 
                         <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>Age </strong></label>
                             <div className="col-sm-10">
-                                <input type="number" min="0" max="150" id="age" className="form-control" name="age"
+                                <input type="number" min="0" max="150" id="age" className="form-control" name="age" value={memberList.age}
                                     placeholder="Enter your age" onChange={(e => { setAge(e.target.value) })} />
                             </div>
                         </div>
@@ -224,7 +259,7 @@ export const UpdateForm = () => {
                         <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>House Title  </strong></label>
                             <div className="col-sm-10">
-                            <select className="form-select" id="house" required onClick={(e) => { displayHouse(e) }} onChange={(e) => { setHouse(e.target.value) }}>
+                            <select className="form-select" id="house" required  onClick={(e) => { displayHouse(e) }} onChange={(e) => { setHouse(e.target.value) }}>
                                     <option>Select your house title</option>
                                     {
                                         houseList.map((house) => {

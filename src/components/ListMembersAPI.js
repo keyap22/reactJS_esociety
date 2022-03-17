@@ -72,8 +72,8 @@ export const ListMembersAPI = () => {
                                 <tr>
                                     {/* <th scope="row">{member.user.firstName}</th> */}
                                     <th scope="row">{counter}</th>
-                                    <td>{member.user.firstName}</td>
-                                    <td>{member.user.lastName}</td>
+                                    {/* <td>{member.user.firstName}</td>
+                                    <td>{member.user.lastName}</td> */}
                                     <td>{member.user.email}</td>
                                     <td>{member.user.mobileNo}</td>
                                     <td>{member.house.houseTitle}</td>
@@ -81,7 +81,7 @@ export const ListMembersAPI = () => {
                                     <td><img src = {member.user.profilePhoto} alt="No image"></img></td>
                                     <td>
                                         <Link to="/listmembers" className="btn btn-sm btn-danger mx-2" onClick={() => { deleteMember(member._id, member.user._id) }}><i className="bi bi-trash"></i></Link>
-                                        <Link to  className="btn btn-sm btn-primary" value={member._id} onClick={(e) => { updateMember(e) }}><i className="bi bi-pencil"></i></Link>
+                                        <Link to= {`/listmembers/update/${member.user._id}/${member._id}`} className="btn btn-sm btn-primary"  ><i className="bi bi-pencil"></i></Link>
                                     </td>
                                 </tr>
                             )

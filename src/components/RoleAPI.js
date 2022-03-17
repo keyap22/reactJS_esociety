@@ -12,7 +12,7 @@ export const RoleAPI = () => {
     const postRole = () => {
 
         var role = {
-            roleName: 'y'
+            roleName: 'Member'
         }
 
         axios.post('http://localhost:4000/roles/', role).then(res => {

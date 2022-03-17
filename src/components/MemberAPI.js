@@ -14,8 +14,8 @@ export const MemberAPI = () => {
         var member = {
             memberName: "kia",
             age: 22,
-            user: "62131ac4efdec58582ade501",
-            house: "6210bc00af171efad4239afd"
+            user: "62333f110323d0522ef16c67",
+            house: "62333f110323d0522ef16c67"
         }
 
         axios.post('http://localhost:4000/members/', member).then(res => {

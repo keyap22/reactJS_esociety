@@ -27,6 +27,7 @@ import {VisitorForm} from './components/VisitorForm'
 import {VehicleForm} from './components/VehicleForm'
 import {ChildScheduleForm} from './components/ChildScheduleForm'
 import {ListVisitorsAPI} from './components/ListVisitorsAPI'
+import { UpdateForm } from './components/UpdateForm';
 
 function App() {
 
@@ -36,7 +37,11 @@ function App() {
       <Navbar />
       
       <Home />
-      
+    <UserAPI/> 
+      <MemberAPI/>
+      <HouseAPI />
+      <RoleAPI/>
+     
       {/* <RoleAPI />
       <ChildScheduleAPI />
       <VisitorCategoryAPI />
@@ -63,6 +68,8 @@ function App() {
         <Route path="/addvehicle" element={<VehicleForm />}></Route>
         <Route path="/childschedule" element={<ChildScheduleForm />}></Route>
         <Route path='/listvisitors' element={<ListVisitorsAPI/>}></Route>
+        <Route path='listmembers/update/:id1/:id2' element={<UpdateForm/>}></Route>
+        
 
       </Routes>
       <Footer />
