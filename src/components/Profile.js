@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export const Profile = () => {
     const[email,setemail]=useState('')
+
+    const navigation = useNavigate()
 
     useEffect(()=>{
         setemail(localStorage.getItem('email'))
     }, [])
 
-    const logout =() =>{
-        localStorage.removeItem('email')   
+    const logout =(e) =>{
+        e.preventDefault()
+        localStorage.removeItem('email') 
+        navigation('/login')
     }
   return (
     <div>

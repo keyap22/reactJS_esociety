@@ -5,9 +5,6 @@ Tasks -
 - profile picture file upload(datatype : string) in user, visitor model
 - display isAllowed, isPreScheduled, profilePhoto in visitor list
 
-If press logout --> redirect to login page
-successful sign up --> redirect to login page 
-
 
 Profiles -
 

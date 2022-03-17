@@ -22,7 +22,7 @@ export const SignupForm = () => {
 
     const [roleList, setroleList] = useState([])
     const [houseList, sethouseList] = useState([])
-   
+
 
     var user = {
         email: email,
@@ -41,9 +41,13 @@ export const SignupForm = () => {
         memberName: firstName + lastName
     }
 
+    var roleNameSelected
+
     const roleHandler = (e) => {
         //console.log(e.target.value)
         setRole(e.target.value)
+        console.log("role name selected : ", e.target.name)
+        roleNameSelected = e.target.name
     }
 
     const profilePhotoHandler = (e) => {
@@ -75,9 +79,10 @@ export const SignupForm = () => {
                 console.log(res.status)
                 alert("Account created successfully!")
                 navigation('/login')
+                console.log("role name : ", roleNameSelected)
                 console.log("user id : ", res.data.data._id)
-                console.log("type of user id : ", typeof(res.data.data._id))
-                console.log("type of profile photo : ", typeof(profilePhoto))
+                console.log("type of user id : ", typeof (res.data.data._id))
+                console.log("type of profile photo : ", typeof (profilePhoto))
                 setUserID(res.data.data._id)
             })
 
@@ -87,7 +92,7 @@ export const SignupForm = () => {
 
                 axios.post('http://localhost:4000/members/', member).then(res => {
                     console.log(res)
-                    console.log("while adding in member table : ",typeof(res.data.data.user.profilePhoto))
+                    console.log("while adding in member table : ", typeof (res.data.data.user.profilePhoto))
                 })
             }
         }
@@ -126,7 +131,7 @@ export const SignupForm = () => {
                                 <label><strong>Last Name</strong></label></div>
                             <div className="form-group col-md-3 my-3">
                                 <input type="text" className="form-control" id="LastName" name="lastName"
-                                    placeholder="Enter Your Last Name" required onChange={(e) => { setLastName(e.target.value)}} />
+                                    placeholder="Enter Your Last Name" required onChange={(e) => { setLastName(e.target.value) }} />
                             </div>
 
                         </div>
@@ -156,7 +161,7 @@ export const SignupForm = () => {
                             <label className="col-sm-2 col-form-label"><strong>Confirm Password  </strong></label>
                             <div className="col-sm-10">
                                 <input type="password" id="Password2" className="form-control" name="Password2" autoComplete="off"
-                                placeholder="Re-enter password" required onChange={(e) => { setPassword2(e.target.value) }} />
+                                    placeholder="Re-enter password" required onChange={(e) => { setPassword2(e.target.value) }} />
                             </div>
                         </div>
 
@@ -177,7 +182,7 @@ export const SignupForm = () => {
                                         roleList.map((role) => {
 
                                             return (
-                                                <option value={role._id}>{role.roleName}</option>
+                                                <option value={role._id} name={role.roleName}>{role.roleName}</option>
                                             )
                                         })
                                     }
@@ -204,7 +209,7 @@ export const SignupForm = () => {
                         <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>House Title  </strong></label>
                             <div className="col-sm-10">
-                            <select className="form-select" id="house" required onClick={(e) => { displayHouse(e) }} onChange={(e) => { setHouse(e.target.value) }}>
+                                <select className="form-select" id="house" required onClick={(e) => { displayHouse(e) }} onChange={(e) => { setHouse(e.target.value) }}>
                                     <option>Select your house title</option>
                                     {
                                         houseList.map((house) => {
@@ -215,8 +220,8 @@ export const SignupForm = () => {
                                         })
                                     }
                                 </select>
-                                
-                                  </div>
+
+                            </div>
                         </div>
 
                         <div className="form-group my-3">
