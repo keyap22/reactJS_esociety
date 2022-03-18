@@ -19,7 +19,7 @@ export const VisitorForm = () => {
     const [visitorCategoryList, setVisitorCategoryList] = useState([])
     const [houseList, sethouseList] = useState([])
 
-    const [isVisitor,setIsVisitor] = useState(true)
+    const [isVisitor, setIsVisitor] = useState(true)
 
     var Visitor = {
         visitorName: visitorName,
@@ -154,15 +154,17 @@ export const VisitorForm = () => {
         <section id="services" className="services section-bg">
 
             <div className='mycard my-5 '>
-                <div className="align-items-center">
+                <div className="align-items-center" >
 
-                    <input className="radios mx-2" type="radio" name="radios" value="Visitor" onClick={(e) => visitorSelected(e)} />
-                    <label className="radios mx-2">ADD VISITOR</label>
+                    <div className="container my-3" style={{marginLeft : "520px"}}>
+                        <input className="radios mx-2" type="radio" name="radios" value="Visitor" onClick={(e) => visitorSelected(e)} />
+                        <label className="radios mx-2">ADD VISITOR</label>
 
-                    <input className="radios mx-2" type="radio" name="radios" value="Deliverable" onClick={(e) => deliverableSelected(e)} />
-                    <label className="radios mx-2">ADD DELIVERABLE</label>
+                        <input className="radios mx-2" type="radio" name="radios" value="Deliverable" onClick={(e) => deliverableSelected(e)} />
+                        <label className="radios mx-2">ADD DELIVERABLE</label>
+                    </div>
 
-                    <form style={{display : `${isVisitor ? "block" : "none"}`}} className="form-horizontal" method="post" align="center" id="visitorForm" onSubmit={submitVisitor}>
+                    <form style={{ display: `${isVisitor ? "block" : "none"}` }} className="form-horizontal" method="post" align="center" id="visitorForm" onSubmit={submitVisitor}>
 
                         <h3 className="align-title my-3"><strong>ADD VISITOR</strong></h3>
 
@@ -180,7 +182,7 @@ export const VisitorForm = () => {
                             <label className="col-sm-2 col-form-label"><strong>Purpose  </strong></label>
                             <div className="col-sm-10">
                                 <textarea id="purpose" className="form-control" name="Purpose" rows="4" cols="50"
-                                    placeholder="Enter Visitor's Purpose" required 
+                                    placeholder="Enter Visitor's Purpose" required
                                     onChange={(e) => { setPurpose(e.target.value) }} />
                             </div>
                         </div>
@@ -285,7 +287,7 @@ export const VisitorForm = () => {
                         </div>
                     </form>
 
-                    <form style={{display : `${isVisitor ? "none" : "block"}`}} className="form-horizontal deliverable" align="center" method="post" id="deliverableForm" onSubmit={submitDeliverable}>
+                    <form style={{ display: `${isVisitor ? "none" : "block"}` }} className="form-horizontal deliverable" align="center" method="post" id="deliverableForm" onSubmit={submitDeliverable}>
 
                         <h3 className="align-title my-5"><strong>ADD DELIVERABLE</strong></h3>
 

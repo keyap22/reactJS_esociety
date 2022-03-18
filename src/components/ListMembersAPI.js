@@ -72,8 +72,8 @@ export const ListMembersAPI = () => {
                                 <tr>
                                     {/* <th scope="row">{member.user.firstName}</th> */}
                                     <th scope="row">{counter}</th>
-                                    {/* <td>{member.user.firstName}</td>
-                                    <td>{member.user.lastName}</td> */}
+                                    <td>{member.user.firstName}</td>
+                                    <td>{member.user.lastName}</td>
                                     <td>{member.user.email}</td>
                                     <td>{member.user.mobileNo}</td>
                                     <td>{member.house.houseTitle}</td>

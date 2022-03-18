@@ -1,9 +1,8 @@
 Tasks -
 
 - add validations in form(signup, login)
-- display specific society member through ID by using useParams()
 - profile picture file upload(datatype : string) in user, visitor model
-- display isAllowed, isPreScheduled, profilePhoto in visitor list
+- display profilePhoto in members, visitor list
 
 -updateForm  : old values for profilephoto rolename housetitle print problem , password print problem,
 if value is unchanged then old value should persist (already coded)

@@ -44,7 +44,7 @@ export const ListVisitorsAPI = () => {
     var counter = 0
 
     return (
-        <div className="container table-responsive-md ">
+        <div className="container table-responsive-md" style={{maxWidth: "1290px"}}>
             <table className="table table-hover my-3">
                 <thead className="table_head">
                     <tr>
@@ -53,10 +53,10 @@ export const ListVisitorsAPI = () => {
                         <th scope="col">Date</th>
                         <th scope="col">Entry Time</th>
                         <th scope="col">Exit Time</th>
-                         {/*<th scope="col">isAllowed</th>
-                        <th scope="col">isPrescheduled</th>
-                        <th scope="col">Image</th>*/}
-                        <th scope="col">House Title</th>
+                        <th scope="col">Allowed</th>
+                        <th scope="col">Prescheduled</th>
+                        {/*<th scope="col">Image</th>*/}
+                        <th scope="col">House</th>
                         <th scope="col">Category</th>
                         <th scope="col">Purpose</th>
                         <th scope="col">Contact No.</th> 
@@ -74,16 +74,16 @@ export const ListVisitorsAPI = () => {
                                     <td>{visitor.date}</td>
                                     <td>{visitor.entryTime}</td>
                                     <td>{visitor.exitTime}</td>
-                                    {/*<td>{visitor.isAllowed}</td>
-                                    <td>{visitor.isPreScheduled}</td>
-                            <td><img src = {visitor.profilePhoto} alt="No image"></img></td>*/}
+                                    <td>{visitor.isAllowed.toString() === "true" ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
+                                    <td>{visitor.isPreScheduled.toString() === "true" ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
+                            {/*<td><img src = {visitor.profilePhoto} alt="No image"></img></td>*/}
                                     <td>{visitor.house.houseTitle}</td>
                                     <td>{visitor.visitorCategory.categoryName}</td>
                                     <td>{visitor.purpose}</td>
                                     <td>{visitor.mobileNo}</td>
                                  
                                     <td>
-                                        <Link to="/listvisitors" className="btn btn-sm btn-danger mx-2" onClick={() => { deleteVisitor(visitor._id) }}><i className="bi bi-trash"></i></Link>
+                                        <Link to="/listvisitors" className="btn btn-sm btn-danger mx-1" onClick={() => { deleteVisitor(visitor._id) }}><i className="bi bi-trash"></i></Link>
                                         <Link to="/listvisitors" className="btn btn-sm btn-primary" value={visitor._id} onClick={(e) => { updateVisitor(e) }}><i className="bi bi-pencil"></i></Link>
                                     </td>
                                 </tr>

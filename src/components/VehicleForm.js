@@ -43,16 +43,10 @@ export const VehicleForm = () => {
        axios.post('http://localhost:4000/vehicles/', formdata).then(res => {
             console.log(res)
             if (res.data.status === 200) {
-                console.log("vehicle added  successfully")
-              
-               
-                
+                alert("vehicle added  successfully")                
             }
             else if (res.data.status === -1) {
-
-                console.log("Incorrect credentials.....Please enter correct credentials")
-
-               
+                alert("Something went wrong....Please try again!")               
             }
         })
          //clearing out the details of the form after pressing submit button
@@ -69,7 +63,7 @@ export const VehicleForm = () => {
 
                     <form className="vehicle-form" align="center" onSubmit={submit}>
 
-                        <h4 className="align-title my-5"><strong>Add Vehicle</strong></h4>
+                        <h4 className="align-title my-5"><strong>ADD VEHICLE</strong></h4>
 
 
                         <div className="form-group row my-3 mr-2 mb-3 ">
@@ -124,11 +118,10 @@ export const VehicleForm = () => {
                             </div>
                         </div>
 
-
-
                         <div className="my-5">
-                            <input type="submit" className='btn-centre' value="Add" /><br />
-
+                            {/* <button className='btn btn-lg' style={{backgroundColor : " #009970", color : "white", margin:"10px auto", borderRadius : "50%"}} ><i class="bi bi-plus"></i></button> */}
+                            <input type="submit" className="btn-centre" value="Add" />
+                            <br />
                         </div>
 
 

@@ -10,17 +10,17 @@ import { SignupForm } from './components/SignupForm';
 import { Footer } from './pages/Footer';
 import { ForgotPassword } from './components/ForgotPassword'
 import { Services } from './pages/Services'
-import { RoleAPI } from './components/RoleAPI'
-import { ChildScheduleAPI } from './components/ChildScheduleAPI';
-import { VisitorCategoryAPI } from './components/VisitorCategoryAPI'
-import { DeliverableAPI } from './components/DeliverableAPI';
-import {SecurityGuardAPI} from './components/SecurityGuardAPI'
-import { MemberAPI } from './components/MemberAPI';
-import { VehicleAPI } from './components/VehicleAPI';
-import {SecurityGuardAttendanceAPI} from './components/SecurityGuardAttendanceAPI'
-import {VisitorAPI} from './components/VisitorAPI'
-import {HouseAPI} from './components/HouseAPI'
-import { UserAPI } from './components/UserAPI';
+// import { RoleAPI } from './components/RoleAPI'
+// import { ChildScheduleAPI } from './components/ChildScheduleAPI';
+// import { VisitorCategoryAPI } from './components/VisitorCategoryAPI'
+// import { DeliverableAPI } from './components/DeliverableAPI';
+// import {SecurityGuardAPI} from './components/SecurityGuardAPI'
+// import { MemberAPI } from './components/MemberAPI';
+// import { VehicleAPI } from './components/VehicleAPI';
+// import {SecurityGuardAttendanceAPI} from './components/SecurityGuardAttendanceAPI'
+// import {VisitorAPI} from './components/VisitorAPI'
+// import {HouseAPI} from './components/HouseAPI'
+// import { UserAPI } from './components/UserAPI';
 import { ListMembersAPI } from './components/ListMembersAPI';
 import { Profile } from './components/Profile';
 import {VisitorForm} from './components/VisitorForm'
@@ -37,10 +37,6 @@ function App() {
       <Navbar />
       
       <Home />
-    <UserAPI/> 
-      <MemberAPI/>
-      <HouseAPI />
-      <RoleAPI/>
      
       {/* <RoleAPI />
       <ChildScheduleAPI />
