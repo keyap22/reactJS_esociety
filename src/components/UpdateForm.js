@@ -11,11 +11,15 @@ export const UpdateForm = () => {
     
 
     useEffect(() => {
+    
         getMemberById()
         getUserById()
-        // getHouseById()
-        // getRoleById()
-       console.log(userId)
+        console.log("---------------------------"+typeof(userList.role))
+        console.log(memberList.house)
+        getRoleById()
+         getHouseById()
+         
+       console.log("------------------------------"+typeof(userId))
     console.log(memberId)
 
 
@@ -69,6 +73,7 @@ export const UpdateForm = () => {
             console.log(res.data.data)
             setuserList(res.data.data)
              })
+             getRoleById()
 
     }
 
@@ -100,7 +105,7 @@ export const UpdateForm = () => {
     const getRoleById = () => {
         console.log(userList.role)
         axios.get("http://localhost:4000/roles/" + userList.role).then(res => {
-            //console.log(res.data.data)
+            console.log(res.data.data)
             setRoleById(res.data.data)
         })
     }
@@ -134,25 +139,24 @@ export const UpdateForm = () => {
             alert("Please enter same password in both the fields!")
         }
         else {
-            axios.put('http://localhost:4000/Users/', user).then(res => {
+            axios.put('http://localhost:4000/users/'+userId, user).then(res => {
                 console.log(res.status)
                 console.log("user id : ", res.data.data._id)
-                setUserID(res.data.data._id)
-            })
+                    })
 
-            if (role === "620de87cbe1ad93e25b557c9") {
+            if (role === "62333e880323d0522ef16c63") {
 
-                axios.put('http://localhost:4000/members/', member).then(res => {
+                axios.put('http://localhost:4000/members/'+memberId, member).then(res => {
                     console.log(res)
                 })
             }
         }
         console.log("submit called.....")
-        //console.log(`email : ${email}, password : ${password},password2 : ${password2}, first name : ${firstName}, last name : ${lastName}`)
-        //console.log(`contact number : ${contactNumber}, role : ${role}, profile photo : ${profilePhoto}`)
+        console.log(`email : ${email}, password : ${password},password2 : ${password2}, first name : ${firstName}, last name : ${lastName}`)
+        console.log(`contact number : ${contactNumber}, role : ${role}, profile photo : ${profilePhoto}`)
         console.log(`role : ${role}`)
         //console.log(e.target)
-        alert("Submitted successfully!")
+        alert("Updated successfully!")
 
         //clearing out the details of the form after pressing submit button
         e.target.reset()
@@ -173,15 +177,15 @@ export const UpdateForm = () => {
                             <div className="form-group col-md-2 my-3">
                                 <label><strong>First Name</strong></label></div>
                             <div className="form-group col-md-3 my-3 mr-5 ">
-                                <input type="text" className="form-control" name="firstName" id="FirstName" value = {userList.firstName}
-                                    placeholder="Enter Your First Name" required onChange={(e) => { setFirstName(e.target.value) }} />
+                                <input type="text" className="form-control" name="firstName" id="FirstName" defaultValue = {userList.firstName}
+                                    placeholder="Enter Your First Name" required onChange={(e) => { e=null ?setFirstName(userList.firstName): setFirstName(e.target.value)}} />
                             </div>
 
                             <div className="form-group col-md-0.1 my-3 mx-5">
                                 <label><strong>Last Name</strong></label></div>
                             <div className="form-group col-md-3 my-3">
-                                <input type="text" className="form-control" id="LastName" name="lastName" value={userList.lastName}
-                                    placeholder="Enter Your Last Name" required onChange={(e) => {setLastName(e.target.value) }} />
+                                <input type="text" className="form-control" id="LastName" name="lastName" defaultValue={userList.lastName}
+                                    placeholder="Enter Your Last Name" required onChange={(e) => {e=null ?setLastName(userList.lastName):setLastName(e.target.value) }} />
                             </div>
 
                         </div>
@@ -190,8 +194,8 @@ export const UpdateForm = () => {
                         <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>Email  </strong></label>
                             <div className="col-sm-10">
-                                <input type="email" id="Email" className="form-control" name="email" value={userList.email}
-                                    placeholder="Enter Your Email" required onChange={(e) => setEmail(e.target.value)} />
+                                <input type="email" id="Email" className="form-control" name="email" defaultValue={userList.email}
+                                    placeholder="Enter Your Email" required onChange={(e) => {e=null ?setEmail(userList.email):setEmail(e.target.value)}} />
                                 <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
                             </div>
                         </div>
@@ -218,15 +222,15 @@ export const UpdateForm = () => {
                         <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>Contact Number  </strong></label>
                             <div className="col-sm-10">
-                                <input type="tel" id="ContactNumber" className="form-control" name="contactNumber" value ={ userList.mobileNo}
-                                    placeholder="Enter Your Mobile Number" required onChange={(e) => { setContactNumber(e.target.value)}} />
+                                <input type="tel" id="ContactNumber" className="form-control" name="contactNumber" defaultValue ={ userList.mobileNo}
+                                    placeholder="Enter Your Mobile Number" required onChange={(e) => {e=null ?setContactNumber(userList.mobileNo): setContactNumber(e.target.value)}} />
                             </div>
                         </div>
 
                         <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>Role  </strong></label>
                             <div className="col-sm-10">
-                                <select className="form-select" id="role" required  onClick={(e) => { displayRole(e) }} onChange={(e) => { setRole(e.target.value) }}>
+                                <select className="form-select" id="role" required defaultValue={roleById.roleName} onClick={(e) => { displayRole(e) }} onChange={(e) => { setRole(e.target.value) }}>
                                     <option>Select your role</option>
                                     {
                                         roleList.map((role) => {
@@ -251,15 +255,15 @@ export const UpdateForm = () => {
                         <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>Age </strong></label>
                             <div className="col-sm-10">
-                                <input type="number" min="0" max="150" id="age" className="form-control" name="age" value={memberList.age}
-                                    placeholder="Enter your age" onChange={(e => { setAge(e.target.value) })} />
+                                <input type="number" min="0" max="150" id="age" className="form-control" name="age" defaultValue={memberList.age}
+                                    placeholder="Enter your age" onChange={(e => { e=null ?setAge(memberList.age):setAge(e.target.value) })} />
                             </div>
                         </div>
 
                         <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>House Title  </strong></label>
                             <div className="col-sm-10">
-                            <select className="form-select" id="house" required  onClick={(e) => { displayHouse(e) }} onChange={(e) => { setHouse(e.target.value) }}>
+                            <select className="form-select" id="house" required  defaultValue = {houseById.houseTitle} onClick={(e) => { displayHouse(e) }} onChange={(e) => { setHouse(e.target.value) }}>
                                     <option>Select your house title</option>
                                     {
                                         houseList.map((house) => {
