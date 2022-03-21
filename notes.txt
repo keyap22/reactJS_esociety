@@ -5,7 +5,7 @@ Tasks -
 - display profilePhoto in members, visitor list
 
 -updateForm  : old values for profilephoto rolename housetitle print problem , password print problem,
-if value is unchanged then old value should persist (already coded)
+if value is unchanged then old value should persist in db (already coded)
 
 
 Profiles -

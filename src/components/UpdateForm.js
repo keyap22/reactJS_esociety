@@ -13,15 +13,16 @@ export const UpdateForm = () => {
 
         getMemberById()
         getUserById()
-        console.log("---------------------------" + typeof (userList.role))
+        console.log("---------------------------" + (userList) +"-------------------------")
         console.log(memberList.house)
-        getRoleById()
-        getHouseById()
+        
 
         console.log("------------------------------" + typeof (userId))
         console.log(memberId)
 
-
+        return () => {
+    
+        }
 
     }, [])
 
@@ -44,28 +45,28 @@ export const UpdateForm = () => {
     const [roleById, setRoleById] = useState([])
     const [houseById, setHouseById] = useState([])
 
-
+let finalemail, finalfn, finalln, finalage, finalmob;
 
     var user = {
-        email: email,
+        email: finalemail,
         password: password,
-        mobileNo: contactNumber,
-        firstName: firstName,
-        lastName: lastName,
+        mobileNo: finalmob,
+        firstName: finalfn,
+        lastName: finalln,
         role: role,
         profilePhoto: profilePhoto
     }
 
     var member = {
-        age: age,
+        age: finalage,
         house: house,
         user: userId,
         memberName: firstName + lastName
     }
 
     //add id 
-    const getUserById = () => {
-        axios.get("http://localhost:4000/users/" + userId).then(res => {
+    const getUserById = async () => {
+        await axios.get("http://localhost:4000/users/" + userId).then(res => {
             console.log(res.data.data)
             setuserList(res.data.data)
         })
@@ -74,10 +75,11 @@ export const UpdateForm = () => {
     }
 
     //add id in url
-    const getMemberById = () => {
-        axios.get("http://localhost:4000/members/" + memberId).then(res => {
+    const getMemberById = async () => {
+        await axios.get("http://localhost:4000/members/" + memberId).then(res => {
             console.log(res.data.data)
             setmemberList(res.data.data)
+            getHouseById()
         })
     }
 
@@ -97,15 +99,15 @@ export const UpdateForm = () => {
         setProfilePhoto(e.target.value)
     }
 
-    const getRoleById = () => {
+    const getRoleById = async () => {
         console.log(userList.role)
-        axios.get("http://localhost:4000/roles/" + userList.role).then(res => {
+        await axios.get("http://localhost:4000/roles/" + userList.role).then(res => {
             console.log(res.data.data)
             setRoleById(res.data.data)
         })
     }
-    const getHouseById = () => {
-        axios.get("http://localhost:4000/houses/" + memberList.house).then(res => {
+    const getHouseById = async () => {
+        await axios.get("http://localhost:4000/houses/" + memberList.house).then(res => {
             console.log(res.data.data)
             setHouseById(res.data.data)
         })
@@ -131,13 +133,18 @@ export const UpdateForm = () => {
             alert("Please enter same password in both the fields!")
         }
         else {
+           finalmob = contactNumber===""?userList.mobileNo:contactNumber
+           finalemail = email ===""? userList.email : email
+           finalfn = firstName===""?userList.firstName:firstName
+           finalage = age===""?memberList.age:age
+           finalln = lastName===""?userList.lastName:lastName
             axios.put('http://localhost:4000/users/' + userId, user).then(res => {
                 console.log(res.status)
-                console.log("user id : ", res.data.data._id)
+                console.log("user id : ", res.data.data)
             })
             //keya - 620dd424e608c720fa0f1be8
             //jeel - 62333e880323d0522ef16c63
-            if (role === "620dd424e608c720fa0f1be8") {
+            if (role === "62333e880323d0522ef16c63") {
 
                 axios.put('http://localhost:4000/members/' + memberId, member).then(res => {
                     console.log(res)
@@ -145,8 +152,8 @@ export const UpdateForm = () => {
             }
         }
         console.log("submit called.....")
-        console.log(`email : ${email}, password : ${password},password2 : ${password2}, first name : ${firstName}, last name : ${lastName}`)
-        console.log(`contact number : ${contactNumber}, role : ${role}, profile photo : ${profilePhoto}`)
+        console.log(`email : ${finalemail}, password : ${password},password2 : ${password2}, first name : ${finalfn}, last name : ${finalln}`)
+        console.log(`contact number : ${finalmob}, role : ${role}, profile photo : ${profilePhoto}`)
         console.log(`role : ${role}`)
         //console.log(e.target)
         alert("Updated successfully!")
@@ -171,14 +178,14 @@ export const UpdateForm = () => {
                                 <label><strong>First Name</strong></label></div>
                             <div className="form-group col-md-3 my-3 mr-5 ">
                                 <input type="text" className="form-control" name="firstName" id="FirstName" defaultValue={userList.firstName}
-                                    placeholder="Enter Your First Name" required onChange={(e) => { e = null ? setFirstName(userList.firstName) : setFirstName(e.target.value) }} />
+                                    placeholder="Enter Your First Name" required onChange={(e) => {setFirstName(e.target.value) }} />
                             </div>
 
                             <div className="form-group col-md-0.1 my-3 mx-5">
                                 <label><strong>Last Name</strong></label></div>
                             <div className="form-group col-md-3 my-3">
                                 <input type="text" className="form-control" id="LastName" name="lastName" defaultValue={userList.lastName}
-                                    placeholder="Enter Your Last Name" required onChange={(e) => { e = null ? setLastName(userList.lastName) : setLastName(e.target.value) }} />
+                                    placeholder="Enter Your Last Name" required onChange={(e) => {  setLastName(e.target.value) }} />
                             </div>
 
                         </div>
@@ -188,7 +195,7 @@ export const UpdateForm = () => {
                             <label className="col-sm-2 col-form-label"><strong>Email  </strong></label>
                             <div className="col-sm-10">
                                 <input type="email" id="Email" className="form-control" name="email" defaultValue={userList.email}
-                                    placeholder="Enter Your Email" required onChange={(e) => { e = null ? setEmail(userList.email) : setEmail(e.target.value) }} />
+                                    placeholder="Enter Your Email" required onChange={(e) => {  setEmail(e.target.value) }} />
                                 <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
                             </div>
                         </div>
@@ -249,7 +256,7 @@ export const UpdateForm = () => {
                             <label className="col-sm-2 col-form-label"><strong>Age </strong></label>
                             <div className="col-sm-10">
                                 <input type="number" min="0" max="150" id="age" className="form-control" name="age" defaultValue={memberList.age}
-                                    placeholder="Enter your age" onChange={(e => { e = null ? setAge(memberList.age) : setAge(e.target.value) })} />
+                                    placeholder="Enter your age" onChange={(e => {  setAge(e.target.value) })} />
                             </div>
                         </div>
 
