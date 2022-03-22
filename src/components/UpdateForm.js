@@ -6,21 +6,10 @@ export const UpdateForm = () => {
     var memberId = useParams().id2;
     var userId = useParams().id1;
 
-
     useEffect(() => {
 
         getMemberById()
         getUserById()
-        console.log("---------------------------" + (userList) +"-------------------------")
-        console.log(memberList.house)
-        
-
-        console.log("------------------------------" + typeof(userId))
-        console.log(memberId)
-
-        return () => {
-    
-        }
 
     }, [userId, memberId])
 
@@ -35,7 +24,7 @@ export const UpdateForm = () => {
     const [profilePhoto, setProfilePhoto] = useState('')
     const [age, setAge] = useState('')
     const [house, setHouse] = useState()
-    
+
     const [roleList, setroleList] = useState([])
     const [houseList, sethouseList] = useState([])
     const [userList, setuserList] = useState([])
@@ -43,30 +32,20 @@ export const UpdateForm = () => {
     const [roleById, setRoleById] = useState([])
     const [houseById, setHouseById] = useState([])
 
-var finalemail, finalfn, finalln, finalage, finalmob;
-
-    
-
-    var member = {
-        age: finalage,
-        house: house,
-        user: userId,
-        memberName: finalfn + finalln
-    }
+    var finalemail, finalfn, finalln, finalage, finalmob;
 
     //add id 
-    const getUserById = async () => {
-        await axios.get("http://localhost:4000/users/" + userId).then(res => {
+    const getUserById = () => {
+        axios.get("http://localhost:4000/users/" + userId).then(res => {
             console.log(res.data.data)
             setuserList(res.data.data)
         })
         getRoleById()
-
     }
 
     //add id in url
-    const getMemberById = async () => {
-        await axios.get("http://localhost:4000/members/" + memberId).then(res => {
+    const getMemberById = () => {
+        axios.get("http://localhost:4000/members/" + memberId).then(res => {
             console.log(res.data.data)
             setmemberList(res.data.data)
             getHouseById()
@@ -77,11 +56,11 @@ var finalemail, finalfn, finalln, finalage, finalmob;
         //console.log(e.target.value)
         setPassword(e.target.value)
     }
+
     const confirmpasswordHandler = (e) => {
         //console.log(e.target.value)
         setPassword2(e.target.value)
     }
-
 
     const profilePhotoHandler = (e) => {
         //console.log(e.target.value)
@@ -89,16 +68,16 @@ var finalemail, finalfn, finalln, finalage, finalmob;
         setProfilePhoto(e.target.value)
     }
 
-    const getRoleById = async () => {
-        console.log(userList.role)
-        await axios.get("http://localhost:4000/roles/" + userList.role).then(res => {
-            console.log(res.data.data)
+    const getRoleById = () => {
+        //console.log(userList.role)
+        axios.get("http://localhost:4000/roles/" + userList.role).then(res => {
+            //console.log(res.data.data)
             setRoleById(res.data.data)
         })
     }
-    const getHouseById = async () => {
-        await axios.get("http://localhost:4000/houses/" + memberList.house).then(res => {
-            console.log(res.data.data)
+    const getHouseById = () => {
+        axios.get("http://localhost:4000/houses/" + memberList.house).then(res => {
+            //console.log(res.data.data)
             setHouseById(res.data.data)
         })
     }
@@ -123,33 +102,40 @@ var finalemail, finalfn, finalln, finalage, finalmob;
             alert("Please enter same password in both the fields!")
         }
         else {
-           finalmob = contactNumber===""?userList.mobileNo:contactNumber
-           finalemail = email ===""? userList.email : email
-           finalfn = firstName===""?userList.firstName:firstName
-           finalage = age===""?memberList.age:age
-           finalln = lastName===""?userList.lastName:lastName
+            finalmob = contactNumber === "" ? userList.mobileNo : contactNumber
+            finalemail = email === "" ? userList.email : email
+            finalfn = firstName === "" ? userList.firstName : firstName
+            finalage = age === "" ? memberList.age : age
+            finalln = lastName === "" ? userList.lastName : lastName
 
-           var user = {
-            email: finalemail,
-            password: password,
-            mobileNo: finalmob,
-            firstName: finalfn,
-            lastName: finalln,
-            role: role,
-            profilePhoto: profilePhoto
-        }
+            var user = {
+                email: finalemail,
+                password: password,
+                mobileNo: finalmob,
+                firstName: finalfn,
+                lastName: finalln,
+                role: role,
+                profilePhoto: profilePhoto
+            }
+
+            var member = {
+                age: finalage,
+                house: house,
+                user: userId,
+                memberName: finalfn + finalln
+            }
 
             axios.put(`http://localhost:4000/users/` + userId, user).then(res => {
                 console.log(res.status)
-                console.log("updation status :", res.data.data)
-                console.log("user id : ", res.data.data._id)
+                console.log("user updation status :", res.data.data)
             })
+
             //keya - 620dd424e608c720fa0f1be8
             //jeel - 62333e880323d0522ef16c63
-            if (role === "62333e880323d0522ef16c63") {
+            if (role === "620dd424e608c720fa0f1be8") {
 
                 axios.put(`http://localhost:4000/members/` + memberId, member).then(res => {
-                    console.log(res)
+                    console.log("member response : ", res)
                 })
             }
         }
@@ -180,14 +166,14 @@ var finalemail, finalfn, finalln, finalage, finalmob;
                                 <label><strong>First Name</strong></label></div>
                             <div className="form-group col-md-3 my-3 mr-5 ">
                                 <input type="text" className="form-control" name="firstName" id="FirstName" defaultValue={userList.firstName}
-                                    placeholder="Enter Your First Name" required onChange={(e) => {setFirstName(e.target.value) }} />
+                                    placeholder="Enter Your First Name" required onChange={(e) => { setFirstName(e.target.value) }} />
                             </div>
 
                             <div className="form-group col-md-0.1 my-3 mx-5">
                                 <label><strong>Last Name</strong></label></div>
                             <div className="form-group col-md-3 my-3">
                                 <input type="text" className="form-control" id="LastName" name="lastName" defaultValue={userList.lastName}
-                                    placeholder="Enter Your Last Name" required onChange={(e) => {  setLastName(e.target.value) }} />
+                                    placeholder="Enter Your Last Name" required onChange={(e) => { setLastName(e.target.value) }} />
                             </div>
 
                         </div>
@@ -197,7 +183,7 @@ var finalemail, finalfn, finalln, finalage, finalmob;
                             <label className="col-sm-2 col-form-label"><strong>Email  </strong></label>
                             <div className="col-sm-10">
                                 <input type="email" id="Email" className="form-control" name="email" defaultValue={userList.email}
-                                    placeholder="Enter Your Email" required onChange={(e) => {  setEmail(e.target.value) }} />
+                                    placeholder="Enter Your Email" required onChange={(e) => { setEmail(e.target.value) }} />
                                 <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
                             </div>
                         </div>
@@ -258,7 +244,7 @@ var finalemail, finalfn, finalln, finalage, finalmob;
                             <label className="col-sm-2 col-form-label"><strong>Age </strong></label>
                             <div className="col-sm-10">
                                 <input type="number" min="0" max="150" id="age" className="form-control" name="age" defaultValue={memberList.age}
-                                    placeholder="Enter your age" onChange={(e => {  setAge(e.target.value) })} />
+                                    placeholder="Enter your age" onChange={(e => { setAge(e.target.value) })} />
                             </div>
                         </div>
 

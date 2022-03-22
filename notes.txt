@@ -4,8 +4,7 @@ Tasks -
 - profile picture file upload(datatype : string) in user, visitor model - error while viewing the image(unable to load local resource) 
 - display profilePhoto in members, visitor list
 
--updateForm  : old values for profilephoto rolename housetitle print problem , password print problem,
-if value is unchanged then old value should persist in db (already coded)
+-updateForm  : old values for profilephoto rolename housetitle print problem , password print problem
 
 email address verification
 mobile number verification
