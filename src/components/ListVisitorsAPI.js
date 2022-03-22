@@ -74,8 +74,8 @@ export const ListVisitorsAPI = () => {
                                     <td>{visitor.date}</td>
                                     <td>{visitor.entryTime}</td>
                                     <td>{visitor.exitTime}</td>
-                                    <td>{visitor.isAllowed.toString() === "true" ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
-                                    <td>{visitor.isPreScheduled.toString() === "true" ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
+                                    <td>{visitor.isAllowed ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
+                                    <td>{visitor.isPreScheduled ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
                             {/*<td><img src = {visitor.profilePhoto} alt="No image"></img></td>*/}
                                     <td>{visitor.house.houseTitle}</td>
                                     <td>{visitor.visitorCategory.categoryName}</td>

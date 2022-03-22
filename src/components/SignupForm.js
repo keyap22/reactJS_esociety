@@ -41,19 +41,19 @@ export const SignupForm = () => {
         memberName: firstName + lastName
     }
 
-    var roleNameSelected
+   
 
     const roleHandler = (e) => {
         //console.log(e.target.value)
         setRole(e.target.value)
-        console.log("role name selected : ", e.target.name)
-        roleNameSelected = e.target.name
     }
 
     const profilePhotoHandler = (e) => {
-        //console.log(e.target.value)
-        //setProfilePhoto(e.target.files[0])
-        setProfilePhoto(e.target.value)
+        console.log(e.target.files[0])
+        console.log(e.target.files[0].name)
+        setProfilePhoto("D:/esociety_images/"+e.target.value)
+        console.log("D:/esociety_images/"+e.target.value)
+        //setProfilePhoto(e.target.value)
     }
 
     const displayRole = () => {
@@ -75,11 +75,25 @@ export const SignupForm = () => {
             alert("Please enter same password in both the fields!")
         }
         else {
+
+            // const data = new FormData()
+            // data.append("file", profilePhoto)
+            // data.append("upload_preset", "esociety")
+            // data.append("cloud_name","kpproject-esociety")
+            // // "http://res.cloudinary.com/kpproject-esociety/image/upload/cld-sample"
+            // axios.post("https://api.cloudinary.com/v1_1/kpproject-esociety/image/upload/",data)
+            // .then(res => 
+            //     console.log(data)
+            // )
+            // .catch(err => {
+            //     console.log(err)
+            // })
+
             axios.post('http://localhost:4000/Users/', user).then(res => {
                 console.log(res.status)
                 alert("Account created successfully!")
                 navigation('/login')
-                console.log("role name : ", roleNameSelected)
+               
                 console.log("user id : ", res.data.data._id)
                 console.log("type of user id : ", typeof (res.data.data._id))
                 console.log("type of profile photo : ", typeof (profilePhoto))
@@ -92,7 +106,7 @@ export const SignupForm = () => {
 
                 axios.post('http://localhost:4000/members/', member).then(res => {
                     console.log(res)
-                    console.log("while adding in member table : ", typeof (res.data.data.user.profilePhoto))
+                    //console.log("while adding in member table : ", typeof(res.data.data.user.profilePhoto))
                 })
             }
         }
@@ -102,7 +116,7 @@ export const SignupForm = () => {
         //roleList.roleName
         console.log(`role : ${role}`)
         //console.log(e.target)
-        alert("Submitted successfully!")
+       // alert("Submitted successfully!")
 
         //clearing out the details of the form after pressing submit button
         e.target.reset()
