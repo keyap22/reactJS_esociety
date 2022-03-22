@@ -11,6 +11,7 @@ export const UpdateForm = () => {
         getMemberById()
         getUserById()
 
+      
     }, [userId, memberId])
 
 
@@ -41,6 +42,8 @@ export const UpdateForm = () => {
             setuserList(res.data.data)
         })
         getRoleById()
+        console.log("============================================" + roleById.roleName)
+
     }
 
     //add id in url
@@ -218,8 +221,8 @@ export const UpdateForm = () => {
                         <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>Role  </strong></label>
                             <div className="col-sm-10">
-                                <select className="form-select" id="role" required defaultValue={roleById.roleName} onClick={(e) => { displayRole(e) }} onChange={(e) => { setRole(e.target.value) }}>
-                                    <option>Select your role</option>
+                                <select className="form-select" id="role" required  onClick={(e) => { displayRole(e) }} onChange={(e) => { setRole(e.target.value) }}>
+                                    <option  value={roleById._id}>{roleById.roleName}</option>
                                     {
                                         roleList.map((role) => {
 
@@ -252,7 +255,7 @@ export const UpdateForm = () => {
                             <label className="col-sm-2 col-form-label"><strong>House Title  </strong></label>
                             <div className="col-sm-10">
                                 <select className="form-select" id="house" required defaultValue={houseById.houseTitle} onClick={(e) => { displayHouse(e) }} onChange={(e) => { setHouse(e.target.value) }}>
-                                    <option>Select your house title</option>
+                                    <option value={houseById._id}>{houseById.houseTitle}</option>
                                     {
                                         houseList.map((house) => {
 
