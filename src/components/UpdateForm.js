@@ -1,8 +1,6 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router'
-import { useEffect } from 'react'
 
 export const UpdateForm = () => {
     var memberId = useParams().id2;
@@ -17,14 +15,14 @@ export const UpdateForm = () => {
         console.log(memberList.house)
         
 
-        console.log("------------------------------" + typeof (userId))
+        console.log("------------------------------" + typeof(userId))
         console.log(memberId)
 
         return () => {
     
         }
 
-    }, [])
+    }, [userId, memberId])
 
 
     const [firstName, setFirstName] = useState('')
@@ -45,23 +43,15 @@ export const UpdateForm = () => {
     const [roleById, setRoleById] = useState([])
     const [houseById, setHouseById] = useState([])
 
-let finalemail, finalfn, finalln, finalage, finalmob;
+var finalemail, finalfn, finalln, finalage, finalmob;
 
-    var user = {
-        email: finalemail,
-        password: password,
-        mobileNo: finalmob,
-        firstName: finalfn,
-        lastName: finalln,
-        role: role,
-        profilePhoto: profilePhoto
-    }
+    
 
     var member = {
         age: finalage,
         house: house,
         user: userId,
-        memberName: firstName + lastName
+        memberName: finalfn + finalln
     }
 
     //add id 
@@ -138,15 +128,27 @@ let finalemail, finalfn, finalln, finalage, finalmob;
            finalfn = firstName===""?userList.firstName:firstName
            finalage = age===""?memberList.age:age
            finalln = lastName===""?userList.lastName:lastName
-            axios.put('http://localhost:4000/users/' + userId, user).then(res => {
+
+           var user = {
+            email: finalemail,
+            password: password,
+            mobileNo: finalmob,
+            firstName: finalfn,
+            lastName: finalln,
+            role: role,
+            profilePhoto: profilePhoto
+        }
+
+            axios.put(`http://localhost:4000/users/` + userId, user).then(res => {
                 console.log(res.status)
-                console.log("user id : ", res.data.data)
+                console.log("updation status :", res.data.data)
+                console.log("user id : ", res.data.data._id)
             })
             //keya - 620dd424e608c720fa0f1be8
             //jeel - 62333e880323d0522ef16c63
             if (role === "62333e880323d0522ef16c63") {
 
-                axios.put('http://localhost:4000/members/' + memberId, member).then(res => {
+                axios.put(`http://localhost:4000/members/` + memberId, member).then(res => {
                     console.log(res)
                 })
             }
@@ -203,7 +205,7 @@ let finalemail, finalfn, finalln, finalage, finalmob;
                         <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>Password  </strong></label>
                             <div className="col-sm-10">
-                                <input type="password" id="Password1" className="form-control" name="Password1" autocomplete="off"
+                                <input type="password" id="Password1" className="form-control" name="Password1" autoComplete="off"
                                     placeholder="Create a strong password" required onChange={(e) => { passwordHandler(e) }} />
                                 <small id="passwordHelpBlock" className="form-text text-muted">
                                     Your password  MUST contain at least 8 characters,at least one uppercase letter,at least one number and at least one special character.
@@ -214,7 +216,7 @@ let finalemail, finalfn, finalln, finalage, finalmob;
                         <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>Confirm Password  </strong></label>
                             <div className="col-sm-10">
-                                <input type="password" id="Password2" className="form-control" name="Password2" autocomplete="off"
+                                <input type="password" id="Password2" className="form-control" name="Password2" autoComplete="off"
                                     placeholder="Re-enter password" required onChange={(e) => { confirmpasswordHandler(e) }} />
                             </div>
                         </div>
