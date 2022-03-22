@@ -24,22 +24,7 @@ export const SignupForm = () => {
     const [houseList, sethouseList] = useState([])
 
 
-    var user = {
-        email: email,
-        password: password,
-        mobileNo: contactNumber,
-        firstName: firstName,
-        lastName: lastName,
-        role: role,
-        profilePhoto: profilePhoto.toString()
-    }
-
-    var member = {
-        age: age,
-        house: house,
-        user: userID.toString(),
-        memberName: firstName + lastName
-    }
+    
 
    
 
@@ -51,8 +36,8 @@ export const SignupForm = () => {
     const profilePhotoHandler = (e) => {
         console.log(e.target.files[0])
         console.log(e.target.files[0].name)
-        setProfilePhoto("D:/esociety_images/"+e.target.value)
-        console.log("D:/esociety_images/"+e.target.value)
+        setProfilePhoto("D:/esociety_images/"+e.target.files[0].name)
+        console.log("D:/esociety_images/"+e.target.files[0].name)
         //setProfilePhoto(e.target.value)
     }
 
@@ -69,14 +54,37 @@ export const SignupForm = () => {
         })
     }
 
-    const submit = (e) => {
+    const addMember = async(userID) =>
+    {
+        if (role === "620dd424e608c720fa0f1be8" ) {
+            if(userID!= "")
+            {
+            
+                            var member = {
+                                age: age,
+                                house: house,
+                                
+                                user: userID,
+                                memberName: firstName + lastName
+                            }
+                
+            
+                           await axios.post('http://localhost:4000/members/', member).then(res => {
+                                console.log(res)
+                                console.log("member added ")
+                                //console.log("while adding in member table : ", typeof(res.data.data.user.profilePhoto))
+                            })
+                        }
+                    }
+
+    }
+    const submit = async (e) => {
         e.preventDefault()
         if (password !== password2) {
             alert("Please enter same password in both the fields!")
         }
         else {
-
-            // const data = new FormData()
+               // const data = new FormData()
             // data.append("file", profilePhoto)
             // data.append("upload_preset", "esociety")
             // data.append("cloud_name","kpproject-esociety")
@@ -88,8 +96,17 @@ export const SignupForm = () => {
             // .catch(err => {
             //     console.log(err)
             // })
+            var user = {
+                email: email,
+                password: password,
+                mobileNo: contactNumber,
+                firstName: firstName,
+                lastName: lastName,
+                role: role,
+                profilePhoto: profilePhoto.toString()
+            }
 
-            axios.post('http://localhost:4000/Users/', user).then(res => {
+           await axios.post('http://localhost:4000/Users/', user).then(res => {
                 console.log(res.status)
                 alert("Account created successfully!")
                 navigation('/login')
@@ -98,17 +115,17 @@ export const SignupForm = () => {
                 console.log("type of user id : ", typeof (res.data.data._id))
                 console.log("type of profile photo : ", typeof (profilePhoto))
                 setUserID(res.data.data._id)
+                addMember(userID)
             })
-
+            
+            console.log(userID.toString())
+            console.log(typeof(userID.toString()))
+            console.log("========================================" + userID)
+            console.log(typeof(userID))        
+            
             //keya - 620dd424e608c720fa0f1be8
             //jeel - "620de87cbe1ad93e25b557c9"
-            if (role === "620dd424e608c720fa0f1be8") {
-
-                axios.post('http://localhost:4000/members/', member).then(res => {
-                    console.log(res)
-                    //console.log("while adding in member table : ", typeof(res.data.data.user.profilePhoto))
-                })
-            }
+            
         }
         console.log("submit called.....")
         //console.log(`email : ${email}, password : ${password},password2 : ${password2}, first name : ${firstName}, last name : ${lastName}`)
