@@ -67,8 +67,7 @@ function App() {
         <Route path='/listvisitors' element={<ListVisitorsAPI/>}></Route>
         <Route path='listmembers/update/:id1/:id2' element={<UpdateForm/>}></Route>
         
-        <Route path="/viewimage" element={<ViewImage />}></Route>
-      </Routes>
+        </Routes>
       <Footer />
 
     </div>

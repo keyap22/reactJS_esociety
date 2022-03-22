@@ -6,9 +6,25 @@ import axios from 'axios'
 export const LoginForm = () => {
     const [email, setemail] = useState('')
     const [password, setpassword] = useState('')
+    const [role, setRole] = useState('')
+   
     const [visibility, setvisibility] = useState('')
 
+    const [roleList, setroleList] = useState([])
+    
+
     const navigation = useNavigate()
+
+    const displayRole = () => {
+        axios.get("http://localhost:4000/roles/").then(res => {
+            setroleList(res.data.data)
+        })
+    }
+
+    const roleHandler = (e) => {
+        //console.log(e.target.value)
+        setRole(e.target.value)
+    }
 
     const emailHandler = (e) => {
 
@@ -41,7 +57,7 @@ export const LoginForm = () => {
                 else {
                     JSON.parse(localStorage.getItem("email"))
                 }
-                
+
             }
             else if (res.data.status === -1) {
 
@@ -78,13 +94,29 @@ export const LoginForm = () => {
                     <form className="login-form" align="center" onSubmit={submit}>
 
                         <h4 className="align-title my-5"><strong>LOGIN</strong></h4>
+                        <div className="form-group row my-3 mr-2 mb-3">
+                            <label className="col-sm-2 col-form-label"><strong>Role  </strong></label>
+                            <div className="col-sm-9 ml-3">
+                                <select className="form-select" id="role" required onClick={(e) => { displayRole(e) }} onChange={(e) => { roleHandler(e) }}>
+                                    <option value="">Please Select</option>
+                                    {
+                                        roleList.map((role) => {
+
+                                            return (
+                                                <option value={role._id} name={role.roleName}>{role.roleName}</option>
+                                            )
+                                        })
+                                    }
+                                </select>
+                            </div>
+                        </div>
 
 
                         <div className="form-group row my-3 mr-2 mb-3 ">
                             <label htmlFor="Email" className="col-sm-2 col-form-label"><strong>Email</strong></label>
                             <div className="col-sm-9 ml-3">
                                 <input type="email" id="Email" className="form-control" name="email"
-                                    placeholder="Enter Your Email" required onChange={(e) => { emailHandler(e) }} />
+                                    placeholder="Enter Your Email"  onChange={(e) => { emailHandler(e) }} required />
                             </div>
                         </div>
 
