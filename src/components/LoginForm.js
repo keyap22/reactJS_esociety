@@ -72,10 +72,13 @@ export const LoginForm = () => {
                 if (localStorage.getItem("email") === null) {
                     localStorage.setItem('email', email)
                     localStorage.setItem("role", role)
+                    localStorage.setItem("guardID", GuardAttendances.guard)
+                    
                 }
                 else {
                     JSON.parse(localStorage.getItem("email"))
                     JSON.parse(localStorage.getItem("role"))
+                    JSON.parse(localStorage.getItem("guardID"))
                 }
                 if (role === "620c88535e051978662b0379") {
                     //security guard attendance
@@ -87,6 +90,7 @@ export const LoginForm = () => {
                     
                     axios.post('http://localhost:4000/guardAttendances/', GuardAttendances).then(res => {
                         console.log("attendance response : ",res)
+                        localStorage.setItem("guardID",GuardAttendances.guard)
                     })
                 }
                 navigation('/profile')

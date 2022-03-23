@@ -66,11 +66,11 @@ export const ChildScheduleForm = () => {
         <section id="services" className="services section-bg">
 
             <div className='mycard my-5 '>
-                <div className="form-horizontal " >
+                <div className="form-horizontal" style={{height : "750px"}}>
 
                     <form className="vehicle-form" align="center" onSubmit={submit}>
 
-                        <h4 className="align-title my-5"><strong>Add child Schedule</strong></h4>
+                        <h4 className="align-title my-5"><strong>ADD CHILD SCHEDULE</strong></h4>
 
 
                         <div className="form-group row my-3 mr-2 mb-3 ">
@@ -160,20 +160,12 @@ export const ChildScheduleForm = () => {
                             </div>
                         </div>
 
-
-
-
-
                         <div className="my-5">
                             <input type="submit" className='btn-centre' value="Add Schedule" /><br />
-
                         </div>
-
-
                     </form>
                 </div>
             </div>
         </section>
-
  )
 }

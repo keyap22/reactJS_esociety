@@ -68,7 +68,7 @@ export const ListVisitorsAPI = () => {
                         visitorList.map((visitor) => {
                             counter += 1
                             return (
-                                <tr>
+                                <tr key={visitor._id}>
                                     <th scope="row">{counter}</th>
                                     <td>{visitor.visitorName}</td>
                                     <td>{visitor.date}</td>
@@ -84,7 +84,7 @@ export const ListVisitorsAPI = () => {
                                  
                                     <td>
                                         <Link to="/listvisitors" className="btn btn-sm btn-danger mx-1" onClick={() => { deleteVisitor(visitor._id) }}><i className="bi bi-trash"></i></Link>
-                                        <Link to="/listvisitors" className="btn btn-sm btn-primary" value={visitor._id} onClick={(e) => { updateVisitor(e) }}><i className="bi bi-pencil"></i></Link>
+                                        <Link to={`/listvisitors/update/${visitor._id}`} className="btn btn-sm btn-primary" value={visitor._id} onClick={(e) => { updateVisitor(e) }}><i className="bi bi-pencil"></i></Link>
                                     </td>
                                 </tr>
                             )

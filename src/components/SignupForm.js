@@ -18,18 +18,29 @@ export const SignupForm = () => {
     const [age, setAge] = useState('')
     const [house, setHouse] = useState()
 
+    var isAdmin = false
 
     const [roleList, setroleList] = useState([])
     const [houseList, sethouseList] = useState([])
 
     var userid = ""
 
-
-
-
     const roleHandler = (e) => {
-        //console.log(e.target.value)
+        console.log("role : ",e.target.value)
+        console.log("role state : ",role)
         setRole(e.target.value)
+        
+    }
+
+    const whichRole = (e)=> {
+        if(e.target.value === "620dd50cbaf661b44817ee61"){
+            console.log("admin selected")
+            isAdmin = true
+        }
+        if(e.target.value === "620dd424e608c720fa0f1be8"){
+            console.log("society member selected")
+           // isAdmin = true
+        }  
     }
 
     const profilePhotoHandler = (e) => {
@@ -208,13 +219,14 @@ export const SignupForm = () => {
                         <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>Role  </strong></label>
                             <div className="col-sm-10">
-                                <select className="form-select" id="role" required onClick={(e) => { displayRole(e) }} onChange={(e) => { roleHandler(e) }}>
+                                <select className="form-select" id="role" required onClick={(e) => { displayRole(e) }} 
+                                onChange={(e) => { roleHandler(e) }}>
                                     <option>Select your role</option>
                                     {
                                         roleList.map((role) => {
 
                                             return (
-                                                <option key={role._id} value={role._id} name={role.roleName}>{role.roleName}</option>
+                                                <option key={role._id} value={role._id} onClick={(e) => {whichRole(e)}}>{role.roleName}</option>
                                             )
                                         })
                                     }
@@ -238,8 +250,8 @@ export const SignupForm = () => {
                             </div>
                         </div>
 
-                        <div className="form-group row my-3 mr-2 mb-3">
-                            <label className="col-sm-2 col-form-label"><strong>House Title  </strong></label>
+                        <div className={isAdmin ? "form-group row my-3 mr-2 mb-3 hidden" : "form-group row my-3 mr-2 mb-3"}>
+                            <label className={isAdmin ? "col-sm-2 col-form-label hidden" : "col-sm-2 col-form-label"}><strong>House Title  </strong></label>
                             <div className="col-sm-10">
                                 <select className="form-select" id="house" required onClick={(e) => { displayHouse(e) }} onChange={(e) => { setHouse(e.target.value) }}>
                                     <option>Select your house title</option>

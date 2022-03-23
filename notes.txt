@@ -5,15 +5,16 @@ Tasks -
 - display profilePhoto in members, visitor list
 
 -updateForm  : old values for profilephoto rolename housetitle print problem , password print problem
+- update visitor : old values for profilephoto visitorCategory housetitle print problem , isAllowed and isPrescheduled
+    (some details are not getting changed)
 
 - email address verification
 - mobile number verification
 - add field named addedBy in visitors model
 - CAPTCHA to verify the user
-- update, delete in list visitors page
 - roleName is not getting stored in localStorage
 - find if there exists any record for current security guard and at current date, if yes then not to save attendance else save the record
-
+- sign up form : fields on the basis of role selected
 
 Profiles -
 
