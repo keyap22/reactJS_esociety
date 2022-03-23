@@ -17,15 +17,15 @@ export const SignupForm = () => {
     const [profilePhoto, setProfilePhoto] = useState('')
     const [age, setAge] = useState('')
     const [house, setHouse] = useState()
-    
+
 
     const [roleList, setroleList] = useState([])
     const [houseList, sethouseList] = useState([])
 
-    var userid=""
-    
+    var userid = ""
 
-   
+
+
 
     const roleHandler = (e) => {
         //console.log(e.target.value)
@@ -35,8 +35,8 @@ export const SignupForm = () => {
     const profilePhotoHandler = (e) => {
         console.log(e.target.files[0])
         console.log(e.target.files[0].name)
-        setProfilePhoto("D:/esociety_images/"+e.target.files[0].name)
-        console.log("D:/esociety_images/"+e.target.files[0].name)
+        setProfilePhoto("D:/esociety_images/" + e.target.files[0].name)
+        console.log("D:/esociety_images/" + e.target.files[0].name)
         //setProfilePhoto(e.target.value)
     }
 
@@ -53,14 +53,14 @@ export const SignupForm = () => {
         })
     }
 
-    
+
     const submit = async (e) => {
         e.preventDefault()
         if (password !== password2) {
             alert("Please enter same password in both the fields!")
         }
         else {
-               // const data = new FormData()
+            // const data = new FormData()
             // data.append("file", profilePhoto)
             // data.append("upload_preset", "esociety")
             // data.append("cloud_name","kpproject-esociety")
@@ -82,43 +82,42 @@ export const SignupForm = () => {
                 profilePhoto: profilePhoto.toString()
             }
 
-           await axios.post('http://localhost:4000/Users/', user).then(res => {
+            await axios.post('http://localhost:4000/Users/', user).then(res => {
                 console.log(res.status)
                 alert("Account created successfully!")
                 navigation('/login')
-               
+
                 console.log("user id : ", res.data.data._id)
                 console.log("type of user id : ", typeof (res.data.data._id))
                 console.log("type of profile photo : ", typeof (profilePhoto))
-                 userid = res.data.data._id
-                
+                userid = res.data.data._id
+
             })
-            
+
             console.log("========================================" + userid)
-           
+
             //keya - 620dd424e608c720fa0f1be8
             //jeel - "620de87cbe1ad93e25b557c9"
-            if (role === "620dd424e608c720fa0f1be8" ) {
-                if(userid!== "")
-                {
-                
-                                var member = {
-                                    age: age,
-                                    house: house,
-                                    user: userid,
-                                    memberName: firstName + lastName
-                                }
-                    
-                
-                               await axios.post('http://localhost:4000/members/', member).then(res => {
-                                    console.log(res)
-                                    console.log("member added ")
-                                    //console.log("while adding in member table : ", typeof(res.data.data.user.profilePhoto))
-                                })
-                            }
-                        }
-    
-            
+            if (role === "620dd424e608c720fa0f1be8") {
+                if (userid !== "") {
+
+                    var member = {
+                        age: age,
+                        house: house,
+                        user: userid,
+                        memberName: firstName + lastName
+                    }
+
+
+                    await axios.post('http://localhost:4000/members/', member).then(res => {
+                        console.log(res)
+                        console.log("member added ")
+                        //console.log("while adding in member table : ", typeof(res.data.data.user.profilePhoto))
+                    })
+                }
+            }
+
+
         }
         console.log("submit called.....")
         //console.log(`email : ${email}, password : ${password},password2 : ${password2}, first name : ${firstName}, last name : ${lastName}`)
@@ -126,7 +125,7 @@ export const SignupForm = () => {
         //roleList.roleName
         console.log(`role : ${role}`)
         //console.log(e.target)
-       // alert("Submitted successfully!")
+        // alert("Submitted successfully!")
 
         //clearing out the details of the form after pressing submit button
         e.target.reset()
@@ -174,14 +173,15 @@ export const SignupForm = () => {
                             <label className="col-sm-2 col-form-label"><strong>Password  </strong></label>
                             <div className="col-sm-10">
                                 <input type="password" id="Password1" className="form-control" name="Password1" autoComplete="off"
-                                    placeholder="Create a strong password" required 
-                                    onChange={(e) => { setPassword(e.target.value) }} minLength="8"/>
+                                    placeholder="Create a strong password" required
+                                    onChange={(e) => { setPassword(e.target.value) }} minLength="8" />
                                 <small id="passwordHelpBlock" className="form-text text-muted">
-                                    Your password  MUST contain at least 8 characters,at least one uppercase letter,at least one number and at least one special character.
+                                    Your password  MUST contain at least 8 characters.
+                                    {/* ,at least one uppercase letter,at least one number and at least one special character. */}
                                 </small>
                                 {
-                                    password.length >=0 && password.length<8 ? "please enter password of atleast 8 characters" : ""
-                                } 
+                                    password.length >= 0 && password.length < 8 ? "please enter password of atleast 8 characters" : ""
+                                }
                             </div>
                         </div>
 
@@ -190,10 +190,10 @@ export const SignupForm = () => {
                             <div className="col-sm-10">
                                 <input type="password" id="Password2" className="form-control" name="Password2" autoComplete="off"
                                     placeholder="Re-enter password" required onChange={(e) => { setPassword2(e.target.value) }} />
-                            {
-                                password2!=password ? "Both the password should be same" : ""
-                            }
-                            
+                                {
+                                    password2 !== password ? "Both the password should be same" : ""
+                                }
+
                             </div>
                         </div>
 

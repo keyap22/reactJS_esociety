@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router'
+import { useNavigate } from 'react-router-dom'
 
 export const UpdateForm = () => {
     var memberId = useParams().id2;
     var userId = useParams().id1;
+
+    const navigation = useNavigate()
 
     useEffect(() => {
 
@@ -113,17 +116,17 @@ export const UpdateForm = () => {
 
             var user = {
                 email: finalemail,
-                password: password,
+                //password: password,
                 mobileNo: finalmob,
                 firstName: finalfn,
                 lastName: finalln,
-                role: role,
-                profilePhoto: profilePhoto
+                //role: role,
+                //profilePhoto: profilePhoto
             }
 
             var member = {
                 age: finalage,
-                house: house,
+                //house: house,
                 user: userId,
                 memberName: finalfn + finalln
             }
@@ -148,6 +151,7 @@ export const UpdateForm = () => {
         console.log(`role : ${role}`)
         //console.log(e.target)
         alert("Updated successfully!")
+        navigation('/listmembers')
 
         //clearing out the details of the form after pressing submit button
         e.target.reset()
@@ -191,7 +195,7 @@ export const UpdateForm = () => {
                             </div>
                         </div>
 
-                        <div className="form-group row my-3 mr-2 mb-3">
+                        {/* <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>Password  </strong></label>
                             <div className="col-sm-10">
                                 <input type="password" id="Password1" className="form-control" name="Password1" autoComplete="off"
@@ -208,7 +212,7 @@ export const UpdateForm = () => {
                                 <input type="password" id="Password2" className="form-control" name="Password2" autoComplete="off"
                                     placeholder="Re-enter password" required onChange={(e) => { confirmpasswordHandler(e) }} />
                             </div>
-                        </div>
+                        </div> */}
 
                         <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>Contact Number  </strong></label>
@@ -218,7 +222,7 @@ export const UpdateForm = () => {
                             </div>
                         </div>
 
-                        <div className="form-group row my-3 mr-2 mb-3">
+                        {/* <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>Role  </strong></label>
                             <div className="col-sm-10">
                                 <select className="form-select" id="role" required  onClick={(e) => { displayRole(e) }} onChange={(e) => { setRole(e.target.value) }}>
@@ -241,7 +245,7 @@ export const UpdateForm = () => {
                                 <input type="file" id="ProfilePhoto" className="form-control-file" name="profilePhoto"
                                     placeholder="Upload Your Profile Photo" onChange={(e => { profilePhotoHandler(e) })} />
                             </div>
-                        </div>
+                        </div> */}
 
                         <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>Age </strong></label>
@@ -251,7 +255,7 @@ export const UpdateForm = () => {
                             </div>
                         </div>
 
-                        <div className="form-group row my-3 mr-2 mb-3">
+                        {/* <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>House Title  </strong></label>
                             <div className="col-sm-10">
                                 <select className="form-select" id="house" required defaultValue={houseById.houseTitle} onClick={(e) => { displayHouse(e) }} onChange={(e) => { setHouse(e.target.value) }}>
@@ -267,7 +271,7 @@ export const UpdateForm = () => {
                                 </select>
 
                             </div>
-                        </div>
+                        </div> */}
 
                         <div className="form-group my-3">
                             <div className="form-check">
@@ -286,11 +290,7 @@ export const UpdateForm = () => {
                                 <input type="submit" className='btn-centre' value="Update" />
                             </div>
                         </div>
-
-
-
                     </form>
-
                 </div>
             </div>
         </section>

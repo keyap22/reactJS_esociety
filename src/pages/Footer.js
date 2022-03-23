@@ -63,11 +63,11 @@ Best SEO Service Ahmedabad | Customised Mobile Application Development | Web Hos
                             &copy; Copyright <strong><span>Unnati Informatics LLP</span></strong>. All Rights Reserved
                                                 </div>
                         {/* <div className="credits"> */}
-                        <div className="me-md-auto text-center text-md-start">
+                        {/* <div className="me-md-auto text-center text-md-start">
                             Designed by <br />
                             <a href="https://www.linkedin.com/in/keya-patel-84047a1b5/">Keya Patel </a> |
                             <a href="https://www.linkedin.com/in/jeel-jadawala/"> Jeel Jadawala</a>
-                        </div>
+                        </div> */}
                     </div>
                     <div className="social-links text-center text-md-right pt-3 pt-md-0">
                         <a href="https://in.pinterest.com/campusdeansoftware/unnati-informatics-llp-it-company/" className="pinterest" target="_blank"><i className="bx bxl-pinterest"></i></a>
