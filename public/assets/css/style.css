@@ -1370,3 +1370,5 @@ position: relative;
   background-color: #009970;
   color: white;
 }
+
+.hidden { display:none; }

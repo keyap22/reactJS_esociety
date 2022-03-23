@@ -63,17 +63,20 @@ export const LoginForm = () => {
             if (res.data.status === 200) {
                 console.log("Login successful")
                 console.log("role name in submit : ",roleName)
-                navigation('/profile')
+                
 
                 if (localStorage.getItem("email") === null) {
                     localStorage.setItem('email', email)
-                    localStorage.setItem("role", roleName)
+                    localStorage.setItem("role", role)
                 }
                 else {
                     JSON.parse(localStorage.getItem("email"))
                     JSON.parse(localStorage.getItem("role"))
                 }
-
+                if(role==="620c88535e051978662b0379"){
+                    //security guard attendance
+                }
+                navigation('/profile')
             }
             else if (res.data.status === -1) {
 

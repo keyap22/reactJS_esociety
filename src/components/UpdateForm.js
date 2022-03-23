@@ -163,7 +163,7 @@ export const UpdateForm = () => {
 
             <div className='mycard my-5 '>
                 <div className="align-items-center">
-                    <form className="form-horizontal" align="center" id="signIn" onSubmit={submit}>
+                    <form className="form-horizontal" align="center" id="signIn" style={{height : "500px"}} onSubmit={submit}>
 
                         <h3 className="align-title my-5"><strong>UPDATE DETAILS</strong></h3>
 
@@ -191,7 +191,7 @@ export const UpdateForm = () => {
                             <div className="col-sm-10">
                                 <input type="email" id="Email" className="form-control" name="email" defaultValue={userList.email}
                                     placeholder="Enter Your Email" required onChange={(e) => { setEmail(e.target.value) }} />
-                                <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+                                {/* <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small> */}
                             </div>
                         </div>
 
@@ -273,7 +273,7 @@ export const UpdateForm = () => {
                             </div>
                         </div> */}
 
-                        <div className="form-group my-3">
+                        {/* <div className="form-group my-3">
                             <div className="form-check">
                                 <input className="form-check-input" type="checkbox" value="" id="invalidCheck" required />
                                 <label className="form-check-label">
@@ -283,9 +283,9 @@ export const UpdateForm = () => {
                                     You must agree before submitting.
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
 
-                        <div className="form-grp row my-3">
+                        <div className="form-grp row my-5" style={{marginLeft:"150px"}}>
                             <div className="col-sm-10">
                                 <input type="submit" className='btn-centre' value="Update" />
                             </div>
