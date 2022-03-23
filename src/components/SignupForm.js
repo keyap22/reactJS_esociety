@@ -17,13 +17,12 @@ export const SignupForm = () => {
     const [profilePhoto, setProfilePhoto] = useState('')
     const [age, setAge] = useState('')
     const [house, setHouse] = useState()
-    const [userID, setUserID] = useState('')
-
+    
 
     const [roleList, setroleList] = useState([])
     const [houseList, sethouseList] = useState([])
 
-
+    var userid=""
     
 
    
@@ -54,30 +53,7 @@ export const SignupForm = () => {
         })
     }
 
-    const addMember = async(userID) =>
-    {
-        if (role === "620dd424e608c720fa0f1be8" ) {
-            if(userID!= "")
-            {
-            
-                            var member = {
-                                age: age,
-                                house: house,
-                                
-                                user: userID,
-                                memberName: firstName + lastName
-                            }
-                
-            
-                           await axios.post('http://localhost:4000/members/', member).then(res => {
-                                console.log(res)
-                                console.log("member added ")
-                                //console.log("while adding in member table : ", typeof(res.data.data.user.profilePhoto))
-                            })
-                        }
-                    }
-
-    }
+    
     const submit = async (e) => {
         e.preventDefault()
         if (password !== password2) {
@@ -114,17 +90,34 @@ export const SignupForm = () => {
                 console.log("user id : ", res.data.data._id)
                 console.log("type of user id : ", typeof (res.data.data._id))
                 console.log("type of profile photo : ", typeof (profilePhoto))
-                setUserID(res.data.data._id)
-                addMember(userID)
+                 userid = res.data.data._id
+                
             })
             
-            console.log(userID.toString())
-            console.log(typeof(userID.toString()))
-            console.log("========================================" + userID)
-            console.log(typeof(userID))        
-            
+            console.log("========================================" + userid)
+           
             //keya - 620dd424e608c720fa0f1be8
             //jeel - "620de87cbe1ad93e25b557c9"
+            if (role === "620dd424e608c720fa0f1be8" ) {
+                if(userid!== "")
+                {
+                
+                                var member = {
+                                    age: age,
+                                    house: house,
+                                    user: userid,
+                                    memberName: firstName + lastName
+                                }
+                    
+                
+                               await axios.post('http://localhost:4000/members/', member).then(res => {
+                                    console.log(res)
+                                    console.log("member added ")
+                                    //console.log("while adding in member table : ", typeof(res.data.data.user.profilePhoto))
+                                })
+                            }
+                        }
+    
             
         }
         console.log("submit called.....")
