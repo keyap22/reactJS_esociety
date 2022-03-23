@@ -8,11 +8,11 @@ export const LoginForm = () => {
     const [password, setpassword] = useState('')
     const [role, setRole] = useState('')
     const [roleName, setRoleName] = useState('')
-   
+
     const [visibility, setvisibility] = useState('')
 
     const [roleList, setroleList] = useState([])
-    
+
 
     const navigation = useNavigate()
 
@@ -43,11 +43,28 @@ export const LoginForm = () => {
         var id = role
         axios.get(`http://localhost:4000/roles/` + id).then(res => {
             console.log(res)
-            console.log("role name :",res.data.data.roleName)
+            console.log("role name :", res.data.data.roleName)
             setRoleName(res.data.data.roleName)
         })
-        
+
     }
+
+    const postGuardAttendances = () => {
+
+                        var currentdate = new Date();
+                        var date = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear()
+                        // setDate(date)
+
+                        var GuardAttendances = {
+                            isPresent: 'true',
+                            guard: "622729be4ceac4ee8ffb5830",
+                            date: date
+                        }
+
+                        axios.post('http://localhost:4000/guardAttendances/', GuardAttendances).then(res => {
+                            console.log(res)
+                        })
+                    }
 
     const submit = async (e) => {
 
@@ -56,14 +73,14 @@ export const LoginForm = () => {
             email: email,
             password: password
         }
-         getRoleByID()
+        getRoleByID()
 
-         await axios.post('http://localhost:4000/login/', formdata).then(res => {
+        await axios.post('http://localhost:4000/login/', formdata).then(res => {
             console.log(res)
             if (res.data.status === 200) {
                 console.log("Login successful")
-                console.log("role name in submit : ",roleName)
-                
+                console.log("role name in submit : ", roleName)
+
 
                 if (localStorage.getItem("email") === null) {
                     localStorage.setItem('email', email)
@@ -73,8 +90,9 @@ export const LoginForm = () => {
                     JSON.parse(localStorage.getItem("email"))
                     JSON.parse(localStorage.getItem("role"))
                 }
-                if(role==="620c88535e051978662b0379"){
+                if (role === "620c88535e051978662b0379") {
                     //security guard attendance
+                    postGuardAttendances()   
                 }
                 navigation('/profile')
             }
@@ -135,7 +153,7 @@ export const LoginForm = () => {
                             <label htmlFor="Email" className="col-sm-2 col-form-label"><strong>Email</strong></label>
                             <div className="col-sm-9 ml-3">
                                 <input type="email" id="Email" className="form-control" name="email"
-                                    placeholder="Enter Your Email"  onChange={(e) => { emailHandler(e) }} required />
+                                    placeholder="Enter Your Email" onChange={(e) => { emailHandler(e) }} required />
                             </div>
                         </div>
 
