@@ -7,6 +7,7 @@ export const LoginForm = () => {
     const [email, setemail] = useState('')
     const [password, setpassword] = useState('')
     const [role, setRole] = useState('')
+    const [roleName, setRoleName] = useState('')
    
     const [visibility, setvisibility] = useState('')
 
@@ -37,25 +38,40 @@ export const LoginForm = () => {
         setpassword(e.target.value)
 
     }
-    const submit = (e) => {
+
+    const getRoleByID = () => {
+        var id = role
+        axios.get(`http://localhost:4000/roles/` + id).then(res => {
+            console.log(res)
+            console.log("role name :",res.data.data.roleName)
+            setRoleName(res.data.data.roleName)
+        })
+        
+    }
+
+    const submit = async (e) => {
 
         e.preventDefault()
         var formdata = {
             email: email,
             password: password
         }
+         getRoleByID()
 
-        axios.post('http://localhost:4000/login/', formdata).then(res => {
+         await axios.post('http://localhost:4000/login/', formdata).then(res => {
             console.log(res)
             if (res.data.status === 200) {
                 console.log("Login successful")
+                console.log("role name in submit : ",roleName)
                 navigation('/profile')
 
                 if (localStorage.getItem("email") === null) {
                     localStorage.setItem('email', email)
+                    localStorage.setItem("role", roleName)
                 }
                 else {
                     JSON.parse(localStorage.getItem("email"))
+                    JSON.parse(localStorage.getItem("role"))
                 }
 
             }
@@ -103,7 +119,7 @@ export const LoginForm = () => {
                                         roleList.map((role) => {
 
                                             return (
-                                                <option value={role._id} name={role.roleName}>{role.roleName}</option>
+                                                <option key={role._id} value={role._id} name={role.roleName}>{role.roleName}</option>
                                             )
                                         })
                                     }

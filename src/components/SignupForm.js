@@ -174,10 +174,14 @@ export const SignupForm = () => {
                             <label className="col-sm-2 col-form-label"><strong>Password  </strong></label>
                             <div className="col-sm-10">
                                 <input type="password" id="Password1" className="form-control" name="Password1" autoComplete="off"
-                                    placeholder="Create a strong password" required onChange={(e) => { setPassword(e.target.value) }} />
+                                    placeholder="Create a strong password" required 
+                                    onChange={(e) => { setPassword(e.target.value) }} minLength="8"/>
                                 <small id="passwordHelpBlock" className="form-text text-muted">
                                     Your password  MUST contain at least 8 characters,at least one uppercase letter,at least one number and at least one special character.
                                 </small>
+                                {
+                                    password.length >=0 && password.length<8 ? "please enter password of atleast 8 characters" : ""
+                                } 
                             </div>
                         </div>
 
@@ -186,6 +190,10 @@ export const SignupForm = () => {
                             <div className="col-sm-10">
                                 <input type="password" id="Password2" className="form-control" name="Password2" autoComplete="off"
                                     placeholder="Re-enter password" required onChange={(e) => { setPassword2(e.target.value) }} />
+                            {
+                                password2!=password ? "Both the password should be same" : ""
+                            }
+                            
                             </div>
                         </div>
 
@@ -206,7 +214,7 @@ export const SignupForm = () => {
                                         roleList.map((role) => {
 
                                             return (
-                                                <option value={role._id} name={role.roleName}>{role.roleName}</option>
+                                                <option key={role._id} value={role._id} name={role.roleName}>{role.roleName}</option>
                                             )
                                         })
                                     }
@@ -239,7 +247,7 @@ export const SignupForm = () => {
                                         houseList.map((house) => {
 
                                             return (
-                                                <option value={house._id}>{house.houseTitle}</option>
+                                                <option key={house._id} value={house._id}>{house.houseTitle}</option>
                                             )
                                         })
                                     }

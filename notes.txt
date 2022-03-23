@@ -6,10 +6,12 @@ Tasks -
 
 -updateForm  : old values for profilephoto rolename housetitle print problem , password print problem
 
-email address verification
-mobile number verification
+- email address verification
+- mobile number verification
+- add field named addedBy in visitors model
+- CAPTCHA to verify the user
 
-add field named addedBy in visitors model
+- roleName is not getting stored in localStorage
 
 
 Profiles -

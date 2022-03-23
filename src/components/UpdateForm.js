@@ -227,7 +227,7 @@ export const UpdateForm = () => {
                                         roleList.map((role) => {
 
                                             return (
-                                                <option value={role._id}>{role.roleName}</option>
+                                                <option key={role._id} value={role._id}>{role.roleName}</option>
                                             )
                                         })
                                     }
@@ -260,7 +260,7 @@ export const UpdateForm = () => {
                                         houseList.map((house) => {
 
                                             return (
-                                                <option value={house._id}>{house.houseTitle}</option>
+                                                <option key={house._id} value={house._id}>{house.houseTitle}</option>
                                             )
                                         })
                                     }

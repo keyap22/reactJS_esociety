@@ -69,7 +69,7 @@ export const ListMembersAPI = () => {
                         memberList.map((member) => {
                             counter += 1
                             return (
-                                <tr>
+                                <tr key={member._id}>
                                     {/* <th scope="row">{member.user.firstName}</th> */}
                                     <th scope="row">{counter}</th>
                                     <td>{member.user.firstName}</td>
