@@ -49,34 +49,21 @@ export const LoginForm = () => {
 
     }
 
-    const postGuardAttendances = () => {
-
-                        var currentdate = new Date();
-                        var date = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear()
-                        // setDate(date)
-
-                        var GuardAttendances = {
-                            isPresent: 'true',
-                            guard: "622729be4ceac4ee8ffb5830",
-                            date: date
-                        }
-
-                        axios.post('http://localhost:4000/guardAttendances/', GuardAttendances).then(res => {
-                            console.log(res)
-                        })
-                    }
+    var currentdate = new Date();
+    var date = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear()
 
     const submit = async (e) => {
 
         e.preventDefault()
         var formdata = {
             email: email,
-            password: password
+            password: password,
+            role: role
         }
         getRoleByID()
 
         await axios.post('http://localhost:4000/login/', formdata).then(res => {
-            console.log(res)
+            console.log("login response : ",res)
             if (res.data.status === 200) {
                 console.log("Login successful")
                 console.log("role name in submit : ", roleName)
@@ -92,7 +79,15 @@ export const LoginForm = () => {
                 }
                 if (role === "620c88535e051978662b0379") {
                     //security guard attendance
-                    postGuardAttendances()   
+                    var GuardAttendances = {
+                        isPresent: 'true',
+                        guard: res.data.id,
+                        date: date
+                    }
+                    
+                    axios.post('http://localhost:4000/guardAttendances/', GuardAttendances).then(res => {
+                        console.log("attendance response : ",res)
+                    })
                 }
                 navigation('/profile')
             }

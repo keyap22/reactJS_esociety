@@ -12,6 +12,7 @@ Tasks -
 - CAPTCHA to verify the user
 - update, delete in list visitors page
 - roleName is not getting stored in localStorage
+- find if there exists any record for current security guard and at current date, if yes then not to save attendance else save the record
 
 
 Profiles -
