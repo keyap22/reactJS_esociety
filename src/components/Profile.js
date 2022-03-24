@@ -17,6 +17,7 @@ export const Profile = () => {
         setemail(localStorage.getItem('email'))
         setRole(localStorage.getItem('role'))
         setGuard(localStorage.getItem('guardID'))
+        setRoleName(localStorage.getItem('roleName'))
         getRoleByID()
         getGuardAttendances()
     }, [])
@@ -34,6 +35,7 @@ export const Profile = () => {
         e.preventDefault()
         localStorage.removeItem('email')
         localStorage.removeItem('role')
+        localStorage.removeItem('roleName')
         getGuardAttendances()
         navigation('/login')
     }

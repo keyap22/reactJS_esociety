@@ -23,8 +23,12 @@ export const LoginForm = () => {
     }
 
     const roleHandler = (e) => {
-        //console.log(e.target.value)
+        console.log(e.target.value)
         setRole(e.target.value)
+
+        
+        
+            
     }
 
     const emailHandler = (e) => {
@@ -39,8 +43,8 @@ export const LoginForm = () => {
 
     }
 
-    const getRoleByID = () => {
-        var id = role
+    const getRoleByID = (id) => {
+       
         axios.get(`http://localhost:4000/roles/` + id).then(res => {
             console.log(res)
             console.log("role name :", res.data.data.roleName)
@@ -60,7 +64,7 @@ export const LoginForm = () => {
             password: password,
             role: role
         }
-        getRoleByID()
+        getRoleByID(role)
 
         await axios.post('http://localhost:4000/login/', formdata).then(res => {
             console.log("login response : ",res)
@@ -72,8 +76,13 @@ export const LoginForm = () => {
                 if (localStorage.getItem("email") === null) {
                     localStorage.setItem('email', email)
                     localStorage.setItem("role", role)
+                    localStorage.setItem("roleName", roleName)
+                    console.log("-================----"+role)
+                    if (role === "620c88535e051978662b0379"){
                     localStorage.setItem("guardID", GuardAttendances.guard)
-                    
+                    console.log(GuardAttendances.guard)
+                    }
+                    navigation('/profile')
                 }
                 else {
                     JSON.parse(localStorage.getItem("email"))
