@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link,  useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 export const SignupForm = () => {
@@ -17,26 +17,43 @@ export const SignupForm = () => {
     const [profilePhoto, setProfilePhoto] = useState('')
     const [age, setAge] = useState('')
     const [house, setHouse] = useState()
+    var [showHouse , setShowHouse]=useState(false)
 
-    var isAdmin = false
-
+   
     const [roleList, setroleList] = useState([])
     const [houseList, sethouseList] = useState([])
 
     var userid = ""
 
     const roleHandler = (e) => {
-        console.log("role : ",e.target.value)
-        console.log("role state : ",role)
-        setRole(e.target.value)
+        console.log("role : "+e.target.value)
+        if(e.target.value === "620dd424e608c720fa0f1be8"){
+            console.log("society member selected")
+            setShowHouse(true)
+            
+        }
+        else if(e.target.value === "620dda4cbaf661b44817ee63")
+        {
+            console.log("chairman selected")
+            setShowHouse(true)
+            
+            
+        }
+        else
+        {
+            setShowHouse(false)
+            
+        }
+         setRole(e.target.value)
+         console.log("role state : "+role)
+
+         
+       
         
     }
 
     const whichRole = (e)=> {
-        if(e.target.value === "620dd50cbaf661b44817ee61"){
-            console.log("admin selected")
-            isAdmin = true
-        }
+        
         if(e.target.value === "620dd424e608c720fa0f1be8"){
             console.log("society member selected")
            // isAdmin = true
@@ -249,9 +266,11 @@ export const SignupForm = () => {
                                     placeholder="Enter your age" onChange={(e => { setAge(e.target.value) })} />
                             </div>
                         </div>
-
-                        <div className={isAdmin ? "form-group row my-3 mr-2 mb-3 hidden" : "form-group row my-3 mr-2 mb-3"}>
-                            <label className={isAdmin ? "col-sm-2 col-form-label hidden" : "col-sm-2 col-form-label"}><strong>House Title  </strong></label>
+                        
+                        
+{ showHouse==true?
+                        <div className= "form-group row my-3 mr-2 mb-3">
+                            <label className={ "col-sm-2 col-form-label"}><strong>House Title  </strong></label>
                             <div className="col-sm-10">
                                 <select className="form-select" id="house" required onClick={(e) => { displayHouse(e) }} onChange={(e) => { setHouse(e.target.value) }}>
                                     <option>Select your house title</option>
@@ -266,7 +285,8 @@ export const SignupForm = () => {
                                 </select>
 
                             </div>
-                        </div>
+                        </div>:<div></div>}
+                       
 
                         <div className="form-group my-3">
                             <div className="form-check">
