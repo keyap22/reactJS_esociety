@@ -58,10 +58,8 @@ export const SignupForm = () => {
     }
 
     const profilePhotoHandler = (e) => {
-        console.log(e.target.files[0])
+        setProfilePhoto( e.target.files[0].name)
         console.log(e.target.files[0].name)
-        setProfilePhoto("D:/esociety_images/" + e.target.files[0].name)
-        console.log("D:/esociety_images/" + e.target.files[0].name)
         //setProfilePhoto(e.target.value)
     }
 
