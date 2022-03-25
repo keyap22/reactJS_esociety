@@ -6,19 +6,21 @@ export const Profile = () => {
     const [email, setemail] = useState('')
     const [role, setRole] = useState('')
     const [roleName, setRoleName] = useState('')
+    const [counter , setCounter] = useState(0)
     //const [guard, setGuard] = useState('')
     //const [guardAttendanceList, setGuardAttendanceList] = useState()
 
     var isLogin = false
 
     const navigation = useNavigate()
-    var guard
+    var guardID=""
     var guardAttendanceList = []
 
     useEffect(() => {
         setemail(localStorage.getItem('email'))
         setRole(localStorage.getItem('role'))
-        guard =  localStorage.getItem('guardID');
+        guardID =  localStorage.getItem('guardID');
+        console.log("guardid in profile :" +guardID)
         setRoleName(localStorage.getItem('roleName'))
         getRoleByID()
         getGuardAttendances()
@@ -41,30 +43,31 @@ export const Profile = () => {
         getGuardAttendances()
         navigation('/login')
     }
-    var counter = 0
-    //var guard = localStorage.getItem('guardID')
+   
+   
     const getGuardAttendances = () => {
 
-        axios.get('http://localhost:4000/guardAttendances/').then(res => {
-            console.log("get guard attendances response : ",res.data.data)
+        axios.get(`http://localhost:4000/guardAttendances/` ).then(res => {
+            console.log("get guard attendances response : "+res.data.data)
             guardAttendanceList = res.data.data
             //console.log("guard id via response : ", res.data.data.guard)
-            console.log("guard id via local storage : ", localStorage.getItem('guardID'))
+            console.log("guard id via local storage : ", guardID)
             console.log("guard attendance list : ", guardAttendanceList)
-            countAttendance()
+             countAttendance()
         })
     }
 
-    function countAttendance(){
-        guardAttendanceList.map((attendance) => {
-            console.log("in map")
-            console.log("attendance guard : ",attendance.guard)
-            console.log("guard : ",guard)
-            if (attendance.guard === guard) {
-                counter += 1
-                console.log("counter : ",counter)
-            }
-       })
+    const countAttendance=()=>{
+
+guardAttendanceList.forEach(attendance => {
+    console.log("attendance guard : ",attendance.guard._id)
+    if (attendance.guard._id === guardID) {
+        setCounter(counter+1)
+           }
+           
+});
+
+    
     }
 
     return (

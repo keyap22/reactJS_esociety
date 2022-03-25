@@ -36,6 +36,7 @@ export const LoginForm = () => {
     var currentdate = new Date();
     var date = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear()
 
+    //find particular guard using userID
     const postSecurityGuard = async() => {
 
         var formData = {
@@ -47,6 +48,7 @@ export const LoginForm = () => {
             console.log("guard id : ", res.data.id)
             guardId = res.data.id
             setGuardID(res.data.id)
+            localStorage.setItem("guardID",res.data.id)
             console.log("after setting guard id : ", guardId)
         })
     }
