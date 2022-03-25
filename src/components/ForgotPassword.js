@@ -2,17 +2,11 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate, Link } from 'react-router-dom'
 
-var userID = ""
+
 export const ForgotPassword = () => {
 
-  
+  var userID = ""
   const navigation = useNavigate()
-
-  // useEffect(() => {
-
-  //   getUserById()
-
-  // }, [userId])
 
   const [password, setPassword] = useState('')
   const [password2, setPassword2] = useState('')
@@ -21,25 +15,23 @@ export const ForgotPassword = () => {
   const [userList, setUserList] = useState('')
   const [haveEmail, setHaveEmail] = useState(false)
 
- 
-
   const findUserByEmail = () => {
-    var formdata ={
-email : email
+    var formdata = {
+      email: email
     }
     console.log("email before post request :", email)
-    axios.post("http://localhost:4000/forgotpwd/" ,formdata).then(res => {
+    axios.post("http://localhost:4000/forgotpwd/", formdata).then(res => {
       console.log("User found successfully!")
-      console.log("response : ",res)
+      console.log("response : ", res)
       console.log("user id :", res.data.data._id)
       userID = res.data.data._id
 
       console.log("found user status :", res.data.data)
-      console.log("=======================================================" + userID)
+      console.log("userID : " + userID)
       setUserList(res.data.data)
-      setUserId(res.data.data._id)
-      console.log("=======================================================" + userId)
-      
+      setUserId(userID)
+      console.log("after setting userId : " + userId)
+
       setHaveEmail(true)
     })
   }
@@ -61,7 +53,7 @@ email : email
     }
     else {
       var user = {
-        email : userList.email,
+        email: userList.email,
         password: password,
         mobileNo: userList.mobileNo,
         firstName: userList.firstName,
@@ -69,16 +61,19 @@ email : email
         role: userList.role,
         profilePhoto: userList.profilePhoto
       }
-console.log("==================================="+userID)
-      axios.put(`http://localhost:4000/users/` + userID, user).then(res => {
+      console.log("===================================" + userId)
+      console.log(`http://localhost:4000/users/`+userId)
+      axios.put(`http://localhost:4000/users/`+userId, user).then(res => {
         console.log(res.status)
         console.log("user updation status :", res.data.data)
+        console.log("user in put method : ",user)
+        alert("Password updated successfully!")
       })
     }
     console.log("submit called.....")
     console.log(`password : ${password},password2 : ${password2}`)
-    alert("Password updated successfully!")
-  //  navigation('/login')
+    
+    //  navigation('/login')
   }
 
   const getEmail = (e) => {
@@ -86,95 +81,90 @@ console.log("==================================="+userID)
     e.preventDefault()
 
     findUserByEmail()
-    // axios.get(`http://localhost:4000/users/` + email).then(res => {
-    //   console.log(res.status)
-    //   console.log("found user status :", res.data.data)
-    //   setUserList(res.data.data)
-    // })
-  console.log("email id received.....")
-  console.log("email passed : ",email)
   
-  
-  //navigation('/login')
-}
+    console.log("email id received.....")
+    console.log("email passed : ", email)
 
-return (
-  <>
+    //navigation('/login')
+  }
 
-    <section id="services" className="services section-bg">
+  return (
+    <>
 
-      <div className='mycard my-5 '>
-        <div className="align-items-center">
+      <section id="services" className="services section-bg">
 
-          <form className="form-horizontal" align="center" id="signIn" style={{ height: "380px", display: `${haveEmail ? "none" : "block"}` }} onSubmit={getEmail}>
-            
-          <h3 className="align-title my-5"><strong>RESET PASSWORD</strong></h3>
-            <div className="form-row"></div>
+        <div className='mycard my-5 '>
+          <div className="align-items-center">
 
-            <div className="form-group row my-3 mr-2 mb-3">
-              <label className="col-sm-2 col-form-label"><strong>Email  </strong></label>
-              <div className="col-sm-10">
-                <input type="email" id="email" className="form-control" name="Email"
-                  placeholder="Enter your email address" required onChange={(e) => { setEmail(e.target.value) }} />
+            <form className="form-horizontal" align="center" id="emailForm" style={{ height: "380px", display: `${haveEmail ? "none" : "block"}` }} onSubmit={getEmail}>
+
+              <h3 className="align-title my-5"><strong>RESET PASSWORD</strong></h3>
+              <div className="form-row"></div>
+
+              <div className="form-group row my-3 mr-2 mb-3">
+                <label className="col-sm-2 col-form-label"><strong>Email  </strong></label>
+                <div className="col-sm-10">
+                  <input type="email" id="email" className="form-control" name="Email"
+                    placeholder="Enter your email address" required onChange={(e) => { setEmail(e.target.value) }} />
+                </div>
               </div>
-            </div>
 
-            <div className="form-grp row my-5" style={{ marginLeft: "150px" }}>
-              <div className="col-sm-10">
-                <input type="submit" className='btn-centre' value="Continue" />
-                {/* onChange={setHaveEmail(true)}  */}
+              <div className="form-grp row my-5" style={{ marginLeft: "150px" }}>
+                <div className="col-sm-10">
+                  <input type="submit" className='btn-centre' value="Continue" />
+                  {/* onChange={setHaveEmail(true)}  */}
+                </div>
               </div>
-            </div>
 
-            <div className="form-grp row">
-              <div className="col-sm-12">
-                Remember Password?
+              <div className="form-grp row">
+                <div className="col-sm-12">
+                  Remember Password?
                                 <Link to="/login"> Login</Link>
+                </div>
               </div>
-            </div>
-          </form>
+            </form>
 
-          {haveEmail ? <form className="form-horizontal" align="center" id="signIn" style={{ height: "480px", display: `${haveEmail ? "block" : "none"}` }} onSubmit={submit}>
+            {haveEmail ? <form className="form-horizontal" align="center" id="passwordForm" style={{ height: "480px", display: `${haveEmail ? "block" : "none"}` }} onSubmit={submit}>
 
-            <h3 className="align-title my-5"><strong>RESET PASSWORD</strong></h3>
+              <h3 className="align-title my-5"><strong>RESET PASSWORD</strong></h3>
 
 
-            <div className="form-group row my-3 mr-2 mb-3">
-              <label className="col-sm-2 col-form-label"><strong>Password  </strong></label>
-              <div className="col-sm-10">
-                <input type="password" id="Password1" className="form-control" name="Password1" autoComplete="off"
-                  placeholder="Create a strong password" required onChange={(e) => { passwordHandler(e) }} />
-                <small id="passwordHelpBlock" className="form-text text-muted">
-                  Your password  MUST contain at least 8 characters,at least one uppercase letter,at least one number and at least one special character.
+              <div className="form-group row my-3 mr-2 mb-3">
+                <label className="col-sm-2 col-form-label"><strong>Password  </strong></label>
+                <div className="col-sm-10">
+                  <input type="password" id="Password1" className="form-control" name="Password1" autoComplete="off"
+                    placeholder="Create a strong password" required onChange={(e) => { passwordHandler(e) }} />
+                  <small id="passwordHelpBlock" className="form-text text-muted">
+                    Your password  MUST contain at least 8 characters,at least one uppercase letter,at least one number and at least one special character.
                 </small>
+                </div>
               </div>
-            </div>
 
-            <div className="form-group row my-3 mr-2 mb-3">
-              <label className="col-sm-2 col-form-label"><strong>Confirm Password  </strong></label>
-              <div className="col-sm-10">
-                <input type="password" id="Password2" className="form-control" name="Password2" autoComplete="off"
-                  placeholder="Re-enter password" required onChange={(e) => { confirmpasswordHandler(e) }} />
+              <div className="form-group row my-3 mr-2 mb-3">
+                <label className="col-sm-2 col-form-label"><strong>Confirm Password  </strong></label>
+                <div className="col-sm-10">
+                  <input type="password" id="Password2" className="form-control" name="Password2" autoComplete="off"
+                    placeholder="Re-enter password" required onChange={(e) => { confirmpasswordHandler(e) }} />
+                </div>
               </div>
-            </div>
 
-            <div className="form-grp row my-5" style={{ marginLeft: "150px" }}>
-              <div className="col-sm-10">
-                <input type="submit" className='btn-centre' value="Update Password" />
+              <div className="form-grp row my-5" style={{ marginLeft: "150px" }}>
+                <div className="col-sm-10">
+                  <input type="submit" className='btn-centre' value="Update Password" />
+                </div>
               </div>
-            </div>
 
-            <div className="form-grp row">
-              <div className="col-sm-12">
-                Remember Password?
+              <div className="form-grp row">
+                <div className="col-sm-12">
+                  Remember Password?
                                 <Link to="/login"> Login</Link>
+                </div>
               </div>
-            </div>
 
-          </form> : ""}
+            </form> : ""}
+          </div>
         </div>
-      </div>
-    </section>
-  </>
-)
+      </section>
+    </>
+  )
 }

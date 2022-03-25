@@ -1,10 +1,8 @@
 Tasks -
 
 - add validations in form(signup, login)
-- profile picture file upload(datatype : string) in user, visitor model - error while viewing the image(unable to load local resource) 
-- display profilePhoto in members, visitor list
 
--updateForm  : old values for profilephoto rolename housetitle print problem , password print problem
+- updateForm  : old values for profilephoto rolename housetitle print problem
 - update visitor : old values for profilephoto visitorCategory housetitle print problem , isAllowed and isPrescheduled
     
 - email address verification
@@ -19,21 +17,3 @@ Security guard - their attendance record, list of pre scheduled visitors, member
 admin - CRUD operation in user
 chairman - 
 society member - their visitor's list, pre-schedule their visitor, accept or reject runtime visitor, add child schedule
-
-
-
-
-if (req.body.firstName == undefined) {
-        //let param_email = req.body.email
-        
-        console.log("param email", email)
-        //UserModel.create({})
-        UserModel.findOneAndUpdate({ email: param_email },{"password": password}, function (err, data) {
-            if (err) {
-                res.json({ msg: "user with given mail id not found", status: -1, data: err })
-            }
-            else {
-                res.json({ msg: "user is found successfully", status: 200, data: data })
-            }
-        })
-    }
