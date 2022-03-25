@@ -49,17 +49,13 @@ export const SignupForm = () => {
         
     }
 
-    const whichRole = (e)=> {
-        
-        if(e.target.value === "620dd424e608c720fa0f1be8"){
-            console.log("society member selected")
-           // isAdmin = true
-        }  
-    }
+    
 
     const profilePhotoHandler = (e) => {
-        setProfilePhoto( e.target.files[0].name)
         console.log(e.target.files[0].name)
+
+        setProfilePhoto( e.target.files[0].name)
+        
         //setProfilePhoto(e.target.value)
     }
 
@@ -238,7 +234,7 @@ export const SignupForm = () => {
                                         roleList.map((role) => {
 
                                             return (
-                                                <option key={role._id} value={role._id} onClick={(e) => {whichRole(e)}}>{role.roleName}</option>
+                                                <option key={role._id} value={role._id} >{role.roleName}</option>
                                             )
                                         })
                                     }
@@ -251,6 +247,10 @@ export const SignupForm = () => {
                             <div className="col-sm-10">
                                 <input type="file" id="ProfilePhoto" className="form-control-file" name="profilePhoto"
                                     placeholder="Upload Your Profile Photo" onChange={(e => { profilePhotoHandler(e) })} />
+                                     {
+                                    profilePhoto.includes(".png") || profilePhoto.includes(".jpg") ||profilePhoto.includes(".jpeg") ?  "":"Please enter valid image" 
+                                }
+
                             </div>
                         </div>
 
