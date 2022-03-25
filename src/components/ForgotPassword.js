@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate, Link } from 'react-router-dom'
 
+var userID = ""
 export const ForgotPassword = () => {
 
+  
   const navigation = useNavigate()
 
   // useEffect(() => {
@@ -19,17 +21,26 @@ export const ForgotPassword = () => {
   const [userList, setUserList] = useState('')
   const [haveEmail, setHaveEmail] = useState(false)
 
+ 
+
   const findUserByEmail = () => {
+    var formdata ={
+email : email
+    }
     console.log("email before post request :", email)
-    axios.post("http://localhost:4000/users/" ,email).then(res => {
+    axios.post("http://localhost:4000/forgotpwd/" ,formdata).then(res => {
       console.log("User found successfully!")
       console.log("response : ",res)
-      //console.log("user id :", res.data.data._id)
-      //setUserId(res.data.data._id)
+      console.log("user id :", res.data.data._id)
+      userID = res.data.data._id
 
       console.log("found user status :", res.data.data)
-      //setUserList(res.data.data)
-      //setHaveEmail(true)
+      console.log("=======================================================" + userID)
+      setUserList(res.data.data)
+      setUserId(res.data.data._id)
+      console.log("=======================================================" + userId)
+      
+      setHaveEmail(true)
     })
   }
 
@@ -58,8 +69,8 @@ export const ForgotPassword = () => {
         role: userList.role,
         profilePhoto: userList.profilePhoto
       }
-
-      axios.put(`http://localhost:4000/users/` + userId, user).then(res => {
+console.log("==================================="+userID)
+      axios.put(`http://localhost:4000/users/` + userID, user).then(res => {
         console.log(res.status)
         console.log("user updation status :", res.data.data)
       })
@@ -67,7 +78,7 @@ export const ForgotPassword = () => {
     console.log("submit called.....")
     console.log(`password : ${password},password2 : ${password2}`)
     alert("Password updated successfully!")
-    navigation('/login')
+  //  navigation('/login')
   }
 
   const getEmail = (e) => {
