@@ -46,9 +46,6 @@ export const SignupForm = () => {
         }
          setRole(e.target.value)
          console.log("role state : "+role)
-
-         
-       
         
     }
 
@@ -268,7 +265,7 @@ export const SignupForm = () => {
                         </div>
                         
                         
-{ showHouse==true?
+{ showHouse===true?
                         <div className= "form-group row my-3 mr-2 mb-3">
                             <label className={ "col-sm-2 col-form-label"}><strong>House Title  </strong></label>
                             <div className="col-sm-10">

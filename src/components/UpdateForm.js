@@ -14,15 +14,13 @@ export const UpdateForm = () => {
         getMemberById()
         getUserById()
 
-      
+
     }, [userId, memberId])
 
 
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [password2, setPassword2] = useState('')
     const [contactNumber, setContactNumber] = useState('')
     const [role, setRole] = useState('')
     const [profilePhoto, setProfilePhoto] = useState('')
@@ -58,20 +56,10 @@ export const UpdateForm = () => {
         })
     }
 
-    const passwordHandler = (e) => {
-        //console.log(e.target.value)
-        setPassword(e.target.value)
-    }
-
-    const confirmpasswordHandler = (e) => {
-        //console.log(e.target.value)
-        setPassword2(e.target.value)
-    }
-
     const profilePhotoHandler = (e) => {
         //console.log(e.target.value)
-        //setProfilePhoto(e.target.files[0])
-        setProfilePhoto(e.target.value)
+        setProfilePhoto(e.target.files[0].name)
+        //setProfilePhoto(e.target.value)
     }
 
     const getRoleById = () => {
@@ -104,49 +92,47 @@ export const UpdateForm = () => {
 
     const submit = (e) => {
         e.preventDefault()
-        if (password !== password2) {
-            alert("Please enter same password in both the fields!")
+
+
+        finalmob = contactNumber === "" ? userList.mobileNo : contactNumber
+        finalemail = email === "" ? userList.email : email
+        finalfn = firstName === "" ? userList.firstName : firstName
+        finalage = age === "" ? memberList.age : age
+        finalln = lastName === "" ? userList.lastName : lastName
+
+        var user = {
+            email: finalemail,
+            password : userList.password,
+            mobileNo: finalmob,
+            firstName: finalfn,
+            lastName: finalln,
+            role: role,
+            profilePhoto: profilePhoto
         }
-        else {
-            finalmob = contactNumber === "" ? userList.mobileNo : contactNumber
-            finalemail = email === "" ? userList.email : email
-            finalfn = firstName === "" ? userList.firstName : firstName
-            finalage = age === "" ? memberList.age : age
-            finalln = lastName === "" ? userList.lastName : lastName
 
-            var user = {
-                email: finalemail,
-                //password: password,
-                mobileNo: finalmob,
-                firstName: finalfn,
-                lastName: finalln,
-                //role: role,
-                //profilePhoto: profilePhoto
-            }
+        var member = {
+            age: finalage,
+            house: house,
+            user: userId,
+            memberName: finalfn + finalln
+        }
 
-            var member = {
-                age: finalage,
-                //house: house,
-                user: userId,
-                memberName: finalfn + finalln
-            }
+        axios.put(`http://localhost:4000/users/` + userId, user).then(res => {
+            console.log(res.status)
+            console.log("user updation status :", res.data.data)
+        })
 
-            axios.put(`http://localhost:4000/users/` + userId, user).then(res => {
-                console.log(res.status)
-                console.log("user updation status :", res.data.data)
+        //keya - 620dd424e608c720fa0f1be8
+        //jeel - 62333e880323d0522ef16c63
+        if (role === "620dd424e608c720fa0f1be8") {
+
+            axios.put(`http://localhost:4000/members/` + memberId, member).then(res => {
+                console.log("member response : ", res)
             })
-
-            //keya - 620dd424e608c720fa0f1be8
-            //jeel - 62333e880323d0522ef16c63
-            if (role === "620dd424e608c720fa0f1be8") {
-
-                axios.put(`http://localhost:4000/members/` + memberId, member).then(res => {
-                    console.log("member response : ", res)
-                })
-            }
         }
+
         console.log("submit called.....")
-        console.log(`email : ${finalemail}, password : ${password},password2 : ${password2}, first name : ${finalfn}, last name : ${finalln}`)
+        console.log(`email : ${finalemail}, first name : ${finalfn}, last name : ${finalln}`)
         console.log(`contact number : ${finalmob}, role : ${role}, profile photo : ${profilePhoto}`)
         console.log(`role : ${role}`)
         //console.log(e.target)
@@ -156,14 +142,13 @@ export const UpdateForm = () => {
         //clearing out the details of the form after pressing submit button
         e.target.reset()
     }
-    //}
 
     return (
         <section id="services" className="services section-bg">
 
             <div className='mycard my-5 '>
                 <div className="align-items-center">
-                    <form className="form-horizontal" align="center" id="signIn" style={{height : "500px"}} onSubmit={submit}>
+                    <form className="form-horizontal" align="center" id="signIn" style={{ height: "800px" }} onSubmit={submit}>
 
                         <h3 className="align-title my-5"><strong>UPDATE DETAILS</strong></h3>
 
@@ -195,24 +180,6 @@ export const UpdateForm = () => {
                             </div>
                         </div>
 
-                        {/* <div className="form-group row my-3 mr-2 mb-3">
-                            <label className="col-sm-2 col-form-label"><strong>Password  </strong></label>
-                            <div className="col-sm-10">
-                                <input type="password" id="Password1" className="form-control" name="Password1" autoComplete="off"
-                                    placeholder="Create a strong password" required onChange={(e) => { passwordHandler(e) }} />
-                                <small id="passwordHelpBlock" className="form-text text-muted">
-                                    Your password  MUST contain at least 8 characters,at least one uppercase letter,at least one number and at least one special character.
-                                </small>
-                            </div>
-                        </div>
-
-                        <div className="form-group row my-3 mr-2 mb-3">
-                            <label className="col-sm-2 col-form-label"><strong>Confirm Password  </strong></label>
-                            <div className="col-sm-10">
-                                <input type="password" id="Password2" className="form-control" name="Password2" autoComplete="off"
-                                    placeholder="Re-enter password" required onChange={(e) => { confirmpasswordHandler(e) }} />
-                            </div>
-                        </div> */}
 
                         <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>Contact Number  </strong></label>
@@ -222,11 +189,11 @@ export const UpdateForm = () => {
                             </div>
                         </div>
 
-                        {/* <div className="form-group row my-3 mr-2 mb-3">
+                        <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>Role  </strong></label>
                             <div className="col-sm-10">
-                                <select className="form-select" id="role" required  onClick={(e) => { displayRole(e) }} onChange={(e) => { setRole(e.target.value) }}>
-                                    <option  value={roleById._id}>{roleById.roleName}</option>
+                                <select className="form-select" id="role" required onClick={(e) => { displayRole(e) }} onChange={(e) => { setRole(e.target.value) }}>
+                                    <option value={roleById._id}>{roleById.roleName}</option>
                                     {
                                         roleList.map((role) => {
 
@@ -245,7 +212,7 @@ export const UpdateForm = () => {
                                 <input type="file" id="ProfilePhoto" className="form-control-file" name="profilePhoto"
                                     placeholder="Upload Your Profile Photo" onChange={(e => { profilePhotoHandler(e) })} />
                             </div>
-                        </div> */}
+                        </div>
 
                         <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>Age </strong></label>
@@ -255,7 +222,7 @@ export const UpdateForm = () => {
                             </div>
                         </div>
 
-                        {/* <div className="form-group row my-3 mr-2 mb-3">
+                        <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>House Title  </strong></label>
                             <div className="col-sm-10">
                                 <select className="form-select" id="house" required defaultValue={houseById.houseTitle} onClick={(e) => { displayHouse(e) }} onChange={(e) => { setHouse(e.target.value) }}>
@@ -271,7 +238,7 @@ export const UpdateForm = () => {
                                 </select>
 
                             </div>
-                        </div> */}
+                        </div>
 
                         {/* <div className="form-group my-3">
                             <div className="form-check">
@@ -285,7 +252,7 @@ export const UpdateForm = () => {
                             </div>
                         </div> */}
 
-                        <div className="form-grp row my-5" style={{marginLeft:"150px"}}>
+                        <div className="form-grp row my-5" style={{ marginLeft: "150px" }}>
                             <div className="col-sm-10">
                                 <input type="submit" className='btn-centre' value="Update" />
                             </div>
