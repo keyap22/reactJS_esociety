@@ -73,10 +73,9 @@ export const VisitorForm = () => {
     }
 
     const profilePhotoHandler = (e) => {
-        //console.log(e.target.value)
-        //setProfilePhoto(e.target.files[0])
-        setProfilePhoto(e.target.value)
-    }
+        console.log(e.target.files[0].name)
+        setProfilePhoto(e.target.files[0].name)
+        }
 
     const isPreScheduledHandler = (e) => {
         setIsPreScheduled(e.target.value)
@@ -257,6 +256,9 @@ export const VisitorForm = () => {
                             <div className="col-sm-10">
                                 <input type="file" id="ProfilePhoto" className="form-control-file" name="profilePhoto"
                                     placeholder="Upload Visitor Profile Photo" onChange={(e => { profilePhotoHandler(e) })} />
+                                     {
+                                    profilePhoto.includes(".png") || profilePhoto.includes(".jpg") ||profilePhoto.includes(".jpeg") ?  "":"Please enter valid image" 
+                                }
                             </div>
                         </div>
 

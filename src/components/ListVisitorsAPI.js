@@ -55,7 +55,7 @@ export const ListVisitorsAPI = () => {
                         <th scope="col">Exit Time</th>
                         <th scope="col">Allowed</th>
                         <th scope="col">Prescheduled</th>
-                        {/*<th scope="col">Image</th>*/}
+                        <th scope="col">Image</th>
                         <th scope="col">House</th>
                         <th scope="col">Category</th>
                         <th scope="col">Purpose</th>
@@ -76,7 +76,7 @@ export const ListVisitorsAPI = () => {
                                     <td>{visitor.exitTime}</td>
                                     <td>{visitor.isAllowed ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
                                     <td>{visitor.isPreScheduled ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
-                            {/*<td><img src = {visitor.profilePhoto} alt="No image"></img></td>*/}
+                            <td><img src = {visitor.profilePhoto} alt="No image"></img></td>
                                     <td>{visitor.house.houseTitle}</td>
                                     <td>{visitor.visitorCategory.categoryName}</td>
                                     <td>{visitor.purpose}</td>
