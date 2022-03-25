@@ -82,14 +82,14 @@ export const LoginForm = () => {
                         //security guard attendance
                         postSecurityGuard()
 
-                        if (guardId !== "") {
+                        if (localStorage.getItem("guardID")!== "") {
 
                             var GuardAttendances = {
                                 isPresent: 'true',
-                                guard: guardId,
+                                guard: localStorage.getItem("guardID"),
                                 date: date
                             }
-                            console.log("before post, guard id : ", GuardAttendances.guard)
+                            console.log("before post, guard id : ", localStorage.getItem("guardID"))
                             axios.post('http://localhost:4000/guardAttendances/', GuardAttendances).then(res => {
                                 console.log("attendance response : ", res)
 

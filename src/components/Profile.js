@@ -6,7 +6,7 @@ export const Profile = () => {
     const [email, setemail] = useState('')
     const [role, setRole] = useState('')
     const [roleName, setRoleName] = useState('')
-    const [counter , setCounter] = useState(0)
+    var [counter , setCounter] = useState(0)
     //const [guard, setGuard] = useState('')
     //const [guardAttendanceList, setGuardAttendanceList] = useState()
 
