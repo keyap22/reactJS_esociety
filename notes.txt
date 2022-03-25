@@ -1,7 +1,6 @@
 Tasks -
 
 - add validations in form(signup, login)
-
 - updateForm  : old values for profilephoto rolename housetitle print problem
 - update visitor : old values for profilephoto visitorCategory housetitle print problem , isAllowed and isPrescheduled
     
@@ -10,6 +9,8 @@ Tasks -
 - add field named addedBy in visitors model
 - CAPTCHA to verify the user
 - find if there exists any record for current security guard and at current date, if yes then not to save attendance else save the record
+- if new user enters mail id which is currently used by another user, then print("enter different mail address") 
+- password validation : one uppercase, lowercase,digit, special character
 
 Profiles -
 
