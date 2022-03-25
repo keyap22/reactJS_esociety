@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import { Link,  useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 export const SignupForm = () => {
@@ -17,46 +17,40 @@ export const SignupForm = () => {
     const [profilePhoto, setProfilePhoto] = useState('')
     const [age, setAge] = useState('')
     const [house, setHouse] = useState()
-    var [showHouse , setShowHouse]=useState(false)
+    const [dutyStartingTime, setDutyStartingTime] = useState('')
+    const [dutyEndingTime, setDutyEndingTime] = useState('')
+    var [isMember, setIsMember] = useState(false)
+    var [isGuard, setIsGuard] = useState(false)
 
-   
     const [roleList, setroleList] = useState([])
     const [houseList, sethouseList] = useState([])
 
     var userid = ""
 
     const roleHandler = (e) => {
-        console.log("role : "+e.target.value)
-        if(e.target.value === "620dd424e608c720fa0f1be8"){
-            console.log("society member selected")
-            setShowHouse(true)
-            
-        }
-        else if(e.target.value === "620dda4cbaf661b44817ee63")
-        {
-            console.log("chairman selected")
-            setShowHouse(true)
-            
-            
-        }
-        else
-        {
-            setShowHouse(false)
-            
-        }
-         setRole(e.target.value)
-         console.log("role state : "+role)
-        
-    }
+        console.log("role : " + e.target.value)
 
-    
+        if (e.target.value === "620dd424e608c720fa0f1be8") {
+            console.log("society member selected")
+            setIsMember(true)
+            setIsGuard(false)
+        }
+        else if (e.target.value === "620c88535e051978662b0379") {
+            console.log("security guard selected")
+            setIsGuard(true)
+            setIsMember(false)
+        }
+        else {
+             setIsGuard(false)
+             setIsMember(false)
+        }
+        setRole(e.target.value)
+        console.log("role state : " + role)
+    }
 
     const profilePhotoHandler = (e) => {
         console.log(e.target.files[0].name)
-
-        setProfilePhoto( e.target.files[0].name)
-        
-        //setProfilePhoto(e.target.value)
+        setProfilePhoto(e.target.files[0].name)
     }
 
     const displayRole = () => {
@@ -79,18 +73,7 @@ export const SignupForm = () => {
             alert("Please enter same password in both the fields!")
         }
         else {
-            // const data = new FormData()
-            // data.append("file", profilePhoto)
-            // data.append("upload_preset", "esociety")
-            // data.append("cloud_name","kpproject-esociety")
-            // // "http://res.cloudinary.com/kpproject-esociety/image/upload/cld-sample"
-            // axios.post("https://api.cloudinary.com/v1_1/kpproject-esociety/image/upload/",data)
-            // .then(res => 
-            //     console.log(data)
-            // )
-            // .catch(err => {
-            //     console.log(err)
-            // })
+            
             var user = {
                 email: email,
                 password: password,
@@ -103,7 +86,7 @@ export const SignupForm = () => {
 
             await axios.post('http://localhost:4000/Users/', user).then(res => {
                 console.log(res.status)
-                alert("Account created successfully!")
+                alert("User account created successfully!")
                 navigation('/login')
 
                 console.log("user id : ", res.data.data._id)
@@ -115,8 +98,7 @@ export const SignupForm = () => {
 
             console.log("========================================" + userid)
 
-            //keya - 620dd424e608c720fa0f1be8
-            //jeel - "620de87cbe1ad93e25b557c9"
+
             if (role === "620dd424e608c720fa0f1be8") {
                 if (userid !== "") {
 
@@ -124,18 +106,37 @@ export const SignupForm = () => {
                         age: age,
                         house: house,
                         user: userid,
-                        memberName: firstName + lastName
+                        memberName: firstName + " " + lastName
                     }
 
 
                     await axios.post('http://localhost:4000/members/', member).then(res => {
                         console.log(res)
                         console.log("member added ")
+                        //alert("Society member added successfully!")
                         //console.log("while adding in member table : ", typeof(res.data.data.user.profilePhoto))
                     })
                 }
             }
 
+            else if (role === "620c88535e051978662b0379") {
+                if (userid !== "") {
+
+                    var securityGuard = {
+                        guardName: firstName + " " + lastName,
+                        scheduleTime : dutyStartingTime.toString() + " to " + dutyEndingTime.toString(),
+                        mobileNo : contactNumber,
+                        user : userid
+                   }
+           
+                   axios.post('http://localhost:4000/guards/', securityGuard).then(res => {
+                       console.log(res)
+                       console.log("guard added ")
+                       //alert("Security Guard added successfully!")
+                       console.log("while adding in guard table : ", securityGuard.scheduleTime)
+                   })
+                }
+            }
 
         }
         console.log("submit called.....")
@@ -227,8 +228,8 @@ export const SignupForm = () => {
                         <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>Role  </strong></label>
                             <div className="col-sm-10">
-                                <select className="form-select" id="role" required onClick={(e) => { displayRole(e) }} 
-                                onChange={(e) => { roleHandler(e) }}>
+                                <select className="form-select" id="role" required onClick={(e) => { displayRole(e) }}
+                                    onChange={(e) => { roleHandler(e) }}>
                                     <option>Select your role</option>
                                     {
                                         roleList.map((role) => {
@@ -247,41 +248,59 @@ export const SignupForm = () => {
                             <div className="col-sm-10">
                                 <input type="file" id="ProfilePhoto" className="form-control-file" name="profilePhoto"
                                     placeholder="Upload Your Profile Photo" onChange={(e => { profilePhotoHandler(e) })} />
-                                     {
-                                    profilePhoto.includes(".png") || profilePhoto.includes(".jpg") ||profilePhoto.includes(".jpeg") ?  "":"Please enter valid image" 
+                                {
+                                    profilePhoto.includes(".png") || profilePhoto.includes(".jpg") || profilePhoto.includes(".jpeg") ? "" : "Please enter valid image"
                                 }
 
                             </div>
                         </div>
 
-                        <div className="form-group row my-3 mr-2 mb-3">
-                            <label className="col-sm-2 col-form-label"><strong>Age </strong></label>
-                            <div className="col-sm-10">
-                                <input type="number" min="0" max="150" id="age" className="form-control" name="age"
-                                    placeholder="Enter your age" onChange={(e => { setAge(e.target.value) })} />
-                            </div>
-                        </div>
-                        
-                        
-{ showHouse===true?
-                        <div className= "form-group row my-3 mr-2 mb-3">
-                            <label className={ "col-sm-2 col-form-label"}><strong>House Title  </strong></label>
-                            <div className="col-sm-10">
-                                <select className="form-select" id="house" required onClick={(e) => { displayHouse(e) }} onChange={(e) => { setHouse(e.target.value) }}>
-                                    <option>Select your house title</option>
-                                    {
-                                        houseList.map((house) => {
+                        {isMember === true ?
+                            <div className="form-group row my-3 mr-2 mb-3">
+                                <label className="col-sm-2 col-form-label"><strong>Age </strong></label>
+                                <div className="col-sm-10">
+                                    <input type="number" min="0" max="150" id="age" className="form-control" name="age"
+                                        placeholder="Enter your age" onChange={(e => { setAge(e.target.value) })} />
+                                </div>
+                            </div> : ""}
 
-                                            return (
-                                                <option key={house._id} value={house._id}>{house.houseTitle}</option>
-                                            )
-                                        })
-                                    }
-                                </select>
 
-                            </div>
-                        </div>:<div></div>}
-                       
+                        {isMember === true ?
+                            <div className="form-group row my-3 mr-2 mb-3">
+                                <label className={"col-sm-2 col-form-label"}><strong>House Title  </strong></label>
+                                <div className="col-sm-10">
+                                    <select className="form-select" id="house" required onClick={(e) => { displayHouse(e) }} onChange={(e) => { setHouse(e.target.value) }}>
+                                        <option>Select your house title</option>
+                                        {
+                                            houseList.map((house) => {
+
+                                                return (
+                                                    <option key={house._id} value={house._id}>{house.houseTitle}</option>
+                                                )
+                                            })
+                                        }
+                                    </select>
+
+                                </div>
+                            </div> : ""}
+
+                            {isGuard ?
+                            <div className="form-group row my-3 mr-2 mb-3">
+                                <label className="col-sm-2 col-form-label"><strong>Duty Starting Time </strong></label>
+                                <div className="col-sm-10">
+                                <input type="time" id="entrytime" className="form-control" name="EntryTime"
+                                    required onChange={(e) => { setDutyStartingTime(e.target.value) }} />
+                                </div>
+                            </div> : "" }
+
+                            {isGuard ?
+                            <div className="form-group row my-3 mr-2 mb-3">
+                                <label className="col-sm-2 col-form-label"><strong>Duty Ending Time </strong></label>
+                                <div className="col-sm-10">
+                                <input type="time" id="exittime" className="form-control" name="ExitTime"
+                                    required onChange={(e) => { setDutyEndingTime(e.target.value) }} />
+                                </div>
+                            </div> : "" }
 
                         <div className="form-group my-3">
                             <div className="form-check">
@@ -295,14 +314,14 @@ export const SignupForm = () => {
                             </div>
                         </div>
 
-                        <div className="form-grp row my-3">
-                            <div className="col-sm-10">
+                        <div className="form-grp row my-5">
+                            <div className="col-sm-15">
                                 <input type="submit" className='btn-centre' value="Sign in" />
                             </div>
                         </div>
 
                         <div className="form-grp row my-3">
-                            <div className="col-sm-10">
+                            <div className="col-sm-15">
                                 Already have an account?
                                 <Link to="/login"> Login</Link>
                             </div>
