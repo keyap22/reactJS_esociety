@@ -1,5 +1,4 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
@@ -12,10 +11,46 @@ export const LoginForm = () => {
     const [visibility, setvisibility] = useState('')
 
     const [roleList, setroleList] = useState([])
+    var [addAttendance, setAddAttendance] = useState(false)
     var guardId = ""
     var userId = ""
+    var guardAttendanceList = []
+
+    useEffect(() => {
+
+        getGuardAttendances()
+
+    }, [])
 
     const navigation = useNavigate()
+
+    const getGuardAttendances = () => {
+        axios.get('http://localhost:4000/guardAttendances/').then(res => {
+            console.log(res)
+            guardAttendanceList = res.data.data
+            console.log("guard attendance list : ", guardAttendanceList)
+            guardAttendanceList.forEach(attendance => {
+
+                if (attendance.guard._id === localStorage.getItem("guardID")) {
+
+                    console.log("attendance guard id : ", attendance.guard._id)
+                    console.log("date from get all attendances", attendance.date)
+                    if ((attendance.date === date.toString())) {
+                        //setAddAttendance(false)
+                        console.log("addAttendance in forEach : ", addAttendance)
+                        return false
+                    }
+                    else {
+                        //setAddAttendance(true) 
+                        return true
+                    }
+                }
+
+            });
+            //console.log("guard id from get all attendances : ", res.data.data.guard)
+
+        })
+    }
 
     const displayRole = () => {
         axios.get("http://localhost:4000/roles/").then(res => {
@@ -37,7 +72,7 @@ export const LoginForm = () => {
     var date = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear()
 
     //find particular guard using userID
-    const postSecurityGuard = async() => {
+    const postSecurityGuard = async () => {
 
         var formData = {
             user: userId
@@ -48,11 +83,10 @@ export const LoginForm = () => {
             console.log("guard id : ", res.data.id)
             guardId = res.data.id
             setGuardID(res.data.id)
-            localStorage.setItem("guardID",res.data.id)
+            localStorage.setItem("guardID", res.data.id)
             console.log("after setting guard id : ", guardId)
         })
     }
-
 
     const submit = async (e) => {
 
@@ -81,24 +115,29 @@ export const LoginForm = () => {
                     if (role === "620c88535e051978662b0379") {
                         //security guard attendance
                         postSecurityGuard()
-
-                        if (localStorage.getItem("guardID")!== "") {
-
-                            var GuardAttendances = {
-                                isPresent: 'true',
-                                guard: localStorage.getItem("guardID"),
-                                date: date
-                            }
-                            console.log("before post, guard id : ", localStorage.getItem("guardID"))
-                            axios.post('http://localhost:4000/guardAttendances/', GuardAttendances).then(res => {
-                                console.log("attendance response : ", res)
-
-                                console.log("guard attendances : ", GuardAttendances)
-                                console.log("in post guard id : ", GuardAttendances.guard)
-                                localStorage.setItem("guardID", GuardAttendances.guard)
-                            })
-                        }
                         
+                            
+                            if ((localStorage.getItem("guardID") !== "")) {
+                                console.log("above if statement of get guard attendances")
+                                if (getGuardAttendances()) {
+                                //console.log("addAttendance value :", )
+                                console.log(localStorage.getItem("guardID") !== "")
+                                var GuardAttendances = {
+                                    isPresent: 'true',
+                                    guard: localStorage.getItem("guardID"),
+                                    date: date
+                                }
+                                console.log("before post, guard id : ", localStorage.getItem("guardID"))
+                                axios.post('http://localhost:4000/guardAttendances/', GuardAttendances).then(res => {
+                                    console.log("attendance response : ", res)
+
+                                    console.log("guard attendances : ", GuardAttendances)
+                                    console.log("in post guard id : ", GuardAttendances.guard)
+                                    localStorage.setItem("guardID", GuardAttendances.guard)
+                                })
+                            }
+                        }
+
                         navigation('/profile')
                     }
                 }

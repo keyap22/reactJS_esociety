@@ -73,7 +73,7 @@ export const ForgotPassword = () => {
     console.log("submit called.....")
     console.log(`password : ${password},password2 : ${password2}`)
     
-    //  navigation('/login')
+    navigation('/login')
   }
 
   const getEmail = (e) => {

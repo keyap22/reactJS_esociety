@@ -96,8 +96,8 @@ export const SignupForm = () => {
         if (password !== password2) {
             alert("Please enter same password in both the fields!")
         }
-        else if(validEmail===false){
-            alert("Please use different mail id!")
+        else if(validEmail===false || firstName.length<=2 || lastName.length<=3 || password.length<8){
+            alert("Please consider validation messages and enter details accordingly!")
         }
         else {
 
@@ -164,7 +164,6 @@ export const SignupForm = () => {
                     })
                 }
             }
-
         }
         console.log("submit called.....")
         //console.log(`email : ${email}, password : ${password},password2 : ${password2}, first name : ${firstName}, last name : ${lastName}`)
@@ -172,10 +171,9 @@ export const SignupForm = () => {
         //roleList.roleName
         console.log(`role : ${role}`)
         //console.log(e.target)
-        // alert("Submitted successfully!")
-
+        
         //clearing out the details of the form after pressing submit button
-        e.target.reset()
+        //e.target.reset()
     }
     //}
 
