@@ -21,6 +21,7 @@ export const SignupForm = () => {
     const [dutyEndingTime, setDutyEndingTime] = useState('')
     var [isMember, setIsMember] = useState(false)
     var [isGuard, setIsGuard] = useState(false)
+    var [validEmail, setValidEmail] = useState()
 
     const [roleList, setroleList] = useState([])
     const [houseList, sethouseList] = useState([])
@@ -65,11 +66,38 @@ export const SignupForm = () => {
         })
     }
 
+    //if new user is trying to sign in using mail id used by existing user, then validEmail=false
+    const findUserByEmail = (email) => {
+        var formdata = {
+            email: email
+        }
+        console.log("email before post request :", email)
+        axios.post("http://localhost:4000/forgotpwd/", formdata).then(res => {
+            if (res.data.data !== null) {
+                console.log("User with same email found successfully!")
+                console.log("response : ", res)
+                //console.log("user id :", res.data.data._id)
+                //userID = res.data.data._id
+                setValidEmail(false)
+                console.log("valid email value : ",validEmail)
+            }
+        })
+        console.log("valid email value : ",validEmail)
+        setValidEmail(true)
+    }
+
+    const emailHandler = (e) => {
+        setEmail(e.target.value)
+        findUserByEmail(e.target.value)
+    }
 
     const submit = async (e) => {
         e.preventDefault()
         if (password !== password2) {
             alert("Please enter same password in both the fields!")
+        }
+        else if(validEmail===false){
+            alert("Please use different mail id!")
         }
         else {
 
@@ -181,7 +209,6 @@ export const SignupForm = () => {
                                     lastName.length <= 3 && lastName.length > 0 ? "please enter valid last name" : ""
                                 }
                             </div>
-
                         </div>
 
 
@@ -189,8 +216,11 @@ export const SignupForm = () => {
                             <label className="col-sm-2 col-form-label"><strong>Email  </strong></label>
                             <div className="col-sm-10">
                                 <input type="email" id="Email" className="form-control" name="email"
-                                    placeholder="Enter Your Email" required onChange={(e) => { setEmail(e.target.value) }} />
+                                    placeholder="Enter Your Email" required onChange={(e) => { emailHandler(e) }} />
                                 <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+                                {
+                                    validEmail ? "" : "please enter different mail id"
+                                }
                             </div>
                         </div>
 
