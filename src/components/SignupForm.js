@@ -41,11 +41,10 @@ export const SignupForm = () => {
             setIsMember(false)
         }
         else {
-             setIsGuard(false)
-             setIsMember(false)
+            setIsGuard(false)
+            setIsMember(false)
         }
         setRole(e.target.value)
-        console.log("role state : " + role)
     }
 
     const profilePhotoHandler = (e) => {
@@ -73,7 +72,7 @@ export const SignupForm = () => {
             alert("Please enter same password in both the fields!")
         }
         else {
-            
+
             var user = {
                 email: email,
                 password: password,
@@ -124,17 +123,17 @@ export const SignupForm = () => {
 
                     var securityGuard = {
                         guardName: firstName + " " + lastName,
-                        scheduleTime : dutyStartingTime.toString() + " to " + dutyEndingTime.toString(),
-                        mobileNo : contactNumber,
-                        user : userid
-                   }
-           
-                   axios.post('http://localhost:4000/guards/', securityGuard).then(res => {
-                       console.log(res)
-                       console.log("guard added ")
-                       //alert("Security Guard added successfully!")
-                       console.log("while adding in guard table : ", securityGuard.scheduleTime)
-                   })
+                        scheduleTime: dutyStartingTime.toString() + " to " + dutyEndingTime.toString(),
+                        mobileNo: contactNumber,
+                        user: userid
+                    }
+
+                    axios.post('http://localhost:4000/guards/', securityGuard).then(res => {
+                        console.log(res)
+                        console.log("guard added ")
+                        //alert("Security Guard added successfully!")
+                        console.log("while adding in guard table : ", securityGuard.scheduleTime)
+                    })
                 }
             }
 
@@ -168,6 +167,9 @@ export const SignupForm = () => {
                             <div className="form-group col-md-3 my-3 mr-5 ">
                                 <input type="text" className="form-control" name="firstName" id="FirstName"
                                     placeholder="Enter Your First Name" required onChange={(e) => { setFirstName(e.target.value) }} />
+                                {
+                                    firstName.length <= 2 && firstName.length > 0 ? "please enter valid first name" : ""
+                                }
                             </div>
 
                             <div className="form-group col-md-0.1 my-3 mx-5">
@@ -175,6 +177,9 @@ export const SignupForm = () => {
                             <div className="form-group col-md-3 my-3">
                                 <input type="text" className="form-control" id="LastName" name="lastName"
                                     placeholder="Enter Your Last Name" required onChange={(e) => { setLastName(e.target.value) }} />
+                                {
+                                    lastName.length <= 3 && lastName.length > 0 ? "please enter valid last name" : ""
+                                }
                             </div>
 
                         </div>
@@ -284,23 +289,23 @@ export const SignupForm = () => {
                                 </div>
                             </div> : ""}
 
-                            {isGuard ?
+                        {isGuard ?
                             <div className="form-group row my-3 mr-2 mb-3">
                                 <label className="col-sm-2 col-form-label"><strong>Duty Starting Time </strong></label>
                                 <div className="col-sm-10">
-                                <input type="time" id="entrytime" className="form-control" name="EntryTime"
-                                    required onChange={(e) => { setDutyStartingTime(e.target.value) }} />
+                                    <input type="time" id="entrytime" className="form-control" name="EntryTime"
+                                        required onChange={(e) => { setDutyStartingTime(e.target.value) }} />
                                 </div>
-                            </div> : "" }
+                            </div> : ""}
 
-                            {isGuard ?
+                        {isGuard ?
                             <div className="form-group row my-3 mr-2 mb-3">
                                 <label className="col-sm-2 col-form-label"><strong>Duty Ending Time </strong></label>
                                 <div className="col-sm-10">
-                                <input type="time" id="exittime" className="form-control" name="ExitTime"
-                                    required onChange={(e) => { setDutyEndingTime(e.target.value) }} />
+                                    <input type="time" id="exittime" className="form-control" name="ExitTime"
+                                        required onChange={(e) => { setDutyEndingTime(e.target.value) }} />
                                 </div>
-                            </div> : "" }
+                            </div> : ""}
 
                         <div className="form-group my-3">
                             <div className="form-check">

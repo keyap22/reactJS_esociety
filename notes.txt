@@ -1,6 +1,6 @@
 Tasks -
 
-- add validations in form(signup, login)
+- add validations in form(signup, login) - pswd, email
 - updateForm  : old values for profilephoto rolename housetitle print problem
 - update visitor : old values for profilephoto visitorCategory housetitle print problem , isAllowed and isPrescheduled
     
@@ -11,6 +11,10 @@ Tasks -
 - find if there exists any record for current security guard and at current date, if yes then not to save attendance else save the record
 - if new user enters mail id which is currently used by another user, then print("enter different mail address") 
 - password validation : one uppercase, lowercase,digit, special character
+
+- Security guard profile - Child schedule list(no action)
+Admin - security guard attendance list(no action)
+Click Save button on visitor list page.... detailed pdf/csv file is downloaded
 
 Profiles -
 
