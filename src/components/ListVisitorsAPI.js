@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import jsPDF from 'jspdf';
+import "jspdf-autotable";
 
 export const ListVisitorsAPI = () => {
     const [visitorList, setVisitorList] = useState([])
@@ -36,6 +38,39 @@ export const ListVisitorsAPI = () => {
         })
 
     }
+
+
+    const exportPDF = () => {
+        const unit = "pt";
+        const size = "A4"; // Use A1, A2, A3 or A4
+        const orientation = "portrait"; // portrait or landscape
+        //var counter=1
+        const marginLeft = 50;
+        const doc = new jsPDF(orientation, unit, size);
+    
+        doc.setFontSize(12);
+    
+        const title = "Visitor Report";
+        const headers = [["Sr No.","Visitor Name", "Date","Entry Time","Exit Time","Allowed","Prescheduled","Image","House","Category"
+    ,"Purpose","Contact No."]];
+    
+        const data = visitorList.map(visitor=> [visitor.visitorName, visitor.date,visitor.entryTime,visitor.exitTime,
+        visitor.isAllowed,visitor.isPreScheduled,visitor.profilePhoto,visitor.house.houseTitle,visitor.visitorCategory.categoryName,
+    visitor.purpose,visitor.mobileNo]);
+    
+        let content = {
+          startY: 50,
+          head: headers,
+          body: data
+        };
+    
+        doc.text(title, marginLeft, 40);
+        doc.autoTable(content);
+        doc.save("visitorsReport.pdf")
+      }
+    
+
+
     useEffect(() => {
         console.log("use effect hook implemented")
         getData()
@@ -45,6 +80,9 @@ export const ListVisitorsAPI = () => {
 
     return (
         <div className="container table-responsive-md" style={{maxWidth: "1290px"}}>
+            <div>
+        <button onClick={() => exportPDF()}>Generate Report</button>
+      </div>
             <table className="table table-hover my-3">
                 <thead className="table_head">
                     <tr>

@@ -22,7 +22,9 @@ for eg : ends with @gmail.com or @xyz.com
 
 - Security guard profile - Child schedule list(no action)
 Admin - security guard attendance list(no action)
-Click Save button on visitor list page.... detailed pdf/csv file is downloaded
+Click Save button on visitor list page.... detailed pdf/csv file is downloaded : done 
+
+- if possible , add sr no in pdf
 
 Profiles -
 
