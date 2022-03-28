@@ -12,9 +12,17 @@ export const LoginForm = () => {
 
     const [roleList, setroleList] = useState([])
     var [addAttendance, setAddAttendance] = useState(false)
+
+    var [emailError, setEmailError] = useState(false);
+
+
     var guardId = ""
     var userId = ""
     var guardAttendanceList = []
+
+    //const validPassword = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,14})');
+    const validMail = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+(?=.)+(?=.[a-zA-Z]$)');
+
 
     useEffect(() => {
 
@@ -51,6 +59,22 @@ export const LoginForm = () => {
 
         })
     }
+
+
+
+    const emailHandler = (e) => {
+        if (!validMail.test(e.target.value)) {
+            setEmailError(true);
+         }
+         else{
+            setEmailError(false);
+             setemail(e.target.value)
+         }
+        
+    }
+
+    
+
 
     const displayRole = () => {
         axios.get("http://localhost:4000/roles/").then(res => {
@@ -207,7 +231,9 @@ export const LoginForm = () => {
                             <label htmlFor="Email" className="col-sm-2 col-form-label"><strong>Email</strong></label>
                             <div className="col-sm-9 ml-3">
                                 <input type="email" id="Email" className="form-control" name="email"
-                                    placeholder="Enter Your Email" onChange={(e) => { setemail(e.target.value) }} required />
+                                    placeholder="Enter Your Email" onChange={(e) => { emailHandler(e) }} required />
+                                     {emailError && <p>Your email is invalid</p>}
+
                             </div>
                         </div>
 
@@ -218,7 +244,9 @@ export const LoginForm = () => {
                                 <input type="password" id="password" name="password" className="form-control" maxLength="14" placeholder="Enter your password" required
                                     autoComplete="off" onChange={(e) => { setpassword(e.target.value) }} />
 
+
                                 <Link to="" className="showPassword" onClick={(e) => { showPassword(e) }}><i className={`bi ${visibility ? "bi-eye" : "bi-eye-slash"}`} id="visibility" name="visibility"></i></Link>
+                               
                             </div>
                         </div>
 

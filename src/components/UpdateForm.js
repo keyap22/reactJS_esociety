@@ -41,7 +41,7 @@ export const UpdateForm = () => {
     const validMail = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+(?=.)+(?=.[a-zA-Z]$)');
 
 
-    var finalemail, finalfn, finalln, finalage, finalmob;
+    var finalemail, finalfn, finalln, finalage, finalmob,finalrole="",finalhouse="";
 
     //if new user is trying to sign in using mail id used by existing user, then validEmail=false
     const findUserByEmail = (email) => {
@@ -134,7 +134,7 @@ export const UpdateForm = () => {
     const submit = (e) => {
         e.preventDefault()
 
-        if (validEmail === false || firstName.length <= 2 || lastName.length <= 3) {
+        if (validEmail === false || firstName.length <= 1 || lastName.length <= 2) {
             alert("Please consider validation messages and enter details accordingly!")
         }
         else {
@@ -143,6 +143,8 @@ export const UpdateForm = () => {
             finalfn = firstName === "" ? userList.firstName : firstName
             finalage = age === "" ? memberList.age : age
             finalln = lastName === "" ? userList.lastName : lastName
+            finalrole = role ==="" ? userList.role : role
+            finalhouse = house==="" ? memberList.house : house
 
             var user = {
                 email: finalemail,
@@ -150,13 +152,13 @@ export const UpdateForm = () => {
                 mobileNo: finalmob,
                 firstName: finalfn,
                 lastName: finalln,
-                role: role,
+                role: finalrole,
                 profilePhoto: profilePhoto
             }
 
             var member = {
                 age: finalage,
-                house: house,
+                house: finalhouse,
                 user: userId,
                 memberName: finalfn + finalln
             }
@@ -178,7 +180,8 @@ export const UpdateForm = () => {
             console.log("submit called.....")
             console.log(`email : ${finalemail}, first name : ${finalfn}, last name : ${finalln}`)
             console.log(`contact number : ${finalmob}, role : ${role}, profile photo : ${profilePhoto}`)
-            console.log(`role : ${role}`)
+            console.log(`role : ${finalrole}`)
+            console.log(`house : ${finalhouse}`)
             //console.log(e.target)
             alert("Updated successfully!")
             navigation('/listmembers')
@@ -203,7 +206,7 @@ export const UpdateForm = () => {
                                 <label><strong>First Name</strong></label></div>
                             <div className="form-group col-md-3 my-3 mr-5 ">
                                 <input type="text" className="form-control" name="firstName" id="FirstName" defaultValue={userList.firstName}
-                                    placeholder="Enter Your First Name" required onChange={(e) => { setFirstName(e.target.value) }} />
+                                    placeholder="Enter Your First Name"  onChange={(e) => { setFirstName(e.target.value) }} />
                                 {
                                     firstName.length <= 1 && firstName.length > 0 ? "please enter valid first name" : ""
                                 }
@@ -213,7 +216,7 @@ export const UpdateForm = () => {
                                 <label><strong>Last Name</strong></label></div>
                             <div className="form-group col-md-3 my-3">
                                 <input type="text" className="form-control" id="LastName" name="lastName" defaultValue={userList.lastName}
-                                    placeholder="Enter Your Last Name" required onChange={(e) => { setLastName(e.target.value) }} />
+                                    placeholder="Enter Your Last Name"  onChange={(e) => { setLastName(e.target.value) }} />
                                 {
                                     lastName.length <= 2 && lastName.length > 0 ? "please enter valid last name" : ""
                                 }
@@ -226,7 +229,7 @@ export const UpdateForm = () => {
                             <label className="col-sm-2 col-form-label"><strong>Email  </strong></label>
                             <div className="col-sm-10">
                                 <input type="email" id="Email" className="form-control" name="email" defaultValue={userList.email}
-                                    placeholder="Enter Your Email" required onChange={(e) => { emailHandler(e) }} />
+                                    placeholder="Enter Your Email"  onChange={(e) => { emailHandler(e) }} />
                                 {/* <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small> */}
                                 {
                                     validEmail ? "" : "please enter different mail id"
@@ -241,15 +244,15 @@ export const UpdateForm = () => {
                             <label className="col-sm-2 col-form-label"><strong>Contact Number  </strong></label>
                             <div className="col-sm-10">
                                 <input type="tel" id="ContactNumber" className="form-control" name="contactNumber" defaultValue={userList.mobileNo}
-                                    placeholder="Enter Your Mobile Number" required onChange={(e) => { e = null ? setContactNumber(userList.mobileNo) : setContactNumber(e.target.value) }} />
+                                    placeholder="Enter Your Mobile Number"  onChange={(e) => { e = null ? setContactNumber(userList.mobileNo) : setContactNumber(e.target.value) }} />
                             </div>
                         </div>
 
                         <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>Role  </strong></label>
                             <div className="col-sm-10">
-                                <select className="form-select" id="role" required onClick={(e) => { displayRole(e) }} onChange={(e) => { setRole(e.target.value) }}>
-                                    <option value={roleById._id}>{roleById.roleName}</option>
+                                <select className="form-select" id="role"  onClick={(e) => { displayRole(e) }} onChange={(e) => { setRole(e.target.value) }}>
+                                    <option>Please Select</option>
                                     {
                                         roleList.map((role) => {
 
@@ -284,8 +287,8 @@ export const UpdateForm = () => {
                         <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>House Title  </strong></label>
                             <div className="col-sm-10">
-                                <select className="form-select" id="house" required defaultValue={houseById.houseTitle} onClick={(e) => { displayHouse(e) }} onChange={(e) => { setHouse(e.target.value) }}>
-                                    <option value={houseById._id}>{houseById.houseTitle}</option>
+                                <select className="form-select" id="house"   onClick={(e) => { displayHouse(e) }} onChange={(e) => { setHouse(e.target.value) }}>
+                                    <option >Please Select</option>
                                     {
                                         houseList.map((house) => {
 

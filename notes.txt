@@ -1,7 +1,6 @@
 Tasks -
 
 - add validations in form(signup, login) - pswd, email
-- updateForm  : old values for profilephoto rolename housetitle print problem
 - update visitor : old values for profilephoto visitorCategory housetitle print problem , isAllowed and isPrescheduled
     
 - email address verification
@@ -9,13 +8,10 @@ Tasks -
 - add field named addedBy in visitors model
 - CAPTCHA to verify the user
 - find if there exists any record for current security guard and at current date, if yes then not to save attendance else save the record
-- password validation : one uppercase, lowercase,digit, special character
 
 - after resetting pwd , login navigation to profile not working : check
-- email validation changes required : by default displaying "enter different mail id" , including proper email format 
-for eg : ends with @gmail.com or @xyz.com
 
--added code in emailhandler: to be checked working or not
+- update form : compulsary requires all field to be changed otherwise shows error 
 
 
 - Security guard profile - Child schedule list(no action)
