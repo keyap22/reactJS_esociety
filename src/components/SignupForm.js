@@ -21,10 +21,20 @@ export const SignupForm = () => {
     const [dutyEndingTime, setDutyEndingTime] = useState('')
     var [isMember, setIsMember] = useState(false)
     var [isGuard, setIsGuard] = useState(false)
-    var [validEmail, setValidEmail] = useState()
+    var [validEmail, setValidEmail] = useState(false)
+    var [pwdError, setPwdError] = useState(false);
+    var [emailError, setEmailError] = useState(false);
+
+  
 
     const [roleList, setroleList] = useState([])
     const [houseList, sethouseList] = useState([])
+
+
+    const validPassword = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,14})');
+    const validMail = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+(?=.)+(?=.[a-zA-Z]$)');
+
+    //[a-zA-Z0-9]+)([\.{1}])?([a-zA-Z0-9]+)\@(?:gmail|GMAIL)([\.])(?:com|COM) 
 
     var userid = ""
 
@@ -87,14 +97,24 @@ export const SignupForm = () => {
     }
 
     const emailHandler = (e) => {
-        var mailformat = /^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/;
-        if (e.target.value.match(mailformat)) {
-            setEmail(e.target.value)
-            findUserByEmail(e.target.value)
-        }
-        else {
-            setValidEmail(false)
-        }
+        if (!validMail.test(e.target.value)) {
+            setEmailError(true);
+         }
+         else{
+            setEmailError(false);
+             setEmail(e.target.value)
+         }
+        
+    }
+
+    const passwordHandler = (e) => {
+        if (!validPassword.test(e.target.value)) {
+            setPwdError(true);
+         }
+         else{
+            setPwdError(false);
+             setPassword(e.target.value)
+         }
     }
 
     const submit = async (e) => {
@@ -223,8 +243,10 @@ export const SignupForm = () => {
                                     placeholder="Enter Your Email" required onChange={(e) => { emailHandler(e) }} />
                                 <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
                                 {
-                                    validEmail ? "" : "please enter different mail id"
+                                    validEmail ?   "":"please enter different mail id" 
                                 }
+                                 {emailError && <p>Your email is invalid</p>}
+
                             </div>
                         </div>
 
@@ -233,14 +255,16 @@ export const SignupForm = () => {
                             <div className="col-sm-10">
                                 <input type="password" id="Password1" className="form-control" name="Password1" autoComplete="off"
                                     placeholder="Create a strong password" required
-                                    onChange={(e) => { setPassword(e.target.value) }} minLength="8" />
+                                    onChange={(e) => { passwordHandler(e) }} minLength="8" />
                                 <small id="passwordHelpBlock" className="form-text text-muted">
                                     Your password  MUST contain at least 8 characters.
-                                    {/* ,at least one uppercase letter,at least one number and at least one special character. */}
+                                    ,at least one uppercase letter,at least one number and at least one special character. 
                                 </small>
-                                {
+                                {/* {
                                     password.length > 0 && password.length < 8 ? "please enter password of atleast 8 characters" : ""
-                                }
+                                } */}
+                                {pwdError && <p>Your password is invalid</p>}
+
                             </div>
                         </div>
 

@@ -35,6 +35,11 @@ export const UpdateForm = () => {
     const [memberList, setmemberList] = useState([])
     const [roleById, setRoleById] = useState([])
     const [houseById, setHouseById] = useState([])
+    var [emailError, setEmailError] = useState(false);
+
+  
+    const validMail = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+(?=.)+(?=.[a-zA-Z]$)');
+
 
     var finalemail, finalfn, finalln, finalage, finalmob;
 
@@ -114,9 +119,17 @@ export const UpdateForm = () => {
     }
 
     const emailHandler = (e) => {
-        setEmail(e.target.value)
+        if (!validMail.test(e.target.value)) {
+            setEmailError(true);
+         }
+         else{
+            setEmailError(false);
+             setEmail(e.target.value)  
         findUserByEmail(e.target.value)
-    }
+   
+         }
+        
+         }
 
     const submit = (e) => {
         e.preventDefault()
@@ -218,6 +231,8 @@ export const UpdateForm = () => {
                                 {
                                     validEmail ? "" : "please enter different mail id"
                                 }
+                                  {emailError && <p>Your email is invalid</p>}
+
                             </div>
                         </div>
 

@@ -14,6 +14,11 @@ export const ForgotPassword = () => {
   const [userId, setUserId] = useState('')
   const [userList, setUserList] = useState('')
   const [haveEmail, setHaveEmail] = useState(false)
+  var [pwdError, setPwdError] = useState(false);
+   
+
+  const validPassword = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,14})');
+   
 
   const findUserByEmail = () => {
     var formdata = {
@@ -37,9 +42,17 @@ export const ForgotPassword = () => {
   }
 
   const passwordHandler = (e) => {
-    console.log("password : ", e.target.value)
-    setPassword(e.target.value)
-  }
+
+    if (!validPassword.test(e.target.value)) {
+      setPwdError(true);
+   }
+   else{
+      setPwdError(false);
+      console.log("password : ", e.target.value)
+    
+       setPassword(e.target.value)
+   }
+    }
 
   const confirmpasswordHandler = (e) => {
     console.log("confirm password : ", e.target.value)
@@ -141,9 +154,11 @@ export const ForgotPassword = () => {
                   <small id="passwordHelpBlock" className="form-text text-muted">
                     Your password  MUST contain at least 8 characters,at least one uppercase letter,at least one number and at least one special character.
                 </small>
-                  {
+                  {/* {
                     password.length > 0 && password.length < 8 ? "please enter password of atleast 8 characters" : ""
-                  }
+                  } */}
+                    {pwdError && <p>Your password is invalid</p>}
+
                 </div>
               </div>
 
