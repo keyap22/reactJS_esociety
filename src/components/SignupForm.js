@@ -87,8 +87,15 @@ export const SignupForm = () => {
     }
 
     const emailHandler = (e) => {
+        var mailformat = /^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/;
+        if(e.target.value.match(mailformat))
+{
         setEmail(e.target.value)
         findUserByEmail(e.target.value)
+}
+else{
+    setValidEmail(false)
+}
     }
 
     const submit = async (e) => {
@@ -194,7 +201,7 @@ export const SignupForm = () => {
                                 <input type="text" className="form-control" name="firstName" id="FirstName"
                                     placeholder="Enter Your First Name" required onChange={(e) => { setFirstName(e.target.value) }} />
                                 {
-                                    firstName.length <= 2 && firstName.length > 0 ? "please enter valid first name" : ""
+                                    firstName.length <= 1 && firstName.length > 0 ? "please enter valid first name" : ""
                                 }
                             </div>
 
@@ -204,7 +211,7 @@ export const SignupForm = () => {
                                 <input type="text" className="form-control" id="LastName" name="lastName"
                                     placeholder="Enter Your Last Name" required onChange={(e) => { setLastName(e.target.value) }} />
                                 {
-                                    lastName.length <= 3 && lastName.length > 0 ? "please enter valid last name" : ""
+                                    lastName.length <= 2 && lastName.length > 0 ? "please enter valid last name" : ""
                                 }
                             </div>
                         </div>
@@ -233,7 +240,7 @@ export const SignupForm = () => {
                                     {/* ,at least one uppercase letter,at least one number and at least one special character. */}
                                 </small>
                                 {
-                                    password.length >= 0 && password.length < 8 ? "please enter password of atleast 8 characters" : ""
+                                    password.length > 0 && password.length < 8 ? "please enter password of atleast 8 characters" : ""
                                 }
                             </div>
                         </div>
