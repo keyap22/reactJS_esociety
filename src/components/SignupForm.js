@@ -79,23 +79,22 @@ export const SignupForm = () => {
                 //console.log("user id :", res.data.data._id)
                 //userID = res.data.data._id
                 setValidEmail(false)
-                console.log("valid email value : ",validEmail)
+                console.log("valid email value : ", validEmail)
             }
         })
-        console.log("valid email value : ",validEmail)
+        console.log("valid email value : ", validEmail)
         setValidEmail(true)
     }
 
     const emailHandler = (e) => {
         var mailformat = /^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/;
-        if(e.target.value.match(mailformat))
-{
-        setEmail(e.target.value)
-        findUserByEmail(e.target.value)
-}
-else{
-    setValidEmail(false)
-}
+        if (e.target.value.match(mailformat)) {
+            setEmail(e.target.value)
+            findUserByEmail(e.target.value)
+        }
+        else {
+            setValidEmail(false)
+        }
     }
 
     const submit = async (e) => {
@@ -103,7 +102,7 @@ else{
         if (password !== password2) {
             alert("Please enter same password in both the fields!")
         }
-        else if(validEmail===false || firstName.length<=2 || lastName.length<=3 || password.length<8){
+        else if (validEmail === false || firstName.length <= 2 || lastName.length <= 3 || password.length < 8) {
             alert("Please consider validation messages and enter details accordingly!")
         }
         else {
@@ -178,7 +177,7 @@ else{
         //roleList.roleName
         console.log(`role : ${role}`)
         //console.log(e.target)
-        
+
         //clearing out the details of the form after pressing submit button
         //e.target.reset()
     }

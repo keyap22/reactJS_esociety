@@ -11,8 +11,6 @@ Tasks -
 - find if there exists any record for current security guard and at current date, if yes then not to save attendance else save the record
 - password validation : one uppercase, lowercase,digit, special character
 
-
-
 - after resetting pwd , login navigation to profile not working : check
 - email validation changes required : by default displaying "enter different mail id" , including proper email format 
 for eg : ends with @gmail.com or @xyz.com
@@ -22,9 +20,6 @@ for eg : ends with @gmail.com or @xyz.com
 
 - Security guard profile - Child schedule list(no action)
 Admin - security guard attendance list(no action)
-Click Save button on visitor list page.... detailed pdf/csv file is downloaded : done 
-
-- if possible , add sr no in pdf
 
 Profiles -
 

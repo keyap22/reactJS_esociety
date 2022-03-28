@@ -51,6 +51,9 @@ export const ForgotPassword = () => {
     if (password !== password2) {
       alert("Please enter same password in both the fields!")
     }
+    else if (password.length < 8) {
+      alert("Please enter password of atleast 8 characters!")
+    }
     else {
       var user = {
         email: userList.email,
@@ -62,17 +65,18 @@ export const ForgotPassword = () => {
         profilePhoto: userList.profilePhoto
       }
       console.log("===================================" + userId)
-      console.log(`http://localhost:4000/users/`+userId)
-      axios.put(`http://localhost:4000/users/`+userId, user).then(res => {
+      console.log(`http://localhost:4000/users/` + userId)
+      axios.put(`http://localhost:4000/users/` + userId, user).then(res => {
         console.log(res.status)
         console.log("user updation status :", res.data.data)
-        console.log("user in put method : ",user)
+        console.log("user in put method : ", user)
         alert("Password updated successfully!")
+        navigation('/login')
       })
     }
     console.log("submit called.....")
     console.log(`password : ${password},password2 : ${password2}`)
-    
+
     navigation('/login')
   }
 
@@ -81,7 +85,7 @@ export const ForgotPassword = () => {
     e.preventDefault()
 
     findUserByEmail()
-  
+
     console.log("email id received.....")
     console.log("email passed : ", email)
 
@@ -137,6 +141,9 @@ export const ForgotPassword = () => {
                   <small id="passwordHelpBlock" className="form-text text-muted">
                     Your password  MUST contain at least 8 characters,at least one uppercase letter,at least one number and at least one special character.
                 </small>
+                  {
+                    password.length > 0 && password.length < 8 ? "please enter password of atleast 8 characters" : ""
+                  }
                 </div>
               </div>
 

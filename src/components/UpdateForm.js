@@ -26,6 +26,8 @@ export const UpdateForm = () => {
     const [profilePhoto, setProfilePhoto] = useState('')
     const [age, setAge] = useState('')
     const [house, setHouse] = useState()
+    var [validEmail, setValidEmail] = useState()
+
 
     const [roleList, setroleList] = useState([])
     const [houseList, sethouseList] = useState([])
@@ -35,6 +37,27 @@ export const UpdateForm = () => {
     const [houseById, setHouseById] = useState([])
 
     var finalemail, finalfn, finalln, finalage, finalmob;
+
+    //if new user is trying to sign in using mail id used by existing user, then validEmail=false
+    const findUserByEmail = (email) => {
+        var formdata = {
+            email: email
+        }
+        console.log("email before post request :", email)
+        axios.post("http://localhost:4000/forgotpwd/", formdata).then(res => {
+            if (res.data.data !== null) {
+                console.log("User with same email found successfully!")
+                console.log("response : ", res)
+                //console.log("user id :", res.data.data._id)
+                //userID = res.data.data._id
+                setValidEmail(false)
+                console.log("valid email value : ", validEmail)
+            }
+        })
+        console.log("valid email value : ", validEmail)
+        setValidEmail(true)
+    }
+
 
     //add id 
     const getUserById = () => {
@@ -90,57 +113,66 @@ export const UpdateForm = () => {
         })
     }
 
+    const emailHandler = (e) => {
+        setEmail(e.target.value)
+        findUserByEmail(e.target.value)
+    }
+
     const submit = (e) => {
         e.preventDefault()
 
-
-        finalmob = contactNumber === "" ? userList.mobileNo : contactNumber
-        finalemail = email === "" ? userList.email : email
-        finalfn = firstName === "" ? userList.firstName : firstName
-        finalage = age === "" ? memberList.age : age
-        finalln = lastName === "" ? userList.lastName : lastName
-
-        var user = {
-            email: finalemail,
-            password : userList.password,
-            mobileNo: finalmob,
-            firstName: finalfn,
-            lastName: finalln,
-            role: role,
-            profilePhoto: profilePhoto
+        if (validEmail === false || firstName.length <= 2 || lastName.length <= 3) {
+            alert("Please consider validation messages and enter details accordingly!")
         }
+        else {
+            finalmob = contactNumber === "" ? userList.mobileNo : contactNumber
+            finalemail = email === "" ? userList.email : email
+            finalfn = firstName === "" ? userList.firstName : firstName
+            finalage = age === "" ? memberList.age : age
+            finalln = lastName === "" ? userList.lastName : lastName
 
-        var member = {
-            age: finalage,
-            house: house,
-            user: userId,
-            memberName: finalfn + finalln
-        }
+            var user = {
+                email: finalemail,
+                password: userList.password,
+                mobileNo: finalmob,
+                firstName: finalfn,
+                lastName: finalln,
+                role: role,
+                profilePhoto: profilePhoto
+            }
 
-        axios.put(`http://localhost:4000/users/` + userId, user).then(res => {
-            console.log(res.status)
-            console.log("user updation status :", res.data.data)
-        })
+            var member = {
+                age: finalage,
+                house: house,
+                user: userId,
+                memberName: finalfn + finalln
+            }
 
-        //keya - 620dd424e608c720fa0f1be8
-        //jeel - 62333e880323d0522ef16c63
-        if (role === "620dd424e608c720fa0f1be8") {
-
-            axios.put(`http://localhost:4000/members/` + memberId, member).then(res => {
-                console.log("member response : ", res)
+            axios.put(`http://localhost:4000/users/` + userId, user).then(res => {
+                console.log(res.status)
+                console.log("user updation status :", res.data.data)
             })
+
+            //keya - 620dd424e608c720fa0f1be8
+            //jeel - 62333e880323d0522ef16c63
+            if (role === "620dd424e608c720fa0f1be8") {
+
+                axios.put(`http://localhost:4000/members/` + memberId, member).then(res => {
+                    console.log("member response : ", res)
+                })
+            }
+
+            console.log("submit called.....")
+            console.log(`email : ${finalemail}, first name : ${finalfn}, last name : ${finalln}`)
+            console.log(`contact number : ${finalmob}, role : ${role}, profile photo : ${profilePhoto}`)
+            console.log(`role : ${role}`)
+            //console.log(e.target)
+            alert("Updated successfully!")
+            navigation('/listmembers')
+
+            //clearing out the details of the form after pressing submit button
+            e.target.reset()
         }
-
-        console.log("submit called.....")
-        console.log(`email : ${finalemail}, first name : ${finalfn}, last name : ${finalln}`)
-        console.log(`contact number : ${finalmob}, role : ${role}, profile photo : ${profilePhoto}`)
-        console.log(`role : ${role}`)
-        //console.log(e.target)
-        alert("Updated successfully!")
-        navigation('/listmembers')
-
-        //clearing out the details of the form after pressing submit button
-        e.target.reset()
     }
 
     return (
@@ -159,6 +191,9 @@ export const UpdateForm = () => {
                             <div className="form-group col-md-3 my-3 mr-5 ">
                                 <input type="text" className="form-control" name="firstName" id="FirstName" defaultValue={userList.firstName}
                                     placeholder="Enter Your First Name" required onChange={(e) => { setFirstName(e.target.value) }} />
+                                {
+                                    firstName.length <= 1 && firstName.length > 0 ? "please enter valid first name" : ""
+                                }
                             </div>
 
                             <div className="form-group col-md-0.1 my-3 mx-5">
@@ -166,6 +201,9 @@ export const UpdateForm = () => {
                             <div className="form-group col-md-3 my-3">
                                 <input type="text" className="form-control" id="LastName" name="lastName" defaultValue={userList.lastName}
                                     placeholder="Enter Your Last Name" required onChange={(e) => { setLastName(e.target.value) }} />
+                                {
+                                    lastName.length <= 2 && lastName.length > 0 ? "please enter valid last name" : ""
+                                }
                             </div>
 
                         </div>
@@ -175,8 +213,11 @@ export const UpdateForm = () => {
                             <label className="col-sm-2 col-form-label"><strong>Email  </strong></label>
                             <div className="col-sm-10">
                                 <input type="email" id="Email" className="form-control" name="email" defaultValue={userList.email}
-                                    placeholder="Enter Your Email" required onChange={(e) => { setEmail(e.target.value) }} />
+                                    placeholder="Enter Your Email" required onChange={(e) => { emailHandler(e) }} />
                                 {/* <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small> */}
+                                {
+                                    validEmail ? "" : "please enter different mail id"
+                                }
                             </div>
                         </div>
 
@@ -211,6 +252,9 @@ export const UpdateForm = () => {
                             <div className="col-sm-10">
                                 <input type="file" id="ProfilePhoto" className="form-control-file" name="profilePhoto"
                                     placeholder="Upload Your Profile Photo" onChange={(e => { profilePhotoHandler(e) })} />
+                                {
+                                    profilePhoto.includes(".png") || profilePhoto.includes(".jpg") || profilePhoto.includes(".jpeg") ? "" : "Please enter valid image"
+                                }
                             </div>
                         </div>
 
