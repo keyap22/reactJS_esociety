@@ -2,6 +2,8 @@ import React from 'react'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const SignupForm = () => {
 
@@ -25,7 +27,7 @@ export const SignupForm = () => {
     var [pwdError, setPwdError] = useState(false);
     var [emailError, setEmailError] = useState(false);
 
-  
+
 
     const [roleList, setroleList] = useState([])
     const [houseList, sethouseList] = useState([])
@@ -100,22 +102,36 @@ export const SignupForm = () => {
         findUserByEmail(e.target.value)
         if (!validMail.test(e.target.value)) {
             setEmailError(true);
-         }
-         else{
+        }
+        else {
             setEmailError(false);
-             setEmail(e.target.value)
-         }
-        
+            setEmail(e.target.value)
+        }
+
     }
 
     const passwordHandler = (e) => {
         if (!validPassword.test(e.target.value)) {
             setPwdError(true);
-         }
-         else{
+        }
+        else {
             setPwdError(false);
-             setPassword(e.target.value)
-         }
+            setPassword(e.target.value)
+        }
+    }
+
+    const showtoast = () => {
+
+        var status = "success"
+        toast.warn('User Account Created', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        })
     }
 
     const submit = async (e) => {
@@ -140,7 +156,7 @@ export const SignupForm = () => {
 
             await axios.post('http://localhost:4000/Users/', user).then(res => {
                 console.log(res.status)
-                alert("User account created successfully!")
+                //alert("User account created successfully!")
                 navigation('/login')
 
                 console.log("user id : ", res.data.data._id)
@@ -221,7 +237,7 @@ export const SignupForm = () => {
                                 <input type="text" className="form-control" name="firstName" id="FirstName"
                                     placeholder="Enter Your First Name" required onChange={(e) => { setFirstName(e.target.value) }} />
                                 {
-                                    firstName.length <= 1 && firstName.length > 0 ? "please enter valid first name" : ""
+                                    firstName.length <= 2 && firstName.length > 0 ? "please enter valid first name" : ""
                                 }
                             </div>
 
@@ -231,7 +247,7 @@ export const SignupForm = () => {
                                 <input type="text" className="form-control" id="LastName" name="lastName"
                                     placeholder="Enter Your Last Name" required onChange={(e) => { setLastName(e.target.value) }} />
                                 {
-                                    lastName.length <= 2 && lastName.length > 0 ? "please enter valid last name" : ""
+                                    lastName.length <= 3 && lastName.length > 0 ? "please enter valid last name" : ""
                                 }
                             </div>
                         </div>
@@ -244,9 +260,9 @@ export const SignupForm = () => {
                                     placeholder="Enter Your Email" required onChange={(e) => { emailHandler(e) }} />
                                 <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
                                 {
-                                    validEmail ?   "":"please enter different mail id" 
+                                    validEmail ? "" : "please enter different mail id"
                                 }
-                                 {emailError && <p>Your email is invalid</p>}
+                                {emailError && <p>Your email is invalid</p>}
 
                             </div>
                         </div>
@@ -259,7 +275,7 @@ export const SignupForm = () => {
                                     onChange={(e) => { passwordHandler(e) }} minLength="8" />
                                 <small id="passwordHelpBlock" className="form-text text-muted">
                                     Your password  MUST contain at least 8 characters.
-                                    ,at least one uppercase letter,at least one number and at least one special character. 
+                                    ,at least one uppercase letter,at least one number and at least one special character.
                                 </small>
                                 {/* {
                                     password.length > 0 && password.length < 8 ? "please enter password of atleast 8 characters" : ""
@@ -380,7 +396,18 @@ export const SignupForm = () => {
 
                         <div className="form-grp row my-5">
                             <div className="col-sm-15">
-                                <input type="submit" className='btn-centre' value="Sign in" />
+                                <input type="submit" className='btn-centre' value="Sign in" onClick={showtoast} />
+                                <ToastContainer
+                                    position="top-right"
+                                    autoClose={5000}
+                                    hideProgressBar={false}
+                                    newestOnTop={false}
+                                    closeOnClick
+                                    rtl={false}
+                                    pauseOnFocusLoss
+                                    draggable
+                                    pauseOnHover
+                                />
                             </div>
                         </div>
 

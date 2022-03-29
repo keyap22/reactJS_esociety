@@ -22,14 +22,14 @@ chairman -
 society member - their visitor's list, pre-schedule their visitor, accept or reject runtime visitor, add child schedule
 
 
-// attendance_counter = 0
-                            // attendanceList.forEach(attendance => {
-                            //     console.log("attendance guard id : ", attendance.guard)
-                            //     console.log("guard id form guard list : ",guard._id)
-                            //     if (attendance.guard === guard._id) {
-                            //         attendance_counter += 1
-                            //         console.log("attendance count : ", attendance_counter)
-                            //     }
-                            //     //guardList.guard.push(attendance_counter)
-                            //     console.log("final attendance count : ", attendance_counter)
-                            //     console.log("guard list : ", guardList)
+attendance_counter = 0
+                             attendanceList.map(attendance => {
+                                 console.log("attendance guard id : ", attendance.guard)
+                                 console.log("guard id form guard list : ",guard._id)
+                                 if (attendance.guard === guard._id) {
+                                     attendance_counter += 1
+                                     console.log("attendance count : ", attendance_counter)
+                                 }
+                                 //guardList.guard.push(attendance_counter)
+                                 console.log("final attendance count : ", attendance_counter)
+                                 console.log("guard list : ", guardList)
