@@ -32,3 +32,11 @@ attendance_counter = 0
                                  //guardList.guard.push(attendance_counter)
                                  console.log("final attendance count : ", attendance_counter)
                                  console.log("guard list : ", guardList)
+===============================================================================================
+                                   guardList.forEach(guard => {
+                console.log("security guard id : "+ guard)
+                var formdata ={
+                    "guard" : guard
+                }
+                axios.post('http://localhost:4000/countattendances/' ,formdata).then(res => {
+            console.log("new guard attendance api response : ", res)

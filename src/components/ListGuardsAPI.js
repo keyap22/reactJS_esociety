@@ -19,43 +19,72 @@ export const ListGuardsAPI = () => {
          })
     }
 
-    const getSecurityGuard = () => {
-        axios.get('http://localhost:4000/guards/').then(res => {
+    const getSecurityGuard = async () => {
+        await axios.get('http://localhost:4000/guards/').then(res => {
             console.log("guard response : ", res)
             setGuardList(res.data.data)
             //guardList = res.data.data
             //console.log("security guard id before for each : ", res.data.data._id)
             //guardID = res.data.data._id
             console.log("guard list : ", guardList)
-
-            // guardList.forEach(guard => {
-            //     console.log("security guard id : ", guard._id)
-
-            //     //getGuardAttendance(guardID)
-
-
-            // })
-        })
-    }
+           
+    })
+}
 
     const getGuardAttendance = () => {
-        axios.get('http://localhost:4000/guardAttendances/').then(res => {
-            console.log("guard attendance response : ", res)
+        // axios.get('http://localhost:4000/guardAttendances/').then(res => {
+        //     console.log("guard attendance response : ", res)
 
-            //setAttendanceList(res.data.data)
-            attendanceList = res.data.data
-            console.log("attendance list : ", attendanceList)
+        //     //setAttendanceList(res.data.data)
+        //     attendanceList = res.data.data
+        //     console.log("attendance list : ", attendanceList)
+
+        // })
+
+
+        guardList.forEach(guard => {
+
+            if(guard._id!=null){
+            var formdata ={
+                "guard" : guard._id
+            }
+            axios.post('http://localhost:4000/countattendances/' ,formdata).then(res => {
+                console.log("guardid :" +guard._id)
+           
+        console.log("==========================new guard attendance api response : ", res.data.data)
+        
 
         })
+    }
+    })
     }
 
     useEffect(() => {
         console.log("use effect hook implemented")
         getSecurityGuard()
+        
         getGuardAttendance()
-    }, [])
+        
+    }, [guardList])
 
     var counter = 0
+    /*
+    
+    attendance_counter = 0
+                             attendanceList.map(attendance => {
+                                 console.log("attendance guard id : ", attendance.guard)
+                                 console.log("guard id form guard list : ",guard._id)
+                                 if (attendance.guard === guard._id) {
+                                     attendance_counter += 1
+                                     console.log("attendance count : ", attendance_counter)
+                                 }
+                                 //guardList.guard.push(attendance_counter)
+                                 console.log("final attendance count : ", attendance_counter)
+                                 console.log("guard list : ", guardList)
+    
+    
+    */
+    
 
     return (
         <div className="container table-responsive-md">
