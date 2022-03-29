@@ -31,6 +31,7 @@ import {ListVisitorsAPI} from './components/ListVisitorsAPI'
 import { UpdateForm } from './components/UpdateForm';
 import { UpdateVisitorForm } from './components/UpdateVisitorForm'
 import {ListGuardsAPI} from './components/ListGuardsAPI'
+import { ListChildrenAPI } from './components/ListChildrenAPI';
 
 function App() {
 
