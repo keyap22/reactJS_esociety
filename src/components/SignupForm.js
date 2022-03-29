@@ -260,7 +260,7 @@ export const SignupForm = () => {
                                     placeholder="Enter Your Email" required onChange={(e) => { emailHandler(e) }} />
                                 <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
                                 {
-                                    validEmail ? "" : "please enter different mail id"
+                                    validEmail && email>0 ? "" : "please enter different mail id"
                                 }
                                 {emailError && <p>Your email is invalid</p>}
 
@@ -329,7 +329,7 @@ export const SignupForm = () => {
                                 <input type="file" id="ProfilePhoto" className="form-control-file" name="profilePhoto"
                                     placeholder="Upload Your Profile Photo" onChange={(e => { profilePhotoHandler(e) })} />
                                 {
-                                    profilePhoto.includes(".png") || profilePhoto.includes(".jpg") || profilePhoto.includes(".jpeg") ? "" : "Please enter valid image"
+                                    (profilePhoto.includes(".png") || profilePhoto.includes(".jpg") || profilePhoto.includes(".jpeg")) && profilePhoto!=="" ? "" : "Please enter valid image"
                                 }
 
                             </div>

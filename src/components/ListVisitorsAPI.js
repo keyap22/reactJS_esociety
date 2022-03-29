@@ -97,15 +97,15 @@ export const ListVisitorsAPI = () => {
                                     <td>{visitor.exitTime}</td>
                                     <td>{visitor.isAllowed ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
                                     <td>{visitor.isPreScheduled ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
-                                    <td><img src={visitor.profilePhoto}></img></td>
+                                    <td><img src={visitor.profilePhoto} style={{height:"80px", width:"80px"}}></img></td>
                                     <td>{visitor.house.houseTitle}</td>
                                     <td>{visitor.visitorCategory.categoryName}</td>
                                     <td>{visitor.purpose}</td>
                                     <td>{visitor.mobileNo}</td>
 
                                     <td>
-                                        <Link to="/listvisitors" className="btn btn-sm btn-danger mx-1" onClick={() => { deleteVisitor(visitor._id) }}><i className="bi bi-trash"></i></Link>
-                                        <Link to={`/listvisitors/update/${visitor._id}`} className="btn btn-sm btn-primary" value={visitor._id}><i className="bi bi-pencil"></i></Link>
+                                        <Link to="/listvisitors" className="btn btn-sm btn-danger" onClick={() => { deleteVisitor(visitor._id) }}><i className="bi bi-trash"></i></Link>
+                                        <Link to={`/listvisitors/update/${visitor._id}`} className="btn btn-sm btn-primary my-1" value={visitor._id}><i className="bi bi-pencil"></i></Link>
                                     </td>
                                 </tr>
                             )

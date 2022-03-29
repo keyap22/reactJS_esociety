@@ -31,8 +31,6 @@ export const Navbar = () => {
               <nav id="navbar" className="navbar">
                 <ul>
                   <li><Link className="nav-link scrollto active" to="/home">Home</Link></li>
-                  <li><Link className="nav-link scrollto" to="/about">About</Link></li>
-                  <li><Link className="nav-link scrollto" to="/services">Services</Link></li>
                   {/* <li><a className="nav-link scrollto " href="#portfolio">Visitor Tracking</a></li>
                 <li><a className="nav-link scrollto" href="#team">Add Pre-request</a></li>*/}
                   <li className="dropdown"><a href="#"><span>Edit</span> <i className="bi bi-chevron-down"></i></a>
@@ -46,31 +44,22 @@ export const Navbar = () => {
                         </ul>
 
                       </li>
-
-                      {/*<li className="dropdown">
-                       <i className="bi bi-chevron-right"></i> */}
-
-                      {/* <ul>
-                          <li><a href="#">Name</a></li>
-                          <li><a href="#">Contact Number</a></li>
-                          {/* <li><a href="#"></a></li>
-                        <li><a href="#">Deep Drop Down 4</a></li>
-                        <li><a href="#">Deep Drop Down 5</a></li>  
-                        </ul> 
-                      </li>
-                      <li></li>*/}
+                       
                       <li className="dropdown"><a href="#"><span>DISPLAY</span> <i className="bi bi-chevron-right"> </i> </a>
 
                         <ul>
                           <li><Link to="listmembers">Society Members</Link></li>
                           <li><Link to="listvisitors">Visitors</Link></li>
                           <li><Link to="listguards">Security Guards</Link></li>
-                          <li><Link to="">Child Schedule</Link></li>
+                          <li><Link to="listchildren">Child Schedule</Link></li>
                         </ul>
 
                       </li>
                     </ul>
                   </li>
+                  <li><Link className="nav-link scrollto" to="/about">About</Link></li>
+                  <li><Link className="nav-link scrollto" to="/services">Services</Link></li>
+          
                   <li><Link className="nav-link" to="/contact">Contact</Link></li>
                   <li><Link to="/profile">Profile</Link></li>
                   <li><Link className="getstarted scrollto" to="/login">Login</Link></li>
