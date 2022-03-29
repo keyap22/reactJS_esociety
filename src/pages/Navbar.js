@@ -37,27 +37,44 @@ export const Navbar = () => {
                 <li><a className="nav-link scrollto" href="#team">Add Pre-request</a></li>*/}
                   <li className="dropdown"><a href="#"><span>Edit</span> <i className="bi bi-chevron-down"></i></a>
                     <ul>
-                      <li><Link to="addvisitor">Add Visitor</Link></li>
-                      <li className="dropdown"><Link to="addvehicle"><span>Add Vehicle</span> 
-                      {/* <i className="bi bi-chevron-right"></i> */}
-                      </Link>
-                        {/* <ul>
+                      <li className="dropdown"><a href="#"><span>ADD</span> <i className="bi bi-chevron-right"> </i> </a>
+
+                        <ul>
+                          <li className="dropdown"><Link to="addvehicle"><span>Vehicle</span></Link></li>
+                          <li className="dropdown"><Link to="childschedule">Child Schedule</Link></li>
+                          <li className="dropdown"><Link to="addvisitor"><span>Visitor</span></Link></li>
+                        </ul>
+
+                      </li>
+
+                      {/*<li className="dropdown">
+                       <i className="bi bi-chevron-right"></i> */}
+
+                      {/* <ul>
                           <li><a href="#">Name</a></li>
                           <li><a href="#">Contact Number</a></li>
                           {/* <li><a href="#"></a></li>
                         <li><a href="#">Deep Drop Down 4</a></li>
                         <li><a href="#">Deep Drop Down 5</a></li>  
-                        </ul> */}
+                        </ul> 
                       </li>
-                      <li><Link to="childschedule">Add Child Schedule</Link></li>
-                      <li><Link to="listmembers">Display all Society members</Link></li>
-                      <li><Link to="listvisitors">Display all Visitor</Link></li>
+                      <li></li>*/}
+                      <li className="dropdown"><a href="#"><span>DISPLAY</span> <i className="bi bi-chevron-right"> </i> </a>
+
+                        <ul>
+                          <li><Link to="listmembers">Society Members</Link></li>
+                          <li><Link to="listvisitors">Visitors</Link></li>
+                          <li><Link to="listguards">Security Guards</Link></li>
+                          <li><Link to="">Child Schedule</Link></li>
+                        </ul>
+
+                      </li>
                     </ul>
                   </li>
                   <li><Link className="nav-link" to="/contact">Contact</Link></li>
                   <li><Link to="/profile">Profile</Link></li>
                   <li><Link className="getstarted scrollto" to="/login">Login</Link></li>
-                  
+
                 </ul>
                 <i className="bi bi-list mobile-nav-toggle"></i>
               </nav>

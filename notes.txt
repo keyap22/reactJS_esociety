@@ -1,21 +1,18 @@
 Tasks -
 
-- add validations in form(signup, login) - pswd, email
-- update visitor : old values for profilephoto visitorCategory housetitle print problem , isAllowed and isPrescheduled
-    
+- add validations in form(signup, login) - length, required, unique(as mentioned in model)
 - email address verification
 - mobile number verification
 - add field named addedBy in visitors model
 - CAPTCHA to verify the user
-- find if there exists any record for current security guard and at current date, if yes then not to save attendance else save the record
+- find if there exists any record for current security guard and at current date, if yes then not to save attendance else save the record - already coded
 
 - after resetting pwd , login navigation to profile not working : check
 
 - update form : compulsary requires all field to be changed otherwise shows error 
 
-
 - Security guard profile - Child schedule list(no action)
-Admin - security guard attendance list(no action)
+Admin - security guard attendance list(no action) - already coded
 
 Profiles -
 
@@ -23,3 +20,16 @@ Security guard - their attendance record, list of pre scheduled visitors, member
 admin - CRUD operation in user
 chairman - 
 society member - their visitor's list, pre-schedule their visitor, accept or reject runtime visitor, add child schedule
+
+
+// attendance_counter = 0
+                            // attendanceList.forEach(attendance => {
+                            //     console.log("attendance guard id : ", attendance.guard)
+                            //     console.log("guard id form guard list : ",guard._id)
+                            //     if (attendance.guard === guard._id) {
+                            //         attendance_counter += 1
+                            //         console.log("attendance count : ", attendance_counter)
+                            //     }
+                            //     //guardList.guard.push(attendance_counter)
+                            //     console.log("final attendance count : ", attendance_counter)
+                            //     console.log("guard list : ", guardList)

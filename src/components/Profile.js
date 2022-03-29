@@ -64,7 +64,7 @@ export const Profile = () => {
 
         guardAttendanceList.forEach(attendance => {
             
-            if (attendance.guard._id === guardID) {
+            if (attendance.guard._id === localStorage.getItem("guardID")) {
                 
                 console.log("attendance guard : ", attendance.guard._id)
                 Counter = Counter + 1

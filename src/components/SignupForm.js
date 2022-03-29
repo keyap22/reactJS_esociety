@@ -97,6 +97,7 @@ export const SignupForm = () => {
     }
 
     const emailHandler = (e) => {
+        findUserByEmail(e.target.value)
         if (!validMail.test(e.target.value)) {
             setEmailError(true);
          }

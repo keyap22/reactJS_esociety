@@ -29,7 +29,8 @@ import {VehicleForm} from './components/VehicleForm'
 import {ChildScheduleForm} from './components/ChildScheduleForm'
 import {ListVisitorsAPI} from './components/ListVisitorsAPI'
 import { UpdateForm } from './components/UpdateForm';
-import { UpdateVisitorForm } from './components/UpdateVisitorForm';
+import { UpdateVisitorForm } from './components/UpdateVisitorForm'
+import {ListGuardsAPI} from './components/ListGuardsAPI'
 
 function App() {
 
@@ -66,6 +67,7 @@ function App() {
         <Route path="/addvehicle" element={<VehicleForm />}></Route>
         <Route path="/childschedule" element={<ChildScheduleForm />}></Route>
         <Route path='/listvisitors' element={<ListVisitorsAPI/>}></Route>
+        <Route path='/listguards' element={<ListGuardsAPI/>}></Route>
         <Route path='/listvisitors/update/:id' element={<UpdateVisitorForm/>}></Route>
         <Route path='listmembers/update/:id1/:id2' element={<UpdateForm/>}></Route>
         
