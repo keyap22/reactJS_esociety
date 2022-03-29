@@ -8,7 +8,7 @@ Tasks -
 - find if there exists any record for current security guard and at current date, if yes then not to save attendance else save the record - already coded
 
 
-- update form : compulsary requires all field to be changed otherwise shows error 
+- update form not working properly 
 
 - Security guard profile - Child schedule list(no action)
 Admin - security guard attendance list(no action) - already coded

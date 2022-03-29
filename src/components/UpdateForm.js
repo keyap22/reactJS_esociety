@@ -26,7 +26,7 @@ export const UpdateForm = () => {
     const [profilePhoto, setProfilePhoto] = useState('')
     const [age, setAge] = useState('')
     const [house, setHouse] = useState()
-    var [validEmail, setValidEmail] = useState()
+    var [validEmail, setValidEmail] = useState(false)
 
 
     const [roleList, setroleList] = useState([])
@@ -133,9 +133,25 @@ export const UpdateForm = () => {
 
     const submit = (e) => {
         e.preventDefault()
+        if(email!=null )
+        {
+            if (validEmail === false )
+                alert("Please consider validation messages and enter details accordingly!")
+      
 
-        if (validEmail === false || firstName.length <= 1 || lastName.length <= 2) {
-            alert("Please consider validation messages and enter details accordingly!")
+
+        }
+        else if(firstName!==null ){
+            if(firstName.length <= 1 )
+                alert("Please consider validation messages and enter details accordingly!")
+      
+
+        }
+        else if(lastName!==null)
+        {
+            if(lastName.length <= 2)
+                alert("Please consider validation messages and enter details accordingly!")
+      
         }
         else {
             finalmob = contactNumber === "" ? userList.mobileNo : contactNumber
