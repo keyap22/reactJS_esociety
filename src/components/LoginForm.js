@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const LoginForm = () => {
     const [email, setemail] = useState('')
@@ -25,10 +27,23 @@ export const LoginForm = () => {
     //const validPassword = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,14})');
     const validMail = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+(?=.)+(?=.[a-zA-Z]$)');
 
+    const showtoast = () => {
+
+        var status = "success"
+        toast.warn('Logged in', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        })
+    }
 
     useEffect(() => {
 
-        getGuardAttendances()
+        // getGuardAttendances()
 
         if(localStorage.getItem("email")!==null)
         {
@@ -39,48 +54,48 @@ export const LoginForm = () => {
 
     const navigation = useNavigate()
 
-    const getGuardAttendances = () => {
-        axios.get('http://localhost:4000/guardAttendances/').then(res => {
-            console.log(res)
-            guardAttendanceList = res.data.data
-            console.log("guard attendance list : ", guardAttendanceList)
-            guardAttendanceList.forEach(attendance => {
+    // const getGuardAttendances = () => {
+    //     axios.get('http://localhost:4000/guardAttendances/').then(res => {
+    //         console.log(res)
+    //         guardAttendanceList = res.data.data
+    //         console.log("guard attendance list : ", guardAttendanceList)
+    //         guardAttendanceList.forEach(attendance => {
 
-                if (attendance.guard._id === localStorage.getItem("guardID")) {
+    //             if (attendance.guard._id === localStorage.getItem("guardID")) {
 
-                    console.log("attendance guard id : ", attendance.guard._id)
-                    console.log("date from get all attendances", attendance.date)
-                    if ((attendance.date === date.toString())) {
-                        //setAddAttendance(false)
-                        console.log("addAttendance in forEach : ", addAttendance)
-                        return false
-                    }
-                    else {
-                        //setAddAttendance(true) 
-                        return true
-                    }
-                }
+    //                 console.log("attendance guard id : ", attendance.guard._id)
+    //                 console.log("date from get all attendances", attendance.date)
+    //                 if ((attendance.date === date.toString())) {
+    //                     //setAddAttendance(false)
+    //                     console.log("addAttendance in forEach : ", addAttendance)
+    //                     return false
+    //                 }
+    //                 else {
+    //                     //setAddAttendance(true) 
+    //                     return true
+    //                 }
+    //             }
 
-            });
-            //console.log("guard id from get all attendances : ", res.data.data.guard)
+    //         });
+    //         //console.log("guard id from get all attendances : ", res.data.data.guard)
 
-        })
-    }
+    //     })
+    // }
 
 
 
     const emailHandler = (e) => {
         if (!validMail.test(e.target.value)) {
             setEmailError(true);
-         }
-         else{
+        }
+        else {
             setEmailError(false);
-             setemail(e.target.value)
-         }
-        
+            setemail(e.target.value)
+        }
+
     }
 
-    
+
 
 
     const displayRole = () => {
@@ -147,12 +162,53 @@ console.log(localStorage.getItem("email"))
                     if (role === "620c88535e051978662b0379") {
                         //security guard attendance
                         postSecurityGuard()
-                        
-                            
-                            if ((localStorage.getItem("guardID") !== "")) {
+
+
+                        //check attendance list to know whether guard has already loggedin or not 
+                         axios.get('http://localhost:4000/guardAttendances/').then(res => {
+                            console.log(res)
+                            guardAttendanceList = res.data.data
+                            console.log("guard attendance list : ", guardAttendanceList)
+                            //guardAttendanceList.forEach(attendance => 
+                            for (let attendance of guardAttendanceList) {
+
+                                if (attendance.guard._id === localStorage.getItem("guardID")) {
+                                    console.log("in if part of setting add attendance")
+
+
+                                    console.log("attendance guard id : ", attendance.guard._id)
+                                    console.log("date from get all attendances", attendance.date)
+                                    if ((attendance.date === date.toString())) {
+                                        //setAddAttendance(false)
+                                        addAttendance = false
+                                        console.log("addAttendance in forEach : ", addAttendance)
+                                        return false
+
+                                    }
+                                    else {
+                                        addAttendance = true
+
+                                    }
+
+                                }
+                                else {
+                                    console.log("in else part of setting add attendance")
+                                    addAttendance = true
+                                    //setAddAttendance(true) 
+                                    return true
+                                }
+                                // if (addAttendance === false) {
+                                //     break;
+                                // }
+
+                            }
+                            // );
+                            console.log("guard id from get all attendances : ", res.data.data.guard)
+                            console.log("==========================>" + addAttendance)
+                            if ((localStorage.getItem("guardID") !== "") && addAttendance === true) {
                                 console.log("above if statement of get guard attendances")
-                                if (getGuardAttendances()) {
-                                //console.log("addAttendance value :", )
+
+                                console.log("addAttendance value===============> :" + addAttendance)
                                 console.log(localStorage.getItem("guardID") !== "")
                                 var GuardAttendances = {
                                     isPresent: 'true',
@@ -160,15 +216,18 @@ console.log(localStorage.getItem("email"))
                                     date: date
                                 }
                                 console.log("before post, guard id : ", localStorage.getItem("guardID"))
-                                axios.post('http://localhost:4000/guardAttendances/', GuardAttendances).then(res => {
+                               axios.post('http://localhost:4000/guardAttendances/', GuardAttendances).then(res => {
                                     console.log("attendance response : ", res)
 
                                     console.log("guard attendances : ", GuardAttendances)
                                     console.log("in post guard id : ", GuardAttendances.guard)
                                     localStorage.setItem("guardID", GuardAttendances.guard)
                                 })
+
                             }
-                        }
+
+
+                        })
 
                         navigation('/profile')
                     }
@@ -192,6 +251,7 @@ console.log(localStorage.getItem("email"))
         })
         console.log("submit called.....")
     }
+
 
     const showPassword = () => {
 
@@ -242,7 +302,7 @@ console.log(localStorage.getItem("email"))
                             <div className="col-sm-9 ml-3">
                                 <input type="email" id="Email" className="form-control" name="email"
                                     placeholder="Enter Your Email" onChange={(e) => { emailHandler(e) }} required />
-                                     {emailError && <p>Your email is invalid</p>}
+                                {emailError && <p>Your email is invalid</p>}
 
                             </div>
                         </div>
@@ -256,7 +316,7 @@ console.log(localStorage.getItem("email"))
 
 
                                 <Link to="" className="showPassword" onClick={(e) => { showPassword(e) }}><i className={`bi ${visibility ? "bi-eye" : "bi-eye-slash"}`} id="visibility" name="visibility"></i></Link>
-                               
+
                             </div>
                         </div>
 
@@ -267,7 +327,18 @@ console.log(localStorage.getItem("email"))
                         </div>
 
                         <div className="my-5">
-                            <input type="submit" className='btn-centre' value="Login" /><br />
+                            <input type="submit" className='btn-centre' value="Login" onClick={showtoast} /><br />
+                            <ToastContainer
+                                    position="top-right"
+                                    autoClose={5000}
+                                    hideProgressBar={false}
+                                    newestOnTop={false}
+                                    closeOnClick
+                                    rtl={false}
+                                    pauseOnFocusLoss
+                                    draggable
+                                    pauseOnHover
+                                />
 
                             New User?
                             <Link to="/signup" className="my-1"> Create an account</Link>
