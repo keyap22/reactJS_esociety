@@ -70,6 +70,9 @@ function App() {
         <Route path='/listguards' element={<ListGuardsAPI/>}></Route>
         <Route path='/listvisitors/update/:id' element={<UpdateVisitorForm/>}></Route>
         <Route path='listmembers/update/:id1/:id2' element={<UpdateForm/>}></Route>
+        <Route path='/listchildren' element={<ListChildrenAPI/>}></Route>
+       
+       
         
         </Routes>
       <Footer />
