@@ -78,7 +78,7 @@ export const ListMembersAPI = () => {
                                     <td>{member.user.mobileNo}</td>
                                     <td>{member.house.houseTitle}</td>
                                     <td>{member.age}</td>
-                                   <td><img src = {member.user.profilePhoto} alt="No image"></img></td> 
+                                   <td><img src = {member.user.profilePhoto} alt="No image" style={{height:"80px", width:"80px"}}></img></td> 
                                     <td>
                                         <Link to="/listmembers" className="btn btn-sm btn-danger mx-2" onClick={() => { deleteMember(member._id, member.user._id) }}><i className="bi bi-trash"></i></Link>
                                         <Link to= {`/listmembers/update/${member.user._id}/${member._id}`} className="btn btn-sm btn-primary"  ><i className="bi bi-pencil"></i></Link>

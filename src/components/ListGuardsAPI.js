@@ -55,8 +55,9 @@ export const ListGuardsAPI = () => {
                     console.log("guardid :" + guard._id)
 
                     console.log("==========================new guard attendance api response : ", res.data.data)
-                    AttendanceList = res.data.data
+                    AttendanceList.push(res.data.data)
                     setAttendanceList(AttendanceList)
+                    console.log("AttendanceList : ",AttendanceList)
                 })
             }
         })
@@ -71,23 +72,6 @@ export const ListGuardsAPI = () => {
     }, [])
 
     var counter = 0
-    /*
-    
-    attendance_counter = 0
-                             attendanceList.map(attendance => {
-                                 console.log("attendance guard id : ", attendance.guard)
-                                 console.log("guard id form guard list : ",guard._id)
-                                 if (attendance.guard === guard._id) {
-                                     attendance_counter += 1
-                                     console.log("attendance count : ", attendance_counter)
-                                 }
-                                 //guardList.guard.push(attendance_counter)
-                                 console.log("final attendance count : ", attendance_counter)
-                                 console.log("guard list : ", guardList)
-    
-    
-    */
-
 
     return (
         <div className="container table-responsive-md">
@@ -98,8 +82,8 @@ export const ListGuardsAPI = () => {
                         <th scope="col" className=''>Sr. No.</th>
                         <th scope="col">Guard Name</th>
                         <th scope="col">Scheduled Time</th>
-                        {/* <th scope="col">Attendance</th> */}
-                        <th scope="col">Image</th>
+                        {/* <th scope="col">Attendance</th> 
+                        <th scope="col">Image</th>*/}
                         <th scope="col">Contact No.</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -108,14 +92,15 @@ export const ListGuardsAPI = () => {
                     {
                         guardList.map((guard) => {
                             counter += 1
-
+                           // AttendanceList.map((attendance) => {
+                             //   console.log("attendance in for loop : ",attendance)
                             return (
                                 <tr key={guard._id}>
                                     <th scope="row">{counter}</th>
                                     <td>{guard.guardName}</td>
                                     <td>{guard.scheduleTime}</td>
-                                    {/* <td>{attendance_counter}</td> */}
-                                    <td><img src={guard.profilePhoto}></img></td>
+                                    {/*<td>{attendance[counter-1]}</td> 
+                                     <td><img src={guard.profilePhoto}></img></td> */}
                                     <td>{guard.mobileNo}</td>
 
                                     <td>
@@ -124,7 +109,7 @@ export const ListGuardsAPI = () => {
                                     </td>
                                 </tr>
                             )
-
+                            //})
                         })
                     }
                 </tbody>

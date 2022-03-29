@@ -49,7 +49,7 @@ export const ListChildrenAPI = () => {
                                     <td>{child.contactNo}</td>
                                     <td>{child.house.houseTitle}</td>
                                     <td>{child.allowedStartingTime + " - " + child.allowedEndingTime}</td>
-                                   <td><img src = {child.profilePhoto} alt="No image"></img></td> 
+                                   <td><img src = {child.profilePhoto} alt="No image" style={{height:"80px", width:"80px"}}></img></td> 
                                     
                                 </tr>
                             )
