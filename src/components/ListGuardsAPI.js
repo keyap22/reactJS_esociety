@@ -8,6 +8,9 @@ export const ListGuardsAPI = () => {
     
     var GuardList=[]
     var AttendanceList = []
+    const [attendancedisplay, setattendancedisplay] = useState(false)
+
+    var [counter,setcounter] = useState(0)
 
 
     const deleteGuard = (guardID) => {
@@ -33,32 +36,31 @@ export const ListGuardsAPI = () => {
         })
     }
 
-    const getGuardAttendance = () => {
-        // axios.get('http://localhost:4000/guardAttendances/').then(res => {
-        //     console.log("guard attendance response : ", res)
-
-        //     //setAttendanceList(res.data.data)
-        //     attendanceList = res.data.data
-        //     console.log("attendance list : ", attendanceList)
-
-        // })
+    const getGuardAttendance =  () => {
+       
 
 
-        GuardList.forEach(guard => {
+         GuardList.forEach(guard => {
             console.log("in for each guard id : ",guard._id)
 
             if (guard._id != null || guard._id != undefined) {
                 var formdata = {
                     "guard": guard._id
                 }
-                axios.post('http://localhost:4000/countattendances/', formdata).then(res => {
+                 axios.post('http://localhost:4000/countattendances/', formdata).then(res => {
                     console.log("guardid :" + guard._id)
 
                     console.log("==========================new guard attendance api response : ", res.data.data)
                     AttendanceList.push(res.data.data)
-                    setAttendanceList(AttendanceList)
-                    console.log("AttendanceList : ",AttendanceList)
-                })
+                    attendanceList.push(res.data.data)
+                     })
+                     //setAttendanceList(AttendanceList)
+                  
+                    //console.log("======AttendanceList : ",AttendanceList)
+                    console.log("======attendanceList usestate : ",attendanceList)
+                    setattendancedisplay(true)
+               
+               
             }
         })
     }
@@ -66,15 +68,16 @@ export const ListGuardsAPI = () => {
     useEffect(() => {
         console.log("use effect hook implemented")
         getSecurityGuard()
-
+        getGuardAttendance()
+        
         
 
     }, [])
 
-    var counter = 0
+    
 
     return (
-        <div className="container table-responsive-md">
+        <div className="container table-responsive-md" >
 
             <table className="table table-hover my-2">
                 <thead className="table_head">
@@ -82,8 +85,8 @@ export const ListGuardsAPI = () => {
                         <th scope="col" className=''>Sr. No.</th>
                         <th scope="col">Guard Name</th>
                         <th scope="col">Scheduled Time</th>
-                        {/* <th scope="col">Attendance</th> 
-                        <th scope="col">Image</th>*/}
+                       <th scope="col">Attendance</th> 
+                          {/*<th scope="col">Image</th>*/}
                         <th scope="col">Contact No.</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -91,16 +94,18 @@ export const ListGuardsAPI = () => {
                 <tbody>
                     {
                         guardList.map((guard) => {
-                            counter += 1
+                            counter +=1
+                            console.log(counter)
+                            console.log(attendanceList[1])
                            // AttendanceList.map((attendance) => {
                              //   console.log("attendance in for loop : ",attendance)
                             return (
-                                <tr key={guard._id}>
+                                 <tr key={guard._id}>
                                     <th scope="row">{counter}</th>
                                     <td>{guard.guardName}</td>
                                     <td>{guard.scheduleTime}</td>
-                                    {/*<td>{attendance[counter-1]}</td> 
-                                     <td><img src={guard.profilePhoto}></img></td> */}
+                                  {attendancedisplay? <td >{ attendanceList[counter-1]!=undefined ?attendanceList[counter-1]:""}</td> :<td></td>}
+                                     {/*<td><img src={guard.profilePhoto}></img></td> */}
                                     <td>{guard.mobileNo}</td>
 
                                     <td>
