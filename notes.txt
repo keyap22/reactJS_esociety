@@ -7,7 +7,6 @@ Tasks -
 - CAPTCHA to verify the user
 - find if there exists any record for current security guard and at current date, if yes then not to save attendance else save the record - already coded
 
-- after resetting pwd , login navigation to profile not working : check
 
 - update form : compulsary requires all field to be changed otherwise shows error 
 

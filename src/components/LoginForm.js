@@ -14,6 +14,8 @@ export const LoginForm = () => {
     var [addAttendance, setAddAttendance] = useState(false)
 
     var [emailError, setEmailError] = useState(false);
+    var [loggedIn, setLoggedIn] = useState(false);
+
 
 
     var guardId = ""
@@ -27,6 +29,11 @@ export const LoginForm = () => {
     useEffect(() => {
 
         getGuardAttendances()
+
+        if(localStorage.getItem("email")!==null)
+        {
+            setLoggedIn(true)
+        }
 
     }, [])
 
@@ -129,12 +136,13 @@ export const LoginForm = () => {
                 console.log("role name in submit : ", roleName)
                 console.log("user id : ", res.data.id)
                 userId = res.data.id
-
+console.log(localStorage.getItem("email"))
                 if (localStorage.getItem("email") === null) {
                     localStorage.setItem('email', email)
                     localStorage.setItem("role", role)
                     localStorage.setItem("roleName", roleName)
                     console.log("-================----" + role)
+                    navigation('/profile')
 
                     if (role === "620c88535e051978662b0379") {
                         //security guard attendance
@@ -200,10 +208,12 @@ export const LoginForm = () => {
     }
 
     return (
+       
         <section id="services" className="services section-bg">
 
             <div className='mycard my-5 '>
                 <div className="form-center " >
+                {!loggedIn ?
 
                     <form className="login-form" align="center" onSubmit={submit}>
 
@@ -266,7 +276,7 @@ export const LoginForm = () => {
                         <div className="my-2">
                             <Link to="/forgotpassword" className="forgotPassword">Forgot Password?</Link>
                         </div>
-                    </form>
+                    </form> : <div><h3>Please log out from your device first</h3></div>}
                 </div>
             </div>
         </section>
