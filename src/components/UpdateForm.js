@@ -393,16 +393,8 @@ export const UpdateForm = () => {
 
     }
 
-    const displayRole = () => {
-        axios.get("http://localhost:4000/roles/").then(res => {
-            //console.log(res.data.data)
-            setroleList(res.data.data)
-        })
-    }
-
     const submit = (e) => {
         e.preventDefault()
-
 
         finalmob = contactNumber === "" ? userList.mobileNo : contactNumber
         finalemail = email === "" ? userList.email : email
@@ -449,7 +441,6 @@ export const UpdateForm = () => {
 
         //clearing out the details of the form after pressing submit button
         e.target.reset()
-
     }
 
     return (
@@ -508,22 +499,18 @@ export const UpdateForm = () => {
                         </div>
 
 
-                        {/* <div className="form-group row my-3 mr-2 mb-3">
+                        <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>Role  </strong></label>
                             <div className="col-sm-10">
-                                <select className="form-select" id="role" onClick={(e) => { displayRole(e) }} onChange={(e) => { setRole(e.target.value) }}>
+                                <select className="form-select" id="role" onChange={(e) => { setRole(e.target.value) }}>
                                     <option>Please Select</option>
-                                    {
-                                        roleList.map((role) => {
-
-                                            return (
-                                                <option key={role._id} value={role._id}>{role.roleName}</option>
-                                            )
-                                        })
-                                    }
+                                    
+                                    <option value="620dd424e608c720fa0f1be8">Society Member</option>
+                                    <option value="620dda4cbaf661b44817ee63">Chairman</option>
+                                           
                                 </select>
                             </div>
-                        </div> */}
+                        </div>
 
 
                         <div className="form-group row my-3 mr-2 mb-3">

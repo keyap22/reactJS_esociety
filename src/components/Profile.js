@@ -137,9 +137,9 @@ export const Profile = () => {
             {
                 email ? isLogin = true : isLogin = false
             }
-
-
-
+            {
+                role==="620dda4cbaf661b44817ee63" ? <h2>Hello, Chairman</h2> : ""
+            }
             {
                 role === "620c88535e051978662b0379" ? <h2>Security guard attendance - {counter}</h2> : ""
             }

@@ -43,8 +43,8 @@ export const SignupForm = () => {
     const roleHandler = (e) => {
         console.log("role : " + e.target.value)
 
-        if (e.target.value === "620dd424e608c720fa0f1be8") {
-            console.log("society member selected")
+        if (e.target.value === "620dd424e608c720fa0f1be8" || e.target.value === "620dda4cbaf661b44817ee63") {
+            console.log("society member or chairman selected")
             setIsMember(true)
             setIsGuard(false)
         }
@@ -169,7 +169,7 @@ export const SignupForm = () => {
             console.log("========================================" + userid)
 
 
-            if (role === "620dd424e608c720fa0f1be8") {
+            if (role === "620dd424e608c720fa0f1be8" || role==="620dda4cbaf661b44817ee63") {
                 if (userid !== "") {
 
                     var member = {
@@ -396,7 +396,8 @@ export const SignupForm = () => {
 
                         <div className="form-grp row my-5">
                             <div className="col-sm-15">
-                                <input type="submit" className='btn-centre' value="Sign in" onClick={showtoast} />
+                                <input type="submit" className='btn-centre' value="Sign in"  />
+                                {/* onClick={showtoast} 
                                 <ToastContainer
                                     position="top-right"
                                     autoClose={5000}
@@ -407,7 +408,7 @@ export const SignupForm = () => {
                                     pauseOnFocusLoss
                                     draggable
                                     pauseOnHover
-                                />
+                                />*/}
                             </div>
                         </div>
 
