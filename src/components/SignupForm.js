@@ -23,7 +23,7 @@ export const SignupForm = () => {
     const [dutyEndingTime, setDutyEndingTime] = useState('')
     var [isMember, setIsMember] = useState(false)
     var [isGuard, setIsGuard] = useState(false)
-    var [validEmail, setValidEmail] = useState(false)
+    var [validEmail, setValidEmail] = useState(true)
     var [pwdError, setPwdError] = useState(false);
     var [emailError, setEmailError] = useState(false);
 
@@ -85,28 +85,36 @@ export const SignupForm = () => {
         }
         console.log("email before post request :", email)
         axios.post("http://localhost:4000/forgotpwd/", formdata).then(res => {
-            if (res.data.data !== null) {
+            console.log("===response : ", res.data.data)
+              
+            if (res.data.data!==null) {
                 console.log("User with same email found successfully!")
-                console.log("response : ", res)
+                console.log("response : ", res.data.data)
                 //console.log("user id :", res.data.data._id)
                 //userID = res.data.data._id
                 setValidEmail(false)
                 console.log("valid email value : ", validEmail)
             }
+            else{
+                   setValidEmail(true)
+                   console.log("valid email value : ", validEmail)
+     
+            }
         })
-        console.log("valid email value : ", validEmail)
-        setValidEmail(true)
+        
     }
 
     const emailHandler = (e) => {
         findUserByEmail(e.target.value)
-        if (!validMail.test(e.target.value)) {
+        if (!validMail) {
             setEmailError(true);
+
         }
         else {
             setEmailError(false);
             setEmail(e.target.value)
         }
+        console.log("email error :" + emailError)
 
     }
 
@@ -260,7 +268,7 @@ export const SignupForm = () => {
                                     placeholder="Enter Your Email" required onChange={(e) => { emailHandler(e) }} />
                                 <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
                                 {
-                                    validEmail && email>0 ? "" : "please enter different mail id"
+                                    validEmail || email>=0 ? "" : "please enter different mail id"
                                 }
                                 {emailError && <p>Your email is invalid</p>}
 
