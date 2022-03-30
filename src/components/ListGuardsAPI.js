@@ -43,7 +43,7 @@ export const ListGuardsAPI = () => {
          GuardList.forEach(guard => {
             console.log("in for each guard id : ",guard._id)
 
-            if (guard._id != null || guard._id != undefined) {
+            if (guard._id !== null || guard._id !== undefined) {
                 var formdata = {
                     "guard": guard._id
                 }
@@ -85,7 +85,7 @@ export const ListGuardsAPI = () => {
                         <th scope="col" className=''>Sr. No.</th>
                         <th scope="col">Guard Name</th>
                         <th scope="col">Scheduled Time</th>
-                       <th scope="col">Attendance</th> 
+                       {/* <th scope="col">Attendance</th>  */}
                           {/*<th scope="col">Image</th>*/}
                         <th scope="col">Contact No.</th>
                         <th scope="col">Action</th>
@@ -104,7 +104,7 @@ export const ListGuardsAPI = () => {
                                     <th scope="row">{counter}</th>
                                     <td>{guard.guardName}</td>
                                     <td>{guard.scheduleTime}</td>
-                                  {attendancedisplay? <td >{ attendanceList[counter-1]!=undefined ?attendanceList[counter-1]:""}</td> :<td></td>}
+                                  {/* {attendancedisplay? <td >{ attendanceList[counter-1]!==undefined ?attendanceList[counter-1]:""}</td> :<td></td>} */}
                                      {/*<td><img src={guard.profilePhoto}></img></td> */}
                                     <td>{guard.mobileNo}</td>
 

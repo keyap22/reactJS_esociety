@@ -58,8 +58,8 @@ export const VehicleForm = () => {
     return (
         <section id="services" className="services section-bg">
 
-            <div className='mycard my-5 '>
-                <div className="form-center " >
+            <div className='mycard my-5'>
+                <div className="form-center" >
 
                     <form className="vehicle-form" align="center" onSubmit={submit}>
 
@@ -109,7 +109,7 @@ export const VehicleForm = () => {
                                         userList.map((user) => {
 
                                             return (
-                                                <option value={user._id}>{user.firstName + user.lastName}</option>
+                                                <option value={user._id}>{user.firstName + " "+ user.lastName}</option>
                                             )
                                         })
                                     }

@@ -156,7 +156,7 @@ export const VisitorForm = () => {
                 <div className="align-items-center" >
 
                     <div className="container my-3" style={{marginLeft : "520px"}}>
-                        <input className="radios mx-2" type="radio" name="radios" value="Visitor" onClick={(e) => visitorSelected(e)} checked="checked"/>
+                        <input className="radios mx-2" type="radio" name="radios" value="Visitor" onClick={(e) => visitorSelected(e)} />
                         <label className="radios mx-2">ADD VISITOR</label>
 
                         <input className="radios mx-2" type="radio" name="radios" value="Deliverable" onClick={(e) => deliverableSelected(e)} />
@@ -282,7 +282,7 @@ export const VisitorForm = () => {
 
 
 
-                        <div className="form-grp row my-3" style={{marginLeft : "150px"}}>
+                        <div className="form-grp row my-5" style={{marginLeft : "150px"}}>
                             <div className="col-sm-10">
                                 <input type="submit" className='btn-centre' value="Add Visitor" />
                             </div>
@@ -327,7 +327,7 @@ export const VisitorForm = () => {
                             </div>
                         </div>
 
-                        <div className="form-grp row my-3">
+                        <div className="form-grp row my-3" style={{ marginLeft: "55px" }}>
                             <div className="col-sm-10">
                                 <input type="submit" className='btn-centre' value="Add Deliverable" />
                             </div>
