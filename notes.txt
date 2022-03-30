@@ -14,6 +14,8 @@ Tasks -
 - visitor list on the basis of member id
 - runtime visitor request form
 
+-push notification
+
 Admin - security guard attendance list(attendance print problem, delete, update) - already coded
 
 Profiles -

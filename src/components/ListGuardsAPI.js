@@ -8,7 +8,7 @@ export const ListGuardsAPI = () => {
     
     var GuardList=[]
     var AttendanceList = []
-    const [attendancedisplay, setattendancedisplay] = useState(false)
+    var [attendancedisplay, setattendancedisplay] = useState(false)
 
     var [counter,setcounter] = useState(0)
 
@@ -41,14 +41,14 @@ export const ListGuardsAPI = () => {
 
 
          GuardList.forEach(guard => {
-            console.log("in for each guard id : ",guard._id)
+          //  console.log("in for each guard id : ",guard._id)
 
             if (guard._id !== null || guard._id !== undefined) {
                 var formdata = {
                     "guard": guard._id
                 }
                  axios.post('http://localhost:4000/countattendances/', formdata).then(res => {
-                    console.log("guardid :" + guard._id)
+                  //  console.log("guardid :" + guard._id)
 
                     console.log("==========================new guard attendance api response : ", res.data.data)
                     AttendanceList.push(res.data.data)
@@ -58,23 +58,50 @@ export const ListGuardsAPI = () => {
                   
                     //console.log("======AttendanceList : ",AttendanceList)
                     console.log("======attendanceList usestate : ",attendanceList)
-                    setattendancedisplay(true)
-               
+                    
                
             }
         })
+        if(attendanceList!==null){ setattendancedisplay(true)
+        }
+                       
     }
+
+    var [display, setDisplay] = useState(0);
+
+    // useEffect(() => {
+    //    var s = setInterval(() => {
+    //       setDisplay(state => (state +1));
+    //     }, 10000);
+    //     console.log(display)
+    //   }, []);
+    
 
     useEffect(() => {
         console.log("use effect hook implemented")
+
         getSecurityGuard()
-        getGuardAttendance()
-        
-        
+      
+        if(attendancedisplay===true)
+        {
+      
+       getGuardAttendance()
+       }
+    //    if (performance.navigation.type === 1) {
+    //     console.log("This page is  reloaded");
+     
+    //     setattendancedisplay(false)
+    //   } else {
+    //     console.log("This page is not reloaded");
+    //   }
 
-    }, [])
+     
 
-    
+    },(attendanceList.length<8 ?[guardList]:[])
+    )
+
+    // [attendancedisplay ?[]: [  guardList,
+    //     attendanceList]]
 
     return (
         <div className="container table-responsive-md" >
@@ -85,28 +112,33 @@ export const ListGuardsAPI = () => {
                         <th scope="col" className=''>Sr. No.</th>
                         <th scope="col">Guard Name</th>
                         <th scope="col">Scheduled Time</th>
-                       {/* <th scope="col">Attendance</th>  */}
+                       <th scope="col">Attendance</th>  
                           {/*<th scope="col">Image</th>*/}
                         <th scope="col">Contact No.</th>
                         <th scope="col">Action</th>
+                        {/* <th scope="col">Attendance</th>  */}
                     </tr>
                 </thead>
+                
                 <tbody>
+                    
                     {
                         guardList.map((guard) => {
                             counter +=1
-                            console.log(counter)
-                            console.log(attendanceList[1])
+                            //console.log(counter)
+                           // console.log(attendanceList[1])
                            // AttendanceList.map((attendance) => {
                              //   console.log("attendance in for loop : ",attendance)
+                            // console.log(attendancedisplay)
                             return (
                                  <tr key={guard._id}>
                                     <th scope="row">{counter}</th>
                                     <td>{guard.guardName}</td>
                                     <td>{guard.scheduleTime}</td>
-                                  {/* {attendancedisplay? <td >{ attendanceList[counter-1]!==undefined ?attendanceList[counter-1]:""}</td> :<td></td>} */}
+                                   {attendancedisplay? <td >{ attendanceList[counter-1]!==undefined ?attendanceList[counter-1]:""}</td> :<td></td>} 
                                      {/*<td><img src={guard.profilePhoto}></img></td> */}
                                     <td>{guard.mobileNo}</td>
+                                    
 
                                     <td>
                                         <Link to="/listguards" className="btn btn-sm btn-danger mx-1" onClick={() => { deleteGuard(guard._id) }}><i className="bi bi-trash"></i></Link>
@@ -117,8 +149,23 @@ export const ListGuardsAPI = () => {
                             //})
                         })
                     }
+                    {/* {
+                        attendanceList.map((attendance)=>{
+                            console.log("==========================...."+attendance)
+                            return(
+                                
+                                    <td>{attendance}</td>
+                                
+                            )
+                        })
+                    }  */
+                     }
+                     
+                    
                 </tbody>
             </table>
         </div>
     )
+    setattendancedisplay(false)
+                  
 }
