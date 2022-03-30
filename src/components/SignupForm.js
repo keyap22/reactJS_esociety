@@ -268,9 +268,9 @@ export const SignupForm = () => {
                                     placeholder="Enter Your Email" required onChange={(e) => { emailHandler(e) }} />
                                 <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
                                 {
-                                    validEmail || email>=0 ? "" : "please enter different mail id"
+                                    validEmail || email>=0 ? "" : "Email already exists.Please enter different mail id"
                                 }
-                                {emailError && <p>Your email is invalid</p>}
+                                {emailError && <p>Your email is invalid </p>}
 
                             </div>
                         </div>
@@ -288,7 +288,7 @@ export const SignupForm = () => {
                                 {/* {
                                     password.length > 0 && password.length < 8 ? "please enter password of atleast 8 characters" : ""
                                 } */}
-                                {pwdError && <p>Your password is invalid</p>}
+                                {pwdError && <p>Your password is weak.Please try with other password</p>}
 
                             </div>
                         </div>
@@ -299,7 +299,7 @@ export const SignupForm = () => {
                                 <input type="password" id="Password2" className="form-control" name="Password2" autoComplete="off"
                                     placeholder="Re-enter password" required onChange={(e) => { setPassword2(e.target.value) }} />
                                 {
-                                    password2 !== password ? "Both the password should be same" : ""
+                                    password2 !== password ? "Does not match password" : ""
                                 }
 
                             </div>

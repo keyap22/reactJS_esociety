@@ -5,7 +5,6 @@ Tasks -
 - mobile number verification
 - add field named addedBy in visitors model
 - CAPTCHA to verify the user
-- for new mail id also, it is showing "please enter different mail id"
 
 - child schedule, visitor - name, contact no. validations
 - list vehicles for guard profile
