@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 export const ListChildrenAPI = () => {
     const [childrenList, setchildrenList] = useState([])
@@ -18,6 +19,13 @@ export const ListChildrenAPI = () => {
         getData()
     }, [])
 
+    const deleteChild = (id) => {
+
+        axios.delete(`http://localhost:4000/childSchedules/` + id).then(res => {
+            console.log(res)
+        })
+    }
+
     var counter = 0
 
     return (
@@ -33,6 +41,7 @@ export const ListChildrenAPI = () => {
                         <th scope="col">House Title</th>
                         <th scope="col">Allowed Time</th>
                         <th scope="col">Profile Photo</th> 
+                        <th scope="col">Action</th>
                    </tr>
                 </thead>
                 <tbody>
@@ -50,7 +59,10 @@ export const ListChildrenAPI = () => {
                                     <td>{child.house.houseTitle}</td>
                                     <td>{child.allowedStartingTime + " - " + child.allowedEndingTime}</td>
                                    <td><img src = {child.profilePhoto} alt="No image" style={{height:"80px", width:"80px"}}></img></td> 
-                                    
+                                   <td>
+                                        <Link to="/listchildren" className="btn btn-sm btn-danger mx-1" onClick={() => { deleteChild(child._id) }}><i className="bi bi-trash"></i></Link>
+                                        <Link to={`/listchildren/update/${child._id}`} className="btn btn-sm btn-primary" value={child._id}><i className="bi bi-pencil"></i></Link>
+                                    </td>
                                 </tr>
                             )
                         })
