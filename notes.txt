@@ -7,10 +7,14 @@ Tasks -
 - CAPTCHA to verify the user
 
 - child schedule, visitor form - name, contact no. validations(as specified in model) --> check
-- list deliverables
+
 - visitor list - pre-scheduled list different?
 - visitor list on the basis of member id
-- runtime visitor request form(push notification)
+- (push notification) : runtime visitor request form, pwd/details updation notification
+reference : 
+https://www.mindbowser.com/web-push-notification-in-reactjs-with-firebase/
+https://onesignal.com/blog/how-to-integrate-push-notifications-in-react/
+
 - remember me(jwt token)
 
 Profiles -
