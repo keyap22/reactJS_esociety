@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 
-export const ListvehiclerenAPI = () => {
+export const ListvehiclesAPI = () => {
     const [vehicleList, setvehicleList] = useState([])
 
    
@@ -45,7 +45,7 @@ export const ListvehiclerenAPI = () => {
                 </thead>
                 <tbody>
                     {
-                        vehicleList.map((Vehicle) => {
+                        vehicleList.map((vehicle) => {
                             counter += 1
                             return (
                                 <tr key={vehicle._id}>
@@ -58,7 +58,7 @@ export const ListvehiclerenAPI = () => {
                                     <td>{vehicle.user.mobileNo}</td>
                                 <td><img src = {vehicle.user.profilePhoto} alt="No image" style={{height:"80px", width:"80px"}}></img></td> 
                                    <td>
-                                        <Link to="/listvehicle" className="btn btn-sm btn-danger mx-1" onClick={() => { deletevehicle(vehicle._id) }}><i className="bi bi-trash"></i></Link>
+                                        <Link to="/listvehicle" className="btn btn-sm btn-danger mx-1" onClick={() => { deleteVehicle(vehicle._id) }}><i className="bi bi-trash"></i></Link>
                                         <Link to={`/listvehicle/update/${vehicle._id}`} className="btn btn-sm btn-primary" value={vehicle._id}><i className="bi bi-pencil"></i></Link>
                                     </td>
                                 </tr>

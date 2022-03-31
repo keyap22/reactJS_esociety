@@ -31,7 +31,7 @@ import { UpdateForm } from './components/UpdateForm';
 import { UpdateVisitorForm } from './components/UpdateVisitorForm'
 import {ListGuardsAPI} from './components/ListGuardsAPI'
 import { ListChildrenAPI } from './components/ListChildrenAPI';
-import { ListVehiclesAPI } from './components/ListVehiclesAPI'
+import { ListvehiclesAPI } from './components/ListVehiclesAPI';
 
 function App() {
 
@@ -72,7 +72,7 @@ function App() {
         <Route path='/listvisitors/update/:id' element={<UpdateVisitorForm/>}></Route>
         <Route path='listmembers/update/:id1/:id2' element={<UpdateForm/>}></Route>
         <Route path='/listchildren' element={<ListChildrenAPI/>}></Route>
-        <Route path='/listvehicle' element={<ListVehiclesAPI/>}></Route>
+        <Route path='/listvehicles' element={<ListvehiclesAPI/>}></Route>
        
         
         </Routes>
