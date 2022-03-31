@@ -6,15 +6,12 @@ Tasks -
 - add field named addedBy in visitors model
 - CAPTCHA to verify the user
 
-- child schedule, visitor - name, contact no. validations
+- child schedule, visitor form - name, contact no. validations
 - list deliverables
 - visitor list - pre-scheduled list different?
 - visitor list on the basis of member id
-- runtime visitor request form
-
--push notification
-
-Admin - security guard attendance list(attendance print problem, delete, update) - already coded
+- runtime visitor request form(push notification)
+- remember me(jwt token)
 
 Profiles -
 
