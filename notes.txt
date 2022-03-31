@@ -7,7 +7,6 @@ Tasks -
 - CAPTCHA to verify the user
 
 - child schedule, visitor - name, contact no. validations
-- list vehicles for guard profile
 - list deliverables
 - visitor list - pre-scheduled list different?
 - visitor list on the basis of member id

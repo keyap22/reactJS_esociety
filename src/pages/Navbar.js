@@ -44,14 +44,18 @@ export const Navbar = () => {
                         </ul>
 
                       </li>
-                       
+
                       <li className="dropdown"><a href="#"><span>DISPLAY</span> <i className="bi bi-chevron-right"> </i> </a>
 
                         <ul>
-                          <li><Link to="listmembers">Society Members</Link></li>
+                          <li><Link to="listvehicle">Vehicles</Link></li>
                           <li><Link to="listvisitors">Visitors</Link></li>
+                          <li><Link to="">Deliverables</Link></li>
+                          <li><Link to="listmembers">Society Members</Link></li>
                           <li><Link to="listguards">Security Guards</Link></li>
                           <li><Link to="listchildren">Child Schedule</Link></li>
+
+
                         </ul>
 
                       </li>
@@ -59,7 +63,7 @@ export const Navbar = () => {
                   </li>
                   <li><Link className="nav-link scrollto" to="/about">About</Link></li>
                   <li><Link className="nav-link scrollto" to="/services">Services</Link></li>
-          
+
                   <li><Link className="nav-link" to="/contact">Contact</Link></li>
                   <li><Link to="/profile">Profile</Link></li>
                   <li><Link className="getstarted scrollto" to="/login">Login</Link></li>
