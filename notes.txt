@@ -6,7 +6,7 @@ Tasks -
 - add field named addedBy in visitors model
 - CAPTCHA to verify the user
 
-- child schedule, visitor form - name, contact no. validations
+- child schedule, visitor form - name, contact no. validations(as specified in model) --> check
 - list deliverables
 - visitor list - pre-scheduled list different?
 - visitor list on the basis of member id

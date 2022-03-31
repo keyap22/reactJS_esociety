@@ -172,8 +172,11 @@ export const VisitorForm = () => {
                             <label className="col-sm-2 col-form-label"><strong>Visitor Name  </strong></label>
                             <div className="col-sm-10">
                                 <input type="text" id="visitorName" className="form-control" name="VisitorName"
-                                    placeholder="Enter Visitor's Name" required
+                                    placeholder="Enter Visitor's Name" required maxLength="25"
                                     onChange={(e) => { setVisitorName(e.target.value) }} />
+                                {
+                                    visitorName.length <= 2 && visitorName.length > 0 ? "please enter valid visitor name" : ""
+                                }
                             </div>
                         </div>
 
@@ -181,8 +184,11 @@ export const VisitorForm = () => {
                             <label className="col-sm-2 col-form-label"><strong>Purpose  </strong></label>
                             <div className="col-sm-10">
                                 <textarea id="purpose" className="form-control" name="Purpose" rows="4" cols="50"
-                                    placeholder="Enter Visitor's Purpose" required
+                                    placeholder="Enter Visitor's Purpose" required maxLength="150"
                                     onChange={(e) => { setPurpose(e.target.value) }} />
+                                    {
+                                    purpose.length <= 5 && purpose.length > 0 ? "please enter valid purpose" : ""
+                                }
                             </div>
                         </div>
 
@@ -230,7 +236,8 @@ export const VisitorForm = () => {
                             <label className="col-sm-2 col-form-label"><strong>Contact Number  </strong></label>
                             <div className="col-sm-10">
                                 <input type="tel" id="ContactNumber" className="form-control" name="contactNumber"
-                                    placeholder="Enter Visitor Mobile Number" required onChange={(e) => { contactNumberHandler(e) }} />
+                                    placeholder="Enter Visitor Mobile Number" required maxLength="12"
+                                    onChange={(e) => { contactNumberHandler(e) }} />
                             </div>
                         </div>
 

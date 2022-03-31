@@ -2,25 +2,25 @@ import React, { useState } from 'react'
 import axios from 'axios'
 
 export const ChildScheduleForm = () => {
-    
+
     const [childName, setchildName] = useState('')
     const [age, setAge] = useState('')
     const [contactName, setContactName] = useState('')
     const [contactNo, setContactNo] = useState('')
-    const [house,setHouse] = useState('')
-    const [profilePhoto,setProfilePhoto] =useState('')
-    const [allowedStartingTime, setAllowedStartingTime] =  useState('')
-    const [allowedEndingTime, setAllowedEndingTime] =  useState('')
-   
-    const [houseList , sethouseList] = useState([])
-    
+    const [house, setHouse] = useState('')
+    const [profilePhoto, setProfilePhoto] = useState('')
+    const [allowedStartingTime, setAllowedStartingTime] = useState('')
+    const [allowedEndingTime, setAllowedEndingTime] = useState('')
+
+    const [houseList, sethouseList] = useState([])
+
 
 
     const getHouses = () => {
         axios.get("http://localhost:4000/houses/").then(res => {
             console.log(res.data.data)
             sethouseList(res.data.data)
-           })
+        })
 
     }
 
@@ -29,32 +29,32 @@ export const ChildScheduleForm = () => {
 
         e.preventDefault()
         var formdata = {
-        childName : childName,
-        age : age,
-        contactName : contactName,
-        contactNo : contactNo,
-        house : house,
-        profilePhoto: profilePhoto,
-        allowedStartingTime: allowedStartingTime.toString(),
-        allowedEndingTime : allowedEndingTime.toString()   
+            childName: childName,
+            age: age,
+            contactName: contactName,
+            contactNo: contactNo,
+            house: house,
+            profilePhoto: profilePhoto,
+            allowedStartingTime: allowedStartingTime.toString(),
+            allowedEndingTime: allowedEndingTime.toString()
         }
 
         console.log(`childName : ${childName} , age : ${age}, start time : ${allowedStartingTime} , house : ${house}`)
-      
-       axios.post('http://localhost:4000/childSchedules/', formdata).then(res => {
+
+        axios.post('http://localhost:4000/childSchedules/', formdata).then(res => {
             console.log(res)
             if (res.data.status === 200) {
                 console.log("schedule added  successfully")
-              
-               
-                
+
+
+
             }
             else if (res.data.status === -1) {
 
                 console.log("Incorrect details.....Please try again")
 
                 //clearing out the details of the form after pressing submit button
-               
+
 
             }
         })
@@ -66,7 +66,7 @@ export const ChildScheduleForm = () => {
         <section id="services" className="services section-bg">
 
             <div className='mycard my-5 '>
-                <div className="form-horizontal" style={{height : "750px"}}>
+                <div className="form-horizontal" style={{ height: "750px" }}>
 
                     <form className="vehicle-form" align="center" onSubmit={submit}>
 
@@ -77,7 +77,11 @@ export const ChildScheduleForm = () => {
                             <label htmlFor="parkingID" className="col-sm-2 col-form-label"><strong>Child Name</strong></label>
                             <div className="col-sm-9 ml-3">
                                 <input type="text" id="childName" className="form-control" name="childName"
-                                    placeholder="Enter Child Name" required onChange={(e) => { setchildName(e.target.value) }} />
+                                    placeholder="Enter Child Name" required maxLength="20"
+                                    onChange={(e) => { setchildName(e.target.value) }} />
+                                {
+                                    childName.length <= 2 && childName.length > 0 ? "please enter valid child name" : ""
+                                }
                             </div>
                         </div>
 
@@ -85,7 +89,8 @@ export const ChildScheduleForm = () => {
                             <label htmlFor="age" className="col-sm-2 col-form-label"><strong>Age</strong></label>
                             <div className="formField col-sm-9 ml-3">
                                 <input type="number" id="age" className="form-control md-9" name="age"
-                                    placeholder="Enter child's age" required onChange={(e) => { setAge(e.target.value) }} />
+                                    placeholder="Enter child's age" required maxLength="3"
+                                    onChange={(e) => { setAge(e.target.value) }} />
                                 <div className="md-3"> </div>
 
                             </div>
@@ -95,7 +100,11 @@ export const ChildScheduleForm = () => {
                             <label htmlFor="contactName" className="col-sm-2 col-form-label"><strong>Contact Name</strong></label>
                             <div className="formField col-sm-9 ml-3">
                                 <input type="text" id="contactName" className="form-control md-9" name="contactName"
-                                    placeholder="Enter contact Name" required onChange={(e) => { setContactName(e.target.value) }} />
+                                    placeholder="Enter contact Name" required maxLength="20"
+                                    onChange={(e) => { setContactName(e.target.value) }} />
+                                {
+                                    contactName.length <= 2 && contactName.length > 0 ? "please enter valid name of contact person" : ""
+                                }
                                 <div className="md-3"> </div>
 
                             </div>
@@ -105,7 +114,8 @@ export const ChildScheduleForm = () => {
                             <label htmlFor="contactNo" className="col-sm-2 col-form-label"><strong>Contact No.</strong></label>
                             <div className="formField col-sm-9 ml-3">
                                 <input type="text" id="contactNo" className="form-control md-9" name="contactNo"
-                                    placeholder="Enter contact Number" required onChange={(e) => { setContactNo(e.target.value) }} />
+                                    placeholder="Enter contact Number" required maxLength="12"
+                                    onChange={(e) => { setContactNo(e.target.value) }} />
                                 <div className="md-3"> </div>
 
                             </div>
@@ -115,7 +125,10 @@ export const ChildScheduleForm = () => {
                             <label htmlFor="profilePhoto" className="col-sm-2 col-form-label"><strong>Photo</strong></label>
                             <div className="formField col-sm-9 ml-3">
                                 <input type="file" id="profilePhoto" className="form-control md-9" name="profilePhoto"
-                                    placeholder="Insert child's photo" required onChange={(e) => { setProfilePhoto(e.target.value) }} />
+                                    placeholder="Insert child's photo" onChange={(e) => { setProfilePhoto(e.target.value) }} />
+                                    {
+                                    (profilePhoto.includes(".png") || profilePhoto.includes(".jpg") || profilePhoto.includes(".jpeg")) && profilePhoto!=="" ? "" : "Please enter valid image"
+                                }
                                 <div className="md-3"> </div>
 
                             </div>
@@ -125,17 +138,17 @@ export const ChildScheduleForm = () => {
                             <label htmlFor="house" className="col-sm-2 col-form-label"><strong>House Number</strong></label>
                             <div className="formField col-sm-9 ml-3">
                                 {/* <div className="col-sm-10"> */}
-                                    <select className="form-select" id="house" required onClick={(e) => { getHouses(e) }} onChange={(e) => setHouse(e.target.value)}>
-                                        <option>Please Select</option>
-                                        {
-                                       houseList.map((house) => {
+                                <select className="form-select" id="house" required onClick={(e) => { getHouses(e) }} onChange={(e) => setHouse(e.target.value)}>
+                                    <option>Please Select</option>
+                                    {
+                                        houseList.map((house) => {
 
                                             return (
                                                 <option value={house._id}>{house.houseTitle}</option>
                                             )
                                         })
                                     }
-                                    </select>
+                                </select>
                                 {/* </div> */}
                             </div>
                         </div>
@@ -167,5 +180,5 @@ export const ChildScheduleForm = () => {
                 </div>
             </div>
         </section>
- )
+    )
 }

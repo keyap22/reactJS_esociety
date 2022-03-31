@@ -10,7 +10,6 @@ import { SignupForm } from './components/SignupForm';
 import { Footer } from './pages/Footer';
 import { ForgotPassword } from './components/ForgotPassword'
 import { Services } from './pages/Services'
-import {ViewImage} from './components/ViewImage'
 // import { RoleAPI } from './components/RoleAPI'
 // import { ChildScheduleAPI } from './components/ChildScheduleAPI';
 // import { VisitorCategoryAPI } from './components/VisitorCategoryAPI'
