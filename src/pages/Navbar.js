@@ -48,9 +48,9 @@ export const Navbar = () => {
                       <li className="dropdown"><a href="#"><span>DISPLAY</span> <i className="bi bi-chevron-right"> </i> </a>
 
                         <ul>
-                          <li><Link to="listvehicle">Vehicles</Link></li>
+                          <li><Link to="listvehicles">Vehicles</Link></li>
                           <li><Link to="listvisitors">Visitors</Link></li>
-                          <li><Link to="">Deliverables</Link></li>
+                          <li><Link to="listdeliverables">Deliverables</Link></li>
                           <li><Link to="listmembers">Society Members</Link></li>
                           <li><Link to="listguards">Security Guards</Link></li>
                           <li><Link to="listchildren">Child Schedule</Link></li>
