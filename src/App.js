@@ -33,8 +33,19 @@ import {ListGuardsAPI} from './components/ListGuardsAPI'
 import { ListChildrenAPI } from './components/ListChildrenAPI';
 import { ListvehiclesAPI } from './components/ListVehiclesAPI';
 import { ListDeliverablesAPI } from './components/ListDeliverablesAPI';
+import firebase_app ,{requestForToken} from './components/Firebase';
+import { useState } from 'react';
+
+
 
 function App() {
+  //keep track of whether we have access to the notifications or not:
+  const [isTokenFound, setTokenFound] = useState(false);
+requestForToken(setTokenFound);
+console.log("isTokenfound :"+ isTokenFound)
+console.log("settokenfound :"+ setTokenFound)
+
+
 
   return (
     <div>
@@ -81,9 +92,23 @@ function App() {
         
         </Routes>
       <Footer />
+     
+{isTokenFound ? "Notification.permission   enabled" :"Need notification permission"
+}
+
 
     </div>
   );
+
+
+
 }
+
+
+
+
+
+
+
 
 export default App;

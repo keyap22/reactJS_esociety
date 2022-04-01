@@ -21,6 +21,7 @@ as of now ,commented 'required' in model
 - visitor list on the basis of member id
 - (push notification) : runtime visitor request form, pwd/details updation notification
 reference : 
+https://blog.logrocket.com/push-notifications-react-firebase/
 https://www.mindbowser.com/web-push-notification-in-reactjs-with-firebase/
 https://onesignal.com/blog/how-to-integrate-push-notifications-in-react/
 
@@ -32,3 +33,33 @@ Security guard - their attendance record, list of pre scheduled visitors, member
 admin - CRUD operation in user
 chairman - 
 society member - their visitor's list, pre-schedule their visitor(add visitor), accept or reject runtime visitor, add child schedule
+
+
+
+=====================================
+
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyCDmKRz6Aonskf-dmxkv2v6bs4gu2DIPcE",
+  authDomain: "reactjs-esociety.firebaseapp.com",
+  projectId: "reactjs-esociety",
+  storageBucket: "reactjs-esociety.appspot.com",
+  messagingSenderId: "867526949607",
+  appId: "1:867526949607:web:d310b66869fc38bc3dc042",
+  measurementId: "G-V3FJXE2GBC"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
+
+
+web push certif key : BEVDvSGr8isowYbfZs9zdszbAP53jFV8ZcG0TqL82CViBhY2Sl88ASGcesvqz4T_Dy9x_A0iAVaiBo6sgxgG8wM
