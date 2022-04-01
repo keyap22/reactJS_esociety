@@ -1,13 +1,17 @@
 Tasks -
 
-- add validations in form(signup, login) - length, required, unique(as mentioned in model) - contact no.
+- add validations in form(signup) - length, required, unique(as mentioned in model) - contact no.
 - email address verification
 - mobile number verification
 - add field named addedBy in visitors model :
 added in post,get api : update api required ?
 as of now ,commented 'required' in model
 
+- list(sorting, searching)
+- security guard list(display specific guard all attendance record) 
 
+- navbar update for users after login --> avatar icon(Profile, logout)
+- Profile --> Users's all details card
 
 - CAPTCHA to verify the user
 

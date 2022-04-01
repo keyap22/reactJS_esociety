@@ -59,7 +59,7 @@ export const VehicleForm = () => {
         <section id="services" className="services section-bg">
 
             <div className='mycard my-5'>
-                <div className="form-center" >
+                <div className="form-center" style={{height : "10cm"}}>
 
                     <form className="vehicle-form" align="center" onSubmit={submit}>
 
