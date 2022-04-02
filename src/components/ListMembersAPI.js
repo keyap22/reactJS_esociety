@@ -41,6 +41,14 @@ export const ListMembersAPI = () => {
         })
 
     }
+
+    const [search, setSearch] = useState('');
+
+    const handleSearch = (e) => {
+        console.log(e.target.value)
+      setSearch(e.target.value);
+    }
+    
     useEffect(() => {
         console.log("use effect hook implemented")
         getData()
@@ -50,6 +58,10 @@ export const ListMembersAPI = () => {
 
     return (
         <div className="container table-responsive-md ">
+            <label htmlFor="search">
+        Search by house:
+        <input id="search" type="text" onChange={(e)=>handleSearch(e)} />
+      </label>
             <table className="table table-hover my-3">
                 <thead className="table_head">
                     <tr>
@@ -65,8 +77,9 @@ export const ListMembersAPI = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {
+                    {search==="" ?
                         memberList.map((member) => {
+                            console.log("search : "+search)
                             counter += 1
                             return (
                                 <tr key={member._id}>
@@ -85,6 +98,32 @@ export const ListMembersAPI = () => {
                                     </td>
                                 </tr>
                             )
+                        }): 
+                        memberList.map((member) => {
+                            counter += 1
+                            console.log("filter")
+                            if ((member.house.houseTitle).includes(search)) {
+                                console.log("search : "+search)
+                            
+                            return (
+                                <tr key={member._id}>
+                                    {/* <th scope="row">{member.user.firstName}</th> */}
+                                    <th scope="row">{counter}</th>
+                                    <td>{member.user.firstName}</td>
+                                    <td>{member.user.lastName}</td>
+                                    <td>{member.user.email}</td>
+                                    <td>{member.user.mobileNo}</td>
+                                    <td>{member.house.houseTitle}</td>
+                                    <td>{member.age}</td>
+                                   <td><img src = {member.user.profilePhoto} alt="No image" style={{height:"80px", width:"80px"}}></img></td> 
+                                    <td>
+                                        <Link to="/listmembers" className="btn btn-sm btn-danger mx-2" onClick={() => { deleteMember(member._id, member.user._id) }}><i className="bi bi-trash"></i></Link>
+                                        <Link to= {`/listmembers/update/${member.user._id}/${member._id}`} className="btn btn-sm btn-primary"  ><i className="bi bi-pencil"></i></Link>
+                                    </td>
+                                </tr>
+                            )}else{
+                                // return(<tr>No data found</tr>)
+                            }
                         })
                     }
                 </tbody>
