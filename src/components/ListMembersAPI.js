@@ -78,7 +78,7 @@ export const ListMembersAPI = () => {
                 </thead>
                 <tbody>
                     {search === "" ?
-                        memberList.map((member) => {
+                        memberList.sort((a,b)=>a.email - b.email ).map((member) => {
                             console.log("search : " + search)
                             counter += 1
                             return (

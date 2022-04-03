@@ -3,6 +3,7 @@ import  {initializeApp}  from "firebase/app";
 //import { getAnalytics } from "firebase/analytics";
 
 import { getMessaging,getToken, onMessage } from "firebase/messaging";
+import { getAuth, signInWithPhoneNumber } from "firebase/auth";
 
 
 
@@ -29,10 +30,47 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebase_app = initializeApp(firebaseConfig);
 
+const auth = getAuth();
+auth.languageCode = 'it';
+
+export {auth , firebase_app};
+
 const firebase_messaging = getMessaging(firebase_app);
 
 export default firebase_app
 //const analytics = getAnalytics(app);
+
+
+const phoneNumber =  "7284914344"//getPhoneNumberFromUserInput();
+const appVerifier = window.recaptchaVerifier;
+
+
+signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+    .then((confirmationResult) => {
+      // SMS sent. Prompt user to type the code from the message, then sign the
+      // user in with confirmationResult.confirm(code).
+      window.confirmationResult = confirmationResult;
+      // ...
+    }).catch((error) => {
+      // Error; SMS not sent
+      // ...
+      console.log("Error; SMS not sent")
+    });
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 export const requestForToken = (setTokenFound) => {
