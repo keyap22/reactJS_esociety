@@ -35,7 +35,6 @@ import { ListvehiclesAPI } from './components/ListVehiclesAPI';
 import { ListDeliverablesAPI } from './components/ListDeliverablesAPI';
 import firebase_app ,{requestForToken} from './components/Firebase';
 import { useState } from 'react';
-import SendMail from './components/SendMail'
 
 
 function App() {
@@ -87,8 +86,7 @@ console.log("settokenfound :"+ setTokenFound)
         <Route path='/listvehicles' element={<ListvehiclesAPI/>}></Route>
         <Route path='/listvehicles' element={<ListvehiclesAPI/>}></Route>
         <Route path='/listdeliverables' element={<ListDeliverablesAPI/>}></Route>
-        <Route path='/sendmail' element={<SendMail/>}></Route>
-       
+        
         
         </Routes>
       <Footer />

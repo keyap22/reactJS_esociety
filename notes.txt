@@ -1,7 +1,6 @@
 Tasks -
 
 - add validations in form(signup) - length, required, unique(as mentioned in model) - contact no.
-- email address verification
 - mobile number verification
 
 - add search icon in list members

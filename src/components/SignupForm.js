@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, Navigate } from 'react-router-dom'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -26,12 +26,13 @@ export const SignupForm = () => {
     var [validEmail, setValidEmail] = useState(true)
     var [pwdError, setPwdError] = useState(false);
     var [emailError, setEmailError] = useState(false);
+    var [haveSubmitted, setHaveSubmitted] = useState(false)
+    var [emailotp, setemailotp] = useState('')
+    const [sysotp, setSysotp] = useState(Math.floor((Math.random() * 1000000) + 1))
 
-
-
+    var HaveSubmitted, otp
     const [roleList, setroleList] = useState([])
     const [houseList, sethouseList] = useState([])
-
 
     const validPassword = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,14})');
     const validMail = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+(?=.)+(?=.[a-zA-Z]$)');
@@ -86,8 +87,8 @@ export const SignupForm = () => {
         console.log("email before post request :", email)
         axios.post("http://localhost:4000/forgotpwd/", formdata).then(res => {
             console.log("===response : ", res.data.data)
-              
-            if (res.data.data!==null) {
+
+            if (res.data.data !== null) {
                 console.log("User with same email found successfully!")
                 console.log("response : ", res.data.data)
                 //console.log("user id :", res.data.data._id)
@@ -95,13 +96,13 @@ export const SignupForm = () => {
                 setValidEmail(false)
                 console.log("valid email value : ", validEmail)
             }
-            else{
-                   setValidEmail(true)
-                   console.log("valid email value : ", validEmail)
-     
+            else {
+                setValidEmail(true)
+                console.log("valid email value : ", validEmail)
+
             }
         })
-        
+
     }
 
     const emailHandler = (e) => {
@@ -128,30 +129,14 @@ export const SignupForm = () => {
         }
     }
 
-    const showtoast = () => {
-
-        var status = "success"
-        toast.warn('User Account Created', {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-        })
-    }
-
-    const submit = async (e) => {
+    const verifyemail = async (e) => {
         e.preventDefault()
-        if (password !== password2) {
-            alert("Please enter same password in both the fields!")
-        }
-        else if (validEmail === false || firstName.length <= 2 || lastName.length <= 3 || password.length < 8) {
-            alert("Please consider validation messages and enter details accordingly!")
-        }
-        else {
 
+        console.log("otp entered by user : ", emailotp)
+        console.log("system generated otp : ", sysotp)
+
+        if (emailotp.toString() === sysotp.toString()) {
+            console.log("correct otp")
             var user = {
                 email: email,
                 password: password,
@@ -163,6 +148,7 @@ export const SignupForm = () => {
             }
 
             await axios.post('http://localhost:4000/Users/', user).then(res => {
+
                 console.log(res.status)
                 //alert("User account created successfully!")
                 navigation('/login')
@@ -177,7 +163,7 @@ export const SignupForm = () => {
             console.log("========================================" + userid)
 
 
-            if (role === "620dd424e608c720fa0f1be8" || role==="620dda4cbaf661b44817ee63") {
+            if (role === "620dd424e608c720fa0f1be8" || role === "620dda4cbaf661b44817ee63") {
                 if (userid !== "") {
 
                     var member = {
@@ -215,12 +201,62 @@ export const SignupForm = () => {
                     })
                 }
             }
+
+            //   return true
         }
-        console.log("submit called.....")
+        else {
+            alert("incorrect otp")
+            navigation('/signup')
+            //return false
+        }
+    }
+
+    const showtoast = () => {
+
+        var status = "success"
+        toast.warn('User Account Created', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        })
+    }
+
+    const submit = async (e) => {
+        e.preventDefault()
+        if (password !== password2) {
+            alert("Please enter same password in both the fields!")
+        }
+        else if (validEmail === false || firstName.length <= 2 || lastName.length <= 3 || password.length < 8) {
+            alert("Please consider validation messages and enter details accordingly!")
+        }
+        else {
+            console.log("have submitted value : ", haveSubmitted)
+            HaveSubmitted = true
+            setHaveSubmitted(HaveSubmitted)
+            console.log("after setting have submitted value : ", haveSubmitted)
+
+            //6 digit random otp number
+            console.log("sysotp : ", sysotp)
+
+            var data = {
+                email: email,
+                otp: sysotp
+            }
+
+            await axios.post("http://localhost:4000/sendmail/", data)
+                .then(res => {
+                    console.log("send mail status : ", res.data.data)
+                });
+        }
+        //console.log("submit called.....")
         //console.log(`email : ${email}, password : ${password},password2 : ${password2}, first name : ${firstName}, last name : ${lastName}`)
         //console.log(`contact number : ${contactNumber}, role : ${role}, profile photo : ${profilePhoto}`)
         //roleList.roleName
-        console.log(`role : ${role}`)
+        //console.log(`role : ${role}`)
         //console.log(e.target)
 
         //clearing out the details of the form after pressing submit button
@@ -233,7 +269,7 @@ export const SignupForm = () => {
 
             <div className='mycard my-5 '>
                 <div className="align-items-center">
-                    <form className="form-horizontal" align="center" id="signIn" onSubmit={submit}>
+                    <form className="form-horizontal" align="center" id="signIn" style={{ display: `${haveSubmitted ? "none" : "block"}` }} onSubmit={submit}>
 
                         <h3 className="align-title my-5"><strong>CREATE ACCOUNT</strong></h3>
 
@@ -268,7 +304,7 @@ export const SignupForm = () => {
                                     placeholder="Enter Your Email" required onChange={(e) => { emailHandler(e) }} />
                                 <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
                                 {
-                                    validEmail || email>=0 ? "" : "Email already exists.Please enter different mail id"
+                                    validEmail || email >= 0 ? "" : "Email already exists.Please enter different mail id"
                                 }
                                 {emailError && <p>Your email is invalid </p>}
 
@@ -337,7 +373,7 @@ export const SignupForm = () => {
                                 <input type="file" id="ProfilePhoto" className="form-control-file" name="profilePhoto"
                                     placeholder="Upload Your Profile Photo" onChange={(e => { profilePhotoHandler(e) })} />
                                 {
-                                    (profilePhoto.includes(".png") || profilePhoto.includes(".jpg") || profilePhoto.includes(".jpeg")) && profilePhoto!=="" ? "" : "Please enter valid image"
+                                    (profilePhoto.includes(".png") || profilePhoto.includes(".jpg") || profilePhoto.includes(".jpeg")) && profilePhoto !== "" ? "" : "Please enter valid image"
                                 }
 
                             </div>
@@ -404,7 +440,7 @@ export const SignupForm = () => {
 
                         <div className="form-grp row my-5">
                             <div className="col-sm-15">
-                                <input type="submit" className='btn-centre' value="Sign in"  />
+                                <input type="submit" className='btn-centre' value="Sign in" />
                                 {/* onClick={showtoast} 
                                 <ToastContainer
                                     position="top-right"
@@ -428,6 +464,37 @@ export const SignupForm = () => {
                         </div>
 
                     </form>
+
+                    {haveSubmitted ? <form className="form-horizontal" align="center" id="checkemailForm" style={{ height: "380px", display: `${haveSubmitted ? "block" : "none"}` }} onSubmit={verifyemail}>
+
+                        <h3 className="align-title my-5"><strong>VERIFY EMAIL</strong></h3>
+                        <div className="form-row"></div>
+
+                        <div className="form-group row my-3 mr-2 mb-3">
+                            <label className="col-sm-2 col-form-label"><strong>Enter OTP  </strong></label>
+                            <div className="col-sm-10">
+                                <input type="text" id="otpEmail" className="form-control" name="OtpEmail"
+                                    placeholder="Enter otp received in your email" required onChange={(e) => { setemailotp(e.target.value) }} />
+                            </div>
+                        </div>
+
+                        <div className="form-grp row my-5" style={{ marginLeft: "150px" }}>
+                            <div className="col-sm-10">
+                                <input type="submit" className='btn-centre' value="Verify" />
+                            </div>
+                        </div>
+
+                        {/* <div className="form-grp row">
+                            <div className="col-sm-12">
+                                Want to change email?
+                  <Link to="/signup"> Sign Up</Link>
+                                {
+                                    setHaveSubmitted(false)
+                                }
+                            </div>
+                        </div> */}
+                    </form>
+                        : ""}
 
                 </div>
             </div>
