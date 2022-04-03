@@ -3,9 +3,11 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ReCAPTCHA from "react-google-recaptcha";
 
 export const LoginForm = () => {
     const [email, setemail] = useState('')
+    const [captcha, setCaptcha] = useState()
     const [password, setpassword] = useState('')
     const [role, setRole] = useState('')
     const [roleName, setRoleName] = useState('')
@@ -13,15 +15,16 @@ export const LoginForm = () => {
     const [visibility, setvisibility] = useState('')
 
     const [roleList, setroleList] = useState([])
-    
+
     var [emailError, setEmailError] = useState(false);
     var [loggedIn, setLoggedIn] = useState(false);
-
-
 
     var guardId = ""
     var userId = ""
     var guardAttendanceList = []
+    var recaptcha 
+
+    const recaptchaRef = React.createRef();
 
     //const validPassword = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,14})');
     const validMail = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+(?=.)+(?=.[a-zA-Z]$)');
@@ -76,7 +79,7 @@ export const LoginForm = () => {
         })
 
     }
-    
+
     //find particular guard using userID
     const postSecurityGuard = async () => {
 
@@ -97,12 +100,20 @@ export const LoginForm = () => {
     const submit = async (e) => {
 
         e.preventDefault()
+
+        //recaptchaRef.current.execute();
+
         var formdata = {
             email: email,
             password: password,
-            role: role
+            role: role,
+            captcha : captcha
         }
         getRoleByID()
+        console.log("captcha : ",captcha)
+        setCaptcha(recaptcha)
+        console.log("recaptcha : ",recaptcha)
+        console.log("captcha after setting its value : ",captcha)
 
         await axios.post('http://localhost:4000/login/', formdata).then(res => {
             console.log("login response : ", res)
@@ -120,7 +131,7 @@ export const LoginForm = () => {
                     navigation('/profile')
 
                     if (role === "620c88535e051978662b0379") {
-                        
+
                         //finding security guard id from userID 
                         postSecurityGuard()
                         navigation('/profile')
@@ -169,7 +180,7 @@ export const LoginForm = () => {
                 <div className="form-center " >
                     {!loggedIn ?
 
-                        <form className="login-form" align="center" onSubmit={submit}>
+                        <form className="login-form" align="center" onSubmit={submit} >
 
                             <h4 className="align-title my-5"><strong>LOGIN</strong></h4>
                             <div className="form-group row my-3 mr-2 mb-3">
@@ -220,8 +231,15 @@ export const LoginForm = () => {
                             </label>
                             </div>
 
+                            <ReCAPTCHA 
+                            //ref={recaptchaRef} size="invisible"
+                                sitekey="6Ldw7j8fAAAAAH-bGG_ubTRvVFwXh5zpryvfTgwy"
+                                onChange={(e) => { recaptcha = e.target.value
+                                    setCaptcha(e.target.value)}}
+                            />,
+
                             <div className="my-5">
-                                <input type="submit" className='btn-centre' value="Login"  /><br />
+                                <input type="submit" className='btn-centre' value="Login" /><br />
                                 {/* onClick={showtoast}
                                 <ToastContainer
                                     position="top-right"
@@ -236,10 +254,10 @@ export const LoginForm = () => {
                                 /> */}
 
                             New User?
-                            <Link to="/signup" className="my-1"> Create an account</Link>
+                            <Link to="/signup" className="my"> Create an account</Link>
                             </div>
 
-                            <div className="my-2">
+                            <div className="my">
                                 <Link to="/forgotpassword" className="forgotPassword">Forgot Password?</Link>
                             </div>
                         </form> : <div><h3>Please log out from your device first</h3></div>}

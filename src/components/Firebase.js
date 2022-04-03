@@ -15,7 +15,7 @@ import { getAuth, signInWithPhoneNumber } from "firebase/auth";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
-
+//jeel
 //to link firebase project with react project
 const firebaseConfig = {
   apiKey: "AIzaSyCDmKRz6Aonskf-dmxkv2v6bs4gu2DIPcE",
@@ -26,6 +26,18 @@ const firebaseConfig = {
   appId: "1:867526949607:web:d310b66869fc38bc3dc042",
   measurementId: "G-V3FJXE2GBC"
 };
+
+//keya
+const firebaseConfig = {
+  apiKey: "AIzaSyBtAm0j6h8md_wXWHFoTHmlpNIyRqTmITI",
+  authDomain: "reactjs-esociety-1bd79.firebaseapp.com",
+  projectId: "reactjs-esociety-1bd79",
+  storageBucket: "reactjs-esociety-1bd79.appspot.com",
+  messagingSenderId: "1092553812330",
+  appId: "1:1092553812330:web:5ae51918becdd8845bdd13",
+  measurementId: "G-9GRVXJVCLP"
+};
+
 
 // Initialize Firebase
 const firebase_app = initializeApp(firebaseConfig);
@@ -75,6 +87,9 @@ signInWithPhoneNumber(auth, phoneNumber, appVerifier)
 
 export const requestForToken = (setTokenFound) => {
     console.log("token value :" +setTokenFound);
+
+    //keya - BABwMKV1MAQVKWVGq5U6Zi0Nv-lMAf9luEfjimEhGuo8KQxuWTlV5rGFU7FHRzknTH8RQh-63tYcrgiAGMgZfN8
+    //jeel - BEVDvSGr8isowYbfZs9zdszbAP53jFV8ZcG0TqL82CViBhY2Sl88ASGcesvqz4T_Dy9x_A0iAVaiBo6sgxgG8wM
      return getToken(firebase_messaging, {vapidKey: 'BEVDvSGr8isowYbfZs9zdszbAP53jFV8ZcG0TqL82CViBhY2Sl88ASGcesvqz4T_Dy9x_A0iAVaiBo6sgxgG8wM'}).then((currentToken) => {
       if (currentToken) {
         console.log('current token for client: ', currentToken);

@@ -23,11 +23,11 @@ const EmailSend = () => {
     return (
         <div className="container">
             <h3 className="text-center text-success mb-2 mt-4">Email Send using React and Node </h3>
-            <div class="row">
+            <div className="row">
 
                 <div className="col-sm-4 mx-auto shadow p-5">
                     <h4 className="text-center mb-2">Send E Mail </h4>
-                    <p class="mb-3 mt-2" style={{ color: "green", marginLeft: "57px" }}><b>{msg}</b></p>
+                    <p className="mb-3 mt-2" style={{ color: "green", marginLeft: "57px" }}><b>{msg}</b></p>
                     <div className="form-group mb-3">
                         <input
                             type="text"
