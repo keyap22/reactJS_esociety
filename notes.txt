@@ -3,6 +3,9 @@ Tasks -
 - add validations in form(signup) - length, required, unique(as mentioned in model) - contact no.
 - email address verification
 - mobile number verification
+
+- add search icon in list members
+
 - add field named addedBy in visitors model :
 added in post,get api : update api required ?
 as of now ,commented 'required' in model
@@ -24,6 +27,7 @@ reference :
 https://blog.logrocket.com/push-notifications-react-firebase/
 https://www.mindbowser.com/web-push-notification-in-reactjs-with-firebase/
 https://onesignal.com/blog/how-to-integrate-push-notifications-in-react/
+https://www.audreyhal.com/blog/push-notifications-with-firebase-in-react
 
 - remember me(jwt token)
 

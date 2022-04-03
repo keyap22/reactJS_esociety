@@ -46,9 +46,9 @@ export const ListMembersAPI = () => {
 
     const handleSearch = (e) => {
         console.log(e.target.value)
-      setSearch(e.target.value);
+        setSearch(e.target.value);
     }
-    
+
     useEffect(() => {
         console.log("use effect hook implemented")
         getData()
@@ -58,10 +58,10 @@ export const ListMembersAPI = () => {
 
     return (
         <div className="container table-responsive-md ">
-            <label htmlFor="search">
-        Search by house:
-        <input id="search" type="text" onChange={(e)=>handleSearch(e)} />
-      </label>
+            <div>
+                {/* <i className="bi bi-search"></i> */}
+                <input id="search" type="search" placeholder="Search by House" className="btn btn-outline-success my-3" aria-label="Search" onChange={(e) => handleSearch(e)} />
+            </div>
             <table className="table table-hover my-3">
                 <thead className="table_head">
                     <tr>
@@ -72,14 +72,14 @@ export const ListMembersAPI = () => {
                         <th scope="col">Contact Number</th>
                         <th scope="col">House Title</th>
                         <th scope="col">Age</th>
-                        <th scope="col">Profile Photo</th> 
+                        <th scope="col">Profile Photo</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {search==="" ?
+                    {search === "" ?
                         memberList.map((member) => {
-                            console.log("search : "+search)
+                            console.log("search : " + search)
                             counter += 1
                             return (
                                 <tr key={member._id}>
@@ -91,37 +91,38 @@ export const ListMembersAPI = () => {
                                     <td>{member.user.mobileNo}</td>
                                     <td>{member.house.houseTitle}</td>
                                     <td>{member.age}</td>
-                                   <td><img src = {member.user.profilePhoto} alt="No image" style={{height:"80px", width:"80px"}}></img></td> 
+                                    <td><img src={member.user.profilePhoto} alt="No image" style={{ height: "80px", width: "80px" }}></img></td>
                                     <td>
                                         <Link to="/listmembers" className="btn btn-sm btn-danger mx-2" onClick={() => { deleteMember(member._id, member.user._id) }}><i className="bi bi-trash"></i></Link>
-                                        <Link to= {`/listmembers/update/${member.user._id}/${member._id}`} className="btn btn-sm btn-primary"  ><i className="bi bi-pencil"></i></Link>
+                                        <Link to={`/listmembers/update/${member.user._id}/${member._id}`} className="btn btn-sm btn-primary"  ><i className="bi bi-pencil"></i></Link>
                                     </td>
                                 </tr>
                             )
-                        }): 
+                        }) :
                         memberList.map((member) => {
                             counter += 1
                             console.log("filter")
                             if ((member.house.houseTitle).includes(search)) {
-                                console.log("search : "+search)
-                            
-                            return (
-                                <tr key={member._id}>
-                                    {/* <th scope="row">{member.user.firstName}</th> */}
-                                    <th scope="row">{counter}</th>
-                                    <td>{member.user.firstName}</td>
-                                    <td>{member.user.lastName}</td>
-                                    <td>{member.user.email}</td>
-                                    <td>{member.user.mobileNo}</td>
-                                    <td>{member.house.houseTitle}</td>
-                                    <td>{member.age}</td>
-                                   <td><img src = {member.user.profilePhoto} alt="No image" style={{height:"80px", width:"80px"}}></img></td> 
-                                    <td>
-                                        <Link to="/listmembers" className="btn btn-sm btn-danger mx-2" onClick={() => { deleteMember(member._id, member.user._id) }}><i className="bi bi-trash"></i></Link>
-                                        <Link to= {`/listmembers/update/${member.user._id}/${member._id}`} className="btn btn-sm btn-primary"  ><i className="bi bi-pencil"></i></Link>
-                                    </td>
-                                </tr>
-                            )}else{
+                                console.log("search : " + search)
+
+                                return (
+                                    <tr key={member._id}>
+                                        {/* <th scope="row">{member.user.firstName}</th> */}
+                                        <th scope="row">{counter}</th>
+                                        <td>{member.user.firstName}</td>
+                                        <td>{member.user.lastName}</td>
+                                        <td>{member.user.email}</td>
+                                        <td>{member.user.mobileNo}</td>
+                                        <td>{member.house.houseTitle}</td>
+                                        <td>{member.age}</td>
+                                        <td><img src={member.user.profilePhoto} alt="No image" style={{ height: "80px", width: "80px" }}></img></td>
+                                        <td>
+                                            <Link to="/listmembers" className="btn btn-sm btn-danger mx-2" onClick={() => { deleteMember(member._id, member.user._id) }}><i className="bi bi-trash"></i></Link>
+                                            <Link to={`/listmembers/update/${member.user._id}/${member._id}`} className="btn btn-sm btn-primary"  ><i className="bi bi-pencil"></i></Link>
+                                        </td>
+                                    </tr>
+                                )
+                            } else {
                                 // return(<tr>No data found</tr>)
                             }
                         })
