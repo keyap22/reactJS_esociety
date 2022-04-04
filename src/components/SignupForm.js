@@ -4,6 +4,11 @@ import { Link, useNavigate, Navigate } from 'react-router-dom'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+//import firebase_app, { requestForToken } from './components/Firebase';
+import { auth } from './Firebase';
+
+import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+
 
 export const SignupForm = () => {
 
@@ -28,7 +33,11 @@ export const SignupForm = () => {
     var [emailError, setEmailError] = useState(false);
     var [haveSubmitted, setHaveSubmitted] = useState(false)
     var [emailotp, setemailotp] = useState('')
-    const [sysotp, setSysotp] = useState(Math.floor((Math.random() * 1000000) + 1))
+    const [sysotp, setSysotp] = useState(Math.floor((Math.random() * 1000000) + 1)) //emailotp
+
+    const[OTP,setOTP]= useState('') //phone otp
+    var validOTP = false;
+
 
     var HaveSubmitted, otp
     const [roleList, setroleList] = useState([])
@@ -129,13 +138,72 @@ export const SignupForm = () => {
         }
     }
 
+    //==========mobile otp 
+    const generateRecaptcha=()=>{
+
+        window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
+          'size': 'invisible',
+          'callback': (response) => {
+            // reCAPTCHA solved, allow signInWithPhoneNumber.
+            //onSignInSubmit();
+          }
+        }, auth);
+      }    
+      const onSignInSubmit = (e) => {
+        e.preventDefault();
+        generateRecaptcha();
+        const phoneNumber = "+91" +contactNumber
+    // window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier()
+         let appVerifier = window.recaptchaVerifier;
+         console.log("=================validotp :" +validOTP)
+        
+        signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+        .then((confirmationResult) => {
+          console.log("success phone :" +phoneNumber)
+          // SMS sent. Prompt user to type the code from the message, then sign the
+          // user in with confirmationResult.confirm(code).
+      
+          window.confirmationResult = confirmationResult;
+          console.log("=====otp msg" + OTP)
+            const code = OTP
+            // if(OTP.length()===6)
+            // {
+                confirmationResult.confirm(code).then((result) => {
+              console.log("you have entered correct otp"+code)
+              validOTP=true;
+              // User signed in successfully.
+              //const user = result.user;
+              console.log("success")
+              // ...
+            }).catch((error) => {
+              // User couldn't sign in (bad verification code?)
+             alert("you have entered wrong otp")
+             
+              // ...
+            });
+        // }
+    
+          
+          // ...
+        }).catch((error) => {
+          // Error; SMS not sent
+          // ...
+        });
+    
+    
+       
+      }
+    //=======================
+
     const verifyemail = async (e) => {
         e.preventDefault()
 
         console.log("otp entered by user : ", emailotp)
         console.log("system generated otp : ", sysotp)
+        console.log("=================validotp :" +validOTP)
+        
 
-        if (emailotp.toString() === sysotp.toString()) {
+        if (emailotp.toString() === sysotp.toString() ) {
             console.log("correct otp")
             var user = {
                 email: email,
@@ -252,6 +320,7 @@ export const SignupForm = () => {
                     console.log("send mail status : ", res.data.data)
                 });
         }
+        onSignInSubmit(e);
         //console.log("submit called.....")
         //console.log(`email : ${email}, password : ${password},password2 : ${password2}, first name : ${firstName}, last name : ${lastName}`)
         //console.log(`contact number : ${contactNumber}, role : ${role}, profile photo : ${profilePhoto}`)
@@ -465,7 +534,9 @@ export const SignupForm = () => {
 
                     </form>
 
-                    {haveSubmitted ? <form className="form-horizontal" align="center" id="checkemailForm" style={{ height: "380px", display: `${haveSubmitted ? "block" : "none"}` }} onSubmit={verifyemail}>
+                    {haveSubmitted ? 
+                    <form className="form-horizontal" align="center" id="checkemailForm" 
+                    style={{ height: "80cm", display: `${haveSubmitted ? "block" : "none"}` }} onSubmit={verifyemail}>
 
                         <h3 className="align-title my-5"><strong>VERIFY EMAIL</strong></h3>
                         <div className="form-row"></div>
@@ -478,11 +549,36 @@ export const SignupForm = () => {
                             </div>
                         </div>
 
+                        {/* <div className="form-grp row my-5" style={{ marginLeft: "150px" }}>
+                            <div className="col-sm-10">
+                                <input type="submit" className='btn-centre' value="Verify" />
+                            </div>
+                        </div> */}
+
+                      
+                        
+
+
+                        <h3 className="align-title my-5"><strong>VERIFY MOBILE NUMBER</strong></h3>
+                        
+
+                        <div className="form-group row my-3 mr-2 mb-3">
+                            <label className="col-sm-2 col-form-label"><strong>Enter OTP  </strong></label>
+                            <div className="col-sm-10">
+                                <input type="text" id="otpMob" className="form-control" name="OtpMob"
+                                    placeholder="Enter otp received in your mobile" required onChange={(e) => { setOTP(e.target.value) }} />
+                            </div>
+                        </div>
+                        <div id="recaptcha-container"></div>
+     
+
                         <div className="form-grp row my-5" style={{ marginLeft: "150px" }}>
                             <div className="col-sm-10">
                                 <input type="submit" className='btn-centre' value="Verify" />
                             </div>
                         </div>
+
+                       
 
                         {/* <div className="form-grp row">
                             <div className="col-sm-12">
@@ -493,6 +589,8 @@ export const SignupForm = () => {
                                 }
                             </div>
                         </div> */}
+
+
                     </form>
                         : ""}
 
