@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 
 export const ListvehiclesAPI = () => {
     const [vehicleList, setvehicleList] = useState([])
+    const [search, setSearch] = useState('');
+
 
    
 
@@ -14,6 +16,13 @@ export const ListvehiclesAPI = () => {
         })
 
     }
+
+
+    const handleSearch = (e) => {
+        console.log(e.target.value)
+        setSearch(e.target.value);
+    }
+
     useEffect(() => {
         console.log("use effect hook implemented")
         getData()
@@ -30,6 +39,12 @@ export const ListvehiclesAPI = () => {
 
     return (
         <div className="container table-responsive-md ">
+             <div className="input-group mb-3 ">
+                <span className="input-group-text my-3 ml-8" id="basic-addon1"><i className="bi bi-search " ></i></span>
+
+                <input id="search" type="search" placeholder="Search" className="form-control col-md-3 my-3 ml-8" aria-label="Search" onChange={(e) => handleSearch(e)} />
+
+            </div>
             <table className="table table-hover my-3">
                 <thead className="table_head">
                     <tr>
@@ -44,7 +59,7 @@ export const ListvehiclesAPI = () => {
                    </tr>
                 </thead>
                 <tbody>
-                    {
+                {search === "" ?
                         vehicleList.map((vehicle) => {
                             counter += 1
                             return (
@@ -63,7 +78,30 @@ export const ListvehiclesAPI = () => {
                                     </td>
                                 </tr>
                             )
-                        })
+                        }):
+                        vehicleList.map((vehicle) => {
+                            counter += 1
+                            console.log("filter")
+                            if ((vehicle.user.firstName).includes(search) || (vehicle.user.lastName).includes(search) ||
+                                (vehicle.vehicleNo).includes(search) || (vehicle.vehicleType).includes(search) ||
+                                (vehicle.parkingId).includes(search)|| (vehicle.user.mobileNo).includes(search)) {
+ return (
+                                <tr key={vehicle._id}>
+                                    {/* <th scope="row">{member.user.firstName}</th> */}
+                                    <th scope="row">{counter}</th>
+                                    <td>{vehicle.user.firstName + " " + vehicle.user.lastName}</td>
+                                    <td>{vehicle.vehicleNo}</td>
+                                    <td>{vehicle.vehicleType}</td>
+                                    <td>{vehicle.parkingId}</td>
+                                    <td>{vehicle.user.mobileNo}</td>
+                                <td><img src = {vehicle.user.profilePhoto} alt="No image" style={{height:"80px", width:"80px"}}></img></td> 
+                                   <td>
+                                        <Link to="/listvehicle" className="btn btn-sm btn-danger mx-1" onClick={() => { deleteVehicle(vehicle._id) }}><i className="bi bi-trash"></i></Link>
+                                        <Link to={`/listvehicle/update/${vehicle._id}`} className="btn btn-sm btn-primary" value={vehicle._id}><i className="bi bi-pencil"></i></Link>
+                                    </td>
+                                </tr>
+                            )}
+                        })                        
                     }
                 </tbody>
             </table>
