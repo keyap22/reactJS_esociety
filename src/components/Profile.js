@@ -46,7 +46,7 @@ export const Profile = () => {
         await axios.get(`http://localhost:4000/roles/` + id).then(res => {
             console.log("response in profile :", res)
             console.log("role name in profile :", res.data.data.roleName)
-            setRoleName(res.data.data.roleName)
+            //setRoleName(res.data.data.roleName)
         })
     }
 
@@ -146,6 +146,9 @@ export const Profile = () => {
                 console.log("in post guard id : ", GuardAttendances.guard)
             })
         }
+        else{
+            alert("Today's attendance has already been recorded")
+        }
 
     }
 
@@ -160,13 +163,13 @@ export const Profile = () => {
                     email ? isLogin = true : isLogin = false
                 }
                 {
-                    role === "620dda4cbaf661b44817ee63" ? <h2>Hello, Chairman</h2> : ""
+                    role === "620dda4cbaf661b44817ee63" ? <h2>Hello, {roleName}</h2> : ""
                 }
                 {
                     role === "620c88535e051978662b0379" ? <h2>Security guard attendance - {counter}</h2> : ""
                 }
                 {
-                    role === "620c88535e051978662b0379" ? <input type="button" className='btn btn-warning mx-3' value="Add Attendance" onClick={AddAttendance} /> : ""
+                    role === "620c88535e051978662b0379" ? <input type="button" className='btn-centre ml-5 mr-6' style={{width:"15%"}} value="Add Attendance" onClick={AddAttendance} /> : ""
                 }
                 
             </div>
@@ -189,7 +192,7 @@ export const Profile = () => {
                                     {user.firstName + " " + user.lastName}
                                 </h5>
                                 <h6>
-                                    Role name
+                                    {roleName}
                                     {/* {user.role._id} */}
                                 </h6>
                                 {/* <p className="proile-rating">RANKINGS : <span>8/10</span></p> */}
@@ -264,7 +267,7 @@ export const Profile = () => {
                                             <label>Role</label>
                                         </div>
                                         <div className="col-md-6">
-                                            <p>Role name</p>
+                                            <p>{roleName}</p>
                                         </div>
                                     </div>
                                 </div>

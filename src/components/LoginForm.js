@@ -9,7 +9,7 @@ export const LoginForm = () => {
     const [email, setemail] = useState('')
     const [password, setpassword] = useState('')
     const [role, setRole] = useState('')
-    const [roleName, setRoleName] = useState('')
+   // const [roleName, setRoleName] = useState('')
     const [guardID, setGuardID] = useState('')
     const [visibility, setvisibility] = useState('')
 
@@ -21,6 +21,7 @@ export const LoginForm = () => {
     var guardId = ""
     var userId = ""
     var guardAttendanceList = [] 
+    var roleName=""
 
     //const validPassword = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,14})');
     const validMail = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+(?=.)+(?=.[a-zA-Z]$)');
@@ -71,7 +72,9 @@ export const LoginForm = () => {
         axios.get(`http://localhost:4000/roles/` + id).then(res => {
             console.log(res)
             console.log("role name :", res.data.data.roleName)
-            setRoleName(res.data.data.roleName)
+            //setRoleName(res.data.data.roleName)
+            roleName=res.data.data.roleName
+            console.log(roleName)
         })
 
     }
