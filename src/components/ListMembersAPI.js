@@ -62,7 +62,7 @@ export const ListMembersAPI = () => {
         <div className="container table-responsive-md ">
             <div>
                 {/* <i className="bi bi-search"></i> */}
-                <input id="search" type="search" placeholder="Search by House" className="btn btn-outline-success my-3" aria-label="Search" onChange={(e) => handleSearch(e)} />
+                <input id="search" type="search" placeholder="Search" className="btn btn-outline-success my-3" aria-label="Search" onChange={(e) => handleSearch(e)} />
             </div>
             <table className="table table-hover my-3">
                 <thead className="table_head">
@@ -85,7 +85,6 @@ export const ListMembersAPI = () => {
                             counter += 1
                             return (
                                 <tr key={member._id}>
-                                    {/* <th scope="row">{member.user.firstName}</th> */}
                                     <th scope="row">{counter}</th>
                                     <td>{member.user.firstName}</td>
                                     <td>{member.user.lastName}</td>

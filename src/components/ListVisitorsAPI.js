@@ -6,6 +6,7 @@ import "jspdf-autotable";
 
 export const ListVisitorsAPI = () => {
     const [visitorList, setVisitorList] = useState([])
+    const [search, setSearch] = useState('');
 
     const deleteVisitor = (visitorID) => {
 
@@ -21,6 +22,11 @@ export const ListVisitorsAPI = () => {
             console.log(res.data.data)
             setVisitorList(res.data.data)
         })
+    }
+
+    const handleSearch = (e) => {
+        console.log(e.target.value)
+        setSearch(e.target.value);
     }
 
     const exportPDF = () => {
@@ -64,7 +70,9 @@ export const ListVisitorsAPI = () => {
     return (
         <div className="container table-responsive-md" style={{ maxWidth: "1320px" }}>
             <div>
-                <button className="btn btn-warning my-5" onClick={() => exportPDF()}>Generate Report</button>
+                <button className="btn btn-warning my-5 mx-5" onClick={() => exportPDF()}>Generate Report</button>
+                {/* <i className="bi bi-search"></i> */}
+                <input id="search" type="search" placeholder="Search" className="btn btn-outline-success my-3" aria-label="Search" onChange={(e) => handleSearch(e)} />
             </div>
             <table className="table table-hover my-2">
                 <thead className="table_head">
@@ -85,9 +93,43 @@ export const ListVisitorsAPI = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {
+                {search === "" ?
                         visitorList.map((visitor) => {
+                            console.log("search : " + search)
                             counter += 1
+                            return (
+                                <tr key={visitor._id}>
+                                    <th scope="row">{counter}</th>
+                                    <td>{visitor.visitorName}</td>
+                                    <td>{visitor.date}</td>
+                                    <td>{visitor.entryTime}</td>
+                                    <td>{visitor.exitTime}</td>
+                                    <td>{visitor.isAllowed ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
+                                    <td>{visitor.isPreScheduled ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
+                                    <td><img src={visitor.profilePhoto} style={{height:"80px", width:"80px"}}></img></td>
+                                    <td>{visitor.house.houseTitle}</td>
+                                    <td>{visitor.visitorCategory.categoryName}</td>
+                                    <td>{visitor.purpose}</td>
+                                    <td>{visitor.mobileNo}</td>
+
+                                    <td>
+                                        <Link to="/listvisitors" className="btn btn-sm btn-danger" onClick={() => { deleteVisitor(visitor._id) }}><i className="bi bi-trash"></i></Link>
+                                        <Link to={`/listvisitors/update/${visitor._id}`} className="btn btn-sm btn-primary my-1" value={visitor._id}><i className="bi bi-pencil"></i></Link>
+                                    </td>
+                                </tr>
+                            )
+                        }) : 
+                        visitorList.map((visitor) => {
+                            console.log("search : " + search)
+                            counter += 1
+                            console.log("filter")
+                            if ((visitor.visitorName).includes(search) || (visitor.date).includes(search) || 
+                            (visitor.entryTime).includes(search) || (visitor.exitTime).includes(search) || 
+                            (visitor.house.houseTitle).includes(search) || (visitor.visitorCategory.categoryName).includes(search)
+                            || (visitor.purpose).includes(search) || (visitor.mobileNo).includes(search))
+
+                            //(visitor.isAllowed).includes(search) || (visitor.isPreScheduled).includes(search) ||
+
                             return (
                                 <tr key={visitor._id}>
                                     <th scope="row">{counter}</th>
