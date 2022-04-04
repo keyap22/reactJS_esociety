@@ -33,7 +33,7 @@ import { ListGuardsAPI } from './components/ListGuardsAPI'
 import { ListChildrenAPI } from './components/ListChildrenAPI';
 import { ListvehiclesAPI } from './components/ListVehiclesAPI';
 import { ListDeliverablesAPI } from './components/ListDeliverablesAPI';
-import firebase_app, { requestForToken } from './components/Firebase';
+//import firebase_app, { requestForToken } from './components/Firebase';
 import { useState } from 'react';
 import firebase, { auth } from "./components/Firebase"
 
@@ -43,10 +43,10 @@ import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth
 function App() {
 
   //keep track of whether we have access to the notifications or not:
-  const [isTokenFound, setTokenFound] = useState(false);
-  requestForToken(setTokenFound);
-  console.log("isTokenfound :" + isTokenFound)
-  console.log("settokenfound :" + setTokenFound)
+  // const [isTokenFound, setTokenFound] = useState(false);
+  // requestForToken(setTokenFound);
+  // console.log("isTokenfound :" + isTokenFound)
+  // console.log("settokenfound :" + setTokenFound)
 
   const[OTP,setOTP]= useState('')
 
@@ -155,8 +155,8 @@ const verifyOTP=(e)=>
       <Navbar />
 
       <Home />
-      <div id="recaptcha-container"></div>
-      <button className="btn btn-primary" value="Send OTP" onClick={onSignInSubmit}>Send OTP</button>
+      {/* <div id="recaptcha-container"></div>
+      <button className="btn btn-primary" value="Send OTP" onClick={onSignInSubmit}>Send OTP</button> */}
       {/* <ReCAPTCHA 
                             //ref={recaptchaRef} size="invisible"
                                 sitekey="6Ldw7j8fAAAAAH-bGG_ubTRvVFwXh5zpryvfTgwy"
@@ -201,8 +201,7 @@ const verifyOTP=(e)=>
       </Routes>
       <Footer />
 
-      {isTokenFound ? "Notification.permission   enabled" : "Need notification permission"
-      }
+      {/* {isTokenFound ? "Notification.permission   enabled" : "Need notification permission" } */}
 
 
     </div>

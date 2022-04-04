@@ -41,19 +41,19 @@ export const Profile = () => {
         getUserById()
     }, [])
 
-    const getRoleByID = () => {
+    const getRoleByID = async () => {
         var id = role
-        axios.get(`http://localhost:4000/roles/` + id).then(res => {
+        await axios.get(`http://localhost:4000/roles/` + id).then(res => {
             console.log("response in profile :", res)
             console.log("role name in profile :", res.data.data.roleName)
             setRoleName(res.data.data.roleName)
         })
     }
 
-    const getUserById = () => {
+    const getUserById = async () => {
         //var id = "622740a09d7544ebc551ba15";
         console.log("userid in getuserbyid :" + userid)
-        axios.get('http://localhost:4000/users/' + userid).then(res => {
+        await axios.get('http://localhost:4000/users/' + userid).then(res => {
             console.log("user by id response : ", res)
             User = res.data.data
             setUser(User)
@@ -149,30 +149,26 @@ export const Profile = () => {
 
     }
 
-    /**<div>
-            
-            {
-                email ? isLogin = true : isLogin = false
-            }
-            {
-                role === "620dda4cbaf661b44817ee63" ? <h2>Hello, Chairman</h2> : ""
-            }
-            {
-                role === "620c88535e051978662b0379" ? <h2>Security guard attendance - {counter}</h2> : ""
-            }
-            {
-                role === "620c88535e051978662b0379" ? <input type="button" className='btn btn-warning mx-3' value="Add Attendance" onClick={AddAttendance} /> : ""
-            }
-            <input type="button" className={isLogin ? 'btn btn-primary mx-3' : "btn btn-primary mx-3 hidden"} value="Logout" onClick={logout} />
-        </div> */
-
     return (
-        <>
+        <section id="services" className="services section-bg">
+
             <div>
                 {
-                    email ? <h1>Hello <br /> {email}<br /> {roleName}</h1> : <h1>Please login first</h1>
+                    email ? "" : <h1>Please login first</h1>
                 }
-                <input type="button" className={isLogin ? 'btn btn-primary mx-3' : "btn btn-primary mx-3 hidden"} value="Logout" onClick={logout} />
+                {
+                    email ? isLogin = true : isLogin = false
+                }
+                {
+                    role === "620dda4cbaf661b44817ee63" ? <h2>Hello, Chairman</h2> : ""
+                }
+                {
+                    role === "620c88535e051978662b0379" ? <h2>Security guard attendance - {counter}</h2> : ""
+                }
+                {
+                    role === "620c88535e051978662b0379" ? <input type="button" className='btn btn-warning mx-3' value="Add Attendance" onClick={AddAttendance} /> : ""
+                }
+                
             </div>
 
             <div className="container emp-profile">
@@ -180,7 +176,7 @@ export const Profile = () => {
                     <div className="row">
                         <div className="col-md-4">
                             <div className="profile-img">
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt="" />
+                                <img src={user.profilePhoto} alt="" />
                                 <div className="file btn btn-lg btn-primary">
                                     Change Photo
                     <input type="file" name="file" />
@@ -193,9 +189,10 @@ export const Profile = () => {
                                     {user.firstName + " " + user.lastName}
                                 </h5>
                                 <h6>
-                                    {user.role}
+                                    Role name
+                                    {/* {user.role._id} */}
                                 </h6>
-                                <p className="proile-rating">RANKINGS : <span>8/10</span></p>
+                                {/* <p className="proile-rating">RANKINGS : <span>8/10</span></p> */}
                                 <ul className="nav nav-tabs" id="myTab" role="tablist">
                                     <li className="nav-item">
                                         <a className="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
@@ -213,7 +210,8 @@ export const Profile = () => {
                     <div className="row">
                         <div className="col-md-4">
                             <div className="profile-work">
-                                <p>WORK LINK</p>
+                            <input type="button" className={isLogin ? 'btn btn-primary' : "btn btn-primary hidden"} value="Logout" onClick={logout} />
+                                {/* <p>WORK LINK</p>
                                 <a href="">Website Link</a><br />
                                 <a href="">Bootsnipp Profile</a><br />
                                 <a href="">Bootply Profile</a>
@@ -222,7 +220,7 @@ export const Profile = () => {
                                 <a href="">Web Developer</a><br />
                                 <a href="">WordPress</a><br />
                                 <a href="">WooCommerce</a><br />
-                                <a href="">PHP, .Net</a><br />
+                                <a href="">PHP, .Net</a><br /> */}
                             </div>
                         </div>
                         <div className="col-md-8">
@@ -263,10 +261,10 @@ export const Profile = () => {
 
                                     <div className="row">
                                         <div className="col-md-6">
-                                            <label>Profession</label>
+                                            <label>Role</label>
                                         </div>
                                         <div className="col-md-6">
-                                            <p>Web Developer and Designer</p>
+                                            <p>Role name</p>
                                         </div>
                                     </div>
                                 </div>
@@ -323,6 +321,6 @@ export const Profile = () => {
                     </div>
                 </form>
             </div>
-        </>
+        </section>
     )
 }
