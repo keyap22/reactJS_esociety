@@ -1,5 +1,6 @@
 // Import the functions you need from the SDKs you need
 import  {initializeApp}  from "firebase/app";
+//import * as firebase from "firebase"; 
 //import { getAnalytics } from "firebase/analytics";
 
 import { getMessaging,getToken, onMessage } from "firebase/messaging";
@@ -17,25 +18,35 @@ import { getAuth, signInWithPhoneNumber } from "firebase/auth";
 
 //jeel
 //to link firebase project with react project
-const firebaseConfig = {
-  apiKey: "AIzaSyCDmKRz6Aonskf-dmxkv2v6bs4gu2DIPcE",
-  authDomain: "reactjs-esociety.firebaseapp.com",
-  projectId: "reactjs-esociety",
-  storageBucket: "reactjs-esociety.appspot.com",
-  messagingSenderId: "867526949607",
-  appId: "1:867526949607:web:d310b66869fc38bc3dc042",
-  measurementId: "G-V3FJXE2GBC"
-};
+// const firebaseConfig = {
+//   apiKey: "AIzaSyCDmKRz6Aonskf-dmxkv2v6bs4gu2DIPcE",
+//   authDomain: "reactjs-esociety.firebaseapp.com",
+//   projectId: "reactjs-esociety",
+//   storageBucket: "reactjs-esociety.appspot.com",
+//   messagingSenderId: "867526949607",
+//   appId: "1:867526949607:web:d310b66869fc38bc3dc042",
+//   measurementId: "G-V3FJXE2GBC"
+// };
 
 //keya
+// const firebaseConfig = {
+//   apiKey: "AIzaSyBtAm0j6h8md_wXWHFoTHmlpNIyRqTmITI",
+//   authDomain: "reactjs-esociety-1bd79.firebaseapp.com",
+//   projectId: "reactjs-esociety-1bd79",
+//   storageBucket: "reactjs-esociety-1bd79.appspot.com",
+//   messagingSenderId: "1092553812330",
+//   appId: "1:1092553812330:web:5ae51918becdd8845bdd13",
+//   measurementId: "G-9GRVXJVCLP"
+// };
+
 const firebaseConfig = {
-  apiKey: "AIzaSyBtAm0j6h8md_wXWHFoTHmlpNIyRqTmITI",
-  authDomain: "reactjs-esociety-1bd79.firebaseapp.com",
-  projectId: "reactjs-esociety-1bd79",
-  storageBucket: "reactjs-esociety-1bd79.appspot.com",
-  messagingSenderId: "1092553812330",
-  appId: "1:1092553812330:web:5ae51918becdd8845bdd13",
-  measurementId: "G-9GRVXJVCLP"
+  apiKey: "AIzaSyCQxgMNGeFb1ZPFIv0KXYeP6nWhKjYmDA8",
+  authDomain: "reactjs-esociety-4046c.firebaseapp.com",
+  projectId: "reactjs-esociety-4046c",
+  storageBucket: "reactjs-esociety-4046c.appspot.com",
+  messagingSenderId: "774663887574",
+  appId: "1:774663887574:web:ce39d6135cd52b49140777",
+  measurementId: "G-XGC6226LC6"
 };
 
 
@@ -90,7 +101,7 @@ export const requestForToken = (setTokenFound) => {
 
     //keya - BABwMKV1MAQVKWVGq5U6Zi0Nv-lMAf9luEfjimEhGuo8KQxuWTlV5rGFU7FHRzknTH8RQh-63tYcrgiAGMgZfN8
     //jeel - BEVDvSGr8isowYbfZs9zdszbAP53jFV8ZcG0TqL82CViBhY2Sl88ASGcesvqz4T_Dy9x_A0iAVaiBo6sgxgG8wM
-     return getToken(firebase_messaging, {vapidKey: 'BEVDvSGr8isowYbfZs9zdszbAP53jFV8ZcG0TqL82CViBhY2Sl88ASGcesvqz4T_Dy9x_A0iAVaiBo6sgxgG8wM'}).then((currentToken) => {
+     return getToken(firebase_messaging, {vapidKey: 'BClCkuRZPf9c8s45xkA_7GDTgBKU82Yyb7p1yq6_9qHRILli8-tgldoW7MmoOqBOn70iT_5-vQqMl7o5ehtjuo8'}).then((currentToken) => {
       if (currentToken) {
         console.log('current token for client: ', currentToken);
         setTokenFound(true);

@@ -4,13 +4,13 @@ Tasks -
 - mobile number verification
 
 - add search icon in list members
-- search by age in member list
+- search by age in member list, isAllowed/isPrescheduled in visitor list
 
 - add field named addedBy in visitors model :
 added in post,get api : update api required ?
 as of now ,commented 'required' in model
 
-- list(sorting, searching)
+- list(sorting)
 - security guard list(display specific guard all attendance record) 
 
 - navbar update for users after login --> avatar icon(Profile, logout)
@@ -40,7 +40,7 @@ https://kumarabhirup.me/writings/google-recaptcha-react-node-js
 
 https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers
 
-- remember me(jwt token)
+- remember me(jwt token) - local storage
 
 Profiles -
 
