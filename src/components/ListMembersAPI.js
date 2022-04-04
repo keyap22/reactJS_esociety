@@ -60,9 +60,12 @@ export const ListMembersAPI = () => {
 
     return (
         <div className="container table-responsive-md ">
-            <div>
-                {/* <i className="bi bi-search"></i> */}
-                <input id="search" type="search" placeholder="Search" className="btn btn-outline-success my-3" aria-label="Search" onChange={(e) => handleSearch(e)} />
+            
+            <div className="input-group mb-3 ">
+            <span className ="input-group-text my-3 ml-8" id="basic-addon1"><i className="bi bi-search " ></i></span>
+ 
+            <input id="search" type="search" placeholder="Search by House" className="form-control my-3 ml-8 " aria-label="Search" onChange={(e) => handleSearch(e)} />
+               
             </div>
             <table className="table table-hover my-3">
                 <thead className="table_head">
