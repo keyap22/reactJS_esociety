@@ -37,11 +37,12 @@ import { ListDeliverablesAPI } from './components/ListDeliverablesAPI';
 import firebase_app, { requestForToken } from './components/Firebase';
 import { useState } from 'react';
 import firebase from "./components/Firebase"
+import { auth } from './components/Firebase';
 // import {SendMail} from './components/SendMail'
 
 import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 
-const auth = getAuth();
+//const auth = getAuth();
 
 
 function App() {
@@ -51,53 +52,107 @@ function App() {
   console.log("isTokenfound :" + isTokenFound)
   console.log("settokenfound :" + setTokenFound)
 
-  const setupRecaptcha = () => {
-    //console.log()
+  const[OTP,setOTP]= useState('')
+
+  // const setupRecaptcha = () => {
+  //   //console.log()
+  //   window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
+  //     'size': 'invisible',
+  //     'callback': (response) => {
+  //       // reCAPTCHA solved, allow signInWithPhoneNumber.
+  //       onSignInSubmit();
+  //     }
+  //   }, firebase.auth);
+  // }
+
+  // const onSignInSubmit = (e) => {
+
+  //   e.preventDefault()
+  //   setupRecaptcha()
+  //   const phoneNumber = "+917284914344"
+  //   //window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier()
+  //   const appVerifier = window.recaptchaVerifier;
+    
+  //   console.log(phoneNumber)
+  //   console.log(appVerifier)
+  //   //const auth = getAuth();
+  //   console.log("auth : ",firebase.auth)
+  //   signInWithPhoneNumber(firebase.auth, phoneNumber, appVerifier)
+  //     .then((confirmationResult) => {
+  //       console.log(phoneNumber)
+  //       // SMS sent. Prompt user to type the code from the message, then sign the
+  //       // user in with confirmationResult.confirm(code).
+  //       window.confirmationResult = confirmationResult;
+  //       const code = window.prompt("Enter OTP");
+  //       confirmationResult.confirm(code).then((result) => {
+  //         // User signed in successfully.
+  //         const user = result.user;
+  //         console.log("success")
+  //         // ...
+  //       }).catch((error) => {
+  //         // User couldn't sign in (bad verification code?)
+  //         // ...
+  //       });
+
+  //       // ...
+  //     }).catch((error) => {
+  //       // Error; SMS not sent
+  //       // ...
+  //     });
+  // }
+
+  const generateRecaptcha=()=>{
+
     window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
       'size': 'invisible',
       'callback': (response) => {
         // reCAPTCHA solved, allow signInWithPhoneNumber.
-        onSignInSubmit();
+        //onSignInSubmit();
       }
-    }, firebase.auth);
+    }, auth);
   }
 
   const onSignInSubmit = (e) => {
-
-    e.preventDefault()
-    setupRecaptcha()
+    e.preventDefault();
+    generateRecaptcha();
     const phoneNumber = "+917284914344"
-    //window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier()
-    const appVerifier = window.recaptchaVerifier;
+// window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier()
+     let appVerifier = window.recaptchaVerifier;
     
-    console.log(phoneNumber)
-    console.log(appVerifier)
-    //const auth = getAuth();
-    console.log("auth : ",firebase.auth)
-    signInWithPhoneNumber(firebase.auth, phoneNumber, appVerifier)
-      .then((confirmationResult) => {
-        console.log(phoneNumber)
-        // SMS sent. Prompt user to type the code from the message, then sign the
-        // user in with confirmationResult.confirm(code).
-        window.confirmationResult = confirmationResult;
+    signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+    .then((confirmationResult) => {
+      console.log("success phone :" +phoneNumber)
+      // SMS sent. Prompt user to type the code from the message, then sign the
+      // user in with confirmationResult.confirm(code).
+  
+      window.confirmationResult = confirmationResult;
         const code = window.prompt("Enter OTP");
         confirmationResult.confirm(code).then((result) => {
+          console.log("you have entered correct otp"+code)
           // User signed in successfully.
-          const user = result.user;
+          //const user = result.user;
           console.log("success")
           // ...
         }).catch((error) => {
           // User couldn't sign in (bad verification code?)
+         alert("you have entered wrong otp")
+         
           // ...
         });
 
-        // ...
-      }).catch((error) => {
-        // Error; SMS not sent
-        // ...
-      });
-  }
+      
+      // ...
+    }).catch((error) => {
+      // Error; SMS not sent
+      // ...
+    });
+const verifyOTP=(e)=>
+{
+  let otp = e.target.value;
+}
 
+   
+  }
   return (
     <div>
 

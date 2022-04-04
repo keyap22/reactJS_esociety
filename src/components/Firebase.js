@@ -53,8 +53,8 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebase_app = initializeApp(firebaseConfig);
 
-const auth = getAuth();
-auth.languageCode = 'it';
+const auth = getAuth(firebase_app);
+auth.languageCode = 'en';
 
 export {auth , firebase_app};
 
