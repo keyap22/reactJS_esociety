@@ -3,7 +3,6 @@ Tasks -
 - add validations in form(signup) - length, required, unique(as mentioned in model) - contact no.
 - mobile number verification
 
-- add search icon in list members
 - search by age in member list, isAllowed/isPrescheduled in visitor list
 
 - add field named addedBy in visitors model :

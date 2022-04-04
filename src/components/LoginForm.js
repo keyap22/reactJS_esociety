@@ -127,7 +127,9 @@ export const LoginForm = () => {
                     localStorage.setItem('email', email)
                     localStorage.setItem("role", role)
                     localStorage.setItem("roleName", roleName)
+                    localStorage.setItem("userid", userId)
                     console.log("-================----" + role)
+
                     navigation('/profile')
 
                     if (role === "620c88535e051978662b0379") {
@@ -141,6 +143,7 @@ export const LoginForm = () => {
                     JSON.parse(localStorage.getItem("email"))
                     JSON.parse(localStorage.getItem("role"))
                     JSON.parse(localStorage.getItem("guardID"))
+                    JSON.parse(localStorage.getItem("userid"))
                 }
 
                 //navigation('/profile')

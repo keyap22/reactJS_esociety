@@ -1,6 +1,5 @@
 import './App.css';
 
-import ReCAPTCHA from "react-google-recaptcha";
 import { Navbar } from './pages/Navbar';
 import { Routes, Route } from 'react-router-dom';
 import { About } from './pages/About'
@@ -36,16 +35,13 @@ import { ListvehiclesAPI } from './components/ListVehiclesAPI';
 import { ListDeliverablesAPI } from './components/ListDeliverablesAPI';
 import firebase_app, { requestForToken } from './components/Firebase';
 import { useState } from 'react';
-import firebase from "./components/Firebase"
-import { auth } from './components/Firebase';
-// import {SendMail} from './components/SendMail'
+import firebase, { auth } from "./components/Firebase"
 
 import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 
-//const auth = getAuth();
-
 
 function App() {
+
   //keep track of whether we have access to the notifications or not:
   const [isTokenFound, setTokenFound] = useState(false);
   requestForToken(setTokenFound);
@@ -115,7 +111,7 @@ function App() {
   const onSignInSubmit = (e) => {
     e.preventDefault();
     generateRecaptcha();
-    const phoneNumber = "+917284914344"
+    const phoneNumber = "+917043599678"
 // window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier()
      let appVerifier = window.recaptchaVerifier;
     

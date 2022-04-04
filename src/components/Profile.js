@@ -9,6 +9,7 @@ export const Profile = () => {
     const [email, setemail] = useState('')
     const [role, setRole] = useState('')
     const [roleName, setRoleName] = useState('')
+    const [user, setUser] = useState('')
     var [counter, setCounter] = useState(0)
     var addattendance
     //const [guard, setGuard] = useState('')
@@ -24,6 +25,8 @@ export const Profile = () => {
     const navigation = useNavigate()
     var guardID = ""
     var guardAttendanceList = []
+    var userid = ''
+    var User = ""
 
     useEffect(() => {
         setemail(localStorage.getItem('email'))
@@ -33,6 +36,9 @@ export const Profile = () => {
         setRoleName(localStorage.getItem('roleName'))
         getRoleByID()
         getGuardAttendances()
+        userid = localStorage.getItem("userid")
+        console.log("userid in profile :" + userid)
+        getUserById()
     }, [])
 
     const getRoleByID = () => {
@@ -44,11 +50,25 @@ export const Profile = () => {
         })
     }
 
+    const getUserById = () => {
+        //var id = "622740a09d7544ebc551ba15";
+        console.log("userid in getuserbyid :" + userid)
+        axios.get('http://localhost:4000/users/' + userid).then(res => {
+            console.log("user by id response : ", res)
+            User = res.data.data
+            setUser(User)
+            console.log("user data : ", res.data.data)
+            console.log("user : ", user)
+            console.log("User : ", User)
+        })
+    }
+
     const logout = (e) => {
         e.preventDefault()
         localStorage.removeItem('email')
         localStorage.removeItem('role')
         localStorage.removeItem('roleName')
+        localStorage.removeItem('userid')
         getGuardAttendances()
         navigation('/login')
     }
@@ -129,16 +149,13 @@ export const Profile = () => {
 
     }
 
-    return (
-        <div>
-            {
-                email ? <h1>Hello <br /> {email}<br /> {roleName}</h1> : <h1>Please login first</h1>
-            }
+    /**<div>
+            
             {
                 email ? isLogin = true : isLogin = false
             }
             {
-                role==="620dda4cbaf661b44817ee63" ? <h2>Hello, Chairman</h2> : ""
+                role === "620dda4cbaf661b44817ee63" ? <h2>Hello, Chairman</h2> : ""
             }
             {
                 role === "620c88535e051978662b0379" ? <h2>Security guard attendance - {counter}</h2> : ""
@@ -147,6 +164,165 @@ export const Profile = () => {
                 role === "620c88535e051978662b0379" ? <input type="button" className='btn btn-warning mx-3' value="Add Attendance" onClick={AddAttendance} /> : ""
             }
             <input type="button" className={isLogin ? 'btn btn-primary mx-3' : "btn btn-primary mx-3 hidden"} value="Logout" onClick={logout} />
-        </div>
+        </div> */
+
+    return (
+        <>
+            <div>
+                {
+                    email ? <h1>Hello <br /> {email}<br /> {roleName}</h1> : <h1>Please login first</h1>
+                }
+                <input type="button" className={isLogin ? 'btn btn-primary mx-3' : "btn btn-primary mx-3 hidden"} value="Logout" onClick={logout} />
+            </div>
+
+            <div className="container emp-profile">
+                <form method="post">
+                    <div className="row">
+                        <div className="col-md-4">
+                            <div className="profile-img">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt="" />
+                                <div className="file btn btn-lg btn-primary">
+                                    Change Photo
+                    <input type="file" name="file" />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="profile-head">
+                                <h5>
+                                    {user.firstName + " " + user.lastName}
+                                </h5>
+                                <h6>
+                                    {user.role}
+                                </h6>
+                                <p className="proile-rating">RANKINGS : <span>8/10</span></p>
+                                <ul className="nav nav-tabs" id="myTab" role="tablist">
+                                    <li className="nav-item">
+                                        <a className="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                                    </li>
+                                    <li className="nav-item">
+                                        <a className="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Timeline</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div className="col-md-2">
+                            <input type="submit" className="profile-edit-btn" name="btnAddMore" value="Edit Profile" />
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-md-4">
+                            <div className="profile-work">
+                                <p>WORK LINK</p>
+                                <a href="">Website Link</a><br />
+                                <a href="">Bootsnipp Profile</a><br />
+                                <a href="">Bootply Profile</a>
+                                <p>SKILLS</p>
+                                <a href="">Web Designer</a><br />
+                                <a href="">Web Developer</a><br />
+                                <a href="">WordPress</a><br />
+                                <a href="">WooCommerce</a><br />
+                                <a href="">PHP, .Net</a><br />
+                            </div>
+                        </div>
+                        <div className="col-md-8">
+                            <div className="tab-content profile-tab" id="myTabContent">
+                                <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                    <div className="row">
+                                        <div className="col-md-6">
+                                            <label>ID</label>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <p>{user._id}</p>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-md-6">
+                                            <label>Mail Id</label>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <p>{user.email}</p>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-md-6">
+                                            <label>Name</label>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <p>{user.firstName + " " + user.lastName}</p>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-md-6">
+                                            <label>Phone</label>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <p>{user.mobileNo}</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="row">
+                                        <div className="col-md-6">
+                                            <label>Profession</label>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <p>Web Developer and Designer</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                    <div className="row">
+                                        <div className="col-md-6">
+                                            <label>Experience</label>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <p>Expert</p>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-md-6">
+                                            <label>Hourly Rate</label>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <p>10$/hr</p>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-md-6">
+                                            <label>Total Projects</label>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <p>230</p>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-md-6">
+                                            <label>English Level</label>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <p>Expert</p>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-md-6">
+                                            <label>Availability</label>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <p>6 months</p>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-md-12">
+                                            <label>Your Bio</label><br />
+                                            <p>Your detail description</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </>
     )
 }

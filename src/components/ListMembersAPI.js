@@ -42,15 +42,15 @@ export const ListMembersAPI = () => {
     var counter = 0
 
     const sortedByName = (e) => {
-        const {data} = e.target.value
-        console.log("data : ",data)
+        const { data } = e.target.value
+        console.log("data : ", data)
         let sortedData = [...data]
-        if(sortedField !== null){
-            sortedData.sort((a,b) => {
-                if(a[sortedField] < b[sortedField]){
+        if (sortedField !== null) {
+            sortedData.sort((a, b) => {
+                if (a[sortedField] < b[sortedField]) {
                     return -1;
                 }
-                if(a[sortedField] > b[sortedField]){
+                if (a[sortedField] > b[sortedField]) {
                     return 1;
                 }
                 return 0
@@ -60,12 +60,12 @@ export const ListMembersAPI = () => {
 
     return (
         <div className="container table-responsive-md ">
-            
+
             <div className="input-group mb-3 ">
-            <span className ="input-group-text my-3 ml-8" id="basic-addon1"><i className="bi bi-search " ></i></span>
- 
-            <input id="search" type="search" placeholder="Search by House" className="form-control my-3 ml-8 " aria-label="Search" onChange={(e) => handleSearch(e)} />
-               
+                <span className="input-group-text my-3 ml-8" id="basic-addon1"><i className="bi bi-search " ></i></span>
+
+                <input id="search" type="search" placeholder="Search" className="form-control col-md-3 my-3 ml-8" aria-label="Search" onChange={(e) => handleSearch(e)} />
+
             </div>
             <table className="table table-hover my-3">
                 <thead className="table_head">
@@ -83,7 +83,7 @@ export const ListMembersAPI = () => {
                 </thead>
                 <tbody>
                     {search === "" ?
-                        memberList.sort((a,b)=>a.email - b.email ).map((member) => {
+                        memberList.sort((a, b) => a.email - b.email).map((member) => {
                             console.log("search : " + search)
                             counter += 1
                             return (
@@ -107,9 +107,9 @@ export const ListMembersAPI = () => {
                         memberList.map((member) => {
                             counter += 1
                             console.log("filter")
-                            if ((member.house.houseTitle).includes(search) || (member.user.firstName).includes(search) || 
-                            (member.user.lastName).includes(search) || (member.user.email).includes(search) || 
-                            (member.user.mobileNo).includes(search)) {
+                            if ((member.house.houseTitle).includes(search) || (member.user.firstName).includes(search) ||
+                                (member.user.lastName).includes(search) || (member.user.email).includes(search) ||
+                                (member.user.mobileNo).includes(search)) {
 
                                 //|| (member.age).includes(search)
                                 console.log("search : " + search)
