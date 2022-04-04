@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 
 export const ListMembersAPI = () => {
     const [memberList, setmemberList] = useState([])
+    const [sortedField, setSortedField] = useState(null)
+    const [search, setSearch] = useState('');
 
     const deleteMember = (memberID, userID) => {
 
@@ -19,21 +21,6 @@ export const ListMembersAPI = () => {
         })
     }
 
-    // const updateMember = (e) => {
-
-    //     var member = {
-    //         memberName: "ria",
-    //         // age : 20,
-    //         // user : "",
-    //         // house : ""
-    //     }
-    //     var id = e.target.value;
-
-    //     axios.put(`http://localhost:4000/members/` + id, member).then(res => {
-    //         console.log(res)
-    //     })
-    // }
-
     const getData = () => {
         axios.get("http://localhost:4000/members/").then(res => {
             console.log(res.data.data)
@@ -41,8 +28,6 @@ export const ListMembersAPI = () => {
         })
 
     }
-
-    const [search, setSearch] = useState('');
 
     const handleSearch = (e) => {
         console.log(e.target.value)
@@ -55,6 +40,23 @@ export const ListMembersAPI = () => {
     }, [])
 
     var counter = 0
+
+    const sortedByName = (e) => {
+        const {data} = e.target.value
+        console.log("data : ",data)
+        let sortedData = [...data]
+        if(sortedField !== null){
+            sortedData.sort((a,b) => {
+                if(a[sortedField] < b[sortedField]){
+                    return -1;
+                }
+                if(a[sortedField] > b[sortedField]){
+                    return 1;
+                }
+                return 0
+            })
+        }
+    }
 
     return (
         <div className="container table-responsive-md ">
@@ -94,7 +96,8 @@ export const ListMembersAPI = () => {
                                     <td><img src={member.user.profilePhoto} alt="No image" style={{ height: "80px", width: "80px" }}></img></td>
                                     <td>
                                         <Link to="/listmembers" className="btn btn-sm btn-danger mx-2" onClick={() => { deleteMember(member._id, member.user._id) }}><i className="bi bi-trash"></i></Link>
-                                        <Link to={`/listmembers/update/${member.user._id}/${member._id}`} className="btn btn-sm btn-primary"  ><i className="bi bi-pencil"></i></Link>
+                                        <Link to={`/listmembers/update/${member.user._id}/${member._id}`} className="btn btn-sm btn-primary mx-2"><i className="bi bi-pencil"></i></Link>
+                                        {/* <Link to="/listmembers" className="btn btn-sm btn-secondary" onClick={(e) => sortedByName(e)}>Name</Link> */}
                                     </td>
                                 </tr>
                             )
@@ -102,7 +105,11 @@ export const ListMembersAPI = () => {
                         memberList.map((member) => {
                             counter += 1
                             console.log("filter")
-                            if ((member.house.houseTitle).includes(search)) {
+                            if ((member.house.houseTitle).includes(search) || (member.user.firstName).includes(search) || 
+                            (member.user.lastName).includes(search) || (member.user.email).includes(search) || 
+                            (member.user.mobileNo).includes(search)) {
+
+                                //|| (member.age).includes(search)
                                 console.log("search : " + search)
 
                                 return (
@@ -118,7 +125,8 @@ export const ListMembersAPI = () => {
                                         <td><img src={member.user.profilePhoto} alt="No image" style={{ height: "80px", width: "80px" }}></img></td>
                                         <td>
                                             <Link to="/listmembers" className="btn btn-sm btn-danger mx-2" onClick={() => { deleteMember(member._id, member.user._id) }}><i className="bi bi-trash"></i></Link>
-                                            <Link to={`/listmembers/update/${member.user._id}/${member._id}`} className="btn btn-sm btn-primary"  ><i className="bi bi-pencil"></i></Link>
+                                            <Link to={`/listmembers/update/${member.user._id}/${member._id}`} className="btn btn-sm btn-primary"><i className="bi bi-pencil"></i></Link>
+                                            {/* <Link to="/listmembers" className="btn btn-sm btn-secondary" onClick={(e) => sortedByName(e)}>Name</Link> */}
                                         </td>
                                     </tr>
                                 )

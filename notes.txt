@@ -4,6 +4,7 @@ Tasks -
 - mobile number verification
 
 - add search icon in list members
+- search by age in member list
 
 - add field named addedBy in visitors model :
 added in post,get api : update api required ?
@@ -36,6 +37,8 @@ https://www.geeksforgeeks.org/how-to-authenticate-phone-number-using-firebase-in
 https://codequs.com/p/HJMkD9-t/creat-a-google-recaptcha-with-node-js/?utm_content=buffer37077&utm_medium=social&utm_source=plus.google.com&utm_campaign=buffer
 
 https://kumarabhirup.me/writings/google-recaptcha-react-node-js
+
+https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers
 
 - remember me(jwt token)
 
