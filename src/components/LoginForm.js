@@ -7,7 +7,6 @@ import ReCAPTCHA from "react-google-recaptcha";
 
 export const LoginForm = () => {
     const [email, setemail] = useState('')
-    const [captcha, setCaptcha] = useState()
     const [password, setpassword] = useState('')
     const [role, setRole] = useState('')
     const [roleName, setRoleName] = useState('')
@@ -21,10 +20,7 @@ export const LoginForm = () => {
 
     var guardId = ""
     var userId = ""
-    var guardAttendanceList = []
-    var recaptcha 
-
-    const recaptchaRef = React.createRef();
+    var guardAttendanceList = [] 
 
     //const validPassword = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,14})');
     const validMail = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+(?=.)+(?=.[a-zA-Z]$)');
@@ -107,14 +103,9 @@ export const LoginForm = () => {
             email: email,
             password: password,
             role: role,
-            captcha : captcha
         }
         getRoleByID()
-        console.log("captcha : ",captcha)
-        setCaptcha(recaptcha)
-        console.log("recaptcha : ",recaptcha)
-        console.log("captcha after setting its value : ",captcha)
-
+        
         await axios.post('http://localhost:4000/login/', formdata).then(res => {
             console.log("login response : ", res)
             if (res.data.status === 200) {
@@ -235,11 +226,9 @@ export const LoginForm = () => {
                             </div>
 
                             <ReCAPTCHA 
-                            //ref={recaptchaRef} size="invisible"
-                                sitekey="6Ldw7j8fAAAAAH-bGG_ubTRvVFwXh5zpryvfTgwy"
-                                onChange={(e) => { recaptcha = e.target.value
-                                    setCaptcha(e.target.value)}}
-                            />,
+                            //ref={recaptchaRef} 
+                            //size="invisible"
+                                sitekey="6Ldw7j8fAAAAAH-bGG_ubTRvVFwXh5zpryvfTgwy"/>
 
                             <div className="my-5">
                                 <input type="submit" className='btn-centre' value="Login" /><br />
