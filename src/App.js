@@ -35,18 +35,27 @@ import { ListvehiclesAPI } from './components/ListVehiclesAPI';
 import { ListDeliverablesAPI } from './components/ListDeliverablesAPI';
 //import firebase_app, { requestForToken } from './components/Firebase';
 import { useState } from 'react';
-import firebase, { auth } from "./components/Firebase"
+import firebase, { auth, getToken1 } from "./components/Firebase"
 
 import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 
 
+ import {onMessageListener} from "./components/Firebase"
+// import ReactNotificationComponent from './components/ReactNotification';
+// import Notifications from './components/Notification';
+//import { ToastContainer } from 'react-toastify/dist/components';
+
+
 function App() {
+  const [show, setShow] = useState(false);
+  const [notification, setNotification] = useState({title: '', body: ''});
 
   //keep track of whether we have access to the notifications or not:
-  // const [isTokenFound, setTokenFound] = useState(false);
-  // requestForToken(setTokenFound);
-  // console.log("isTokenfound :" + isTokenFound)
-  // console.log("settokenfound :" + setTokenFound)
+  
+  const [isTokenFound, setTokenFound] = useState(false);
+  getToken1(setTokenFound);
+  console.log("isTokenfound :" + isTokenFound)
+  console.log("settokenfound :" + setTokenFound)
 
   const[OTP,setOTP]= useState('')
 
@@ -96,6 +105,18 @@ function App() {
   //       // ...
   //     });
   // }
+
+
+
+
+
+
+
+
+
+
+
+
 
   const generateRecaptcha=()=>{
 
@@ -149,12 +170,62 @@ const verifyOTP=(e)=>
 
    
   }
+
+  //push notification code 
+  onMessageListener().then(payload => {
+    setShow(true);
+    setNotification({title: payload.notification.title, body: payload.notification.body})
+    console.log(payload);
+  }).catch(err => console.log('failed: ', err));
+  
+  // const [show, setShow] = useState(false);
+  // const [notification, setNotification] = useState({ title: "hi", body: "" });
+
+  // console.log(show, notification);
+
+  // onMessageListener()
+  //   .then((payload) => {
+  //     setShow(true);
+  //     setNotification({
+  //       title: payload.notification.title,
+  //       body: payload.notification.body,
+  //     });
+  //     console.log(payload);
+  //   })
+  //   .catch((err) => console.log("failed: ", err));
   return (
     <div>
 
       <Navbar />
 
       <Home />
+      <div className="App">
+       {/* <ToastContainer onClose={() => setShow(false)} show={show} delay={3000} autohide animation style={{
+          position: 'absolute',
+          top: 20,
+          right: 20,
+          minWidth: 200
+        }}>
+          <Toast.Header>
+            <img
+              src="holder.js/20x20?text=%20"
+              className="rounded mr-2"
+              alt=""
+            />
+            <strong className="mr-auto">{notification.title}</strong>
+            <small>just now</small>
+          </Toast.Header>
+          <Toast.Body>{notification.body}</Toast.Body > 
+        </ToastContainer> */}
+      <header className="App-header">
+        {isTokenFound && <h1> Notification permission enabled  </h1>}
+        {!isTokenFound && <h1> Need notification permission  </h1>}
+        {/* <img src={logo} className="App-logo" alt="logo" /> */}
+        <button onClick={() => setShow(true)}>Show Toast</button>
+      </header>
+
+
+    </div>
       {/* <div id="recaptcha-container"></div>
       <button className="btn btn-primary" value="Send OTP" onClick={onSignInSubmit}>Send OTP</button> */}
       {/* <ReCAPTCHA 
@@ -174,6 +245,19 @@ const verifyOTP=(e)=>
       <VisitorAPI />
       <HouseAPI />
       <UserAPI/> */}
+
+{/* <div>
+      {show ? (
+        <ReactNotificationComponent
+          title={notification.title}
+          body={notification.body}
+        />
+      ) : (
+        <></>
+      )}
+      <Notifications />
+      {/* <Fader text="Hello React"></Fader> 
+    </div> */}
 
       <Routes>
         <Route path="/contact" element={<Contact />}></Route>
@@ -202,7 +286,7 @@ const verifyOTP=(e)=>
       </Routes>
       <Footer />
 
-      {/* {isTokenFound ? "Notification.permission   enabled" : "Need notification permission" } */}
+      {isTokenFound ? "Notification.permission   enabled" : "Need notification permission" }
 
 
     </div>

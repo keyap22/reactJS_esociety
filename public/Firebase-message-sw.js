@@ -1,6 +1,8 @@
 // Scripts for firebase and firebase messaging
-importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js');
-importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-app-combat.js');
+importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-combat.js');
+importScripts('https://www.gstatic.com/firebase/init.js');
+
 
 // Initialize the Firebase app in the service worker by passing the generated config
 // var firebaseConfig = {
@@ -12,6 +14,7 @@ importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compa
 //   appId: "1:867526949607:web:d310b66869fc38bc3dc042",
   
 // };
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyCQxgMNGeFb1ZPFIv0KXYeP6nWhKjYmDA8",
@@ -25,8 +28,10 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
+const firebase_app = initializeApp(firebaseConfig);
+
 // Retrieve firebase messaging
-const firebase_messaging = firebase.messaging();
+const firebase_messaging = firebase_app.messaging();
 
 firebase_messaging.onBackgroundMessage(function(payload) {
   console.log('Received background message ', payload);
@@ -39,3 +44,19 @@ firebase_messaging.onBackgroundMessage(function(payload) {
   self.registration.showNotification(notificationTitle,
     notificationOptions);
 });
+
+// firebase_messaging.onBackgroundMessage(function (payload) {
+//   console.log("Received background message ", payload);
+
+//   const notificationTitle = payload.notification.title;
+//   const notificationOptions = {
+//     body: payload.notification.body,
+//    // icon: "/logo192.png",
+//   };
+
+//   // eslint-disable-next-line no-restricted-globals
+//   return self.registration.showNotification(
+//     notificationTitle,
+//     notificationOptions
+//   );
+// });
