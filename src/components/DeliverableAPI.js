@@ -12,9 +12,9 @@ export const DeliverableAPI = () => {
     const postDeliverable = () => {
 
         var deliverable = {
-             house: "620f42b212ae7571cfedecdc",
-        isPickup : false,
-        date: "15-03-2022",
+             house: "624333c582c9a109c7c885fa",
+        isPickup : true,
+        date: "05-04-2022",
         }
 
         axios.post('http://localhost:4000/deliverables/', deliverable).then(res => {

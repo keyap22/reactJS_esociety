@@ -4,8 +4,25 @@ import { Link } from 'react-router-dom'
 
 export const ListMembersAPI = () => {
     const [memberList, setmemberList] = useState([])
-    const [sortedField, setSortedField] = useState(null)
+    const [sortedField, setSortedField] = useState('')
     const [search, setSearch] = useState('');
+
+    let sortedMembers = [...memberList];
+
+    if (sortedField !== null) {
+        console.log("field called : ",sortedField)
+        sortedMembers.sort((a, b) => {
+            if (a[sortedField] < b[sortedField]) {
+                console.log(b[sortedField])
+                return -1;
+            }
+            if (a[sortedField] > b[sortedField]) {
+                console.log(a[sortedField])
+                return 1;
+            }
+            return 0;
+        });
+    }
 
     const deleteMember = (memberID, userID) => {
 
@@ -71,12 +88,12 @@ export const ListMembersAPI = () => {
                 <thead className="table_head">
                     <tr>
                         <th scope="col" className=''>Sr. No.</th>
-                        <th scope="col">First Name</th>
+                        <th scope="col" >First Name</th>
                         <th scope="col">Last Name</th>
                         <th scope="col">Email</th>
                         <th scope="col">Contact Number</th>
                         <th scope="col">House Title</th>
-                        <th scope="col">Age</th>
+                        <th scope="col" onClick={() => setSortedField('age')}>Age</th>
                         <th scope="col">Profile Photo</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -136,6 +153,30 @@ export const ListMembersAPI = () => {
                                 // return(<tr>No data found</tr>)
                             }
                         })
+                    }
+                    {
+                        sortedField !== null ? 
+                        sortedMembers.map((member) => {
+                            console.log("sorted members : " + sortedMembers)
+                            counter += 1
+                            return (
+                                <tr key={member._id}>
+                                    <th scope="row">{counter}</th>
+                                    <td>{member.user.firstName}</td>
+                                    <td>{member.user.lastName}</td>
+                                    <td>{member.user.email}</td>
+                                    <td>{member.user.mobileNo}</td>
+                                    <td>{member.house.houseTitle}</td>
+                                    <td>{member.age}</td>
+                                    <td><img src={member.user.profilePhoto} alt="No image" style={{ height: "80px", width: "80px" }}></img></td>
+                                    <td>
+                                        <Link to="/listmembers" className="btn btn-sm btn-danger mx-2" onClick={() => { deleteMember(member._id, member.user._id) }}><i className="bi bi-trash"></i></Link>
+                                        <Link to={`/listmembers/update/${member.user._id}/${member._id}`} className="btn btn-sm btn-primary mx-2"><i className="bi bi-pencil"></i></Link>
+                                        {/* <Link to="/listmembers" className="btn btn-sm btn-secondary" onClick={(e) => sortedByName(e)}>Name</Link> */}
+                                    </td>
+                                </tr>
+                            )
+                        }) : ""
                     }
                 </tbody>
             </table>

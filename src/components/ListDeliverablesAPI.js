@@ -5,7 +5,24 @@ import { Link } from 'react-router-dom'
 export const ListDeliverablesAPI = () => {
     const [deliverablesList, setdeliverablesList] = useState([])
     const [search, setSearch] = useState('');
+    const [sortedField, setSortedField] = useState('');
 
+    let sortedDeliverablesList = [...deliverablesList];
+
+    if (sortedField !== null) {
+        sortedDeliverablesList.sort((a, b) => {
+            console.log("field called : ",sortedField)
+            if (a[sortedField] < b[sortedField]) {
+                console.log(b[sortedField])
+                return -1;
+            }
+            if (a[sortedField] > b[sortedField]) {
+                console.log(a[sortedField])
+                return 1;
+            }
+            return 0;
+        });
+    }
 
     const getData = () => {
         axios.get("http://localhost:4000/deliverables/").then(res => {
@@ -37,12 +54,16 @@ export const ListDeliverablesAPI = () => {
             </div>
 
             <table className="table table-hover my-3">
+                {/* <caption>DELIVERABLES LIST</caption> */}
                 <thead className="table_head">
                     <tr>
                         <th scope="col" className=''>Sr. No.</th>
-                        <th scope="col">House</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Pick up</th>
+                        <label onClick={() => setSortedField('house.houseTitle')}>House Title</label>
+                        
+                        <label onClick={() => setSortedField('date')}>Date</label>
+                       
+                        <label onClick={() => setSortedField('isPickup')}>Pick Up</label>
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -58,7 +79,7 @@ export const ListDeliverablesAPI = () => {
                                         <th scope="row">{counter}</th>
                                         <td>{deliverables.house.houseTitle}</td>
                                         <td>{deliverables.date}</td>
-                                        <td>{deliverables.ispickup ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
+                                        <td>{deliverables.isPickup ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
 
                                     </tr>
                                 )
