@@ -173,7 +173,7 @@ export const Profile = () => {
                 }
                 
             </div>
-
+                {isLogin === true ?
             <div className="container emp-profile">
                 <form method="post">
                     <div className="row">
@@ -213,7 +213,7 @@ export const Profile = () => {
                     <div className="row">
                         <div className="col-md-4">
                             <div className="profile-work">
-                            <input type="button" className={isLogin ? 'btn btn-primary' : "btn btn-primary hidden"} value="Logout" onClick={logout} />
+                            <input type="button" style={{marginLeft : "80px"}} className={isLogin ? 'btn btn-primary my-5' : "btn btn-primary hidden"} value="Logout" onClick={logout} />
                                 {/* <p>WORK LINK</p>
                                 <a href="">Website Link</a><br />
                                 <a href="">Bootsnipp Profile</a><br />
@@ -323,7 +323,7 @@ export const Profile = () => {
                         </div>
                     </div>
                 </form>
-            </div>
+            </div>  : ""}
         </section>
     )
 }

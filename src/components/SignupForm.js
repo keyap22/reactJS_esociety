@@ -34,12 +34,14 @@ export const SignupForm = () => {
     var [haveSubmitted, setHaveSubmitted] = useState(false)
     var [emailotp, setemailotp] = useState('')
     const [sysotp, setSysotp] = useState(Math.floor((Math.random() * 1000000) + 1)) //emailotp
+    var [validOtp, setValidOtp] = useState()
 
-    const[OTP,setOTP]= useState('') //phone otp
-    var validOTP = false;
+    var [OTP, setOTP] = useState('') //phone otp
+    var [phoneVerified, setPhoneVerified] = useState('')
+    var validOTP
 
 
-    var HaveSubmitted, otp
+    var HaveSubmitted, otp, PhoneVerified
     const [roleList, setroleList] = useState([])
     const [houseList, sethouseList] = useState([])
 
@@ -139,71 +141,82 @@ export const SignupForm = () => {
     }
 
     //==========mobile otp 
-    const generateRecaptcha=()=>{
+    const generateRecaptcha = () => {
 
         window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
-          'size': 'invisible',
-          'callback': (response) => {
-            // reCAPTCHA solved, allow signInWithPhoneNumber.
-            //onSignInSubmit();
-          }
+            'size': 'invisible',
+            'callback': (response) => {
+                // reCAPTCHA solved, allow signInWithPhoneNumber.
+                //onSignInSubmit();
+            }
         }, auth);
-      }    
-      const onSignInSubmit = (e) => {
+    }
+
+    //for phone no. verification
+    const onSignInSubmit = (e) => {
         e.preventDefault();
         generateRecaptcha();
-        const phoneNumber = "+91" +contactNumber
-    // window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier()
-         let appVerifier = window.recaptchaVerifier;
-         console.log("=================validotp :" +validOTP)
-        
+        const phoneNumber = "+91" + contactNumber
+        // window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier()
+        let appVerifier = window.recaptchaVerifier;
+        console.log("=================validotp :" + validOTP)
+
         signInWithPhoneNumber(auth, phoneNumber, appVerifier)
-        .then((confirmationResult) => {
-          console.log("success phone :" +phoneNumber)
-          // SMS sent. Prompt user to type the code from the message, then sign the
-          // user in with confirmationResult.confirm(code).
-      
-          window.confirmationResult = confirmationResult;
-          console.log("=====otp msg" + OTP)
-            const code = OTP
-            // if(OTP.length()===6)
-            // {
-                confirmationResult.confirm(code).then((result) => {
-              console.log("you have entered correct otp"+code)
-              validOTP=true;
-              // User signed in successfully.
-              //const user = result.user;
-              console.log("success")
-              // ...
+            .then((confirmationResult) => {
+                console.log("success phone :" + phoneNumber)
+                // SMS sent. Prompt user to type the code from the message, then sign the
+                // user in with confirmationResult.confirm(code).
+
+                window.confirmationResult = confirmationResult;
+                                // }
+                // ...
             }).catch((error) => {
-              // User couldn't sign in (bad verification code?)
-             alert("you have entered wrong otp")
-             
-              // ...
+                // Error; SMS not sent
+                // ...
             });
-        // }
-    
-          
-          // ...
-        }).catch((error) => {
-          // Error; SMS not sent
-          // ...
-        });
-    
-    
-       
-      }
+    }
     //=======================
+
+    const verifyPhone = (e) => {
+        console.log("=====otp msg : " + OTP)
+                const code = OTP
+                // if(OTP.length()===6)
+                // {
+                window.confirmationResult.confirm(code).then((result) => {
+                    console.log("you have entered correct otp" + code)
+                    validOTP = true;
+                    PhoneVerified = true
+                    setPhoneVerified(PhoneVerified)
+                    setValidOtp(validOtp)
+                    console.log("valid otp in verify phone no. method : ", validOTP)
+                    console.log("valid otp use state var in verify phone no. method : ", validOtp)
+                    // User signed in successfully.
+                    //const user = result.user;
+                    console.log("success")
+                    console.log("phone verified value : ", phoneVerified)
+                    console.log("PhoneVerified value : ", PhoneVerified)
+                    sendMail(e)
+                    // ...
+                }).catch((error) => {
+                    // User couldn't sign in (bad verification code?)
+                    alert("you have entered wrong otp")
+
+                    // ...
+                });
+
+    }
 
     const verifyemail = async (e) => {
         e.preventDefault()
 
         console.log("otp entered by user : ", emailotp)
         console.log("system generated otp : ", sysotp)
-        console.log("=================validotp :" +validOTP)
-        
+        console.log("=================validotp :" + validOTP)
+        console.log("valid otp use state var in verify email method : ", validOtp)
+        console.log("confirmation", window.confirmationResult)
 
-        if (emailotp.toString() === sysotp.toString() ) {
+
+        if (emailotp.toString() === sysotp.toString()) {
             console.log("correct otp")
             var user = {
                 email: email,
@@ -218,7 +231,7 @@ export const SignupForm = () => {
             await axios.post('http://localhost:4000/Users/', user).then(res => {
 
                 console.log(res.status)
-                //alert("User account created successfully!")
+                alert("User account created successfully!")
                 navigation('/login')
 
                 console.log("user id : ", res.data.data._id)
@@ -307,20 +320,10 @@ export const SignupForm = () => {
             setHaveSubmitted(HaveSubmitted)
             console.log("after setting have submitted value : ", haveSubmitted)
 
-            //6 digit random otp number
-            console.log("sysotp : ", sysotp)
 
-            var data = {
-                email: email,
-                otp: sysotp
-            }
-
-            await axios.post("http://localhost:4000/sendmail/", data)
-                .then(res => {
-                    console.log("send mail status : ", res.data.data)
-                });
         }
         onSignInSubmit(e);
+
         //console.log("submit called.....")
         //console.log(`email : ${email}, password : ${password},password2 : ${password2}, first name : ${firstName}, last name : ${lastName}`)
         //console.log(`contact number : ${contactNumber}, role : ${role}, profile photo : ${profilePhoto}`)
@@ -332,6 +335,21 @@ export const SignupForm = () => {
         //e.target.reset()
     }
     //}
+
+    const sendMail = async (e) => {
+        //6 digit random otp number
+        console.log("sysotp : ", sysotp)
+
+        var data = {
+            email: email,
+            otp: sysotp
+        }
+
+        await axios.post("http://localhost:4000/sendmail/", data)
+            .then(res => {
+                console.log("send mail status : ", res.data.data)
+            });
+    }
 
     return (
         <section id="services" className="services section-bg">
@@ -371,7 +389,9 @@ export const SignupForm = () => {
                             <div className="col-sm-10">
                                 <input type="email" id="Email" className="form-control" name="email"
                                     placeholder="Enter Your Email" required onChange={(e) => { emailHandler(e) }} />
-                                <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+                                <small id="emailHelp" className="form-text text-muted">Please enter correct details. We'll send you a verification code via mail.
+                                    {/* We'll never share your email with anyone else. */}
+                                </small>
                                 {
                                     validEmail || email >= 0 ? "" : "Email already exists.Please enter different mail id"
                                 }
@@ -415,6 +435,7 @@ export const SignupForm = () => {
                             <div className="col-sm-10">
                                 <input type="tel" id="ContactNumber" className="form-control" name="contactNumber"
                                     placeholder="Enter Your Mobile Number" required onChange={(e) => { setContactNumber(e.target.value) }} />
+                                <small id="emailHelp" className="form-text text-muted">Please enter correct details. We'll send you a verification code via mail.</small>
                             </div>
                         </div>
 
@@ -534,53 +555,49 @@ export const SignupForm = () => {
 
                     </form>
 
-                    {haveSubmitted ? 
-                    <form className="form-horizontal" align="center" id="checkemailForm" 
-                    style={{ height: "80cm", display: `${haveSubmitted ? "block" : "none"}` }} onSubmit={verifyemail}>
+                    {haveSubmitted ?
+                        <form className="form-horizontal" align="center" id="checkemailForm"
+                            style={{ height: "380px", display: `${haveSubmitted ? "block" : "none"}` }} onSubmit={(e) => verifyPhone(e)}>
 
-                        <h3 className="align-title my-5"><strong>VERIFY EMAIL</strong></h3>
-                        <div className="form-row"></div>
+                            {/* <h3 className="align-title my-5"><strong>VERIFY EMAIL</strong></h3>
+                            <div className="form-row"></div>
 
-                        <div className="form-group row my-3 mr-2 mb-3">
-                            <label className="col-sm-2 col-form-label"><strong>Enter OTP  </strong></label>
-                            <div className="col-sm-10">
-                                <input type="text" id="otpEmail" className="form-control" name="OtpEmail"
-                                    placeholder="Enter otp received in your email" required onChange={(e) => { setemailotp(e.target.value) }} />
+                            <div className="form-group row my-3 mr-2 mb-3">
+                                <label className="col-sm-2 col-form-label"><strong>Enter OTP  </strong></label>
+                                <div className="col-sm-10">
+                                    <input type="text" id="otpEmail" className="form-control" name="OtpEmail"
+                                        placeholder="Enter otp received in your email" required onChange={(e) => { setemailotp(e.target.value) }} />
+                                </div>
                             </div>
-                        </div>
 
-                        {/* <div className="form-grp row my-5" style={{ marginLeft: "150px" }}>
-                            <div className="col-sm-10">
-                                <input type="submit" className='btn-centre' value="Verify" />
-                            </div>
-                        </div> */}
-
-                      
-                        
-
-
-                        <h3 className="align-title my-5"><strong>VERIFY MOBILE NUMBER</strong></h3>
-                        
-
-                        <div className="form-group row my-3 mr-2 mb-3">
-                            <label className="col-sm-2 col-form-label"><strong>Enter OTP  </strong></label>
-                            <div className="col-sm-10">
-                                <input type="text" id="otpMob" className="form-control" name="OtpMob"
-                                    placeholder="Enter otp received in your mobile" required onChange={(e) => { setOTP(e.target.value) }} />
-                            </div>
-                        </div>
-                        <div id="recaptcha-container"></div>
-     
-
-                        <div className="form-grp row my-5" style={{ marginLeft: "150px" }}>
+                            <div className="form-grp row my-5" style={{ marginLeft: "150px" }}>
                             <div className="col-sm-10">
                                 <input type="submit" className='btn-centre' value="Verify" />
                             </div>
-                        </div>
+                        </div>  */}
 
-                       
+                            <h3 className="align-title my-5"><strong>VERIFY MOBILE NUMBER</strong></h3>
 
-                        {/* <div className="form-grp row">
+
+                            <div className="form-group row my-3 mr-2 mb-3">
+                                <label className="col-sm-2 col-form-label"><strong>Enter OTP  </strong></label>
+                                <div className="col-sm-10">
+                                    <input type="text" id="otpMob" className="form-control" name="OtpMob"
+                                        placeholder="Enter otp received in your mobile" required onChange={(e) => { setOTP(e.target.value) }} />
+                                </div>
+                            </div>
+                            <div id="recaptcha-container"></div>
+
+
+                            <div className="form-grp row my-5" style={{ marginLeft: "150px" }}>
+                                <div className="col-sm-10">
+                                    <input type="submit" className='btn-centre' value="Verify" />
+                                </div>
+                            </div>
+
+
+
+                            {/* <div className="form-grp row">
                             <div className="col-sm-12">
                                 Want to change email?
                   <Link to="/signup"> Sign Up</Link>
@@ -591,9 +608,31 @@ export const SignupForm = () => {
                         </div> */}
 
 
-                    </form>
+                        </form>
                         : ""}
 
+                    {phoneVerified ?
+                        <form className="form-horizontal" align="center" id="checkemailForm"
+                            style={{ height: "380px", display: `${haveSubmitted ? "block" : "none"}` }} onSubmit={verifyemail}>
+
+                            <h3 className="align-title my-5"><strong>VERIFY EMAIL</strong></h3>
+                            <div className="form-row"></div>
+
+                            <div className="form-group row my-3 mr-2 mb-3">
+                                <label className="col-sm-2 col-form-label"><strong>Enter OTP  </strong></label>
+                                <div className="col-sm-10">
+                                    <input type="text" id="otpEmail" className="form-control" name="OtpEmail"
+                                        placeholder="Enter otp received in your email" required onChange={(e) => { setemailotp(e.target.value) }} />
+                                </div>
+                            </div>
+
+                            <div className="form-grp row my-5" style={{ marginLeft: "150px" }}>
+                                <div className="col-sm-10">
+                                    <input type="submit" className='btn-centre' value="Verify" />
+                                </div>
+                            </div>
+
+                        </form> : ""}
                 </div>
             </div>
         </section>

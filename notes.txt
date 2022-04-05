@@ -10,19 +10,16 @@ added in post,get api : update api required ?
 as of now ,commented 'required' in model
 
 - list(sorting)
+- resend otp in email
 - security guard list(display specific guard all attendance record) 
 
 - navbar update for users after login --> avatar icon(Profile, logout)
-- Profile --> Users's all details card
 
-- CAPTCHA to verify the user
 SITE KEY - 6Ldw7j8fAAAAAH-bGG_ubTRvVFwXh5zpryvfTgwy - used in the client
 SECRET KEY - 6Ldw7j8fAAAAAJ8DclrU1CAsY_o7dXR7fJqX0jtl - used in the backend
 
-- child schedule, visitor form - name, contact no. validations(as specified in model) --> check
-
 - visitor list - pre-scheduled list different?
-- visitor list on the basis of member id
+- visitor list on the basis of house id
 - (push notification) : runtime visitor request form, pwd/details updation notification
 
 reference : 

@@ -66,8 +66,8 @@ export const Navbar = () => {
 
                   <li><Link className="nav-link" to="/contact">Contact</Link></li>
                   <li><Link to="/profile">Profile</Link></li>
-                  <li>{localStorage.getItem('email')!==null?<Link className="getstarted scrollto" to="/login">Login</Link>:
-                  <i className="bi bi-person-circle"></i> }</li>
+                  <li>{localStorage.getItem('email')===null?<Link className="getstarted scrollto" to="/login">Login</Link>:
+                  <i className="bi bi-person-circle mx-1"></i> }</li>
 
                 </ul>
                 <i className="bi bi-list mobile-nav-toggle"></i>
