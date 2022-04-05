@@ -5,13 +5,13 @@ import { Link } from 'react-router-dom'
 export const ListGuardsAPI = () => {
     const [guardList, setGuardList] = useState([])
     const [attendanceList, setAttendanceList] = useState([])
+    const [search, setSearch] = useState('');
+    var [display, setDisplay] = useState(0);
+    var [attendancedisplay, setattendancedisplay] = useState(false)
+    var [counter, setcounter] = useState(0)
 
     var GuardList = []
     var AttendanceList = []
-    var [attendancedisplay, setattendancedisplay] = useState(false)
-
-    var [counter, setcounter] = useState(0)
-
 
     const deleteGuard = (guardID) => {
 
@@ -68,7 +68,10 @@ export const ListGuardsAPI = () => {
 
     }
 
-    var [display, setDisplay] = useState(0);
+    const handleSearch = (e) => {
+        console.log(e.target.value)
+        setSearch(e.target.value);
+    }
 
     useEffect(() => {
         console.log("use effect hook implemented")
@@ -86,6 +89,13 @@ export const ListGuardsAPI = () => {
     return (
         <div className="container table-responsive-md" >
 
+            <div className="input-group mb-3 ">
+                <span className="input-group-text my-3 ml-8" id="basic-addon1"><i className="bi bi-search " ></i></span>
+
+                <input id="search" type="search" placeholder="Search" className="form-control col-md-3 my-3 ml-8" aria-label="Search" onChange={(e) => handleSearch(e)} />
+
+            </div>
+
             <table className="table table-hover my-2">
                 <thead className="table_head">
                     <tr>
@@ -101,10 +111,10 @@ export const ListGuardsAPI = () => {
 
                 <tbody>
 
-                    {
+                    {search === "" ?
                         guardList.map((guard) => {
                             counter += 1
-
+                            console.log("search : " + search)
                             return (
                                 <tr key={guard._id}>
                                     <th scope="row">{counter}</th>
@@ -121,6 +131,29 @@ export const ListGuardsAPI = () => {
                                     </td>
                                 </tr>
                             )
+                        }) : guardList.map((guard) => {
+                            counter += 1
+                            console.log("filter")
+                            if ((guard.guardName).includes(search) || (guard.scheduleTime).includes(search) ||
+                                (guard.mobileNo).includes(search)) {
+
+                                console.log("search : " + search)
+                                return (
+                                    <tr key={guard._id}>
+                                        <th scope="row">{counter}</th>
+                                        <td>{guard.guardName}</td>
+                                        <td>{guard.scheduleTime}</td>
+                                        {attendancedisplay ? <td >{attendanceList[counter - 1] !== undefined ? attendanceList[counter - 1] : ""}</td> : <td></td>}
+                                        {/*<td><img src={guard.profilePhoto}></img></td> */}
+                                        <td>{guard.mobileNo}</td>
+
+                                        <td>
+                                            <Link to="/listguards" className="btn btn-sm btn-danger mx-1" onClick={() => { deleteGuard(guard._id) }}><i className="bi bi-trash"></i></Link>
+                                            <Link to={`/listguards/update/${guard._id}`} className="btn btn-sm btn-primary" value={guard._id}><i className="bi bi-pencil"></i></Link>
+                                        </td>
+                                    </tr>
+                                )
+                            }
                         })
                     }
                 </tbody>
