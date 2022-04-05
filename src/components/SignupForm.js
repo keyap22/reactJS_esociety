@@ -36,9 +36,11 @@ export const SignupForm = () => {
     const [sysotp, setSysotp] = useState(Math.floor((Math.random() * 1000000) + 1)) //emailotp
     var [validOtp, setValidOtp] = useState()
 
-    var [OTP, setOTP] = useState('') //phone otp
-    var [phoneVerified, setPhoneVerified] = useState('')
-    var validOTP
+     var [phoneVerified, setPhoneVerified] = useState('')
+    //var validOTP=false;
+    const [validOTP, setValidOTP] = useState(false) //phone
+
+    var otp ="";//phone otp
 
 
     var HaveSubmitted, otp, PhoneVerified
@@ -175,34 +177,77 @@ export const SignupForm = () => {
                 // ...
             });
     }
+
+    
+    const verifyOTP=(e)=>
+{console.log(e.target.value)
+  otp = e.target.value
+  if(otp.length===6)
+  {
+      let confirmResult = window.confirmationResult ;
+      confirmResult.confirm(otp).then((result) => {
+        console.log("you have entered correct otp"+otp)
+        setValidOTP(true);
+        // User signed in successfully.
+        //const user = result.user;
+        console.log("success")
+        // ...
+      }).catch((error) => {
+        // User couldn't sign in (bad verification code?)
+       alert("you have entered wrong otp")
+       
+        // ...
+      });
+
+  }
+}
     //=======================
 
     const verifyPhone = (e) => {
-        console.log("=====otp msg : " + OTP)
-                const code = OTP
-                // if(OTP.length()===6)
-                // {
-                window.confirmationResult.confirm(code).then((result) => {
-                    console.log("you have entered correct otp" + code)
-                    validOTP = true;
-                    PhoneVerified = true
+        console.log(validOTP)
+        // console.log("=====otp msg : " + OTP)
+        //         const code = OTP
+        //         // if(OTP.length()===6)
+        //         // {
+        //         window.confirmationResult.confirm(code).then((result) => {
+        //             console.log("you have entered correct otp" + code)
+        //             validOTP = true;
+        //             PhoneVerified = true
+        //             setPhoneVerified(PhoneVerified)
+        //             setValidOtp(validOtp)
+        //             console.log("valid otp in verify phone no. method : ", validOTP)
+        //             console.log("valid otp use state var in verify phone no. method : ", validOtp)
+        //             // User signed in successfully.
+        //             //const user = result.user;
+        //             console.log("success")
+        //             console.log("phone verified value : ", phoneVerified)
+        //             console.log("PhoneVerified value : ", PhoneVerified)
+        //             sendMail(e)
+        //             // ...
+        //         }).catch((error) => {
+        //             // User couldn't sign in (bad verification code?)
+        //             alert("you have entered wrong otp")
+
+        //             // ...
+        //         });
+
+        if(validOTP===true)
+        {
+            PhoneVerified = true
                     setPhoneVerified(PhoneVerified)
                     setValidOtp(validOtp)
                     console.log("valid otp in verify phone no. method : ", validOTP)
                     console.log("valid otp use state var in verify phone no. method : ", validOtp)
-                    // User signed in successfully.
-                    //const user = result.user;
-                    console.log("success")
-                    console.log("phone verified value : ", phoneVerified)
-                    console.log("PhoneVerified value : ", PhoneVerified)
-                    sendMail(e)
-                    // ...
-                }).catch((error) => {
-                    // User couldn't sign in (bad verification code?)
-                    alert("you have entered wrong otp")
+ 
+            console.log("phone verified value : ", phoneVerified)
+                    
+            //sendMail(e)
+        }
+        else{
+            console.log("pppppppppp")
+            alert("you have entered wrong otp")
 
-                    // ...
-                });
+        }
 
     }
 
@@ -322,7 +367,7 @@ export const SignupForm = () => {
 
 
         }
-        onSignInSubmit(e);
+       // onSignInSubmit(e);
 
         //console.log("submit called.....")
         //console.log(`email : ${email}, password : ${password},password2 : ${password2}, first name : ${firstName}, last name : ${lastName}`)
@@ -578,12 +623,12 @@ export const SignupForm = () => {
 
                             <h3 className="align-title my-5"><strong>VERIFY MOBILE NUMBER</strong></h3>
 
-
+                            <button className="btn btn-primary" value="Send OTP" onClick={onSignInSubmit}>Send OTP</button> 
                             <div className="form-group row my-3 mr-2 mb-3">
                                 <label className="col-sm-2 col-form-label"><strong>Enter OTP  </strong></label>
                                 <div className="col-sm-10">
                                     <input type="text" id="otpMob" className="form-control" name="OtpMob"
-                                        placeholder="Enter otp received in your mobile" required onChange={(e) => { setOTP(e.target.value) }} />
+                                        placeholder="Enter otp received in your mobile" required onChange={(e) => { verifyOTP(e) }} />
                                 </div>
                             </div>
                             <div id="recaptcha-container"></div>
