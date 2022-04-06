@@ -454,7 +454,7 @@ export const SignupForm = () => {
                                 <input type="text" className="form-control" name="firstName" id="FirstName"
                                     placeholder="Enter Your First Name" required onChange={(e) => { setFirstName(e.target.value) }} />
                                 {
-                                    firstName.length <= 1 && firstName.length > 0 ? "please enter valid first name" : ""
+                                    firstName.length <= 1 && firstName.length > 0 ? <p style={{color : "red"}}>please enter valid first name</p>: ""
                                 }
                             </div>
 
@@ -464,7 +464,7 @@ export const SignupForm = () => {
                                 <input type="text" className="form-control" id="LastName" name="lastName"
                                     placeholder="Enter Your Last Name" required onChange={(e) => { setLastName(e.target.value) }} />
                                 {
-                                    lastName.length <= 2 && lastName.length > 0 ? "please enter valid last name" : ""
+                                    lastName.length <= 2 && lastName.length > 0 ? <p style={{color : "red"}}>please enter valid last name</p>: ""
                                 }
                             </div>
                         </div>
@@ -499,7 +499,7 @@ export const SignupForm = () => {
                                 {/* {
                                     password.length > 0 && password.length < 8 ? "please enter password of atleast 8 characters" : ""
                                 } */}
-                                {pwdError && <p>Your password is weak.Please try with other password</p>}
+                                {pwdError && <p style={{color : "red"}}>Your password is weak.Please try with other password</p>}
 
                             </div>
                         </div>
@@ -549,7 +549,7 @@ export const SignupForm = () => {
                                 <input type="file" id="ProfilePhoto" className="form-control-file" name="profilePhoto"
                                     placeholder="Upload Your Profile Photo" onChange={(e => { profilePhotoHandler(e) })} />
                                 {
-                                    (profilePhoto.includes(".png") || profilePhoto.includes(".jpg") || profilePhoto.includes(".jpeg")) && profilePhoto !== "" ? "" : "Please enter valid image"
+                                    (profilePhoto.includes(".png") || profilePhoto.includes(".jpg") || profilePhoto.includes(".jpeg")) && profilePhoto !== "" ? "" : <p style={{color : "red"}}>Please enter valid image</p>
                                 }
 
                             </div>
