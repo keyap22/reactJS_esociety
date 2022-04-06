@@ -2,6 +2,8 @@ Tasks -
 
 - add validations in form(signup) - length, required, unique(as mentioned in model) - contact no.
 
+- delete security guard - simultaneously remove user and all attendance record of that user
+
 - search by age in member list, isAllowed/isPrescheduled in visitor list
 
 - add field named addedBy in visitors model :

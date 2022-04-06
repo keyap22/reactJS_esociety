@@ -35,13 +35,13 @@ export const SignupForm = () => {
     var [emailotp, setemailotp] = useState('')
     const [sysotp, setSysotp] = useState(Math.floor((Math.random() * 1000000) + 1)) //emailotp
     var [validOtp, setValidOtp] = useState()
-    const [showsignup , setshowsignup] = useState(true)
+    const [showsignup, setshowsignup] = useState(true)
 
-     var [emailVerified, setEmailVerified] = useState(false)
+    var [emailVerified, setEmailVerified] = useState(false)
     //var validOTP=false;
     var [validOTP, setValidOTP] = useState(false) //phone
 
-    var otp ="";//phone otp
+    var otp = "";//phone otp
 
 
     var HaveSubmitted;
@@ -171,7 +171,7 @@ export const SignupForm = () => {
                 // user in with confirmationResult.confirm(code).
 
                 window.confirmationResult = confirmationResult;
-                                // }
+                // }
                 // ...
             }).catch((error) => {
                 // Error; SMS not sent
@@ -179,111 +179,109 @@ export const SignupForm = () => {
             });
     }
 
-    
-    const verifyOTP=(e)=>
-{console.log(e.target.value)
-  otp = e.target.value
-  if(otp.length===6)
-  {
-      let confirmResult = window.confirmationResult ;
-      confirmResult.confirm(otp).then((result) => {
-        console.log("you have entered correct otp"+otp)
-        setValidOTP(true);
-        // User signed in successfully.
-        //const user = result.user;
-        console.log("success")
-        // ...
-      }).catch((error) => {
-        // User couldn't sign in (bad verification code?)
-       //alert("you have entered wrong otp")
-       
-        // ...
-      });
 
-  }
-}
-    
-    const verifyPhone =async (e) => {
-        console.log(validOTP)
-       
-        if(validOTP===true)
-        {
-            var user = {
-                        email: email,
-                        password: password,
-                        mobileNo: contactNumber,
-                        firstName: firstName,
-                        lastName: lastName,
-                        role: role,
-                        profilePhoto: profilePhoto.toString()
-                    }
-        
-                    await axios.post('http://localhost:4000/Users/', user).then(res => {
-        
-                        console.log(res.status)
-                        alert("User account created successfully!")
-                        navigation('/login')
-        
-                        console.log("user id : ", res.data.data._id)
-                        console.log("type of user id : ", typeof (res.data.data._id))
-                        console.log("type of profile photo : ", typeof (profilePhoto))
-                        userid = res.data.data._id
-        
-                    })
-        
-                    console.log("========================================" + userid)
-        
-        
-                    if (role === "620dd424e608c720fa0f1be8" || role === "620dda4cbaf661b44817ee63") {
-                        if (userid !== "") {
-        
-                            var member = {
-                                age: age,
-                                house: house,
-                                user: userid,
-                                memberName: firstName + " " + lastName
-                            }
-        
-        
-                            await axios.post('http://localhost:4000/members/', member).then(res => {
-                                console.log(res)
-                                console.log("member added ")
-                                //alert("Society member added successfully!")
-                                //console.log("while adding in member table : ", typeof(res.data.data.user.profilePhoto))
-                            })
-                        }
-                    }
-        
-                    else if (role === "620c88535e051978662b0379") {
-                        if (userid !== "") {
-        
-                            var securityGuard = {
-                                guardName: firstName + " " + lastName,
-                                scheduleTime: dutyStartingTime.toString() + " to " + dutyEndingTime.toString(),
-                                mobileNo: contactNumber,
-                                user: userid
-                            }
-        
-                            axios.post('http://localhost:4000/guards/', securityGuard).then(res => {
-                                console.log(res)
-                                console.log("guard added ")
-                                //alert("Security Guard added successfully!")
-                                console.log("while adding in guard table : ", securityGuard.scheduleTime)
-                            })
-                        }
-                    }
-        
-            navigation('/login')
-            
+    const verifyOTP = (e) => {
+        console.log(e.target.value)
+        otp = e.target.value
+        if (otp.length === 6) {
+            let confirmResult = window.confirmationResult;
+            confirmResult.confirm(otp).then((result) => {
+                console.log("you have entered correct otp" + otp)
+                setValidOTP(true);
+                // User signed in successfully.
+                //const user = result.user;
+                console.log("success")
+                // ...
+            }).catch((error) => {
+                // User couldn't sign in (bad verification code?)
+                //alert("you have entered wrong otp")
+
+                // ...
+            });
+
         }
-        else{
+    }
+
+    const verifyPhone = async (e) => {
+        console.log(validOTP)
+
+        if (validOTP === true) {
+            var user = {
+                email: email,
+                password: password,
+                mobileNo: contactNumber,
+                firstName: firstName,
+                lastName: lastName,
+                role: role,
+                profilePhoto: profilePhoto.toString()
+            }
+
+            await axios.post('http://localhost:4000/Users/', user).then(res => {
+
+                console.log(res.status)
+                alert("User account created successfully!")
+                navigation('/login')
+
+                console.log("user id : ", res.data.data._id)
+                console.log("type of user id : ", typeof (res.data.data._id))
+                console.log("type of profile photo : ", typeof (profilePhoto))
+                userid = res.data.data._id
+
+            })
+
+            console.log("========================================" + userid)
+
+
+            if (role === "620dd424e608c720fa0f1be8" || role === "620dda4cbaf661b44817ee63") {
+                if (userid !== "") {
+
+                    var member = {
+                        age: age,
+                        house: house,
+                        user: userid,
+                        memberName: firstName + " " + lastName
+                    }
+
+
+                    await axios.post('http://localhost:4000/members/', member).then(res => {
+                        console.log(res)
+                        console.log("member added ")
+                        //alert("Society member added successfully!")
+                        //console.log("while adding in member table : ", typeof(res.data.data.user.profilePhoto))
+                    })
+                }
+            }
+
+            else if (role === "620c88535e051978662b0379") {
+                if (userid !== "") {
+
+                    var securityGuard = {
+                        guardName: firstName + " " + lastName,
+                        scheduleTime: dutyStartingTime.toString() + " to " + dutyEndingTime.toString(),
+                        mobileNo: contactNumber,
+                        user: userid
+                    }
+
+                    await axios.post('http://localhost:4000/guards/', securityGuard).then(res => {
+                        console.log(res)
+                        console.log("guard added ")
+                        //alert("Security Guard added successfully!")
+                        console.log("while adding in guard table : ", securityGuard.scheduleTime)
+                    })
+                }
+            }
+
+            navigation('/login')
+
+        }
+        else {
             console.log("pppppppppp")
             alert("you have entered wrong otp")
 
         }
 
     }
-//=======================mobile otp end ==========================================
+    //=======================mobile otp end ==========================================
 
     const verifyemail = async (e) => {
         e.preventDefault()
@@ -292,7 +290,7 @@ export const SignupForm = () => {
         console.log("system generated otp : ", sysotp)
         console.log("=================validotp :" + validOTP)
         console.log("valid otp use state var in verify email method : ", validOtp)
-       
+
 
         if (emailotp.toString() === sysotp.toString()) {
             console.log("correct otp")
@@ -300,78 +298,11 @@ export const SignupForm = () => {
             console.log("email verified :" + emailVerified)
             HaveSubmitted = false
             setHaveSubmitted(HaveSubmitted)
-          
-        //     var user = {
-        //         email: email,
-        //         password: password,
-        //         mobileNo: contactNumber,
-        //         firstName: firstName,
-        //         lastName: lastName,
-        //         role: role,
-        //         profilePhoto: profilePhoto.toString()
-        //     }
+        }
 
-        //     await axios.post('http://localhost:4000/Users/', user).then(res => {
-
-        //         console.log(res.status)
-        //         alert("User account created successfully!")
-        //         navigation('/login')
-
-        //         console.log("user id : ", res.data.data._id)
-        //         console.log("type of user id : ", typeof (res.data.data._id))
-        //         console.log("type of profile photo : ", typeof (profilePhoto))
-        //         userid = res.data.data._id
-
-        //     })
-
-        //     console.log("========================================" + userid)
-
-
-        //     if (role === "620dd424e608c720fa0f1be8" || role === "620dda4cbaf661b44817ee63") {
-        //         if (userid !== "") {
-
-        //             var member = {
-        //                 age: age,
-        //                 house: house,
-        //                 user: userid,
-        //                 memberName: firstName + " " + lastName
-        //             }
-
-
-        //             await axios.post('http://localhost:4000/members/', member).then(res => {
-        //                 console.log(res)
-        //                 console.log("member added ")
-        //                 //alert("Society member added successfully!")
-        //                 //console.log("while adding in member table : ", typeof(res.data.data.user.profilePhoto))
-        //             })
-        //         }
-        //     }
-
-        //     else if (role === "620c88535e051978662b0379") {
-        //         if (userid !== "") {
-
-        //             var securityGuard = {
-        //                 guardName: firstName + " " + lastName,
-        //                 scheduleTime: dutyStartingTime.toString() + " to " + dutyEndingTime.toString(),
-        //                 mobileNo: contactNumber,
-        //                 user: userid
-        //             }
-
-        //             axios.post('http://localhost:4000/guards/', securityGuard).then(res => {
-        //                 console.log(res)
-        //                 console.log("guard added ")
-        //                 //alert("Security Guard added successfully!")
-        //                 console.log("while adding in guard table : ", securityGuard.scheduleTime)
-        //             })
-        //         }
-        //     }
-
-        //     //   return true
-         }
-        
         else {
             alert("incorrect otp")
-            //navigation('/signup')
+            navigation('/signup')
             //return false
         }
     }
@@ -395,7 +326,7 @@ export const SignupForm = () => {
         if (password !== password2) {
             alert("Please enter same password in both the fields!")
         }
-        else if (validEmail === false || firstName.length <= 2 || lastName.length <= 3 || password.length < 8) {
+        else if (validEmail === false || firstName.length <= 2 || lastName.length < 3 || password.length < 8) {
             alert("Please consider validation messages and enter details accordingly!")
         }
         else {
@@ -405,22 +336,12 @@ export const SignupForm = () => {
             console.log("after setting have submitted value : ", haveSubmitted)
             sendMail(e)
             setshowsignup(false)
-            console.log("showsignup "+showsignup)
-
-
+            console.log("showsignup " + showsignup)
         }
-       
-        //console.log("submit called.....")
-        //console.log(`email : ${email}, password : ${password},password2 : ${password2}, first name : ${firstName}, last name : ${lastName}`)
-        //console.log(`contact number : ${contactNumber}, role : ${role}, profile photo : ${profilePhoto}`)
-        //roleList.roleName
-        //console.log(`role : ${role}`)
-        //console.log(e.target)
 
         //clearing out the details of the form after pressing submit button
         //e.target.reset()
     }
-    //}
 
     const sendMail = async (e) => {
         //6 digit random otp number
@@ -454,7 +375,7 @@ export const SignupForm = () => {
                                 <input type="text" className="form-control" name="firstName" id="FirstName"
                                     placeholder="Enter Your First Name" required onChange={(e) => { setFirstName(e.target.value) }} />
                                 {
-                                    firstName.length <= 1 && firstName.length > 0 ? <p style={{color : "red"}}>please enter valid first name</p>: ""
+                                    firstName.length <= 1 && firstName.length > 0 ? <p style={{ color: "red" }}>please enter valid first name</p> : ""
                                 }
                             </div>
 
@@ -464,7 +385,7 @@ export const SignupForm = () => {
                                 <input type="text" className="form-control" id="LastName" name="lastName"
                                     placeholder="Enter Your Last Name" required onChange={(e) => { setLastName(e.target.value) }} />
                                 {
-                                    lastName.length <= 2 && lastName.length > 0 ? <p style={{color : "red"}}>please enter valid last name</p>: ""
+                                    lastName.length <= 2 && lastName.length > 0 ? <p style={{ color: "red" }}>please enter valid last name</p> : ""
                                 }
                             </div>
                         </div>
@@ -499,7 +420,7 @@ export const SignupForm = () => {
                                 {/* {
                                     password.length > 0 && password.length < 8 ? "please enter password of atleast 8 characters" : ""
                                 } */}
-                                {pwdError && <p style={{color : "red"}}>Your password is weak.Please try with other password</p>}
+                                {pwdError && <p style={{ color: "red" }}>Your password is weak.Please try with other password</p>}
 
                             </div>
                         </div>
@@ -521,7 +442,7 @@ export const SignupForm = () => {
                             <div className="col-sm-10">
                                 <input type="tel" id="ContactNumber" className="form-control" name="contactNumber"
                                     placeholder="Enter Your Mobile Number" required onChange={(e) => { setContactNumber(e.target.value) }} />
-                                <small id="emailHelp" className="form-text text-muted">Please enter correct details. We'll send you a verification code via mail.</small>
+                                <small id="emailHelp" className="form-text text-muted">Please enter correct details. We'll send you a verification code via text message.</small>
                             </div>
                         </div>
 
@@ -549,7 +470,7 @@ export const SignupForm = () => {
                                 <input type="file" id="ProfilePhoto" className="form-control-file" name="profilePhoto"
                                     placeholder="Upload Your Profile Photo" onChange={(e => { profilePhotoHandler(e) })} />
                                 {
-                                    (profilePhoto.includes(".png") || profilePhoto.includes(".jpg") || profilePhoto.includes(".jpeg")) && profilePhoto !== "" ? "" : <p style={{color : "red"}}>Please enter valid image</p>
+                                    (profilePhoto.includes(".png") || profilePhoto.includes(".jpg") || profilePhoto.includes(".jpeg")) && profilePhoto.includes() !== "" ? "" : <p style={{ color: "red" }}>Please enter valid image</p>
                                 }
 
                             </div>
@@ -643,41 +564,41 @@ export const SignupForm = () => {
 
                     {haveSubmitted ?
                         <form className="form-horizontal" align="center" id="checkemailForm"
-                        style={{ height: "380px", display: `${haveSubmitted ? "block" : "none"}` }} onSubmit={verifyemail}>
+                            style={{ height: "380px", display: `${haveSubmitted ? "block" : "none"}` }} onSubmit={verifyemail}>
 
-                        <h3 className="align-title my-5"><strong>VERIFY EMAIL</strong></h3>
-                        <div className="form-row"></div>
+                            <h3 className="align-title my-5"><strong>VERIFY EMAIL</strong></h3>
+                            <div className="form-row"></div>
 
-                        <div className="form-group row my-3 mr-2 mb-3">
-                            <label className="col-sm-2 col-form-label"><strong>Enter OTP  </strong></label>
-                            <div className="col-sm-10">
-                                <input type="text" id="otpEmail" className="form-control" name="OtpEmail"
-                                    placeholder="Enter otp received in your email" required onChange={(e) => { setemailotp(e.target.value) }} />
+                            <div className="form-group row my-3 mr-2 mb-3">
+                                <label className="col-sm-2 col-form-label"><strong>Enter OTP  </strong></label>
+                                <div className="col-sm-10">
+                                    <input type="text" id="otpEmail" className="form-control" name="OtpEmail"
+                                        placeholder="Enter otp received in your email" required onChange={(e) => { setemailotp(e.target.value) }} />
+                                </div>
                             </div>
-                        </div>
 
-                        <div className="form-grp row my-5" style={{ marginLeft: "150px" }}>
-                            <div className="col-sm-10">
-                                <input type="submit" className='btn-centre' value="Verify" />
+                            <div className="form-grp row my-5" style={{ marginLeft: "150px" }}>
+                                <div className="col-sm-10">
+                                    <input type="submit" className='btn-centre' value="Verify" />
+                                </div>
                             </div>
-                        </div>
 
-                    </form> 
-                        
+                        </form>
+
                         : ""}
 
                     {emailVerified ?
-                    
-                        
-                        
+
+
+
                         <form className="form-horizontal" align="center" id="checkemailForm"
                             style={{ height: "380px" }} onSubmit={(e) => verifyPhone(e)}>
 
-                           
+
 
                             <h3 className="align-title my-5"><strong>VERIFY MOBILE NUMBER</strong></h3>
 
-                            <button className="btn btn-primary" value="Send OTP" onClick={onSignInSubmit}>Send OTP</button> 
+                            <button className="btn btn-primary" value="Send OTP" onClick={onSignInSubmit}>Send OTP</button>
                             <div className="form-group row my-3 mr-2 mb-3">
                                 <label className="col-sm-2 col-form-label"><strong>Enter OTP  </strong></label>
                                 <div className="col-sm-10">
@@ -708,9 +629,9 @@ export const SignupForm = () => {
 
 
                         </form>
-                        
-                        
-                        
+
+
+
                         : ""}
                 </div>
             </div>
