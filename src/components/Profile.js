@@ -10,6 +10,8 @@ export const Profile = () => {
     const [role, setRole] = useState('')
     const [roleName, setRoleName] = useState('')
     const [user, setUser] = useState('')
+    const [member,setMember] = useState('')
+    const [visitorList, setVisitorList] = useState([])
     var [counter, setCounter] = useState(0)
     var addattendance=true
     //const [guard, setGuard] = useState('')
@@ -26,7 +28,7 @@ export const Profile = () => {
     var guardID = ""
     var guardAttendanceList = []
     var userid = ''
-    var User = ""
+    var User = "", Member =""
 
     useEffect(() => {
         setemail(localStorage.getItem('email'))
@@ -34,7 +36,7 @@ export const Profile = () => {
         guardID = localStorage.getItem('guardID');
         console.log("guardid in profile :" + guardID)
         setRoleName(localStorage.getItem('roleName'))
-        getGuardAttendances()
+        //getGuardAttendances()
         userid = localStorage.getItem("userid")
         console.log("userid in profile :" + userid)
         getUserById()
@@ -51,8 +53,49 @@ export const Profile = () => {
             console.log("user : ", user)
             console.log("User : ", User)
         })
+
+        console.log("rolename in getuserbyid : " + localStorage.getItem('roleName'))
+        //if society member , fetch house 
+        if(localStorage.getItem('roleName') ==='society member')
+        {
+            console.log(":in if ")
+             getMemberByUser(userid)
+        }
+        
     }
 
+    const getMemberByUser = async (userID)=>
+    {
+
+        console.log("inside get member by user")
+        {
+            var formdata = {
+               user : userID
+            }
+            console.log(userid)
+             await axios.post('http://localhost:4000/membersByUser/' ,formdata).then(res => {
+                console.log("user by id response : ", res)
+                Member = res.data.data
+                setMember(Member)
+                console.log("member data : ", res.data.data)
+                getVisitors(res.data.data.house)
+                
+            })
+    
+        }
+    }
+    const getVisitors =async (houseID)=>
+    {
+        var formdata={
+            house : houseID
+        }
+        await axios.post('http://localhost:4000/findvisitors/' ,formdata).then(res => {
+                console.log("visitors list  : ", res.data.data)
+                setVisitorList(res.data.data)
+                console.log(visitorList)
+                
+            })
+    }
     const logout = (e) => {
         e.preventDefault()
         localStorage.removeItem('email')
@@ -251,6 +294,14 @@ console.log(attendance.guard._id)
                                         </div>
                                         <div className="col-md-6">
                                             <p>{user.mobileNo}</p>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-md-6">
+                                            <label>House No.</label>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <p>{member.house.houseTitle}</p>
                                         </div>
                                     </div>
 

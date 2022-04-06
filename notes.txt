@@ -2,8 +2,6 @@ Tasks -
 
 - add validations in form(signup) - length, required, unique(as mentioned in model) - contact no.
 
-- delete security guard - simultaneously remove user and all attendance record of that user
-
 - search by age in member list, isAllowed/isPrescheduled in visitor list
 
 - add field named addedBy in visitors model :
@@ -12,12 +10,15 @@ as of now ,commented 'required' in model
 
 - list(sorting)
 - resend otp in email
-- security guard list(display specific guard all attendance record) 
+- security guard list(display specific guard all attendance record)  
 
 - navbar update for users after login --> avatar icon(Profile, logout)
 
 SITE KEY - 6Ldw7j8fAAAAAH-bGG_ubTRvVFwXh5zpryvfTgwy - used in the client
 SECRET KEY - 6Ldw7j8fAAAAAJ8DclrU1CAsY_o7dXR7fJqX0jtl - used in the backend
+
+-delete security guard - simultaneously remove user and all attendance record of that user : done : check 
+-visitor list by houseid : coded in profile : where and how to display?
 
 - visitor list - pre-scheduled list different?
 - visitor list on the basis of house id
