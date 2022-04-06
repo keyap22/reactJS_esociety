@@ -217,12 +217,12 @@ const verifyOTP=(e)=>
           </Toast.Header>
           <Toast.Body>{notification.body}</Toast.Body > 
         </ToastContainer> */}
-      <header className="App-header">
+      {/* <header className="App-header">
         {isTokenFound && <h1> Notification permission enabled  </h1>}
         {!isTokenFound && <h1> Need notification permission  </h1>}
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
+        {/* <img src={logo} className="App-logo" alt="logo" />
         <button onClick={() => setShow(true)}>Show Toast</button>
-      </header>
+      </header> */}
 
 
     </div>

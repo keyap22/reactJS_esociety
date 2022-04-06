@@ -11,7 +11,7 @@ export const Profile = () => {
     const [roleName, setRoleName] = useState('')
     const [user, setUser] = useState('')
     var [counter, setCounter] = useState(0)
-    var addattendance
+    var addattendance=true
     //const [guard, setGuard] = useState('')
     const [GuardAttendanceList, setGuardAttendanceList] = useState()
     var guardAttendanceList = []
@@ -34,21 +34,21 @@ export const Profile = () => {
         guardID = localStorage.getItem('guardID');
         console.log("guardid in profile :" + guardID)
         setRoleName(localStorage.getItem('roleName'))
-        getRoleByID()
+       // getRoleByID()
         getGuardAttendances()
         userid = localStorage.getItem("userid")
         console.log("userid in profile :" + userid)
         getUserById()
     }, [])
 
-    const getRoleByID = async () => {
-        var id = role
-        await axios.get(`http://localhost:4000/roles/` + id).then(res => {
-            console.log("response in profile :", res)
-            console.log("role name in profile :", res.data.data.roleName)
-            //setRoleName(res.data.data.roleName)
-        })
-    }
+    // const getRoleByID = async () => {
+    //     var id = role
+    //     await axios.get(`http://localhost:4000/roles/` + id).then(res => {
+    //         console.log("response in profile :", res)
+    //         console.log("role name in profile :", res.data.data.roleName)
+    //         //setRoleName(res.data.data.roleName)
+    //     })
+    // }
 
     const getUserById = async () => {
         //var id = "622740a09d7544ebc551ba15";
@@ -106,8 +106,9 @@ export const Profile = () => {
     const AddAttendance = () => {
 
         GuardAttendanceList.forEach(attendance => {
-            console.log("in for each")
-
+            console.log("in for each" +attendance)
+console.log("guardid localStorage"+localStorage.getItem("guardID"))
+console.log(attendance.guard._id)
             if (attendance.guard._id === localStorage.getItem("guardID")) {
 
                 console.log("attendance guard id : ", attendance.guard._id)
@@ -124,6 +125,7 @@ export const Profile = () => {
 
                 }
             }
+            else{addattendance=true}
 
         });
         console.log("add attendance value : ", addattendance)
