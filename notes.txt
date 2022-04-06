@@ -1,7 +1,6 @@
 Tasks -
 
 - add validations in form(signup) - length, required, unique(as mentioned in model) - contact no.
-- mobile number verification
 
 - search by age in member list, isAllowed/isPrescheduled in visitor list
 
@@ -29,16 +28,8 @@ https://blog.logrocket.com/push-notifications-react-firebase/
 https://www.mindbowser.com/web-push-notification-in-reactjs-with-firebase/
 https://onesignal.com/blog/how-to-integrate-push-notifications-in-react/
 https://www.audreyhal.com/blog/push-notifications-with-firebase-in-react
-https://chaduvulaprasanth.netlify.app/user-signin-signup-using-phone-number-otp-in-mern-stack
 https://medium.com/analytics-vidhya/firebase-web-push-notifications-26352b136814
-https://www.geeksforgeeks.org/how-to-authenticate-phone-number-using-firebase-in-reactjs/
-https://codequs.com/p/HJMkD9-t/creat-a-google-recaptcha-with-node-js/?utm_content=buffer37077&utm_medium=social&utm_source=plus.google.com&utm_campaign=buffer
-
-https://kumarabhirup.me/writings/google-recaptcha-react-node-js
-
 https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers
-
-- remember me(jwt token) - local storage
 
 Profiles -
 

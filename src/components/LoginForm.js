@@ -211,12 +211,6 @@ export const LoginForm = () => {
                                 </div>
                             </div>
 
-                            <div className="form-group form-check mb-3">
-                                <label className="form-check-label">
-                                    <input className="form-check-input" type="checkbox" name="remember" /> Remember me
-                            </label>
-                            </div>
-
                             <ReCAPTCHA
                                 //ref={recaptchaRef} 
                                 //size="invisible"

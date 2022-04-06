@@ -34,21 +34,11 @@ export const Profile = () => {
         guardID = localStorage.getItem('guardID');
         console.log("guardid in profile :" + guardID)
         setRoleName(localStorage.getItem('roleName'))
-       // getRoleByID()
         getGuardAttendances()
         userid = localStorage.getItem("userid")
         console.log("userid in profile :" + userid)
         getUserById()
     }, [])
-
-    // const getRoleByID = async () => {
-    //     var id = role
-    //     await axios.get(`http://localhost:4000/roles/` + id).then(res => {
-    //         console.log("response in profile :", res)
-    //         console.log("role name in profile :", res.data.data.roleName)
-    //         //setRoleName(res.data.data.roleName)
-    //     })
-    // }
 
     const getUserById = async () => {
         //var id = "622740a09d7544ebc551ba15";

@@ -37,9 +37,6 @@ import { ListDeliverablesAPI } from './components/ListDeliverablesAPI';
 import { useState } from 'react';
 import firebase, { auth, getToken1 } from "./components/Firebase"
 
-import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
-
-
  import {onMessageListener} from "./components/Firebase"
 // import ReactNotificationComponent from './components/ReactNotification';
 // import Notifications from './components/Notification';
@@ -57,120 +54,7 @@ function App() {
   console.log("isTokenfound :" + isTokenFound)
   console.log("settokenfound :" + setTokenFound)
 
-  const[OTP,setOTP]= useState('')
-
-  // const setupRecaptcha = () => {
-  //   //console.log()
-  //   window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
-  //     'size': 'invisible',
-  //     'callback': (response) => {
-  //       // reCAPTCHA solved, allow signInWithPhoneNumber.
-  //       onSignInSubmit();
-  //     }
-  //   }, firebase.auth);
-  // }
-
-  // const onSignInSubmit = (e) => {
-
-  //   e.preventDefault()
-  //   setupRecaptcha()
-  //   const phoneNumber = "+917284914344"
-  //   //window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier()
-  //   const appVerifier = window.recaptchaVerifier;
-    
-  //   console.log(phoneNumber)
-  //   console.log(appVerifier)
-  //   //const auth = getAuth();
-  //   console.log("auth : ",firebase.auth)
-  //   signInWithPhoneNumber(firebase.auth, phoneNumber, appVerifier)
-  //     .then((confirmationResult) => {
-  //       console.log(phoneNumber)
-  //       // SMS sent. Prompt user to type the code from the message, then sign the
-  //       // user in with confirmationResult.confirm(code).
-  //       window.confirmationResult = confirmationResult;
-  //       const code = window.prompt("Enter OTP");
-  //       confirmationResult.confirm(code).then((result) => {
-  //         // User signed in successfully.
-  //         const user = result.user;
-  //         console.log("success")
-  //         // ...
-  //       }).catch((error) => {
-  //         // User couldn't sign in (bad verification code?)
-  //         // ...
-  //       });
-
-  //       // ...
-  //     }).catch((error) => {
-  //       // Error; SMS not sent
-  //       // ...
-  //     });
-  // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-  const generateRecaptcha=()=>{
-
-    window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
-      'size': 'invisible',
-      'callback': (response) => {
-        // reCAPTCHA solved, allow signInWithPhoneNumber.
-        //onSignInSubmit();
-      }
-    }, auth);
-  }
-
-  const onSignInSubmit = (e) => {
-    e.preventDefault();
-    generateRecaptcha();
-    const phoneNumber = "+917043599678"
-// window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier()
-     let appVerifier = window.recaptchaVerifier;
-    
-    signInWithPhoneNumber(auth, phoneNumber, appVerifier)
-    .then((confirmationResult) => {
-      console.log("success phone :" +phoneNumber)
-      // SMS sent. Prompt user to type the code from the message, then sign the
-      // user in with confirmationResult.confirm(code).
   
-      window.confirmationResult = confirmationResult;
-        const code = window.prompt("Enter OTP");
-        confirmationResult.confirm(code).then((result) => {
-          console.log("you have entered correct otp"+code)
-          // User signed in successfully.
-          //const user = result.user;
-          console.log("success")
-          // ...
-        }).catch((error) => {
-          // User couldn't sign in (bad verification code?)
-         alert("you have entered wrong otp")
-         
-          // ...
-        });
-
-      
-      // ...
-    }).catch((error) => {
-      // Error; SMS not sent
-      // ...
-    });
-const verifyOTP=(e)=>
-{
-  let otp = e.target.value;
-}
-
-   
-  }
-
   //push notification code 
   onMessageListener().then(payload => {
     setShow(true);
@@ -201,7 +85,7 @@ const verifyOTP=(e)=>
       <Home />
       <div className="App">
        {/* <ToastContainer onClose={() => setShow(false)} show={show} delay={3000} autohide animation style={{
-          position: 'absolute',
+          {/* position: 'absolute',
           top: 20,
           right: 20,
           minWidth: 200
@@ -226,14 +110,7 @@ const verifyOTP=(e)=>
 
 
     </div>
-      {/* <div id="recaptcha-container"></div>
-      <button className="btn btn-primary" value="Send OTP" onClick={onSignInSubmit}>Send OTP</button> */}
-      {/* <ReCAPTCHA 
-                            //ref={recaptchaRef} size="invisible"
-                                sitekey="6Ldw7j8fAAAAAH-bGG_ubTRvVFwXh5zpryvfTgwy"
-                                onClick={ onSignInSubmit} onChange={}
-                            /> */}
-
+      
       {/* <RoleAPI />
       <ChildScheduleAPI />
       <VisitorCategoryAPI />
@@ -291,16 +168,6 @@ const verifyOTP=(e)=>
 
     </div>
   );
-
-
-
 }
-
-
-
-
-
-
-
 
 export default App;
