@@ -9,16 +9,45 @@ export const ListGuardsAPI = () => {
     var [display, setDisplay] = useState(0);
     var [attendancedisplay, setattendancedisplay] = useState(false)
     var [counter, setcounter] = useState(0)
+    var [userId, setUserId] = useState('')
+
+    var userid 
 
     var GuardList = []
     var AttendanceList = []
 
-    const deleteGuard = (guardID) => {
-
-        console.log(guardID)
-
-        axios.delete(`http://localhost:4000/guards/` + guardID).then(res => {
+    const getSecurityGuardByID = (guardId) => {
+        //var id = "622725e74ceac4ee8ffb582a"
+        axios.get(`http://localhost:4000/guards/` + guardId).then(res => {
             console.log(res)
+            console.log("res user - ",res.data.data.user)
+            userid = res.data.data.user
+            console.log("userid : ",userid);
+            setUserId(userid)
+        })
+    }
+
+    const deleteGuard = async (guardID) => {
+        //console.log("value : ",value)
+        console.log(guardID)
+        
+
+        await axios.delete(`http://localhost:4000/guards/` + guardID).then(res => {
+            console.log(res)
+        })
+
+        await axios.delete(`http://localhost:4000/users/` + userId).then(res => {
+            console.log(res)
+            console.log("user is deleted successfully");
+        })
+
+        var guard = {
+            guard : guardID
+        }
+
+        await axios.delete(`http://localhost:4000/dropguardAttendances/` + guard).then(res => {
+            console.log(res)
+            console.log("all attendances of given guard are deleted");
         })
     }
 
@@ -126,7 +155,7 @@ export const ListGuardsAPI = () => {
 
 
                                     <td>
-                                        <Link to="/listguards" className="btn btn-sm btn-danger mx-1" onClick={() => { deleteGuard(guard._id) }}><i className="bi bi-trash"></i></Link>
+                                        <Link to="/listguards" className="btn btn-sm btn-danger mx-1" value={guard.user} onChange={getSecurityGuardByID(guard._id)} onClick={() => { deleteGuard(guard._id) }}><i className="bi bi-trash"></i></Link>
                                         <Link to={`/listguards/update/${guard._id}`} className="btn btn-sm btn-primary" value={guard._id}><i className="bi bi-pencil"></i></Link>
                                     </td>
                                 </tr>
