@@ -31,21 +31,20 @@ export const ListGuardsAPI = () => {
         //console.log("value : ",value)
         console.log(guardID)
         
-
+        //delete guard
         await axios.delete(`http://localhost:4000/guards/` + guardID).then(res => {
             console.log(res)
         })
 
+        //delete user
         await axios.delete(`http://localhost:4000/users/` + userId).then(res => {
             console.log(res)
             console.log("user is deleted successfully");
         })
 
-        var guard = {
-            guard : guardID
-        }
-
-        await axios.delete(`http://localhost:4000/dropguardAttendances/` + guard).then(res => {
+        //delete guardattendances
+        console.log("guardid "+ guardID)
+        await axios.delete(`http://localhost:4000/dropguardAttendances/` + guardID).then(res => {
             console.log(res)
             console.log("all attendances of given guard are deleted");
         })
