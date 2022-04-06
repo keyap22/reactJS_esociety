@@ -35,6 +35,7 @@ export const SignupForm = () => {
     var [emailotp, setemailotp] = useState('')
     const [sysotp, setSysotp] = useState(Math.floor((Math.random() * 1000000) + 1)) //emailotp
     var [validOtp, setValidOtp] = useState()
+    const [showsignup , setshowsignup] = useState(true)
 
      var [emailVerified, setEmailVerified] = useState(false)
     //var validOTP=false;
@@ -403,6 +404,8 @@ export const SignupForm = () => {
             setHaveSubmitted(HaveSubmitted)
             console.log("after setting have submitted value : ", haveSubmitted)
             sendMail(e)
+            setshowsignup(false)
+            console.log("showsignup "+showsignup)
 
 
         }
@@ -439,7 +442,7 @@ export const SignupForm = () => {
 
             <div className='mycard my-5 '>
                 <div className="align-items-center">
-                    <form className="form-horizontal" align="center" id="signIn" style={{ display: `${haveSubmitted ? "none" : "block"}` }} onSubmit={submit}>
+                    {showsignup ? <form className="form-horizontal" align="center" id="signIn" style={{ display: `${haveSubmitted ? "none" : "block"}` }} onSubmit={submit}>
 
                         <h3 className="align-title my-5"><strong>CREATE ACCOUNT</strong></h3>
 
@@ -636,7 +639,7 @@ export const SignupForm = () => {
                             </div>
                         </div>
 
-                    </form>
+                    </form> : <div></div>}
 
                     {haveSubmitted ?
                         <form className="form-horizontal" align="center" id="checkemailForm"
