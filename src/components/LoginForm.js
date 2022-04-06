@@ -9,7 +9,7 @@ export const LoginForm = () => {
     const [email, setemail] = useState('')
     const [password, setpassword] = useState('')
     const [role, setRole] = useState('')
-   // const [roleName, setRoleName] = useState('')
+    // const [roleName, setRoleName] = useState('')
     const [guardID, setGuardID] = useState('')
     const [visibility, setvisibility] = useState('')
 
@@ -20,8 +20,8 @@ export const LoginForm = () => {
 
     var guardId = ""
     var userId = ""
-    var guardAttendanceList = [] 
-    var roleName=""
+    var guardAttendanceList = []
+    var roleName = ""
 
     //const validPassword = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,14})');
     const validMail = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+(?=.)+(?=.[a-zA-Z]$)');
@@ -58,25 +58,12 @@ export const LoginForm = () => {
             setEmailError(false);
             setemail(e.target.value)
         }
-
     }
 
     const displayRole = () => {
         axios.get("http://localhost:4000/roles/").then(res => {
             setroleList(res.data.data)
         })
-    }
-
-    const getRoleByID = () => {
-        var id = role
-        axios.get(`http://localhost:4000/roles/` + id).then(res => {
-            console.log(res)
-            console.log("role name :", res.data.data.roleName)
-            //setRoleName(res.data.data.roleName)
-            roleName=res.data.data.roleName
-            console.log(roleName)
-        })
-
     }
 
     //find particular guard using userID
@@ -107,13 +94,15 @@ export const LoginForm = () => {
             password: password,
             role: role,
         }
-        getRoleByID()
-        
+
         await axios.post('http://localhost:4000/login/', formdata).then(res => {
             console.log("login response : ", res)
             if (res.data.status === 200) {
                 console.log("Login successful")
-                console.log("role name in submit : ", roleName)
+                console.log("role name in submit : ", res.data.data.role.roleName)
+                roleName = res.data.data.role.roleName
+                console.log("roleName after successful login : ", roleName)
+
                 console.log("user id : ", res.data.id)
                 userId = res.data.id
                 console.log(localStorage.getItem("email"))
@@ -228,10 +217,10 @@ export const LoginForm = () => {
                             </label>
                             </div>
 
-                            <ReCAPTCHA 
-                            //ref={recaptchaRef} 
-                            //size="invisible"
-                                sitekey="6Ldw7j8fAAAAAH-bGG_ubTRvVFwXh5zpryvfTgwy"/>
+                            <ReCAPTCHA
+                                //ref={recaptchaRef} 
+                                //size="invisible"
+                                sitekey="6Ldw7j8fAAAAAH-bGG_ubTRvVFwXh5zpryvfTgwy" />
 
                             <div className="my-5">
                                 <input type="submit" className='btn-centre' value="Login" /><br />
