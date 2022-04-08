@@ -262,7 +262,7 @@ console.log(attendance.guard._id)
                     <div className="row">
                         <div className="col-md-4">
                             <div className="profile-work">
-                            <input type="button" style={{marginLeft : "80px"}} className={isLogin ? 'btn btn-primary my-5' : "btn btn-primary hidden"} value="Logout" onClick={logout} />
+                            <input type="button" style={{marginLeft : "80px" , width:"50%"}} className={isLogin ? 'btn-centre' : "btn btn-primary hidden"} value="Logout" onClick={logout} />
                                 {/* <p>WORK LINK</p>
                                 <a href="">Website Link</a><br />
                                 <a href="">Bootsnipp Profile</a><br />

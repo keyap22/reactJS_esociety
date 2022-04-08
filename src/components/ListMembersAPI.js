@@ -95,7 +95,9 @@ export const ListMembersAPI = () => {
                         <th scope="col">House Title</th>
                         <th scope="col" onClick={() => setSortedField('age')}>Age</th>
                         <th scope="col">Profile Photo</th>
-                        <th scope="col">Action</th>
+                        {localStorage.getItem('roleName') ==='chairman' || localStorage.getItem('roleName') ==='admin' ?
+                                   
+                        <th scope="col">Action</th>: <></>}
                     </tr>
                 </thead>
                 <tbody>
@@ -113,11 +115,13 @@ export const ListMembersAPI = () => {
                                     <td>{member.house.houseTitle}</td>
                                     <td>{member.age}</td>
                                     <td><img src={member.user.profilePhoto} alt="No image" style={{ height: "80px", width: "80px" }}></img></td>
+                                    {localStorage.getItem('roleName') ==='chairman' || localStorage.getItem('roleName') ==='admin' ?
+                                   
                                     <td>
                                         <Link to="/listmembers" className="btn btn-sm btn-danger mx-2" onClick={() => { deleteMember(member._id, member.user._id) }}><i className="bi bi-trash"></i></Link>
                                         <Link to={`/listmembers/update/${member.user._id}/${member._id}`} className="btn btn-sm btn-primary mx-2"><i className="bi bi-pencil"></i></Link>
                                         {/* <Link to="/listmembers" className="btn btn-sm btn-secondary" onClick={(e) => sortedByName(e)}>Name</Link> */}
-                                    </td>
+                                    </td>:<></>}
                                 </tr>
                             )
                         }) :
@@ -142,11 +146,13 @@ export const ListMembersAPI = () => {
                                         <td>{member.house.houseTitle}</td>
                                         <td>{member.age}</td>
                                         <td><img src={member.user.profilePhoto} alt="No image" style={{ height: "80px", width: "80px" }}></img></td>
+                                        {localStorage.getItem('roleName') ==='chairman' || localStorage.getItem('roleName') ==='admin' ?
+                                   
                                         <td>
                                             <Link to="/listmembers" className="btn btn-sm btn-danger mx-2" onClick={() => { deleteMember(member._id, member.user._id) }}><i className="bi bi-trash"></i></Link>
                                             <Link to={`/listmembers/update/${member.user._id}/${member._id}`} className="btn btn-sm btn-primary"><i className="bi bi-pencil"></i></Link>
                                             {/* <Link to="/listmembers" className="btn btn-sm btn-secondary" onClick={(e) => sortedByName(e)}>Name</Link> */}
-                                        </td>
+                                        </td>: <></>}
                                     </tr>
                                 )
                             } else {
@@ -169,11 +175,12 @@ export const ListMembersAPI = () => {
                                     <td>{member.house.houseTitle}</td>
                                     <td>{member.age}</td>
                                     <td><img src={member.user.profilePhoto} alt="No image" style={{ height: "80px", width: "80px" }}></img></td>
+                                    {localStorage.getItem('roleName') ==='chairman' || localStorage.getItem('roleName') ==='admin' ?
                                     <td>
                                         <Link to="/listmembers" className="btn btn-sm btn-danger mx-2" onClick={() => { deleteMember(member._id, member.user._id) }}><i className="bi bi-trash"></i></Link>
                                         <Link to={`/listmembers/update/${member.user._id}/${member._id}`} className="btn btn-sm btn-primary mx-2"><i className="bi bi-pencil"></i></Link>
                                         {/* <Link to="/listmembers" className="btn btn-sm btn-secondary" onClick={(e) => sortedByName(e)}>Name</Link> */}
-                                    </td>
+                                    </td> : <></>}
                                 </tr>
                             )
                         }) : ""

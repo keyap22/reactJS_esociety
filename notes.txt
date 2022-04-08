@@ -23,7 +23,7 @@ SECRET KEY - 6Ldw7j8fAAAAAJ8DclrU1CAsY_o7dXR7fJqX0jtl - used in the backend
 -visitor list by houseid : coded in profile : where and how to display?
 
 - visitor list - pre-scheduled list different?
-- visitor list on the basis of house id
+
 - (push notification) : runtime visitor request form, pwd/details updation notification
 - loader 
 
