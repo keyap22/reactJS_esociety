@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import { FadeLoader } from 'react-spinners'
+
 
 export const ListGuardsAPI = () => {
     const [guardList, setGuardList] = useState([])
@@ -10,6 +12,7 @@ export const ListGuardsAPI = () => {
     var [attendancedisplay, setattendancedisplay] = useState(false)
     var [counter, setcounter] = useState(0)
     var [userId, setUserId] = useState('')
+    const  [isLoading, setIsLoading] = useState(true)
 
     var userid 
 
@@ -103,19 +106,27 @@ export const ListGuardsAPI = () => {
 
     useEffect(() => {
         console.log("use effect hook implemented")
-
+        const timer = setTimeout(() => {
+setIsLoading(false)
+            console.log('This will run after 1 second!')
+          }, 3000);
+          
         getSecurityGuard()
 
         if (attendancedisplay === true) {
 
             getGuardAttendance()
         }
+        return () => clearTimeout(timer);
 
     }, (attendanceList.length < 8 ? [guardList] : [])
     )
 
     return (
+       
         <div className="container table-responsive-md" >
+            {isLoading ? <FadeLoader ></FadeLoader>:
+            <div>
 
             <div className="input-group mb-3 ">
                 <span className="input-group-text my-3 ml-8" id="basic-addon1"><i className="bi bi-search " ></i></span>
@@ -186,7 +197,10 @@ export const ListGuardsAPI = () => {
                     }
                 </tbody>
             </table>
+</div>}
         </div>
+    
     )
+                
     setattendancedisplay(false)
 }
