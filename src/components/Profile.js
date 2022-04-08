@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
-
+import { FadeLoader } from 'react-spinners'
 export const Profile = () => {
 
     var Counter = 0
@@ -13,10 +13,13 @@ export const Profile = () => {
     const [member,setMember] = useState('')
     const [visitorList, setVisitorList] = useState([])
     var [counter, setCounter] = useState(0)
+    const  [isLoading, setIsLoading] = useState(true)
+
     var addattendance=true
     //const [guard, setGuard] = useState('')
     const [GuardAttendanceList, setGuardAttendanceList] = useState()
     var guardAttendanceList = []
+
 
     var currentdate = new Date();
     var date = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear()
@@ -31,6 +34,10 @@ export const Profile = () => {
     var User = "", Member =""
 
     useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsLoading(false)
+                        console.log('This will run after 1 second!')
+                      }, 400);
         setemail(localStorage.getItem('email'))
         setRole(localStorage.getItem('role'))
         guardID = localStorage.getItem('guardID');
@@ -40,6 +47,8 @@ export const Profile = () => {
         userid = localStorage.getItem("userid")
         console.log("userid in profile :" + userid)
         getUserById()
+        return () => clearTimeout(timer);
+
     }, [])
 
     const getUserById = async () => {
@@ -64,7 +73,7 @@ export const Profile = () => {
         
     }
 
-    const getMemberByUser = async (userID)=>
+    const getMemberByUser =  (userID)=>
     {
 
         console.log("inside get member by user")
@@ -73,11 +82,12 @@ export const Profile = () => {
                user : userID
             }
             console.log(userid)
-             await axios.post('http://localhost:4000/membersByUser/' ,formdata).then(res => {
+              axios.post('http://localhost:4000/membersByUser/' ,formdata).then(res => {
                 console.log("user by id response : ", res)
                 Member = res.data.data
                 setMember(Member)
                 console.log("member data : ", res.data.data)
+                console.log(member.house.houseTitle)
                 getVisitors(res.data.data.house)
                 
             })
@@ -188,7 +198,11 @@ console.log(attendance.guard._id)
     }
 
     return (
+        
         <section id="services" className="services section-bg">
+             {isLoading ? <div align="center" style={{marginBottom : "50px" , marginTop : "50px", paddingBottom:"50px"
+    }}><FadeLoader ></FadeLoader></div>:
+            <div>
 
             <div>
                 {
@@ -367,6 +381,7 @@ console.log(attendance.guard._id)
                     </div>
                 </form>
             </div>  : ""}
+            </div>}
         </section>
     )
 }
