@@ -33,9 +33,9 @@ export const Navbar = () => {
                   <li><Link className="nav-link scrollto active" to="/home">Home</Link></li>
                   {/* <li><a className="nav-link scrollto " href="#portfolio">Visitor Tracking</a></li>
                 <li><a className="nav-link scrollto" href="#team">Add Pre-request</a></li>*/}
-                  <li className="dropdown"><a href="#"><span>Edit</span> <i className="bi bi-chevron-down"></i></a>
+                  <li className="dropdown"><Link to=""><span>Edit</span> <i className="bi bi-chevron-down"></i></Link>
                     <ul>
-                      <li className="dropdown"><a href="#"><span>ADD</span> <i className="bi bi-chevron-right"> </i> </a>
+                      <li className="dropdown"><Link to=""><span>ADD</span> <i className="bi bi-chevron-right"> </i> </Link>
 
                         <ul>
                           <li className="dropdown"><Link to="addvehicle"><span>Vehicle</span></Link></li>
@@ -45,7 +45,7 @@ export const Navbar = () => {
 
                       </li>
 
-                      <li className="dropdown"><a href="#"><span>DISPLAY</span> <i className="bi bi-chevron-right"> </i> </a>
+                      <li className="dropdown"><Link to=""><span>DISPLAY</span> <i className="bi bi-chevron-right"> </i> </Link>
 
                         <ul>
                           <li><Link to="listvehicles">Vehicles</Link></li>
@@ -66,7 +66,7 @@ export const Navbar = () => {
 
                   <li><Link className="nav-link" to="/contact">Contact</Link></li>
                   <li><Link to="/profile">Profile</Link></li>
-                  <li>{localStorage.getItem('email')===null?<Link className="getstarted scrollto" to="/login">Login</Link>:
+                  <li>{localStorage.getItem('email')===null?<Link className="getstarted scrollto" to="/login" style={{textDecoration : "none"}}>Login</Link>:
                   <i className="bi bi-person-circle mx-1"></i> }</li>
 
                 </ul>

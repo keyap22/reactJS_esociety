@@ -203,6 +203,7 @@ export const SignupForm = () => {
     }
 
     const verifyPhone = async (e) => {
+        e.preventDefault()
         console.log(validOTP)
 
         if (validOTP === true) {
@@ -439,7 +440,7 @@ export const SignupForm = () => {
 
                         <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>Contact Number  </strong></label>
-                            <div className="col-sm-10">
+                            <div className="col-sm-8">
                                 <input type="tel" id="ContactNumber" className="form-control" name="contactNumber"
                                     placeholder="Enter Your Mobile Number" required onChange={(e) => { setContactNumber(e.target.value) }} />
                                 <small id="emailHelp" className="form-text text-muted">Please enter correct details. We'll send you a verification code via text message.</small>
