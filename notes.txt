@@ -14,6 +14,8 @@ as of now ,commented 'required' in model
 
 - navbar update for users after login --> avatar icon(Profile, logout)
 
+- contact form integrate
+
 SITE KEY - 6Ldw7j8fAAAAAH-bGG_ubTRvVFwXh5zpryvfTgwy - used in the client
 SECRET KEY - 6Ldw7j8fAAAAAJ8DclrU1CAsY_o7dXR7fJqX0jtl - used in the backend
 
@@ -23,6 +25,7 @@ SECRET KEY - 6Ldw7j8fAAAAAJ8DclrU1CAsY_o7dXR7fJqX0jtl - used in the backend
 - visitor list - pre-scheduled list different?
 - visitor list on the basis of house id
 - (push notification) : runtime visitor request form, pwd/details updation notification
+- loader 
 
 reference : 
 https://www.youtube.com/watch?v=rqBh4YP_CwM   : -> for firebase 8 -> already coded but version difference so not working
@@ -33,6 +36,17 @@ https://onesignal.com/blog/how-to-integrate-push-notifications-in-react/
 https://www.audreyhal.com/blog/push-notifications-with-firebase-in-react
 https://medium.com/analytics-vidhya/firebase-web-push-notifications-26352b136814
 https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers
+
+----------------------------------------------------------------------
+
+Navbar 
+-------- 
+admin :  except contact, services , add visitor/deliverables/childsch /presched 
+member: add child sched,list members , display visitors/deliverables(house specific) ,  list child sched (house specific), list guards, add visitors
+guard : presched visitors, child sched, vehicle list, add visitor , all visitor list /deliverables 
+
+
+-----------------------------------------
 
 Profiles -
 

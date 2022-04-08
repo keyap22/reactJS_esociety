@@ -84,8 +84,8 @@ function App() {
 
       <Home />
       <div className="App">
-       {/* <ToastContainer onClose={() => setShow(false)} show={show} delay={3000} autohide animation style={{
-          {/* position: 'absolute',
+      {/* <Toast onClose={() => setShow(false)} show={show} delay={3000} autohide animation style={{
+          position: 'absolute',
           top: 20,
           right: 20,
           minWidth: 200
@@ -99,15 +99,9 @@ function App() {
             <strong className="mr-auto">{notification.title}</strong>
             <small>just now</small>
           </Toast.Header>
-          <Toast.Body>{notification.body}</Toast.Body > 
-        </ToastContainer> */}
-      {/* <header className="App-header">
-        {isTokenFound && <h1> Notification permission enabled  </h1>}
-        {!isTokenFound && <h1> Need notification permission  </h1>}
-        {/* <img src={logo} className="App-logo" alt="logo" />
-        <button onClick={() => setShow(true)}>Show Toast</button>
-      </header> */}
-
+          <Toast.Body>{notification.body}</Toast.Body>
+        </Toast>
+ */}
 
     </div>
       
