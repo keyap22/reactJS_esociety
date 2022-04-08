@@ -125,7 +125,8 @@ setIsLoading(false)
     return (
        
         <div className="container table-responsive-md" >
-            {isLoading ? <FadeLoader ></FadeLoader>:
+            {isLoading ? <div align="center" style={{marginBottom : "50px" , marginTop : "50px", paddingBottom:"50px"
+    }}><FadeLoader ></FadeLoader></div>:
             <div>
 
             <div className="input-group mb-3 ">
