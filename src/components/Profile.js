@@ -37,19 +37,22 @@ export const Profile = () => {
         const timer = setTimeout(() => {
             setIsLoading(false)
                         console.log('This will run after 1 second!')
-                      }, 400);
+                      }, 2000);
         setemail(localStorage.getItem('email'))
         setRole(localStorage.getItem('role'))
         guardID = localStorage.getItem('guardID');
         console.log("guardid in profile :" + guardID)
         setRoleName(localStorage.getItem('roleName'))
-        //getGuardAttendances()
+        if(localStorage.getItem('roleName') === 'security guard')
+        {
+        getGuardAttendances()
+        }
         userid = localStorage.getItem("userid")
         console.log("userid in profile :" + userid)
         getUserById()
-        return () => clearTimeout(timer);
+        return () => {clearTimeout(timer);}
 
-    }, [])
+    }, [isLoading])
 
     const getUserById = async () => {
         //var id = "622740a09d7544ebc551ba15";
