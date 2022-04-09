@@ -33,27 +33,27 @@ export const Navbar = () => {
                   <li><Link className="nav-link scrollto active" to="/home">Home</Link></li>
                   {/* <li><a className="nav-link scrollto " href="#portfolio">Visitor Tracking</a></li>
                 <li><a className="nav-link scrollto" href="#team">Add Pre-request</a></li>*/}
-                  <li className="dropdown"><Link to="" style={{textDecoration : "none"}}><span>Edit</span> <i className="bi bi-chevron-down"></i></Link>
+                  <li className="dropdown"><Link to="" style={{ textDecoration: "none" }}><span>Edit</span> <i className="bi bi-chevron-down"></i></Link>
                     <ul>
-                      <li className="dropdown"><Link to="" style={{textDecoration : "none"}}><span>ADD</span> <i className="bi bi-chevron-right"> </i> </Link>
+                      <li className="dropdown"><Link to="" style={{ textDecoration: "none" }}><span>ADD</span> <i className="bi bi-chevron-right"> </i> </Link>
 
                         <ul>
-                          <li className="dropdown"><Link to="addvehicle" style={{textDecoration : "none"}}><span>Vehicle</span></Link></li>
-                          <li className="dropdown"><Link to="childschedule" style={{textDecoration : "none"}}>Child Schedule</Link></li>
-                          <li className="dropdown"><Link to="addvisitor" style={{textDecoration : "none"}}><span>Visitor</span></Link></li>
+                          <li className="dropdown">{localStorage.getItem("role") === "620dd424e608c720fa0f1be8" || "620c88535e051978662b0379" ? "" : <Link to="addvehicle" style={{ textDecoration: "none" }}><span>Vehicle</span></Link>}</li>
+                          <li className="dropdown">{localStorage.getItem("role") === "620dd50cbaf661b44817ee61" || "620c88535e051978662b0379" ? "" : <Link to="childschedule" style={{ textDecoration: "none" }}>Child Schedule</Link>}</li>
+                          <li className="dropdown">{localStorage.getItem("role") === "620dd50cbaf661b44817ee61" ? "" : <Link to="addvisitor" style={{ textDecoration: "none" }}><span>Visitor</span></Link>}</li>
                         </ul>
 
                       </li>
 
-                      <li className="dropdown"><Link to="" style={{textDecoration : "none"}}><span>DISPLAY</span> <i className="bi bi-chevron-right"> </i> </Link>
+                      <li className="dropdown"><Link to="" style={{ textDecoration: "none" }}><span>DISPLAY</span> <i className="bi bi-chevron-right"> </i> </Link>
 
                         <ul>
-                          <li><Link to="listvehicles" style={{textDecoration : "none"}}>Vehicles</Link></li>
-                          <li><Link to="listvisitors" style={{textDecoration : "none"}}>Visitors</Link></li>
-                          <li><Link to="listdeliverables" style={{textDecoration : "none"}}>Deliverables</Link></li>
-                          <li><Link to="listmembers" style={{textDecoration : "none"}}>Society Members</Link></li>
-                          <li><Link to="listguards" style={{textDecoration : "none"}}>Security Guards</Link></li>
-                          <li><Link to="listchildren" style={{textDecoration : "none"}}>Child Schedule</Link></li>
+                          <li>{localStorage.getItem("role") === "620dd424e608c720fa0f1be8" ? "" : <Link to="listvehicles" style={{ textDecoration: "none" }}>Vehicles</Link>}</li>
+                          <li><Link to="listvisitors" style={{ textDecoration: "none" }}>Visitors</Link></li>
+                          <li><Link to="listdeliverables" style={{ textDecoration: "none" }}>Deliverables</Link></li>
+                          <li><Link to="listmembers" style={{ textDecoration: "none" }}>Society Members</Link></li>
+                          <li><Link to="listguards" style={{ textDecoration: "none" }}>Security Guards</Link></li>
+                          <li><Link to="listchildren" style={{ textDecoration: "none" }}>Child Schedule</Link></li>
 
 
                         </ul>
@@ -61,13 +61,17 @@ export const Navbar = () => {
                       </li>
                     </ul>
                   </li>
-                  <li><Link className="nav-link scrollto" to="/about">About</Link></li>
-                  <li><Link className="nav-link scrollto" to="/services">Services</Link></li>
 
-                  <li><Link className="nav-link" to="/contact">Contact</Link></li>
-                  <li><Link to="/profile" style={{textDecoration : "none"}}>Profile</Link></li>
-                  <li>{localStorage.getItem('email')===null?<Link className="getstarted scrollto" to="/login" style={{textDecoration : "none"}}>Login</Link>:
-                  <i className="bi bi-person-circle mx-1"></i> }</li>
+                  <li>{localStorage.getItem("role") === "620dd50cbaf661b44817ee61" ? "" : <Link className="nav-link scrollto" to="/about">About</Link>}</li>
+                  <li>{localStorage.getItem("role") === "620dd50cbaf661b44817ee61" ? "" : <Link className="nav-link scrollto" to="/services">Services</Link>}</li>
+
+                  <li>{localStorage.getItem("role") === "620dd50cbaf661b44817ee61" ? "" : <Link className="nav-link" to="/contact">Contact</Link>}</li>
+
+                  <li>{localStorage.getItem("role") === "620dd50cbaf661b44817ee61" ? <Link className="nav-link" to="">View Submitted Contact Form</Link> : ""}</li>
+
+                  <li><Link to="/profile" style={{ textDecoration: "none" }}>Profile</Link></li>
+                  <li>{localStorage.getItem('email') === null ? <Link className="getstarted scrollto" to="/login" style={{ textDecoration: "none" }}>Login</Link> :
+                    <i className="bi bi-person-circle mx-1"></i>}</li>
 
                 </ul>
                 <i className="bi bi-list mobile-nav-toggle"></i>

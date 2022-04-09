@@ -42,8 +42,10 @@ https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Servic
 Navbar 
 -------- 
 admin :  except contact, services , add visitor/deliverables/childsch /presched 
-member: add child sched,list members , display visitors/deliverables(house specific) ,  list child sched (house specific), list guards, add visitors
-guard : presched visitors, child sched, vehicle list, add visitor , all visitor list /deliverables 
+
+member: add child sched, add visitors, list members , display visitors/deliverables(house specific) ,  list child sched (house specific), list guards 
+
+guard : presched visitors, child sched, vehicle list, add visitor , all visitor list /deliverables, list    members(to identify guests) 
 
 
 -----------------------------------------
