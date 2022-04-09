@@ -8,6 +8,9 @@ Tasks -
 added in post,get api : update api required ?
 as of now ,commented 'required' in model
 
+- email/phone verification for reset password
+- set loader color, speed multiplier, radius
+
 - list(sorting)
 - resend otp in email
 - security guard list(display specific guard all attendance record)  
