@@ -160,31 +160,6 @@ export const ListMembersAPI = () => {
                             }
                         })
                     }
-                    {
-                        sortedField !== null ? 
-                        sortedMembers.map((member) => {
-                            console.log("sorted members : " + sortedMembers)
-                            counter += 1
-                            return (
-                                <tr key={member._id}>
-                                    <th scope="row">{counter}</th>
-                                    <td>{member.user.firstName}</td>
-                                    <td>{member.user.lastName}</td>
-                                    <td>{member.user.email}</td>
-                                    <td>{member.user.mobileNo}</td>
-                                    <td>{member.house.houseTitle}</td>
-                                    <td>{member.age}</td>
-                                    <td><img src={member.user.profilePhoto} alt="No image" style={{ height: "80px", width: "80px" }}></img></td>
-                                    {localStorage.getItem('roleName') ==='chairman' || localStorage.getItem('roleName') ==='admin' ?
-                                    <td>
-                                        <Link to="/listmembers" className="btn btn-sm btn-danger mx-2" onClick={() => { deleteMember(member._id, member.user._id) }}><i className="bi bi-trash"></i></Link>
-                                        <Link to={`/listmembers/update/${member.user._id}/${member._id}`} className="btn btn-sm btn-primary mx-2"><i className="bi bi-pencil"></i></Link>
-                                        {/* <Link to="/listmembers" className="btn btn-sm btn-secondary" onClick={(e) => sortedByName(e)}>Name</Link> */}
-                                    </td> : <></>}
-                                </tr>
-                            )
-                        }) : ""
-                    }
                 </tbody>
             </table>
         </div>

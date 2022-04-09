@@ -7,7 +7,7 @@ export const Home = () => {
     <div className="container text-center position-relative" data-aos="fade-in" data-aos-delay="200">
       <h1>Access to Top-Class Features of Society</h1>
       <h2>You can track visitor movements and can ensure your security.</h2>
-      <Link to="/signup" className="btn-get-started scrollto">Sign Up</Link>
+      <Link to="/signup" style={{textDecoration : "none"}} className="btn-get-started scrollto">Sign Up</Link>
     </div>
   </section>
   )
