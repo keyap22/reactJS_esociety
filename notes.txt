@@ -9,7 +9,7 @@ added in post,get api : update api required ?
 as of now ,commented 'required' in model
 
 - email/phone verification for reset password
-- set loader color, speed multiplier, radius
+- set loader speed multiplier, radius
 
 - list(sorting) coded - check
 - resend otp in email

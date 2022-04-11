@@ -212,7 +212,7 @@ export const Profile = () => {
         <section id="services" className="services section-bg">
             {isLoading ? <div align="center" style={{
                 marginBottom: "50px", marginTop: "50px", paddingBottom: "50px"
-            }}><FadeLoader ></FadeLoader></div> :
+            }}><FadeLoader color="#009970" ></FadeLoader></div> :
                 <div>
 
                     <div>

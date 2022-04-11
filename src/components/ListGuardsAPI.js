@@ -126,9 +126,9 @@ export const ListGuardsAPI = () => {
 
         <div className="container table-responsive-md" >
             {isLoading ? <div align="center" style={{
-                marginBottom: "50px", marginTop: "50px", paddingBottom: "50px", height: "15", width: "5", color: "#009970"
+                marginBottom: "50px", marginTop: "50px", paddingBottom: "50px", height: "15", width: "5"
                 //, speedmultiplier : 2, radius : 4, color
-            }}><FadeLoader ></FadeLoader></div> :
+            }}><FadeLoader color="#009970" ></FadeLoader></div> :
                 <div>
 
                     <div className="input-group mb-3 ">
