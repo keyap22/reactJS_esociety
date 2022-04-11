@@ -224,7 +224,7 @@ export const Profile = () => {
             console.log("put api request called")
             await axios.put(`http://localhost:4000/changePhoto/` + user._id, data).then(res => {
                 console.log(res)
-                
+
             })
         }
         navigation('/profile')
@@ -344,14 +344,15 @@ export const Profile = () => {
                                                         <p>{user.mobileNo}</p>
                                                     </div>
                                                 </div>
-                                                <div className="row">
-                                                    <div className="col-md-6">
-                                                        <label>House No.</label>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <p>{member.house.houseTitle}</p>
-                                                    </div>
-                                                </div>
+                                                {localStorage.getItem("roleName") === "Society Member" || localStorage.getItem('roleName') === "Chairman" ?
+                                                    <div className="row">
+                                                        <div className="col-md-6">
+                                                            <label>House No.</label>
+                                                        </div>
+                                                        <div className="col-md-6">
+                                                            <p>{member.house.houseTitle}</p>
+                                                        </div>
+                                                    </div> : ""}
 
                                                 <div className="row">
                                                     <div className="col-md-6">
@@ -363,12 +364,13 @@ export const Profile = () => {
                                                 </div>
                                             </div>
                                             <div className="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                                {/* {localStorage.getItem('roleName') === 'Chairman' || localStorage.getItem('roleName') === 'Society Member' ?  */}
                                                 <div className="row">
                                                     <div className="col-md-6">
                                                         <label>Visitor Name</label>
                                                     </div>
                                                     <div className="col-md-6">
-                                                        <p>{visitorList[0].visitorName}</p>
+                                                        {/* <p>{visitorList[0].visitorName}</p> */}
                                                     </div>
                                                 </div>
 
@@ -377,7 +379,7 @@ export const Profile = () => {
                                                         <label>Purpose</label>
                                                     </div>
                                                     <div className="col-md-6">
-                                                        <p>{visitorList[0].purpose}</p>
+                                                        {/* <p>{visitorList[0].purpose}</p> */}
                                                     </div>
                                                 </div>
                                                 <div className="row">
@@ -385,7 +387,7 @@ export const Profile = () => {
                                                         <label>Contact Number</label>
                                                     </div>
                                                     <div className="col-md-6">
-                                                        <p>{visitorList[0].mobileNo}</p>
+                                                        {/* <p>{visitorList[0].mobileNo}</p> */}
                                                     </div>
                                                 </div>
 
@@ -394,23 +396,17 @@ export const Profile = () => {
                                                         <label>Date</label>
                                                     </div>
                                                     <div className="col-md-6">
-                                                        <p>{visitorList[0].date}</p>
+                                                        {/* <p>{visitorList[0].date}</p> */}
                                                     </div>
                                                 </div>
-                                                {/* <div className="row">
-                                                    <div className="col-md-6">
-                                                        <label>Category</label>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <p>{visitorList.visitorCategory.categoryName}</p>
-                                                    </div>
-                                                </div> */}
+
                                                 <div className="row">
                                                     <div className="col-md-12">
                                                         <label>Your Visitor List</label><br />
                                                         <p>More detail description</p>
                                                     </div>
                                                 </div>
+                                            //  : <></> } 
                                             </div>
                                         </div>
                                     </div>
