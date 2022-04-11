@@ -66,7 +66,21 @@ export const ListGuardsAPI = () => {
             getGuardAttendance()
         })
     }
+    const displayDetails = (id) => {
+        console.log(id)
+        var formdata = {
+            "guard": id
+        }
+        axios.post('http://localhost:4000/getattendances/', formdata).then(res => {
+            //  console.log("guardid :" + guard._id)
 
+            console.log("======attendanceList of clicked guard : ", res.data.data)
+
+        })
+        
+       
+
+    }
     const getGuardAttendance = () => {
 
 
@@ -160,7 +174,7 @@ export const ListGuardsAPI = () => {
                                     counter += 1
                                     console.log("search : " + search)
                                     return (
-                                        <tr key={guard._id}>
+                                        <tr key={guard._id} value={guard._id} onClick={(e) => displayDetails(guard._id)}>
                                             <th scope="row">{counter}</th>
                                             <td>{guard.guardName}</td>
                                             <td>{guard.scheduleTime}</td>
