@@ -6,11 +6,13 @@ export const ListMembersAPI = () => {
     const [memberList, setmemberList] = useState([])
     const [sortedField, setSortedField] = useState('')
     const [search, setSearch] = useState('');
+    const [SortedData, setSortedData] = useState('');
+    var sortedData = ""
 
     let sortedMembers = [...memberList];
 
     if (sortedField !== null) {
-        console.log("field called : ",sortedField)
+        console.log("field called : ", sortedField)
         sortedMembers.sort((a, b) => {
             if (a[sortedField] < b[sortedField]) {
                 console.log(b[sortedField])
@@ -75,6 +77,21 @@ export const ListMembersAPI = () => {
         }
     }
 
+    const sortAge = (e) => {
+        sortedData = memberList
+        sortedData.sort((a, b) => {
+            if (a.age < b.age) {
+                return -1;
+            }
+            if (a.age > b.age) {
+                return 1;
+            }
+            return 0
+        })
+        setSortedData(sortedData)
+        console.log("sorted data : ", sortedData)
+    }
+
     return (
         <div className="container table-responsive-md ">
 
@@ -93,15 +110,15 @@ export const ListMembersAPI = () => {
                         <th scope="col">Email</th>
                         <th scope="col">Contact Number</th>
                         <th scope="col">House Title</th>
-                        <th scope="col" onClick={() => setSortedField('age')}>Age</th>
+                        <th scope="col" onClick={(e) => sortAge(e)}>Age</th>
                         <th scope="col">Profile Photo</th>
-                        {localStorage.getItem('roleName') ==='Chairman' || localStorage.getItem('roleName') ==='ADMIN' ?
-                                   
-                        <th scope="col">Action</th>: <></>}
+                        {localStorage.getItem('roleName') === 'Chairman' || localStorage.getItem('roleName') === 'ADMIN' ?
+
+                            <th scope="col">Action</th> : <></>}
                     </tr>
                 </thead>
                 <tbody>
-                    {search === "" ?
+                    {search === "" || SortedData === "" ?
                         memberList.sort((a, b) => a.email - b.email).map((member) => {
                             console.log("search : " + search)
                             counter += 1
@@ -115,13 +132,13 @@ export const ListMembersAPI = () => {
                                     <td>{member.house.houseTitle}</td>
                                     <td>{member.age}</td>
                                     <td><img src={member.user.profilePhoto} alt="No image" style={{ height: "80px", width: "80px" }}></img></td>
-                                    {localStorage.getItem('roleName') ==='Chairman' || localStorage.getItem('roleName') ==='ADMIN' ?
-                                   
-                                    <td>
-                                        <Link to="/listmembers" className="btn btn-sm btn-danger mx-2" onClick={() => { deleteMember(member._id, member.user._id) }}><i className="bi bi-trash"></i></Link>
-                                        <Link to={`/updateMember/${member.user._id}/${member._id}`} className="btn btn-sm btn-primary mx-2"><i className="bi bi-pencil"></i></Link>
-                                        {/* <Link to="/listmembers" className="btn btn-sm btn-secondary" onClick={(e) => sortedByName(e)}>Name</Link> */}
-                                    </td>:<></>}
+                                    {localStorage.getItem('roleName') === 'Chairman' || localStorage.getItem('roleName') === 'ADMIN' ?
+
+                                        <td>
+                                            <Link to="/listmembers" className="btn btn-sm btn-danger mx-2" onClick={() => { deleteMember(member._id, member.user._id) }}><i className="bi bi-trash"></i></Link>
+                                            <Link to={`/updateMember/${member.user._id}/${member._id}`} className="btn btn-sm btn-primary mx-2"><i className="bi bi-pencil"></i></Link>
+                                            {/* <Link to="/listmembers" className="btn btn-sm btn-secondary" onClick={(e) => sortedByName(e)}>Name</Link> */}
+                                        </td> : <></>}
                                 </tr>
                             )
                         }) :
@@ -146,16 +163,45 @@ export const ListMembersAPI = () => {
                                         <td>{member.house.houseTitle}</td>
                                         <td>{member.age}</td>
                                         <td><img src={member.user.profilePhoto} alt="No image" style={{ height: "80px", width: "80px" }}></img></td>
-                                        {localStorage.getItem('roleName') ==='Chairman' || localStorage.getItem('roleName') ==='ADMIN' ?
-                                   
-                                        <td>
-                                            <Link to="/listmembers" className="btn btn-sm btn-danger mx-2" onClick={() => { deleteMember(member._id, member.user._id) }}><i className="bi bi-trash"></i></Link>
-                                            <Link to={`/updateMember/${member.user._id}/${member._id}`} className="btn btn-sm btn-primary"><i className="bi bi-pencil"></i></Link>
-                                            {/* <Link to="/listmembers" className="btn btn-sm btn-secondary" onClick={(e) => sortedByName(e)}>Name</Link> */}
-                                        </td>: <></>}
+                                        {localStorage.getItem('roleName') === 'Chairman' || localStorage.getItem('roleName') === 'ADMIN' ?
+
+                                            <td>
+                                                <Link to="/listmembers" className="btn btn-sm btn-danger mx-2" onClick={() => { deleteMember(member._id, member.user._id) }}><i className="bi bi-trash"></i></Link>
+                                                <Link to={`/updateMember/${member.user._id}/${member._id}`} className="btn btn-sm btn-primary"><i className="bi bi-pencil"></i></Link>
+                                                {/* <Link to="/listmembers" className="btn btn-sm btn-secondary" onClick={(e) => sortedByName(e)}>Name</Link> */}
+                                            </td> : <></>}
                                     </tr>
                                 )
-                            } else {
+                            } else if (SortedData !== "") {
+                                counter += 1
+                                console.log("sorted data")
+                                SortedData.map((sortedMember) => {
+                                    console.log("sorted member : " + sortedMember)
+
+                                    return (
+                                        <tr key={sortedMember._id}>
+                                            {/* <th scope="row">{member.user.firstName}</th> */}
+                                            <th scope="row">{counter}</th>
+                                            <td>{sortedMember.user.firstName}</td>
+                                            <td>{sortedMember.user.lastName}</td>
+                                            <td>{sortedMember.user.email}</td>
+                                            <td>{sortedMember.user.mobileNo}</td>
+                                            <td>{sortedMember.house.houseTitle}</td>
+                                            <td>{sortedMember.age}</td>
+                                            <td><img src={sortedMember.user.profilePhoto} alt="No image" style={{ height: "80px", width: "80px" }}></img></td>
+                                            {localStorage.getItem('roleName') === 'Chairman' || localStorage.getItem('roleName') === 'ADMIN' ?
+
+                                                <td>
+                                                    <Link to="/listmembers" className="btn btn-sm btn-danger mx-2" onClick={() => { deleteMember(sortedMember._id, sortedMember.user._id) }}><i className="bi bi-trash"></i></Link>
+                                                    <Link to={`/updateMember/${sortedMember.user._id}/${sortedMember._id}`} className="btn btn-sm btn-primary"><i className="bi bi-pencil"></i></Link>
+                                                    {/* <Link to="/listmembers" className="btn btn-sm btn-secondary" onClick={(e) => sortedByName(e)}>Name</Link> */}
+                                                </td> : <></>}
+                                        </tr>
+                                    )
+                                })
+
+                            }
+                            else {
                                 // return(<tr>No data found</tr>)
                             }
                         })

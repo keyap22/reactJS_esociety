@@ -160,7 +160,7 @@ function App() {
 
         {localStorage.getItem('email') !== null ? <Route path='/listchildren' element={<ListChildrenAPI />}></Route> : ""}
 
-        {localStorage.getItem("roleName") !== "Society Member" && localStorage.getItem('email') !== null ? <Route path='/listvehicles' element={<ListvehiclesAPI />}></Route> : ""}
+        {localStorage.getItem('email') !== null ? <Route path='/listvehicles' element={<ListvehiclesAPI />}></Route> : ""}
 
         {localStorage.getItem('email') !== null ? <Route path='/listdeliverables' element={<ListDeliverablesAPI />}></Route> : ""}
         {/* <Route path='/sendmail' element={<SendMail/>}></Route> */}
@@ -168,7 +168,7 @@ function App() {
       </Routes>
       <Footer />
 
-      {isTokenFound ? "Notification.permission   enabled" : "Need notification permission"}
+      {isTokenFound ? "Notification.permission enabled" : "Need notification permission"}
 
 
     </div>
