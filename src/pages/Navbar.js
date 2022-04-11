@@ -33,6 +33,7 @@ export const Navbar = () => {
                   <li><Link className="nav-link scrollto active" to="/home">Home</Link></li>
                   {/* <li><a className="nav-link scrollto " href="#portfolio">Visitor Tracking</a></li>
                 <li><a className="nav-link scrollto" href="#team">Add Pre-request</a></li>*/}
+                {localStorage.getItem('email') !== null ? 
                   <li className="dropdown"><Link to="" style={{ textDecoration: "none" }}><span>Edit</span> <i className="bi bi-chevron-down"></i></Link>
                     <ul>
                       <li className="dropdown"><Link to="" style={{ textDecoration: "none" }}><span>ADD</span> <i className="bi bi-chevron-right"> </i> </Link>
@@ -60,7 +61,7 @@ export const Navbar = () => {
 
                       </li>
                     </ul>
-                  </li>
+                  </li> : "" }
 
                   <li>{localStorage.getItem("role") === "620dd50cbaf661b44817ee61" ? "" : <Link className="nav-link scrollto" to="/about">About</Link>}</li>
                   <li>{localStorage.getItem("role") === "620dd50cbaf661b44817ee61" ? "" : <Link className="nav-link scrollto" to="/services">Services</Link>}</li>
@@ -69,9 +70,9 @@ export const Navbar = () => {
 
                   <li>{localStorage.getItem("role") === "620dd50cbaf661b44817ee61" ? <Link className="nav-link" to="">View Submitted Contact Form</Link> : ""}</li>
 
-                  <li><Link to="/profile" style={{ textDecoration: "none" }}>Profile</Link></li>
+                  {/* <li><Link to="/profile" style={{ textDecoration: "none" }}>Profile</Link></li> */}
                   <li>{localStorage.getItem('email') === null ? <Link className="getstarted scrollto" to="/login" style={{ textDecoration: "none" }}>Login</Link> :
-                    <i className="bi bi-person-circle mx-1"></i>}</li>
+                    <Link to="/profile" style={{ textDecoration: "none" }}>Profile<i className="bi bi-person-circle mx-1"></i></Link>}</li>
 
                 </ul>
                 <i className="bi bi-list mobile-nav-toggle"></i>

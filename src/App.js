@@ -140,29 +140,29 @@ function App() {
         <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
         <Route path="/services" element={<Services />}></Route>
 
-        <Route path='/listmembers' element={<ListMembersAPI />}></Route>
+        {localStorage.getItem('email') !== null ? <Route path='/listmembers' element={<ListMembersAPI />}></Route> : ""}
 
         <Route path='/profile' element={<Profile />}></Route>
 
-        {localStorage.getItem("roleName") === "ADMIN" ? "" : <Route path="/addvisitor" element={<VisitorForm />}></Route>}
+        {localStorage.getItem("roleName") === "ADMIN" && localStorage.getItem('email') !== null ? "" : <Route path="/addvisitor" element={<VisitorForm />}></Route>}
 
-        {localStorage.getItem("roleName") === "Society Member" || "Security Guard" ? "" : <Route path="/addvehicle" element={<VehicleForm />}></Route>}
+        {(localStorage.getItem("roleName") === "Society Member" || "Security Guard") && localStorage.getItem('email') !== null ? "" : <Route path="/addvehicle" element={<VehicleForm />}></Route>}
 
-        {localStorage.getItem("roleName") !== "ADMIN" || "Security Guard" ? "" : <Route path="/childschedule" element={<ChildScheduleForm />}></Route>}
+        {(localStorage.getItem("roleName") !== "ADMIN" || "Security Guard") && localStorage.getItem('email') !== null ? "" : <Route path="/childschedule" element={<ChildScheduleForm />}></Route>}
 
-        <Route path='/listvisitors' element={<ListVisitorsAPI />}></Route>
+        {localStorage.getItem('email') !== null ? <Route path='/listvisitors' element={<ListVisitorsAPI />}></Route> : ""}
 
-        <Route path='/listguards' element={<ListGuardsAPI />}></Route>
+        {localStorage.getItem('email') !== null ? <Route path='/listguards' element={<ListGuardsAPI />}></Route> : "" }
 
-        {localStorage.getItem('roleName') === 'Society Member' ? "" : <Route path='/updateVisitor/:id' element={<UpdateVisitorForm />}></Route>}
+        {localStorage.getItem('roleName') === 'Society Member' && localStorage.getItem('email') !== null ? "" : <Route path='/updateVisitor/:id' element={<UpdateVisitorForm />}></Route>}
 
-        {localStorage.getItem('roleName') === 'Chairman' || localStorage.getItem('roleName') === 'ADMIN' ? "" : <Route path='/updateMember/:id1/:id2' element={<UpdateForm />}></Route>}
+        {(localStorage.getItem('roleName') === 'Chairman' || localStorage.getItem('roleName') === 'ADMIN') && localStorage.getItem('email') !== null ? "" : <Route path='/updateMember/:id1/:id2' element={<UpdateForm />}></Route>}
 
-        <Route path='/listchildren' element={<ListChildrenAPI />}></Route>
+        {localStorage.getItem('email') !== null ? <Route path='/listchildren' element={<ListChildrenAPI />}></Route> : ""}
 
-        {localStorage.getItem("roleName") === "Society Member" ? "" : <Route path='/listvehicles' element={<ListvehiclesAPI />}></Route>}
+        {localStorage.getItem("roleName") !== "Society Member" && localStorage.getItem('email') !== null ? <Route path='/listvehicles' element={<ListvehiclesAPI />}></Route> : ""}
 
-        <Route path='/listdeliverables' element={<ListDeliverablesAPI />}></Route>
+        {localStorage.getItem('email') !== null ? <Route path='/listdeliverables' element={<ListDeliverablesAPI />}></Route> : ""}
         {/* <Route path='/sendmail' element={<SendMail/>}></Route> */}
 
       </Routes>
