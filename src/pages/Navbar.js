@@ -38,9 +38,9 @@ export const Navbar = () => {
                       <li className="dropdown"><Link to="" style={{ textDecoration: "none" }}><span>ADD</span> <i className="bi bi-chevron-right"> </i> </Link>
 
                         <ul>
-                          <li className="dropdown">{localStorage.getItem("role") === "620dd424e608c720fa0f1be8" || "620c88535e051978662b0379" ? "" : <Link to="addvehicle" style={{ textDecoration: "none" }}><span>Vehicle</span></Link>}</li>
-                          <li className="dropdown">{localStorage.getItem("role") === "620dd50cbaf661b44817ee61" || "620c88535e051978662b0379" ? "" : <Link to="childschedule" style={{ textDecoration: "none" }}>Child Schedule</Link>}</li>
-                          <li className="dropdown">{localStorage.getItem("role") === "620dd50cbaf661b44817ee61" ? "" : <Link to="addvisitor" style={{ textDecoration: "none" }}><span>Visitor</span></Link>}</li>
+                          <li className="dropdown">{localStorage.getItem("roleName") === "Society Member" || "Security Guard" ? "" : <Link to="addvehicle" style={{ textDecoration: "none" }}><span>Vehicle</span></Link>}</li>
+                          <li className="dropdown">{localStorage.getItem("roleName") !== "ADMIN" || "Security Guard" ?  <Link to="childschedule" style={{ textDecoration: "none" }}>Child Schedule</Link> : ""}</li>
+                          <li className="dropdown">{localStorage.getItem("roleName") === "ADMIN" ? "" : <Link to="addvisitor" style={{ textDecoration: "none" }}><span>Visitor</span></Link>}</li>
                         </ul>
 
                       </li>

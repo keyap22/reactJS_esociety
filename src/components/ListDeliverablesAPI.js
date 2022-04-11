@@ -11,7 +11,7 @@ export const ListDeliverablesAPI = () => {
 
     if (sortedField !== null) {
         sortedDeliverablesList.sort((a, b) => {
-            console.log("field called : ",sortedField)
+            console.log("field called : ", sortedField)
             if (a[sortedField] < b[sortedField]) {
                 console.log(b[sortedField])
                 return -1;
@@ -41,6 +41,16 @@ export const ListDeliverablesAPI = () => {
         setSearch(e.target.value);
     }
 
+    const deleteDeliverable = (deliverableID) => {
+
+        console.log(deliverableID)
+
+        axios.delete(`http://localhost:4000/deliverables/` + deliverableID).then(res => {
+            console.log(res)
+            alert("Record deleted successfully!")
+        })
+    }
+
     var counter = 0
 
     return (
@@ -58,12 +68,11 @@ export const ListDeliverablesAPI = () => {
                 <thead className="table_head">
                     <tr>
                         <th scope="col" className=''>Sr. No.</th>
-                        <label onClick={() => setSortedField('house.houseTitle')}>House Title</label>
-                        
-                        <label onClick={() => setSortedField('date')}>Date</label>
-                       
-                        <label onClick={() => setSortedField('isPickup')}>Pick Up</label>
-                        
+                        <th scope="col" onClick={() => setSortedField('house.houseTitle')}>House Title</th>
+                        <th scope="col" onClick={() => setSortedField('date')}>Date</th>
+                        <th scope="col" onClick={() => setSortedField('isPickup')}>Pick Up</th>
+                        {localStorage.getItem('roleName') === 'Society Member' ?
+                            <th scope="col">Action</th> : ""}
                     </tr>
                 </thead>
                 <tbody>
@@ -80,7 +89,11 @@ export const ListDeliverablesAPI = () => {
                                         <td>{deliverables.house.houseTitle}</td>
                                         <td>{deliverables.date}</td>
                                         <td>{deliverables.isPickup ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
-
+                                        {localStorage.getItem('roleName') === 'Society Member' ?
+                                            <td>
+                                                <Link to="/listdeliverables" className="btn btn-sm btn-danger" onClick={() => { deleteDeliverable(deliverables._id) }}><i className="bi bi-trash"></i></Link>
+                                                <Link to={`/update/${deliverables._id}`} className="btn btn-sm btn-primary my-1" value={deliverables._id}><i className="bi bi-pencil"></i></Link>
+                                            </td> : ""}
                                     </tr>
                                 )
                             }) :
@@ -98,7 +111,11 @@ export const ListDeliverablesAPI = () => {
                                             <td>{deliverables.house.houseTitle}</td>
                                             <td>{deliverables.date}</td>
                                             <td>{deliverables.ispickup ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
-
+                                            {localStorage.getItem('roleName') === 'Society Member' ?
+                                                <td>
+                                                    <Link to="/listdeliverables" className="btn btn-sm btn-danger" onClick={() => { deleteDeliverable(deliverables._id) }}><i className="bi bi-trash"></i></Link>
+                                                    <Link to={`/update/${deliverables._id}`} className="btn btn-sm btn-primary my-1" value={deliverables._id}><i className="bi bi-pencil"></i></Link>
+                                                </td> : ""}
                                         </tr>
                                     )
                                 }

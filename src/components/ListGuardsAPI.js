@@ -147,7 +147,9 @@ export const ListGuardsAPI = () => {
                                 <th scope="col">Attendance</th>
                                 {/*<th scope="col">Image</th>*/}
                                 <th scope="col">Contact No.</th>
-                                <th scope="col">Action</th>
+                                {localStorage.getItem('roleName') ==='Chairman' || localStorage.getItem('roleName') ==='ADMIN' ?
+                                   
+                                <th scope="col">Action</th> : ""}
                             </tr>
                         </thead>
 
@@ -165,12 +167,13 @@ export const ListGuardsAPI = () => {
                                             {attendancedisplay ? <td >{attendanceList[counter - 1] !== undefined ? attendanceList[counter - 1] : ""}</td> : <td></td>}
                                             {/*<td><img src={guard.profilePhoto}></img></td> */}
                                             <td>{guard.mobileNo}</td>
-
+                                            {localStorage.getItem('roleName') ==='Chairman' || localStorage.getItem('roleName') ==='ADMIN' ?
+                                   
 
                                             <td>
                                                 <Link to="/listguards" className="btn btn-sm btn-danger mx-1" value={guard.user} onChange={getSecurityGuardByID(guard._id)} onClick={() => { deleteGuard(guard._id) }}><i className="bi bi-trash"></i></Link>
                                                 <Link to={`/listguards/update/${guard._id}`} className="btn btn-sm btn-primary" value={guard._id}><i className="bi bi-pencil"></i></Link>
-                                            </td>
+                                            </td> : ""}
                                         </tr>
                                     )
                                 }) : guardList.map((guard) => {
@@ -188,11 +191,12 @@ export const ListGuardsAPI = () => {
                                                 {attendancedisplay ? <td >{attendanceList[counter - 1] !== undefined ? attendanceList[counter - 1] : ""}</td> : <td></td>}
                                                 {/*<td><img src={guard.profilePhoto}></img></td> */}
                                                 <td>{guard.mobileNo}</td>
-
+                                                {localStorage.getItem('roleName') ==='Chairman' || localStorage.getItem('roleName') ==='ADMIN' ?
+                                   
                                                 <td>
                                                     <Link to="/listguards" className="btn btn-sm btn-danger mx-1" onClick={() => { deleteGuard(guard._id) }}><i className="bi bi-trash"></i></Link>
                                                     <Link to={`/listguards/update/${guard._id}`} className="btn btn-sm btn-primary" value={guard._id}><i className="bi bi-pencil"></i></Link>
-                                                </td>
+                                                </td> : "" }
                                             </tr>
                                         )
                                     }

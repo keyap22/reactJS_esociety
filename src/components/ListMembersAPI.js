@@ -95,7 +95,7 @@ export const ListMembersAPI = () => {
                         <th scope="col">House Title</th>
                         <th scope="col" onClick={() => setSortedField('age')}>Age</th>
                         <th scope="col">Profile Photo</th>
-                        {localStorage.getItem('roleName') ==='chairman' || localStorage.getItem('roleName') ==='admin' ?
+                        {localStorage.getItem('roleName') ==='Chairman' || localStorage.getItem('roleName') ==='ADMIN' ?
                                    
                         <th scope="col">Action</th>: <></>}
                     </tr>
@@ -115,7 +115,7 @@ export const ListMembersAPI = () => {
                                     <td>{member.house.houseTitle}</td>
                                     <td>{member.age}</td>
                                     <td><img src={member.user.profilePhoto} alt="No image" style={{ height: "80px", width: "80px" }}></img></td>
-                                    {localStorage.getItem('roleName') ==='chairman' || localStorage.getItem('roleName') ==='admin' ?
+                                    {localStorage.getItem('roleName') ==='Chairman' || localStorage.getItem('roleName') ==='ADMIN' ?
                                    
                                     <td>
                                         <Link to="/listmembers" className="btn btn-sm btn-danger mx-2" onClick={() => { deleteMember(member._id, member.user._id) }}><i className="bi bi-trash"></i></Link>
@@ -146,7 +146,7 @@ export const ListMembersAPI = () => {
                                         <td>{member.house.houseTitle}</td>
                                         <td>{member.age}</td>
                                         <td><img src={member.user.profilePhoto} alt="No image" style={{ height: "80px", width: "80px" }}></img></td>
-                                        {localStorage.getItem('roleName') ==='chairman' || localStorage.getItem('roleName') ==='admin' ?
+                                        {localStorage.getItem('roleName') ==='Chairman' || localStorage.getItem('roleName') ==='ADMIN' ?
                                    
                                         <td>
                                             <Link to="/listmembers" className="btn btn-sm btn-danger mx-2" onClick={() => { deleteMember(member._id, member.user._id) }}><i className="bi bi-trash"></i></Link>
