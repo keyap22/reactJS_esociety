@@ -48,7 +48,7 @@ export const Navbar = () => {
                       <li className="dropdown"><Link to="" style={{ textDecoration: "none" }}><span>DISPLAY</span> <i className="bi bi-chevron-right"> </i> </Link>
 
                         <ul>
-                          <li>{localStorage.getItem("role") === "620dd424e608c720fa0f1be8" ? "" : <Link to="listvehicles" style={{ textDecoration: "none" }}>Vehicles</Link>}</li>
+                          <li>{localStorage.getItem("roleName") === "Society Member" ? "" : <Link to="listvehicles" style={{ textDecoration: "none" }}>Vehicles</Link>}</li>
                           <li><Link to="listvisitors" style={{ textDecoration: "none" }}>Visitors</Link></li>
                           <li><Link to="listdeliverables" style={{ textDecoration: "none" }}>Deliverables</Link></li>
                           <li><Link to="listmembers" style={{ textDecoration: "none" }}>Society Members</Link></li>

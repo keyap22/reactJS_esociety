@@ -132,7 +132,7 @@ export const ListVisitorsAPI = () => {
                                         {localStorage.getItem('roleName') === 'Society Member' ?
                                             <td>
                                                 <Link to="/listvisitors" className="btn btn-sm btn-danger" onClick={() => { deleteVisitor(visitor._id) }}><i className="bi bi-trash"></i></Link>
-                                                <Link to={`/listvisitors/update/${visitor._id}`} className="btn btn-sm btn-primary my-1" value={visitor._id}><i className="bi bi-pencil"></i></Link>
+                                                <Link to={`/updateVisitor/${visitor._id}`} className="btn btn-sm btn-primary my-1" value={visitor._id}><i className="bi bi-pencil"></i></Link>
                                             </td> : ""}
                                     </tr>
                                 )
@@ -165,7 +165,7 @@ export const ListVisitorsAPI = () => {
                                             {localStorage.getItem('roleName') === 'Society Member' ?
                                                 <td>
                                                     <Link to="/listvisitors" className="btn btn-sm btn-danger" onClick={() => { deleteVisitor(visitor._id) }}><i className="bi bi-trash"></i></Link>
-                                                    <Link to={`/listvisitors/update/${visitor._id}`} className="btn btn-sm btn-primary my-1" value={visitor._id}><i className="bi bi-pencil"></i></Link>
+                                                    <Link to={`/updateVisitor/${visitor._id}`} className="btn btn-sm btn-primary my-1" value={visitor._id}><i className="bi bi-pencil"></i></Link>
                                                 </td> : ""}
                                         </tr>
                                     )
@@ -213,7 +213,7 @@ export const ListVisitorsAPI = () => {
                                             {localStorage.getItem('roleName') === 'Society Member' ?
                                                 <td>
                                                     <Link to="/listvisitors" className="btn btn-sm btn-danger" onClick={() => { deleteVisitor(visitor._id) }}><i className="bi bi-trash"></i></Link>
-                                                    <Link to={`/listvisitors/update/${visitor._id}`} className="btn btn-sm btn-primary my-1" value={visitor._id}><i className="bi bi-pencil"></i></Link>
+                                                    <Link to={`/updateVisitor/${visitor._id}`} className="btn btn-sm btn-primary my-1" value={visitor._id}><i className="bi bi-pencil"></i></Link>
                                                 </td> : ""}
                                         </tr>
                                     )
@@ -247,7 +247,7 @@ export const ListVisitorsAPI = () => {
                                                 {localStorage.getItem('roleName') === 'Society Member' ?
                                                     <td>
                                                         <Link to="/listvisitors" className="btn btn-sm btn-danger" onClick={() => { deleteVisitor(visitor._id) }}><i className="bi bi-trash"></i></Link>
-                                                        <Link to={`/listvisitors/update/${visitor._id}`} className="btn btn-sm btn-primary my-1" value={visitor._id}><i className="bi bi-pencil"></i></Link>
+                                                        <Link to={`/updateVisitor/${visitor._id}`} className="btn btn-sm btn-primary my-1" value={visitor._id}><i className="bi bi-pencil"></i></Link>
                                                     </td> : ""}
                                             </tr>
                                         )

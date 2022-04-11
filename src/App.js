@@ -37,7 +37,7 @@ import { ListDeliverablesAPI } from './components/ListDeliverablesAPI';
 import { useState } from 'react';
 import firebase, { auth, getToken1 } from "./components/Firebase"
 
- import {onMessageListener} from "./components/Firebase"
+import { onMessageListener } from "./components/Firebase"
 // import ReactNotificationComponent from './components/ReactNotification';
 // import Notifications from './components/Notification';
 //import { ToastContainer } from 'react-toastify/dist/components';
@@ -45,23 +45,23 @@ import firebase, { auth, getToken1 } from "./components/Firebase"
 
 function App() {
   const [show, setShow] = useState(false);
-  const [notification, setNotification] = useState({title: '', body: ''});
+  const [notification, setNotification] = useState({ title: '', body: '' });
 
   //keep track of whether we have access to the notifications or not:
-  
+
   const [isTokenFound, setTokenFound] = useState(false);
   getToken1(setTokenFound);
   console.log("isTokenfound :" + isTokenFound)
   console.log("settokenfound :" + setTokenFound)
 
-  
+
   //push notification code 
   onMessageListener().then(payload => {
     setShow(true);
-    setNotification({title: payload.notification.title, body: payload.notification.body})
+    setNotification({ title: payload.notification.title, body: payload.notification.body })
     console.log(payload);
   }).catch(err => console.log('failed: ', err));
-  
+
   // const [show, setShow] = useState(false);
   // const [notification, setNotification] = useState({ title: "hi", body: "" });
 
@@ -84,7 +84,7 @@ function App() {
 
       <Home />
       <div className="App">
-      {/* <Toast onClose={() => setShow(false)} show={show} delay={3000} autohide animation style={{
+        {/* <Toast onClose={() => setShow(false)} show={show} delay={3000} autohide animation style={{
           position: 'absolute',
           top: 20,
           right: 20,
@@ -103,8 +103,8 @@ function App() {
         </Toast>
  */}
 
-    </div>
-      
+      </div>
+
       {/* <RoleAPI />
       <ChildScheduleAPI />
       <VisitorCategoryAPI />
@@ -117,7 +117,7 @@ function App() {
       <HouseAPI />
       <UserAPI/> */}
 
-{/* <div>
+      {/* <div>
       {show ? (
         <ReactNotificationComponent
           title={notification.title}
@@ -135,29 +135,40 @@ function App() {
         <Route path="/about" element={<About />}></Route>
         {/* <Route path="/home" element={<Home />}></Route> */}
         <Route path="/login" element={<LoginForm />}></Route>
-      
+
         <Route path="/signup" element={<SignupForm />}></Route>
         <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
         <Route path="/services" element={<Services />}></Route>
+
         <Route path='/listmembers' element={<ListMembersAPI />}></Route>
+
         <Route path='/profile' element={<Profile />}></Route>
-        <Route path="/addvisitor" element={<VisitorForm />}></Route>
-        <Route path="/addvehicle" element={<VehicleForm />}></Route>
-        <Route path="/childschedule" element={<ChildScheduleForm />}></Route>
+
+        {localStorage.getItem("roleName") === "ADMIN" ? "" : <Route path="/addvisitor" element={<VisitorForm />}></Route>}
+
+        {localStorage.getItem("roleName") === "Society Member" || "Security Guard" ? "" : <Route path="/addvehicle" element={<VehicleForm />}></Route>}
+
+        {localStorage.getItem("roleName") !== "ADMIN" || "Security Guard" ? "" : <Route path="/childschedule" element={<ChildScheduleForm />}></Route>}
+
         <Route path='/listvisitors' element={<ListVisitorsAPI />}></Route>
+
         <Route path='/listguards' element={<ListGuardsAPI />}></Route>
-        <Route path='/listvisitors/update/:id' element={<UpdateVisitorForm />}></Route>
-        <Route path='/update/:id1/:id2' element={<UpdateForm />}></Route>
+
+        {localStorage.getItem('roleName') === 'Society Member' ? "" : <Route path='/updateVisitor/:id' element={<UpdateVisitorForm />}></Route>}
+
+        {localStorage.getItem('roleName') === 'Chairman' || localStorage.getItem('roleName') === 'ADMIN' ? "" : <Route path='/updateMember/:id1/:id2' element={<UpdateForm />}></Route>}
+
         <Route path='/listchildren' element={<ListChildrenAPI />}></Route>
-        <Route path='/listvehicles' element={<ListvehiclesAPI />}></Route>
-        <Route path='/listvehicles' element={<ListvehiclesAPI />}></Route>
+
+        {localStorage.getItem("roleName") === "Society Member" ? "" : <Route path='/listvehicles' element={<ListvehiclesAPI />}></Route>}
+
         <Route path='/listdeliverables' element={<ListDeliverablesAPI />}></Route>
         {/* <Route path='/sendmail' element={<SendMail/>}></Route> */}
 
       </Routes>
       <Footer />
 
-      {isTokenFound ? "Notification.permission   enabled" : "Need notification permission" }
+      {isTokenFound ? "Notification.permission   enabled" : "Need notification permission"}
 
 
     </div>

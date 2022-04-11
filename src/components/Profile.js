@@ -257,8 +257,9 @@ export const Profile = () => {
                                             </ul>
                                         </div>
                                     </div>
+
                                     <div className="col-md-2">
-                                        <Link className="profile-edit-btn" name="btnAddMore" to={`/update/${user._id}/${member._id}`}>Edit Profile</Link>
+                                        <Link className="profile-edit-btn" name="btnAddMore" to={`/updateMember/${user._id}/${member._id}`} onClick={localStorage.getItem('roleName') === 'Chairman' || localStorage.getItem('roleName') === 'ADMIN' ? "" : e => e.preventDefault()}>Edit Profile</Link>
                                     </div>
                                 </div>
                                 <div className="row">
