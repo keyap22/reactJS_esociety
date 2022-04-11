@@ -86,8 +86,8 @@ export const ListVisitorsAPI = () => {
         {({myVisitors} ==="") ? 
         <div className="container table-responsive-md" style={{ maxWidth: "1320px" }}>
             <div>
-                <button className="btn btn-warning my-2" onClick={() => exportPDF()}>Generate Report</button>
-                <button className="btn btn-warning my-2 mx-5" onClick={() => listPreSched()}>{isPreSched ? "Display all visitors" : "Display presch visitors"}</button>
+                <button className="btn-centre" style={{ marginLeft: "20px", width: "17%" }} onClick={() => exportPDF()}>Generate Report</button>
+                <button className="btn-centre my-2 mx-5" style={{ marginLeft: "80px", width: "17%" }} onClick={() => listPreSched()}>{isPreSched ? "Display all visitors" : "Display presch visitors"}</button>
 
 
                 <div className="input-group mb-3 ">
@@ -268,7 +268,8 @@ export const ListVisitorsAPI = () => {
          :
          <div className="container table-responsive-md" style={{ maxWidth: "1320px" }}>
          <div>
-             <button className="btn btn-warning my-2 mx-5" onClick={() => listPreSched()}>{isPreSched ? "Display all visitors" : "Display presch visitors"}</button>
+               
+             <button className="btn-centre my-2 mx-5" style={{ marginLeft: "80px", width: "17%" }} onClick={() => listPreSched()}>{isPreSched ? "Display all visitors" : "Display presch visitors"}</button>
 
 
              <div className="input-group mb-3 ">
