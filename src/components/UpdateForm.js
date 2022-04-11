@@ -437,7 +437,7 @@ export const UpdateForm = () => {
         //console.log(`role : ${role}`)
         //console.log(e.target)
         alert("Updated successfully!")
-        navigation('/listmembers')
+        navigation('/profile')
 
         //clearing out the details of the form after pressing submit button
         e.target.reset()
@@ -449,7 +449,7 @@ export const UpdateForm = () => {
 
             <div className='mycard my-5 '>
                 <div className="align-items-center">
-                    <form className="form-horizontal" align="center" id="signIn" onSubmit={submit} style={{ height: "550px" }}>
+                    <form className="form-horizontal" align="center" id="signIn" onSubmit={submit} style={{ height: "600px" }}>
 
                         <h3 className="align-title my-5"><strong>UPDATE DETAILS</strong></h3>
 

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import axios from 'axios'
 import { FadeLoader } from 'react-spinners'
+
 export const Profile = () => {
 
     var Counter = 0
@@ -108,6 +109,7 @@ export const Profile = () => {
 
         })
     }
+
     const logout = (e) => {
         e.preventDefault()
         localStorage.removeItem('email')
@@ -256,7 +258,7 @@ export const Profile = () => {
                                         </div>
                                     </div>
                                     <div className="col-md-2">
-                                        <input type="submit" className="profile-edit-btn" name="btnAddMore" value="Edit Profile" />
+                                        <Link className="profile-edit-btn" name="btnAddMore" to={`/update/${user._id}/${member._id}`}>Edit Profile</Link>
                                     </div>
                                 </div>
                                 <div className="row">
