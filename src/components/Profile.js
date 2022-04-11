@@ -15,6 +15,7 @@ export const Profile = () => {
     const [visitorList, setVisitorList] = useState([])
     var [counter, setCounter] = useState(0)
     const [isLoading, setIsLoading] = useState(true)
+    var [profilePhoto, setProfilePhoto] = useState('')
 
     var addattendance = true
     //const [guard, setGuard] = useState('')
@@ -207,6 +208,33 @@ export const Profile = () => {
 
     }
 
+    const editProfile = (e) => {
+        e.preventDefault()
+        alert("You don't have access to edit the details. Contact Admin or Chairman. Thank You.")
+    }
+
+    const profilePhotoHandler = (e) => {
+        console.log(e.target.files[0].name)
+        setProfilePhoto(e.target.files[0].name)
+
+        setImage()
+    }
+
+    const setImage = async () => {
+
+        var data = {
+            profilePhoto: profilePhoto
+        }
+
+        console.log("data : ", data)
+        if (profilePhoto !== "") {
+            console.log("put api request called")
+            await axios.put(`http://localhost:4000/changePhoto/` + user._id, data).then(res => {
+                console.log(res)
+            })
+        }
+    }
+
     return (
 
         <section id="services" className="services section-bg">
@@ -239,7 +267,8 @@ export const Profile = () => {
                                             <img src={user.profilePhoto} alt="" />
                                             <div className="file btn btn-lg btn-primary">
                                                 Change Photo
-                    <input type="file" name="file" />
+                    <input type="file" name="file" className="form-control-file" onChange={(e => { profilePhotoHandler(e) })} />
+
                                             </div>
                                         </div>
                                     </div>
@@ -264,9 +293,10 @@ export const Profile = () => {
                                         </div>
                                     </div>
 
-                                    {/* <div className="col-md-2">
-                                        <Link className="profile-edit-btn" name="btnAddMore" to={`/updateMember/${user._id}/${member._id}`} onClick={localStorage.getItem('roleName') === 'Chairman' || localStorage.getItem('roleName') === 'ADMIN' ? "" : e => e.preventDefault()}>Edit Profile</Link>
-                                    </div> */}
+                                    <div className="col-md-2">
+                                    <Link className="profile-edit-btn" name="btnAddMore" to={`/updateMember/${user._id}/${member._id}`}
+                                            onClick={localStorage.getItem('roleName') === 'Chairman' || localStorage.getItem('roleName') === 'ADMIN' ? "" : e => editProfile(e)}>Edit Profile</Link>
+                                    </div>
                                 </div>
                                 <div className="row">
                                     <div className="col-md-4">
