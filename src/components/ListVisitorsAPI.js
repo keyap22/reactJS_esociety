@@ -8,6 +8,7 @@ export const ListVisitorsAPI = () => {
     const [visitorList, setVisitorList] = useState([])
     const [search, setSearch] = useState('');
     var [isPreSched, setIsPreSched] = useState(false)
+    var [myVisitors, setmyVisitors]=useState([]);
 
     const deleteVisitor = (visitorID) => {
 
@@ -72,11 +73,17 @@ export const ListVisitorsAPI = () => {
     useEffect(() => {
         console.log("use effect hook implemented")
         getData()
+         var list = JSON.parse(localStorage.getItem('myVisitors'))
+         console.log(list)
+         setmyVisitors(list)
+         console.log(myVisitors)
+            
     }, [])
 
     var counter = 0
 
-    return (
+    return ( <div>
+        {({myVisitors} ==="") ? 
         <div className="container table-responsive-md" style={{ maxWidth: "1320px" }}>
             <div>
                 <button className="btn btn-warning my-2" onClick={() => exportPDF()}>Generate Report</button>
@@ -258,5 +265,170 @@ export const ListVisitorsAPI = () => {
                 </table>
             }
         </div>
+         :
+         <div className="container table-responsive-md" style={{ maxWidth: "1320px" }}>
+         <div>
+             <button className="btn btn-warning my-2 mx-5" onClick={() => listPreSched()}>{isPreSched ? "Display all visitors" : "Display presch visitors"}</button>
+
+
+             <div className="input-group mb-3 ">
+                 <span className="input-group-text my-3 ml-8" id="basic-addon1"><i className="bi bi-search " ></i></span>
+
+                 <input id="search" type="search" placeholder="Search" className="form-control col-md-3 my-3 ml-8" aria-label="Search" onChange={(e) => handleSearch(e)} />
+
+             </div>
+         </div>
+         {!isPreSched ?
+             <table className="table table-hover my-2">
+                 <thead className="table_head">
+                     <tr>
+                         <th scope="col" className=''>Sr. No.</th>
+                         <th scope="col">Visitor Name</th>
+                         <th scope="col">Date</th>
+                         <th scope="col">Entry Time</th>
+                         <th scope="col">Exit Time</th>
+                         <th scope="col">Allowed</th>
+                         <th scope="col">Prescheduled</th>
+                         <th scope="col">Image</th>
+                         <th scope="col">House</th>
+                         <th scope="col">Category</th>
+                         <th scope="col">Purpose</th>
+                         <th scope="col">Contact No.</th>
+                         
+                     </tr>
+                 </thead>
+                 <tbody>
+                     {search === "" ?
+                         myVisitors.map((visitor) => {
+                             console.log("search : " + search)
+                             counter += 1
+                             return (
+                                 <tr key={visitor._id}>
+                                     <th scope="row">{counter}</th>
+                                     <td>{visitor.visitorName}</td>
+                                     <td>{visitor.date}</td>
+                                     <td>{visitor.entryTime}</td>
+                                     <td>{visitor.exitTime}</td>
+                                     <td>{visitor.isAllowed ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
+                                     <td>{visitor.isPreScheduled ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
+                                     <td><img src={visitor.profilePhoto} style={{ height: "80px", width: "80px" }}></img></td>
+                                     <td>{visitor.house.houseTitle}</td>
+                                     <td>{visitor.visitorCategory.categoryName}</td>
+                                     <td>{visitor.purpose}</td>
+                                     <td>{visitor.mobileNo}</td>
+                                     
+                                 </tr>
+                             )
+                         }) :
+                         myVisitors.map((visitor) => {
+                             console.log("search : " + search)
+                             counter += 1
+                             console.log("filter")
+                             if ((visitor.visitorName).includes(search) || (visitor.date).includes(search) ||
+                                 (visitor.entryTime).includes(search) || (visitor.exitTime).includes(search) ||
+                                 (visitor.house.houseTitle).includes(search) || (visitor.visitorCategory.categoryName).includes(search)
+                                 || (visitor.purpose).includes(search) || (visitor.mobileNo).includes(search))
+
+                                 //(visitor.isAllowed).includes(search) || (visitor.isPreScheduled).includes(search) ||
+
+                                 return (
+                                     <tr key={visitor._id}>
+                                         <th scope="row">{counter}</th>
+                                         <td>{visitor.visitorName}</td>
+                                         <td>{visitor.date}</td>
+                                         <td>{visitor.entryTime}</td>
+                                         <td>{visitor.exitTime}</td>
+                                         <td>{visitor.isAllowed ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
+                                         <td>{visitor.isPreScheduled ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
+                                         <td><img src={visitor.profilePhoto} style={{ height: "80px", width: "80px" }}></img></td>
+                                         <td>{visitor.house.houseTitle}</td>
+                                         <td>{visitor.visitorCategory.categoryName}</td>
+                                         <td>{visitor.purpose}</td>
+                                         <td>{visitor.mobileNo}</td>
+                                         
+                                     </tr>
+                                 )
+                         })
+                     }
+                 </tbody>
+             </table> :
+
+             <table className="table table-hover my-2">
+                 <thead className="table_head">
+                     <tr>
+                         <th scope="col" className=''>Sr. No.</th>
+                         <th scope="col">Visitor Name</th>
+                         <th scope="col">Date</th>
+                         <th scope="col">Entry Time</th>
+                         <th scope="col">Exit Time</th>
+                         <th scope="col">Allowed</th>
+                         <th scope="col">Image</th>
+                         <th scope="col">House</th>
+                         <th scope="col">Category</th>
+                         <th scope="col">Purpose</th>
+                         <th scope="col">Contact No.</th>
+                         <th scope="col">Action</th>
+                     </tr>
+                 </thead>
+                 <tbody>
+                     {search === "" ?
+                         myVisitors.map((visitor) => {
+                             if (visitor.isPreScheduled === true) {
+                                 console.log("search : " + search)
+                                 counter += 1
+                                 return (
+                                     <tr key={visitor._id}>
+                                         <th scope="row">{counter}</th>
+                                         <td>{visitor.visitorName}</td>
+                                         <td>{visitor.date}</td>
+                                         <td>{visitor.entryTime}</td>
+                                         <td>{visitor.exitTime}</td>
+                                         <td>{visitor.isAllowed ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
+                                         <td><img src={visitor.profilePhoto} style={{ height: "80px", width: "80px" }}></img></td>
+                                         <td>{visitor.house.houseTitle}</td>
+                                         <td>{visitor.visitorCategory.categoryName}</td>
+                                         <td>{visitor.purpose}</td>
+                                         <td>{visitor.mobileNo}</td>
+                                         
+                                     </tr>
+                                 )
+                             }
+                         }) :
+                         myVisitors.map((visitor) => {
+                             if (visitor.isPreScheduled === true) {
+                                 console.log("search : " + search)
+                                 counter += 1
+                                 console.log("filter")
+                                 if ((visitor.visitorName).includes(search) || (visitor.date).includes(search) ||
+                                     (visitor.entryTime).includes(search) || (visitor.exitTime).includes(search) ||
+                                     (visitor.house.houseTitle).includes(search) || (visitor.visitorCategory.categoryName).includes(search)
+                                     || (visitor.purpose).includes(search) || (visitor.mobileNo).includes(search))
+
+                                     //(visitor.isAllowed).includes(search) || (visitor.isPreScheduled).includes(search) ||
+
+                                     return (
+                                         <tr key={visitor._id}>
+                                             <th scope="row">{counter}</th>
+                                             <td>{visitor.visitorName}</td>
+                                             <td>{visitor.date}</td>
+                                             <td>{visitor.entryTime}</td>
+                                             <td>{visitor.exitTime}</td>
+                                             <td>{visitor.isAllowed ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
+                                             <td><img src={visitor.profilePhoto} style={{ height: "80px", width: "80px" }}></img></td>
+                                             <td>{visitor.house.houseTitle}</td>
+                                             <td>{visitor.visitorCategory.categoryName}</td>
+                                             <td>{visitor.purpose}</td>
+                                             <td>{visitor.mobileNo}</td>
+                                             
+                                         </tr>
+                                     )
+                             }
+                         })
+                     }
+                 </tbody>
+             </table>
+         }
+     </div> }
+         </div>
     )
 }

@@ -37,7 +37,7 @@ export const Profile = () => {
         const timer = setTimeout(() => {
             setIsLoading(false)
             console.log('This will run after 1 second!')
-        }, 2000);
+        }, 3000);
         setemail(localStorage.getItem('email'))
         setRole(localStorage.getItem('role'))
         guardID = localStorage.getItem('guardID');
@@ -86,8 +86,9 @@ export const Profile = () => {
                 console.log("user by id response : ", res)
                 Member = res.data.data
             }).then(res => {
-                setMember(Member)
+                
                 console.log("Member data : ", Member)
+                setMember(Member)
                 console.log("useState Member data : ", member)
                 console.log(Member.house.houseTitle)
                 getVisitors(Member.house)
@@ -106,6 +107,10 @@ export const Profile = () => {
             //visitors = res.data.data
             setVisitorList(res.data.data)
             console.log(visitorList)
+            localStorage.setItem('myVisitors', JSON.stringify(visitorList));
+            console.log(localStorage.getItem('myVisitors'))
+            var myVisitors = JSON.parse(localStorage.getItem('myVisitors'))
+            console.log(myVisitors)
 
         })
     }
@@ -116,6 +121,7 @@ export const Profile = () => {
         localStorage.removeItem('role')
         localStorage.removeItem('roleName')
         localStorage.removeItem('userid')
+        localStorage.removeItem('myVisitors')
         getGuardAttendances()
         navigation('/login')
     }
@@ -258,9 +264,9 @@ export const Profile = () => {
                                         </div>
                                     </div>
 
-                                    <div className="col-md-2">
+                                    {/* <div className="col-md-2">
                                         <Link className="profile-edit-btn" name="btnAddMore" to={`/updateMember/${user._id}/${member._id}`} onClick={localStorage.getItem('roleName') === 'Chairman' || localStorage.getItem('roleName') === 'ADMIN' ? "" : e => e.preventDefault()}>Edit Profile</Link>
-                                    </div>
+                                    </div> */}
                                 </div>
                                 <div className="row">
                                     <div className="col-md-4">
