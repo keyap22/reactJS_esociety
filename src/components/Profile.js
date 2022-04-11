@@ -87,7 +87,7 @@ export const Profile = () => {
                 console.log("user by id response : ", res)
                 Member = res.data.data
             }).then(res => {
-                
+
                 console.log("Member data : ", Member)
                 setMember(Member)
                 console.log("useState Member data : ", member)
@@ -128,9 +128,9 @@ export const Profile = () => {
     }
 
 
-    const getGuardAttendances = () => {
+    const getGuardAttendances = async () => {
 
-        axios.get(`http://localhost:4000/guardAttendances/`).then(res => {
+        await axios.get(`http://localhost:4000/guardAttendances/`).then(res => {
             console.log("get guard attendances response : " + res)
             guardAttendanceList = res.data.data
             setGuardAttendanceList(guardAttendanceList)
@@ -213,13 +213,6 @@ export const Profile = () => {
         alert("You don't have access to edit the details. Contact Admin or Chairman. Thank You.")
     }
 
-    const profilePhotoHandler = (e) => {
-        console.log(e.target.files[0].name)
-        setProfilePhoto(e.target.files[0].name)
-
-        setImage()
-    }
-
     const setImage = async () => {
 
         var data = {
@@ -231,8 +224,10 @@ export const Profile = () => {
             console.log("put api request called")
             await axios.put(`http://localhost:4000/changePhoto/` + user._id, data).then(res => {
                 console.log(res)
+                
             })
         }
+        navigation('/profile')
     }
 
     return (
@@ -267,7 +262,7 @@ export const Profile = () => {
                                             <img src={user.profilePhoto} alt="" />
                                             <div className="file btn btn-lg btn-primary">
                                                 Change Photo
-                    <input type="file" name="file" className="form-control-file" onChange={(e => { profilePhotoHandler(e) })} />
+                    <input type="file" name="file" className="form-control-file" onChange={(e => { setProfilePhoto(e.target.files[0].name) })} onClick={setImage()} />
 
                                             </div>
                                         </div>
@@ -294,7 +289,7 @@ export const Profile = () => {
                                     </div>
 
                                     <div className="col-md-2">
-                                    <Link className="profile-edit-btn" name="btnAddMore" to={`/updateMember/${user._id}/${member._id}`}
+                                        <Link className="profile-edit-btn" name="btnAddMore" to={`/updateMember/${user._id}/${member._id}`}
                                             onClick={localStorage.getItem('roleName') === 'Chairman' || localStorage.getItem('roleName') === 'ADMIN' ? "" : e => editProfile(e)}>Edit Profile</Link>
                                     </div>
                                 </div>
