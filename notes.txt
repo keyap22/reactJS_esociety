@@ -19,6 +19,8 @@ as of now ,commented 'required' in model
 
 - contact form integrate
 
+- profile : change photo, edit profile
+
 SITE KEY - 6Ldw7j8fAAAAAH-bGG_ubTRvVFwXh5zpryvfTgwy - used in the client
 SECRET KEY - 6Ldw7j8fAAAAAJ8DclrU1CAsY_o7dXR7fJqX0jtl - used in the backend
 
