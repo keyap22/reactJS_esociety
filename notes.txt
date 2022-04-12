@@ -10,7 +10,7 @@ Tasks -
 
 - add validations in form(signup) - length, required, unique(as mentioned in model) - contact no.
 
-- search by age in member list, isAllowed/isPrescheduled in visitor list
+- isAllowed in visitor list
 
 - add field named addedBy in visitors model :
 added in post,get api : update api required ?

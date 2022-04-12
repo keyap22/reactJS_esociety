@@ -68,14 +68,22 @@ export const ListDeliverablesAPI = () => {
 
     const getData = () => {
 
-        var data = {
-            house: localStorage.getItem("house")
+        if (localStorage.getItem("roleName") === "Society Member") {
+            var data = {
+                house: localStorage.getItem("house")
+            }
+            console.log("house data : ", data)
+            axios.post("http://localhost:4000/findDeliverable/", data).then(res => {
+                console.log(res.data.data)
+                setdeliverablesList(res.data.data)
+            })
         }
-        console.log("house data : ", data)
-        axios.post("http://localhost:4000/findDeliverable/", data).then(res => {
-            console.log(res.data.data)
-            setdeliverablesList(res.data.data)
-        })
+        else {
+            axios.get('http://localhost:4000/deliverables/').then(res => {
+                console.log(res)
+                setdeliverablesList(res.data.data)
+            })
+        }
     }
 
     useEffect(() => {
@@ -128,7 +136,6 @@ export const ListDeliverablesAPI = () => {
                                 counter += 1
                                 return (
                                     <tr key={deliverables._id}>
-                                        {/* <th scope="row">{member.user.firstName}</th> */}
                                         <th scope="row">{counter}</th>
                                         <td>{deliverables.house.houseTitle}</td>
                                         <td>{deliverables.date}</td>
@@ -146,11 +153,9 @@ export const ListDeliverablesAPI = () => {
                                 console.log("filter")
                                 if ((deliverables.house.houseTitle).includes(search) || (deliverables.date).includes(search)) {
 
-                                    //|| (deliverables.ispickup).includes(search)
                                     console.log("search : " + search)
                                     return (
                                         <tr key={deliverables._id}>
-                                            {/* <th scope="row">{member.user.firstName}</th> */}
                                             <th scope="row">{counter}</th>
                                             <td>{deliverables.house.houseTitle}</td>
                                             <td>{deliverables.date}</td>

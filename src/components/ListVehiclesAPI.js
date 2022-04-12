@@ -61,7 +61,6 @@ export const ListvehiclesAPI = () => {
                             counter += 1
                             return (
                                 <tr key={vehicle._id}>
-                                    {/* <th scope="row">{member.user.firstName}</th> */}
                                     <th scope="row">{counter}</th>
                                     <td>{vehicle.user.firstName + " " + vehicle.user.lastName}</td>
                                     <td>{vehicle.vehicleNo}</td>
@@ -87,7 +86,6 @@ export const ListvehiclesAPI = () => {
 
                                 return (
                                     <tr key={vehicle._id}>
-                                        {/* <th scope="row">{member.user.firstName}</th> */}
                                         <th scope="row">{counter}</th>
                                         <td>{vehicle.user.firstName + " " + vehicle.user.lastName}</td>
                                         <td>{vehicle.vehicleNo}</td>
