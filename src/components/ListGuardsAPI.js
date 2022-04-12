@@ -236,8 +236,8 @@ export const ListGuardsAPI = () => {
                     <div className='mycard my-5 '>
                         <div className="align-items-center">
 
-                            <div className="form-horizontal" align="center" style={{ width: "500px", height: "500px", overflowY: "scroll" }} >
-                                <h3><Link to="/listguards" onClick={(e) => { setGuardSelected(false) }} style={{ marginLeft: "400px" }}><i className="bi bi-x-square mr-5"  ></i>
+                            <div className="form-horizontal" align="center" style={{ width: "500px", height: "500px", overflowY: "scroll", overflowX:"hidden" }} >
+                                <h3><Link to="/listguards" onClick={(e) => { setGuardSelected(false) }} style={{ marginLeft: "400px" , color:"red" }}><i className="bi bi-x-square mr-5"  ></i>
                                 </Link></h3>
 
                                 <h3 className="align-title my-5"><strong>Detailed Attendance</strong>
