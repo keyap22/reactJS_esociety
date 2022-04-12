@@ -237,10 +237,13 @@ export const ListGuardsAPI = () => {
                         <div className="align-items-center">
 
                             <div className="form-horizontal" align="center" style={{ height: "380px" }} >
+                            
 
-                                <h3 className="align-title my-5"><strong>Detailed Attendance</strong></h3>
-                                <div className="form-row"></div>
-
+                                <h3 className="align-title my-5"><strong>Detailed Attendance</strong>
+                                <Link to="/listguards" onClick={(e)=>{setGuardSelected(false)}}><i className="bi bi-x-square mr-5"  ></i>
+                                </Link>
+                                </h3>
+                               
 
 
 
@@ -248,46 +251,31 @@ export const ListGuardsAPI = () => {
                         <thead className="table_head">
                             <tr>
                                 <th scope="col" className=''>Sr. No.</th>
-                                <th scope="col">Date</th>
+                                <th scope="col">Present on</th>
                                
-                                <th scope="col">Attendance</th>
+                                
                                 
                             </tr>
                         </thead>
 
                         <tbody>
 
-                            {search === "" ?
+                            {
                                 guardAttendance.map((guard) => {
                                     counter += 1
-                                    console.log("search : " + search)
+                                   
                                     return (
                                         <tr key={guard._id} >
                                             <th scope="row">{counter}</th>
                                             <td>{guard.date}</td>
-                                            <td>{guard.isPresent}</td>
-                                            
+                                          
                                             
                                         </tr>
                                     )
-                                }) : guardAttendance.map((guard) => {
-                                    counter += 1
-                                    console.log("filter")
-                                    if ((guard.date).includes(search) ) {
-
-                                        console.log("search : " + search)
-                                        return (
-                                            <tr key={guard._id}>
-                                                <th scope="row">{counter}</th>
-                                                <td>{guard.date}</td>
-                                                <td>{guard.isPresent ? "Present" : <i className="bi bi-x-lg"></i>}</td>
-                                                
-                                                
-                                            </tr>
-                                        )
-                                    }
+                               
                                 })
                             }
+                           
                         </tbody>
                     </table>
 
