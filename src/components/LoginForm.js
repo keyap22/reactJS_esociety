@@ -68,6 +68,8 @@ export const LoginForm = () => {
 
     //find particular guard using userID
     const postSecurityGuard = async () => {
+        
+        console.log("inside post securiity guard")
 
         var formData = {
             user: userId
@@ -113,7 +115,7 @@ export const LoginForm = () => {
                     localStorage.setItem("userid", userId)
                     console.log("-================----" + role)
 
-                    navigation('/profile')
+                    
 
                     if (role === "620c88535e051978662b0379") {
 
@@ -121,6 +123,7 @@ export const LoginForm = () => {
                         postSecurityGuard()
                         navigation('/profile')
                     }
+                    navigation('/profile')
                 }
                 else {
                     JSON.parse(localStorage.getItem("email"))

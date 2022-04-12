@@ -16,6 +16,7 @@ export const Profile = () => {
     var [counter, setCounter] = useState(0)
     const [isLoading, setIsLoading] = useState(true)
     var [profilePhoto, setProfilePhoto] = useState('')
+    const [guardDetails,setGuardDetails] = useState('')
 
     var addattendance = true
     //const [guard, setGuard] = useState('')
@@ -72,6 +73,7 @@ export const Profile = () => {
             console.log(":in if ")
             getMemberByUser(userid)
         }
+        
 
     }
 
@@ -136,9 +138,23 @@ export const Profile = () => {
             setGuardAttendanceList(guardAttendanceList)
             //console.log("guard id via response : ", res.data.data.guard)
             console.log("guard id via local storage : ", guardID)
+            getGuardDetails(localStorage.getItem('guardID'))
             console.log("guard attendance list : ", guardAttendanceList)
             countAttendance()
         })
+    }
+
+    const getGuardDetails = async (id)=>
+    {
+        console.log(id)
+        await axios.get(`http://localhost:4000/guards/` + id).then(res => {
+            console.log("get guard attendances response : " + res)
+            const details = res.data.data;
+            setGuardDetails(details)
+            
+    })
+    
+    console.log(guardDetails)
     }
 
     const countAttendance = () => {
@@ -367,12 +383,12 @@ export const Profile = () => {
                                             </div>
                                             <div className="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                                 {/* {localStorage.getItem('roleName') === 'Chairman' || localStorage.getItem('roleName') === 'Society Member' ?  */}
-                                                <div className="row">
+                                                {/* <div className="row">
                                                     <div className="col-md-6">
                                                         <label>Visitor Name</label>
                                                     </div>
                                                     <div className="col-md-6">
-                                                        {/* <p>{visitorList[0].visitorName}</p> */}
+                                                       
                                                     </div>
                                                 </div>
 
@@ -381,7 +397,7 @@ export const Profile = () => {
                                                         <label>Purpose</label>
                                                     </div>
                                                     <div className="col-md-6">
-                                                        {/* <p>{visitorList[0].purpose}</p> */}
+                                                        
                                                     </div>
                                                 </div>
                                                 <div className="row">
@@ -389,8 +405,7 @@ export const Profile = () => {
                                                         <label>Contact Number</label>
                                                     </div>
                                                     <div className="col-md-6">
-                                                        {/* <p>{visitorList[0].mobileNo}</p> */}
-                                                    </div>
+                                                       </div>
                                                 </div>
 
                                                 <div className="row">
@@ -398,7 +413,7 @@ export const Profile = () => {
                                                         <label>Date</label>
                                                     </div>
                                                     <div className="col-md-6">
-                                                        {/* <p>{visitorList[0].date}</p> */}
+                                                        
                                                     </div>
                                                 </div>
 
@@ -407,8 +422,23 @@ export const Profile = () => {
                                                         <label>Your Visitor List</label><br />
                                                         <p>More detail description</p>
                                                     </div>
+                                                </div> */}
+                                              {/* : <></> }  */}
+                                              {localStorage.getItem('roleName')==='Security Guard'?
+                                              <div className="row">
+                                                    <div className="col-md-6">
+                                                        <label>Schedule Time</label>
+                                                    </div>
+                                                    <div className="col-md-6">
+                                                        <p>{guardDetails.scheduleTime}</p>
+                                                    </div>
                                                 </div>
-                                            //  : <></> } 
+                                              :
+                                              <></>
+                                              
+                                              
+                                              
+                                              }
                                             </div>
                                         </div>
                                     </div>
