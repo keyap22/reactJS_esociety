@@ -5,12 +5,13 @@ show house specific records - check
 accept or reject runtime visitor
 in sorting after performing asc/desc, if we do desc/asc then it won't work
 are you sure you want to delete? alert box
+add close button in listguards when displaying detailed attendance(card), add tick symbol in attendance 
+
+
 
 Tasks -
 
 - add validations in form(signup) - length, required, unique(as mentioned in model) - contact no.
-
-- isAllowed in visitor list
 
 - add field named addedBy in visitors model :
 added in post,get api : update api required ?

@@ -16,7 +16,7 @@ export const Profile = () => {
     var [counter, setCounter] = useState(0)
     const [isLoading, setIsLoading] = useState(true)
     var [profilePhoto, setProfilePhoto] = useState('')
-    const [guardDetails,setGuardDetails] = useState('')
+    const [guardDetails, setGuardDetails] = useState('')
 
     var addattendance = true
     //const [guard, setGuard] = useState('')
@@ -73,7 +73,7 @@ export const Profile = () => {
             console.log(":in if ")
             getMemberByUser(userid)
         }
-        
+
 
     }
 
@@ -144,17 +144,16 @@ export const Profile = () => {
         })
     }
 
-    const getGuardDetails = async (id)=>
-    {
+    const getGuardDetails = async (id) => {
         console.log(id)
         await axios.get(`http://localhost:4000/guards/` + id).then(res => {
             console.log("get guard attendances response : " + res)
             const details = res.data.data;
             setGuardDetails(details)
-            
-    })
-    
-    console.log(guardDetails)
+
+        })
+
+        console.log(guardDetails)
     }
 
     const countAttendance = () => {
@@ -240,12 +239,12 @@ export const Profile = () => {
             console.log("put api request called")
             await axios.put(`http://localhost:4000/changePhoto/` + user._id, data).then(res => {
                 console.log(res)
-                if(res.data.status === 200){
+                if (res.data.status === 200) {
                     navigation('/profile')
                 }
 
             })
-        } 
+        }
     }
 
     return (
@@ -263,13 +262,6 @@ export const Profile = () => {
                         {
                             email ? isLogin = true : isLogin = false
                         }
-                        {
-                            role === "620c88535e051978662b0379" ? <h2>Security guard attendance - {counter}</h2> : ""
-                        }
-                        {
-                            role === "620c88535e051978662b0379" ? <input type="button" className='btn-centre ml-5 mr-6' style={{ width: "15%" }} value="Add Attendance" onClick={AddAttendance} /> : ""
-                        }
-
                     </div>
                     {isLogin === true ?
                         <div className="container emp-profile">
@@ -314,7 +306,14 @@ export const Profile = () => {
                                 <div className="row">
                                     <div className="col-md-4">
                                         <div className="profile-work">
-                                            <input type="button" style={{ marginLeft: "80px", width: "50%" }} className={isLogin ? 'btn-centre' : "btn btn-primary hidden"} value="Logout" onClick={logout} />
+
+                                            {localStorage.getItem("roleName") === "Security Guard" ?
+                                                <input type="button" className='btn-centre ml-5 mr-6 my-3' style={{ width: "65%" }} value="Add Attendance" onClick={AddAttendance} />
+                                                : ""
+                                            }
+
+                                            <input type="button" style={{ marginLeft: "65px", width: "50%" }} className={isLogin ? 'btn-centre' : "btn btn-primary hidden"} value="Logout" onClick={logout} />
+
                                             {/* <p>WORK LINK</p>
                                 <a href="">Website Link</a><br />
                                 <a href="">Bootsnipp Profile</a><br />
@@ -423,22 +422,35 @@ export const Profile = () => {
                                                         <p>More detail description</p>
                                                     </div>
                                                 </div> */}
-                                              {/* : <></> }  */}
-                                              {localStorage.getItem('roleName')==='Security Guard'?
-                                              <div className="row">
-                                                    <div className="col-md-6">
-                                                        <label>Schedule Time</label>
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <p>{guardDetails.scheduleTime}</p>
-                                                    </div>
-                                                </div>
-                                              :
-                                              <></>
-                                              
-                                              
-                                              
-                                              }
+                                                {/* : <></> }  */}
+                                                {localStorage.getItem('roleName') === 'Security Guard' ?
+                                                    <>
+                                                        <div className="row">
+                                                            <div className="col-md-6">
+                                                                <label>Schedule Time</label>
+                                                            </div>
+                                                            <div className="col-md-6">
+                                                                <p>{guardDetails.scheduleTime}</p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div className="row">
+                                                            <div className="col-md-6">
+                                                                <label>Total Attendance Count</label>
+                                                            </div>
+                                                            <div className="col-md-6">
+                                                                <p>{counter}</p>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </>
+                                                    :
+                                                    <></>
+
+
+
+                                                }
                                             </div>
                                         </div>
                                     </div>
