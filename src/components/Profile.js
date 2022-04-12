@@ -93,7 +93,7 @@ export const Profile = () => {
                 console.log("useState Member data : ", member)
                 console.log(Member.house.houseTitle)
                 getVisitors(Member.house)
-
+                localStorage.setItem("house", Member.house._id)
             })
 
         }

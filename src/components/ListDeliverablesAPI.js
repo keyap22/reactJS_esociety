@@ -5,12 +5,10 @@ import { Link } from 'react-router-dom'
 export const ListDeliverablesAPI = () => {
     const [deliverablesList, setdeliverablesList] = useState([])
     const [search, setSearch] = useState('');
-    const [sortedField, setSortedField] = useState('');
     const [SortedData, setSortedData] = useState('');
     var sortedData = ""
     var direction = 'ascending'
-
-    //let sortedDeliverablesList = deliverablesList;
+    var counter = 0
 
     const sortDate = (e, direction) => {
         sortedData = deliverablesList
@@ -69,7 +67,12 @@ export const ListDeliverablesAPI = () => {
     }
 
     const getData = () => {
-        axios.get("http://localhost:4000/deliverables/").then(res => {
+
+        var data = {
+            house: localStorage.getItem("house")
+        }
+        console.log("house data : ", data)
+        axios.post("http://localhost:4000/findDeliverable/", data).then(res => {
             console.log(res.data.data)
             setdeliverablesList(res.data.data)
         })
@@ -93,8 +96,6 @@ export const ListDeliverablesAPI = () => {
             alert("Record deleted successfully!")
         })
     }
-
-    var counter = 0
 
     return (
         <div className="container table-responsive-md ">

@@ -7,14 +7,19 @@ export const ListChildrenAPI = () => {
     const [search, setSearch] = useState('');
 
     const getData = () => {
-        axios.get("http://localhost:4000/childSchedules/").then(res => {
+
+        var data = {
+            house: localStorage.getItem("house")
+        }
+
+        console.log("house data : ", data)
+        axios.post("http://localhost:4000/findChild/", data).then(res => {
             console.log(res.data.data)
             setchildrenList(res.data.data)
         })
     }
 
     useEffect(() => {
-        console.log("use effect hook implemented")
         getData()
     }, [])
 
@@ -53,8 +58,8 @@ export const ListChildrenAPI = () => {
                         <th scope="col">House Title</th>
                         <th scope="col">Allowed Time</th>
                         <th scope="col">Profile Photo</th>
-                        {localStorage.getItem('roleName') ==='Society Member' ?
-                        <th scope="col">Action</th> : ""}
+                        {localStorage.getItem('roleName') === 'Society Member' ?
+                            <th scope="col">Action</th> : ""}
                     </tr>
                 </thead>
                 <tbody>
@@ -65,7 +70,6 @@ export const ListChildrenAPI = () => {
                                 console.log("search : " + search)
                                 return (
                                     <tr key={child._id}>
-                                        {/* <th scope="row">{member.user.firstName}</th> */}
                                         <th scope="row">{counter}</th>
                                         <td>{child.childName}</td>
                                         <td>{child.age}</td>
@@ -74,11 +78,11 @@ export const ListChildrenAPI = () => {
                                         <td>{child.house.houseTitle}</td>
                                         <td>{child.allowedStartingTime + " - " + child.allowedEndingTime}</td>
                                         <td><img src={child.profilePhoto} alt="No image" style={{ height: "80px", width: "80px" }}></img></td>
-                                        {localStorage.getItem('roleName') ==='Society Member' ?
-                                        <td>
-                                            <Link to="/listchildren" className="btn btn-sm btn-danger mx-1" onClick={() => { deleteChild(child._id) }}><i className="bi bi-trash"></i></Link>
-                                            <Link to={`/listchildren/update/${child._id}`} className="btn btn-sm btn-primary" value={child._id}><i className="bi bi-pencil"></i></Link>
-                                        </td> : ""}
+                                        {localStorage.getItem('roleName') === 'Society Member' ?
+                                            <td>
+                                                <Link to="/listchildren" className="btn btn-sm btn-danger mx-1" onClick={() => { deleteChild(child._id) }}><i className="bi bi-trash"></i></Link>
+                                                <Link to={`/listchildren/update/${child._id}`} className="btn btn-sm btn-primary" value={child._id}><i className="bi bi-pencil"></i></Link>
+                                            </td> : ""}
                                     </tr>
                                 )
                             }) :
@@ -86,14 +90,13 @@ export const ListChildrenAPI = () => {
                                 counter += 1
                                 console.log("filter")
                                 if ((child.house.houseTitle).includes(search) || (child.childName).includes(search) ||
-                                 (child.contactName).includes(search) || (child.contactNo).includes(search)
-                                || (child.allowedStartingTime).includes(search) || (child.allowedEndingTime).includes(search)) {
+                                    (child.contactName).includes(search) || (child.contactNo).includes(search)
+                                    || (child.allowedStartingTime).includes(search) || (child.allowedEndingTime).includes(search)) {
 
                                     //|| (child.age).includes(search) || (counter).includes(search)
                                     console.log("search : " + search)
                                     return (
                                         <tr key={child._id}>
-                                            {/* <th scope="row">{member.user.firstName}</th> */}
                                             <th scope="row">{counter}</th>
                                             <td>{child.childName}</td>
                                             <td>{child.age}</td>
@@ -102,11 +105,11 @@ export const ListChildrenAPI = () => {
                                             <td>{child.house.houseTitle}</td>
                                             <td>{child.allowedStartingTime + " - " + child.allowedEndingTime}</td>
                                             <td><img src={child.profilePhoto} alt="No image" style={{ height: "80px", width: "80px" }}></img></td>
-                                            {localStorage.getItem('roleName') ==='Society Member' ?
-                                            <td>
-                                                <Link to="/listchildren" className="btn btn-sm btn-danger mx-1" onClick={() => { deleteChild(child._id) }}><i className="bi bi-trash"></i></Link>
-                                                <Link to={`/listchildren/update/${child._id}`} className="btn btn-sm btn-primary" value={child._id}><i className="bi bi-pencil"></i></Link>
-                                            </td> : ""}
+                                            {localStorage.getItem('roleName') === 'Society Member' ?
+                                                <td>
+                                                    <Link to="/listchildren" className="btn btn-sm btn-danger mx-1" onClick={() => { deleteChild(child._id) }}><i className="bi bi-trash"></i></Link>
+                                                    <Link to={`/listchildren/update/${child._id}`} className="btn btn-sm btn-primary" value={child._id}><i className="bi bi-pencil"></i></Link>
+                                                </td> : ""}
                                         </tr>
                                     )
                                 }

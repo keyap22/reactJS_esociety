@@ -1,9 +1,10 @@
 imp tasks -
 email verification for reset password
 security guard list(display specific guard all attendance record)
-show house specific records
+show house specific records - check
 accept or reject runtime visitor
 in sorting after performing asc/desc, if we do desc/asc then it won't work
+are you sure you want to delete? alert box
 
 Tasks -
 
