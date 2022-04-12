@@ -56,10 +56,19 @@ export const ListVisitorsAPI = () => {
         const title = "Visitor Report";
         const headers = [["Sr. No.", "Visitor Name", "Date", "Entry Time", "Exit Time", "Allowed", "Prescheduled", "Image", "House", "Category"
             , "Purpose", "Contact No."]];
-
-        const data = visitorList.map(visitor => [counter, visitor.visitorName, visitor.date, visitor.entryTime, visitor.exitTime,
+            var data=""
+if(myVisitors==="")
+{
+         data = visitorList.map(visitor => [counter, visitor.visitorName, visitor.date, visitor.entryTime, visitor.exitTime,
             visitor.isAllowed, visitor.isPreScheduled, visitor.profilePhoto, visitor.house.houseTitle, visitor.visitorCategory.categoryName,
             visitor.purpose, visitor.mobileNo], counter = counter + 1);
+        }
+        else{
+             data = myVisitors.map(visitor => [counter, visitor.visitorName, visitor.date, visitor.entryTime, visitor.exitTime,
+                visitor.isAllowed, visitor.isPreScheduled, visitor.profilePhoto, visitor.house.houseTitle, visitor.visitorCategory.categoryName,
+                visitor.purpose, visitor.mobileNo], counter = counter + 1);
+           
+        }
 
         let content = {
             startY: 50,
@@ -120,7 +129,8 @@ export const ListVisitorsAPI = () => {
         console.log("sorted data : ", sortedData)
     }
 
-    return (<div>
+    return (
+    <div>
         {({ myVisitors } === "") ?
             <div className="container table-responsive-md" style={{ maxWidth: "1320px" }}>
                 <div>
@@ -365,7 +375,8 @@ export const ListVisitorsAPI = () => {
             :
             <div className="container table-responsive-md" style={{ maxWidth: "1320px" }}>
                 <div>
-
+                <button className="btn-centre" style={{ marginLeft: "20px", width: "17%" }} onClick={() => exportPDF()}>Generate Report</button>
+                   
                     <button className="btn-centre my-2 mx-5" style={{ marginLeft: "80px", width: "17%" }} onClick={() => listPreSched()}>{isPreSched ? "Display all visitors" : "Display presch visitors"}</button>
 
 
