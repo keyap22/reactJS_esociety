@@ -6,22 +6,66 @@ export const ListDeliverablesAPI = () => {
     const [deliverablesList, setdeliverablesList] = useState([])
     const [search, setSearch] = useState('');
     const [sortedField, setSortedField] = useState('');
+    const [SortedData, setSortedData] = useState('');
+    var sortedData = ""
+    var direction = 'ascending'
 
-    let sortedDeliverablesList = [...deliverablesList];
+    //let sortedDeliverablesList = deliverablesList;
 
-    if (sortedField !== null) {
-        sortedDeliverablesList.sort((a, b) => {
-            console.log("field called : ", sortedField)
-            if (a[sortedField] < b[sortedField]) {
-                console.log(b[sortedField])
-                return -1;
+    const sortDate = (e, direction) => {
+        sortedData = deliverablesList
+        sortedData.sort((a, b) => {
+
+            if (a.date < b.date) {
+                return direction === 'ascending' ? -1 : 1;
+                //return -1;
             }
-            if (a[sortedField] > b[sortedField]) {
-                console.log(a[sortedField])
-                return 1;
+            if (a.date > b.date) {
+                return direction === 'ascending' ? 1 : -1;
+                //return 1;
             }
             return 0;
         });
+        setSortedData(sortedData)
+        console.log("sorted data : ", sortedData)
+    }
+
+    const sortHouse = (e, direction) => {
+        sortedData = deliverablesList
+        sortedData.sort((a, b) => {
+
+            if (a.house.houseTitle < b.house.houseTitle) {
+                return direction === 'ascending' ? -1 : 1;
+                //return -1;
+            }
+            if (a.house.houseTitle > b.house.houseTitle) {
+                return direction === 'ascending' ? 1 : -1;
+                //return 1;
+            }
+            return 0;
+        });
+        setSortedData(sortedData)
+        console.log("sorted data : ", sortedData)
+
+    }
+
+    const sortIspickup = (e, direction) => {
+        sortedData = deliverablesList
+        sortedData.sort((a, b) => {
+
+            if (a.isPickup < b.isPickup) {
+                return direction === 'ascending' ? -1 : 1;
+                //return -1;
+            }
+            if (a.isPickup > b.isPickup) {
+                return direction === 'ascending' ? 1 : -1;
+                //return 1;
+            }
+            return 0;
+        });
+        setSortedData(sortedData)
+        console.log("sorted data : ", sortedData)
+
     }
 
     const getData = () => {
@@ -32,7 +76,6 @@ export const ListDeliverablesAPI = () => {
     }
 
     useEffect(() => {
-        console.log("use effect hook implemented")
         getData()
     }, [])
 
@@ -68,16 +111,16 @@ export const ListDeliverablesAPI = () => {
                 <thead className="table_head">
                     <tr>
                         <th scope="col" className=''>Sr. No.</th>
-                        <th scope="col" onClick={() => setSortedField('house.houseTitle')}>House Title</th>
-                        <th scope="col" onClick={() => setSortedField('date')}>Date</th>
-                        <th scope="col" onClick={() => setSortedField('isPickup')}>Pick Up</th>
+                        <th scope="col">House Title<i className="bi bi-arrow-down" onClick={(e) => sortHouse(e, "ascending")}></i><i className="bi bi-arrow-up" onClick={(e) => sortHouse(e, "descending")}></i></th>
+                        <th scope="col">Date <i className="bi bi-arrow-down" onClick={(e) => sortDate(e, "ascending")}></i><i className="bi bi-arrow-up" onClick={(e) => sortDate(e, "descending")}></i></th>
+                        <th scope="col">Pick Up <i className="bi bi-arrow-down" onClick={(e) => sortIspickup(e, "ascending")}></i><i className="bi bi-arrow-up" onClick={(e) => sortIspickup(e, "descending")}></i></th>
                         {localStorage.getItem('roleName') === 'Society Member' ?
                             <th scope="col">Action</th> : ""}
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        search === "" ?
+                        search === "" || SortedData === "" ?
 
                             deliverablesList.map((deliverables) => {
                                 console.log("search : " + search)
@@ -91,7 +134,7 @@ export const ListDeliverablesAPI = () => {
                                         <td>{deliverables.isPickup ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
                                         {localStorage.getItem('roleName') === 'Society Member' ?
                                             <td>
-                                                <Link to="/listdeliverables" className="btn btn-sm btn-danger" onClick={() => { deleteDeliverable(deliverables._id) }}><i className="bi bi-trash"></i></Link>
+                                                <Link to="/listdeliverables" className="btn btn-sm btn-danger mx-2" onClick={() => { deleteDeliverable(deliverables._id) }}><i className="bi bi-trash"></i></Link>
                                                 <Link to={`/update/${deliverables._id}`} className="btn btn-sm btn-primary my-1" value={deliverables._id}><i className="bi bi-pencil"></i></Link>
                                             </td> : ""}
                                     </tr>
@@ -113,11 +156,35 @@ export const ListDeliverablesAPI = () => {
                                             <td>{deliverables.ispickup ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
                                             {localStorage.getItem('roleName') === 'Society Member' ?
                                                 <td>
-                                                    <Link to="/listdeliverables" className="btn btn-sm btn-danger" onClick={() => { deleteDeliverable(deliverables._id) }}><i className="bi bi-trash"></i></Link>
+                                                    <Link to="/listdeliverables" className="btn btn-sm btn-danger mx-2" onClick={() => { deleteDeliverable(deliverables._id) }}><i className="bi bi-trash"></i></Link>
                                                     <Link to={`/update/${deliverables._id}`} className="btn btn-sm btn-primary my-1" value={deliverables._id}><i className="bi bi-pencil"></i></Link>
                                                 </td> : ""}
                                         </tr>
                                     )
+                                }
+                                else if (SortedData !== "") {
+                                    counter += 1
+                                    console.log("sorted data")
+                                    SortedData.map((sortedDeliverable) => {
+                                        console.log("sorted member : " + sortedDeliverable)
+                                        return (
+                                            <tr key={sortedDeliverable._id}>
+                                                {/* <th scope="row">{member.user.firstName}</th> */}
+                                                <th scope="row">{counter}</th>
+                                                <td>{sortedDeliverable.house.houseTitle}</td>
+                                                <td>{sortedDeliverable.date}</td>
+                                                <td>{sortedDeliverable.ispickup ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
+                                                {localStorage.getItem('roleName') === 'Society Member' ?
+                                                    <td>
+                                                        <Link to="/listdeliverables" className="btn btn-sm btn-danger mx-2" onClick={() => { deleteDeliverable(sortedDeliverable._id) }}><i className="bi bi-trash"></i></Link>
+                                                        <Link to={`/update/${sortedDeliverable._id}`} className="btn btn-sm btn-primary my-1" value={sortedDeliverable._id}><i className="bi bi-pencil"></i></Link>
+                                                    </td> : ""}
+                                            </tr>
+                                        )
+                                    })
+                                }
+                                else {
+                                    // return(<tr>No data found</tr>)
                                 }
                             })
                     }

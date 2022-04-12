@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom'
 
 export const ListMembersAPI = () => {
     const [memberList, setmemberList] = useState([])
-    const [sortedField, setSortedField] = useState('')
     const [search, setSearch] = useState('');
     const [SortedData, setSortedData] = useState('');
-    const [sortConfig, setSortConfig] = useState(null);
     var sortedData = ""
+    var direction = 'ascending'
+    var counter = 0
 
     const deleteMember = (memberID, userID) => {
 
@@ -29,7 +29,6 @@ export const ListMembersAPI = () => {
             console.log(res.data.data)
             setmemberList(res.data.data)
         })
-
     }
 
     const handleSearch = (e) => {
@@ -41,18 +40,16 @@ export const ListMembersAPI = () => {
         getData()
     }, [])
 
-    var counter = 0
-
     const sortfn = (e) => {
 
         let sortedData = memberList
 
         sortedData.sort((a, b) => {
             if (a.memberName < b.memberName) {
-                return -1;
+                return direction === 'ascending' ? -1 : 1;
             }
             if (a.memberName > b.memberName) {
-                return 1;
+                return direction === 'ascending' ? 1 : -1;
             }
             return 0
         })
@@ -62,8 +59,13 @@ export const ListMembersAPI = () => {
 
     const sortAge = (e, direction) => {
 
-        //let direction = 'ascending';
-        sortedData = memberList
+        //var direction = 'ascending';
+        if (SortedData === "") {
+            sortedData = memberList
+
+        } else {
+            sortedData = SortedData
+        }
         sortedData.sort((a, b) => {
             if (a.age < b.age) {
                 return direction === 'ascending' ? -1 : 1;
@@ -77,7 +79,61 @@ export const ListMembersAPI = () => {
         })
         setSortedData(sortedData)
         console.log("sorted data : ", sortedData)
-        return SortedData
+        //return SortedData
+    }
+
+    const sortHouse = (e, direction) => {
+        sortedData = memberList
+        sortedData.sort((a, b) => {
+
+            if (a.house.houseTitle < b.house.houseTitle) {
+                return direction === 'ascending' ? -1 : 1;
+                //return -1;
+            }
+            if (a.house.houseTitle > b.house.houseTitle) {
+                return direction === 'ascending' ? 1 : -1;
+                //return 1;
+            }
+            return 0;
+        });
+        setSortedData(sortedData)
+        console.log("sorted data : ", sortedData)
+    }
+
+    const sortemail = (e, direction) => {
+        sortedData = memberList
+        sortedData.sort((a, b) => {
+
+            if (a.user.email < b.user.email) {
+                return direction === 'ascending' ? -1 : 1;
+                //return -1;
+            }
+            if (a.user.email > b.user.email) {
+                return direction === 'ascending' ? 1 : -1;
+                //return 1;
+            }
+            return 0;
+        });
+        setSortedData(sortedData)
+        console.log("sorted data : ", sortedData)
+    }
+
+    const sortmobno = (e, direction) => {
+        sortedData = memberList
+        sortedData.sort((a, b) => {
+
+            if (a.user.mobileNo < b.user.mobileNo) {
+                return direction === 'ascending' ? -1 : 1;
+                //return -1;
+            }
+            if (a.user.mobileNo > b.user.mobileNo) {
+                return direction === 'ascending' ? 1 : -1;
+                //return 1;
+            }
+            return 0;
+        });
+        setSortedData(sortedData)
+        console.log("sorted data : ", sortedData)
     }
 
     return (
@@ -92,13 +148,13 @@ export const ListMembersAPI = () => {
             <table className="table table-hover my-3">
                 <thead className="table_head">
                     <tr>
-                        <th scope="col" className=''>Sr. No.</th>
-                        <th scope="col">First Name<i className="bi bi-arrow-down mx-1" onClick={(e) => sortfn(e)}></i></th>
-                        <th scope="col">Last Name</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Contact Number</th>
-                        <th scope="col">House Title</th>
-                        <th scope="col">Age<i className="bi bi-arrow-down mx-1" onClick={(e) => sortAge(e, "ascending")}></i><i className="bi bi-arrow-up mx" onClick={(e) => sortAge(e, "descending")}></i></th>
+                        <th scope="col">Sr. No.</th>
+                        <th scope="col">First Name<i className="bi bi-arrow-down" onClick={(e) => sortfn(e, "ascending")}></i></th>
+                        <th scope="col">Last Name<i className="bi bi-arrow-up" onClick={(e) => sortfn(e, "descending")}></i></th>
+                        <th scope="col">Email<i className="bi bi-arrow-down" onClick={(e) => sortemail(e, "ascending")}></i><i className="bi bi-arrow-up" onClick={(e) => sortemail(e, "descending")}></i></th>
+                        <th scope="col">Contact Number<i className="bi bi-arrow-down" onClick={(e) => sortmobno(e, "ascending")}></i><i className="bi bi-arrow-up" onClick={(e) => sortmobno(e, "descending")}></i></th>
+                        <th scope="col">House Title<i className="bi bi-arrow-down" onClick={(e) => sortHouse(e, "ascending")}></i><i className="bi bi-arrow-up" onClick={(e) => sortHouse(e, "descending")}></i></th>
+                        <th scope="col">Age<i className="bi bi-arrow-down" onClick={(e) => sortAge(e, "ascending")}></i><i className="bi bi-arrow-up" onClick={(e) => sortAge(e, "descending")}></i></th>
                         <th scope="col">Profile Photo</th>
                         {localStorage.getItem('roleName') === 'Chairman' || localStorage.getItem('roleName') === 'ADMIN' ?
 

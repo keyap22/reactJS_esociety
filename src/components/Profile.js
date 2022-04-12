@@ -224,10 +224,12 @@ export const Profile = () => {
             console.log("put api request called")
             await axios.put(`http://localhost:4000/changePhoto/` + user._id, data).then(res => {
                 console.log(res)
+                if(res.data.status === 200){
+                    navigation('/profile')
+                }
 
             })
-        }
-        navigation('/profile')
+        } 
     }
 
     return (
