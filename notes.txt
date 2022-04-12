@@ -4,10 +4,7 @@ security guard list(display specific guard all attendance record)
 show house specific records - check
 accept or reject runtime visitor
 in sorting after performing asc/desc, if we do desc/asc then it won't work
-are you sure you want to delete? alert box
-add close button in listguards when displaying detailed attendance(card), add tick symbol in attendance 
-
-
+are you sure you want to delete? alert box - check
 
 Tasks -
 

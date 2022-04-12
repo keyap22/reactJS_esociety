@@ -35,10 +35,10 @@ export const ListChildrenAPI = () => {
         getData()
     }, [])
 
-    const deleteChild = (id) => {
+    const deleteChild = (id, childName) => {
 
-        //var confirmationResult = confirm("Are you sure you want to delete?")
-        //if (confirmationResult)     //if confirmationResult===true
+        var confirmationResult = window.confirm(`Are you sure you want to delete the record of ${childName}?`)
+        if (confirmationResult)     //if confirmationResult===true
         {
             axios.delete(`http://localhost:4000/childSchedules/` + id).then(res => {
                 console.log(res)
@@ -120,7 +120,7 @@ export const ListChildrenAPI = () => {
                                         <td><img src={child.profilePhoto} alt="No image" style={{ height: "80px", width: "80px" }}></img></td>
                                         {localStorage.getItem('roleName') === 'Society Member' ?
                                             <td>
-                                                <Link to="/listchildren" className="btn btn-sm btn-danger mx-1" onClick={() => { deleteChild(child._id) }}><i className="bi bi-trash"></i></Link>
+                                                <Link to="/listchildren" className="btn btn-sm btn-danger mx-1" onClick={() => { deleteChild(child._id, child.childName) }}><i className="bi bi-trash"></i></Link>
                                                 <Link to={`/listchildren/update/${child._id}`} className="btn btn-sm btn-primary" value={child._id}><i className="bi bi-pencil"></i></Link>
                                             </td> : ""}
                                     </tr>
@@ -146,7 +146,7 @@ export const ListChildrenAPI = () => {
                                             <td><img src={child.profilePhoto} alt="No image" style={{ height: "80px", width: "80px" }}></img></td>
                                             {localStorage.getItem('roleName') === 'Society Member' ?
                                                 <td>
-                                                    <Link to="/listchildren" className="btn btn-sm btn-danger mx-1" onClick={() => { deleteChild(child._id) }}><i className="bi bi-trash"></i></Link>
+                                                    <Link to="/listchildren" className="btn btn-sm btn-danger mx-1" onClick={() => { deleteChild(child._id, child.childName) }}><i className="bi bi-trash"></i></Link>
                                                     <Link to={`/listchildren/update/${child._id}`} className="btn btn-sm btn-primary" value={child._id}><i className="bi bi-pencil"></i></Link>
                                                 </td> : ""}
                                         </tr>
@@ -170,7 +170,7 @@ export const ListChildrenAPI = () => {
                                                 <td><img src={sortedChild.profilePhoto} alt="No image" style={{ height: "80px", width: "80px" }}></img></td>
                                                 {localStorage.getItem('roleName') === 'Society Member' ?
                                                     <td>
-                                                        <Link to="/listchildren" className="btn btn-sm btn-danger mx-1" onClick={() => { deleteChild(sortedChild._id) }}><i className="bi bi-trash"></i></Link>
+                                                        <Link to="/listchildren" className="btn btn-sm btn-danger mx-1" onClick={() => { deleteChild(sortedChild._id, sortedChild.childName) }}><i className="bi bi-trash"></i></Link>
                                                         <Link to={`/listchildren/update/${sortedChild._id}`} className="btn btn-sm btn-primary" value={sortedChild._id}><i className="bi bi-pencil"></i></Link>
                                                     </td> : ""}
                                             </tr>
