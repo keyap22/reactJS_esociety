@@ -14,7 +14,7 @@ export const ListGuardsAPI = () => {
     var [userId, setUserId] = useState('')
     const [isLoading, setIsLoading] = useState(true)
     var [guardSelected, setGuardSelected] = useState(false)
-    const [guardAttendance,setGuardAttendance] = useState([])
+    const [guardAttendance, setGuardAttendance] = useState([])
 
     var userid
 
@@ -150,9 +150,9 @@ export const ListGuardsAPI = () => {
             {isLoading ? <div align="center" style={{
                 marginBottom: "50px", marginTop: "50px", paddingBottom: "50px", height: "15", width: "5"
                 //, speedmultiplier : 2, radius : 4, color
-            }}><FadeLoader color="#009970" ></FadeLoader></div> :<></>}
+            }}><FadeLoader color="#009970" ></FadeLoader></div> : <></>}
 
-{!isLoading && guardSelected===false ?
+            {!isLoading && guardSelected === false ?
                 <div>
 
                     <div className="input-group mb-3 ">
@@ -228,73 +228,53 @@ export const ListGuardsAPI = () => {
                             }
                         </tbody>
                     </table>
-                </div>:<></>
-}
-           
+                </div> : <></>
+            }
+
             {guardSelected ?
                 <div>
                     <div className='mycard my-5 '>
                         <div className="align-items-center">
 
-                            <div className="form-horizontal" align="center" style={{ height: "380px" }} >
-                            
+                            <div className="form-horizontal" align="center" style={{ width: "500px", height: "500px", overflowY: "scroll" }} >
+                                <h3><Link to="/listguards" onClick={(e) => { setGuardSelected(false) }} style={{ marginLeft: "400px" }}><i className="bi bi-x-square mr-5"  ></i>
+                                </Link></h3>
 
                                 <h3 className="align-title my-5"><strong>Detailed Attendance</strong>
-                                <Link to="/listguards" onClick={(e)=>{setGuardSelected(false)}}><i className="bi bi-x-square mr-5"  ></i>
-                                </Link>
+
                                 </h3>
-                               
-
-
 
                                 <table className="table table-hover my-2">
-                        <thead className="table_head">
-                            <tr>
-                                <th scope="col" className=''>Sr. No.</th>
-                                <th scope="col">Present on</th>
-                               
-                                
-                                
-                            </tr>
-                        </thead>
-
-                        <tbody>
-
-                            {
-                                guardAttendance.map((guard) => {
-                                    counter += 1
-                                   
-                                    return (
-                                        <tr key={guard._id} >
-                                            <th scope="row">{counter}</th>
-                                            <td>{guard.date}</td>
-                                          
-                                            
+                                    <thead className="table_head">
+                                        <tr>
+                                            <th scope="col" className=''>Sr. No.</th>
+                                            <th scope="col">Present on Date</th>
                                         </tr>
-                                    )
-                               
-                                })
-                            }
-                           
-                        </tbody>
-                    </table>
+                                    </thead>
 
+                                    <tbody>
+                                        {
+                                            guardAttendance.map((guard) => {
+                                                counter += 1
 
-
-
+                                                return (
+                                                    <tr key={guard._id} >
+                                                        <th scope="row">{counter}</th>
+                                                        <td>{guard.date}</td>
+                                                    </tr>
+                                                )
+                                            })
+                                        }
+                                    </tbody>
+                                </table>
                             </div>
-
-
                         </div>
                     </div>
-                </div> 
+                </div>
                 :
                 <></>
-
             }
         </div>
-
     )
-
     setattendancedisplay(false)
 }
