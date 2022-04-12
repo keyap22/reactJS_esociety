@@ -19,6 +19,8 @@ as of now ,commented 'required' in model
 - email verification for reset password  *
 - set loader speed multiplier, radius
 
+- add close button in listguards when displaying detailed attendance(card), add tick symbol in attendance *
+
 - resend otp in email
 - security guard list(display specific guard all attendance record)  
 

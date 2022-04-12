@@ -13,6 +13,8 @@ export const ListGuardsAPI = () => {
     var [counter, setcounter] = useState(0)
     var [userId, setUserId] = useState('')
     const [isLoading, setIsLoading] = useState(true)
+    var [guardSelected, setGuardSelected] = useState(false)
+    const [guardAttendance,setGuardAttendance] = useState([])
 
     var userid
 
@@ -66,7 +68,11 @@ export const ListGuardsAPI = () => {
             getGuardAttendance()
         })
     }
+
+    //get attendance details of clicked guard
     const displayDetails = (id) => {
+        setGuardSelected(true)
+        console.log(guardSelected)
         console.log(id)
         var formdata = {
             "guard": id
@@ -75,10 +81,12 @@ export const ListGuardsAPI = () => {
             //  console.log("guardid :" + guard._id)
 
             console.log("======attendanceList of clicked guard : ", res.data.data)
+            setGuardAttendance(res.data.data)
+            console.log(guardAttendance)
 
         })
-        
-       
+
+
 
     }
     const getGuardAttendance = () => {
@@ -142,7 +150,9 @@ export const ListGuardsAPI = () => {
             {isLoading ? <div align="center" style={{
                 marginBottom: "50px", marginTop: "50px", paddingBottom: "50px", height: "15", width: "5"
                 //, speedmultiplier : 2, radius : 4, color
-            }}><FadeLoader color="#009970" ></FadeLoader></div> :
+            }}><FadeLoader color="#009970" ></FadeLoader></div> :<></>}
+
+{!isLoading && guardSelected===false ?
                 <div>
 
                     <div className="input-group mb-3 ">
@@ -161,9 +171,9 @@ export const ListGuardsAPI = () => {
                                 <th scope="col">Attendance</th>
                                 {/*<th scope="col">Image</th>*/}
                                 <th scope="col">Contact No.</th>
-                                {localStorage.getItem('roleName') ==='Chairman' || localStorage.getItem('roleName') ==='ADMIN' ?
-                                   
-                                <th scope="col">Action</th> : ""}
+                                {localStorage.getItem('roleName') === 'Chairman' || localStorage.getItem('roleName') === 'ADMIN' ?
+
+                                    <th scope="col">Action</th> : ""}
                             </tr>
                         </thead>
 
@@ -181,13 +191,13 @@ export const ListGuardsAPI = () => {
                                             {attendancedisplay ? <td >{attendanceList[counter - 1] !== undefined ? attendanceList[counter - 1] : ""}</td> : <td></td>}
                                             {/*<td><img src={guard.profilePhoto}></img></td> */}
                                             <td>{guard.mobileNo}</td>
-                                            {localStorage.getItem('roleName') ==='Chairman' || localStorage.getItem('roleName') ==='ADMIN' ?
-                                   
+                                            {localStorage.getItem('roleName') === 'Chairman' || localStorage.getItem('roleName') === 'ADMIN' ?
 
-                                            <td>
-                                                <Link to="/listguards" className="btn btn-sm btn-danger mx-1" value={guard.user} onChange={getSecurityGuardByID(guard._id)} onClick={() => { deleteGuard(guard._id) }}><i className="bi bi-trash"></i></Link>
-                                                <Link to={`/listguards/update/${guard._id}`} className="btn btn-sm btn-primary" value={guard._id}><i className="bi bi-pencil"></i></Link>
-                                            </td> : ""}
+
+                                                <td>
+                                                    <Link to="/listguards" className="btn btn-sm btn-danger mx-1" value={guard.user} onChange={getSecurityGuardByID(guard._id)} onClick={() => { deleteGuard(guard._id) }}><i className="bi bi-trash"></i></Link>
+                                                    <Link to={`/listguards/update/${guard._id}`} className="btn btn-sm btn-primary" value={guard._id}><i className="bi bi-pencil"></i></Link>
+                                                </td> : ""}
                                         </tr>
                                     )
                                 }) : guardList.map((guard) => {
@@ -205,12 +215,12 @@ export const ListGuardsAPI = () => {
                                                 {attendancedisplay ? <td >{attendanceList[counter - 1] !== undefined ? attendanceList[counter - 1] : ""}</td> : <td></td>}
                                                 {/*<td><img src={guard.profilePhoto}></img></td> */}
                                                 <td>{guard.mobileNo}</td>
-                                                {localStorage.getItem('roleName') ==='Chairman' || localStorage.getItem('roleName') ==='ADMIN' ?
-                                   
-                                                <td>
-                                                    <Link to="/listguards" className="btn btn-sm btn-danger mx-1" onClick={() => { deleteGuard(guard._id) }}><i className="bi bi-trash"></i></Link>
-                                                    <Link to={`/listguards/update/${guard._id}`} className="btn btn-sm btn-primary" value={guard._id}><i className="bi bi-pencil"></i></Link>
-                                                </td> : "" }
+                                                {localStorage.getItem('roleName') === 'Chairman' || localStorage.getItem('roleName') === 'ADMIN' ?
+
+                                                    <td>
+                                                        <Link to="/listguards" className="btn btn-sm btn-danger mx-1" onClick={() => { deleteGuard(guard._id) }}><i className="bi bi-trash"></i></Link>
+                                                        <Link to={`/listguards/update/${guard._id}`} className="btn btn-sm btn-primary" value={guard._id}><i className="bi bi-pencil"></i></Link>
+                                                    </td> : ""}
                                             </tr>
                                         )
                                     }
@@ -218,7 +228,82 @@ export const ListGuardsAPI = () => {
                             }
                         </tbody>
                     </table>
-                </div>}
+                </div>:<></>
+}
+           
+            {guardSelected ?
+                <div>
+                    <div className='mycard my-5 '>
+                        <div className="align-items-center">
+
+                            <div className="form-horizontal" align="center" style={{ height: "380px" }} >
+
+                                <h3 className="align-title my-5"><strong>Detailed Attendance</strong></h3>
+                                <div className="form-row"></div>
+
+
+
+
+                                <table className="table table-hover my-2">
+                        <thead className="table_head">
+                            <tr>
+                                <th scope="col" className=''>Sr. No.</th>
+                                <th scope="col">Date</th>
+                               
+                                <th scope="col">Attendance</th>
+                                
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            {search === "" ?
+                                guardAttendance.map((guard) => {
+                                    counter += 1
+                                    console.log("search : " + search)
+                                    return (
+                                        <tr key={guard._id} >
+                                            <th scope="row">{counter}</th>
+                                            <td>{guard.date}</td>
+                                            <td>{guard.isPresent}</td>
+                                            
+                                            
+                                        </tr>
+                                    )
+                                }) : guardAttendance.map((guard) => {
+                                    counter += 1
+                                    console.log("filter")
+                                    if ((guard.date).includes(search) ) {
+
+                                        console.log("search : " + search)
+                                        return (
+                                            <tr key={guard._id}>
+                                                <th scope="row">{counter}</th>
+                                                <td>{guard.date}</td>
+                                                <td>{guard.isPresent ? "Present" : <i className="bi bi-x-lg"></i>}</td>
+                                                
+                                                
+                                            </tr>
+                                        )
+                                    }
+                                })
+                            }
+                        </tbody>
+                    </table>
+
+
+
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div> 
+                :
+                <></>
+
+            }
         </div>
 
     )
