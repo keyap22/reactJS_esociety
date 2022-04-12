@@ -10,18 +10,22 @@ export const ListMembersAPI = () => {
     var direction = 'ascending'
     var counter = 0
 
-    const deleteMember = (memberID, userID) => {
+    const deleteMember = (memberID, userID, name) => {
 
-        console.log(memberID)
-        console.log(userID)
+        var confirmationResult = window.confirm(`Are you sure you want to delete the record of ${name}?`)
+        if (confirmationResult)     //if confirmationResult===true
+        {
+            console.log(memberID)
+            console.log(userID)
 
-        axios.delete(`http://localhost:4000/members/` + memberID).then(res => {
-            console.log(res)
-        })
+            axios.delete(`http://localhost:4000/members/` + memberID).then(res => {
+                console.log(res)
+            })
 
-        axios.delete(`http://localhost:4000/users/` + userID).then(res => {
-            console.log(res)
-        })
+            axios.delete(`http://localhost:4000/users/` + userID).then(res => {
+                console.log(res)
+            })
+        }
     }
 
     const getData = () => {
@@ -179,7 +183,7 @@ export const ListMembersAPI = () => {
                                     {localStorage.getItem('roleName') === 'Chairman' || localStorage.getItem('roleName') === 'ADMIN' ?
 
                                         <td>
-                                            <Link to="/listmembers" className="btn btn-sm btn-danger mx-2" onClick={() => { deleteMember(member._id, member.user._id) }}><i className="bi bi-trash"></i></Link>
+                                            <Link to="/listmembers" className="btn btn-sm btn-danger mx-2" onClick={() => { deleteMember(member._id, member.user._id, member.memberName) }}><i className="bi bi-trash"></i></Link>
                                             <Link to={`/updateMember/${member.user._id}/${member._id}`} className="btn btn-sm btn-primary mx-2"><i className="bi bi-pencil"></i></Link>
                                         </td> : <></>}
                                 </tr>
@@ -207,7 +211,7 @@ export const ListMembersAPI = () => {
                                         {localStorage.getItem('roleName') === 'Chairman' || localStorage.getItem('roleName') === 'ADMIN' ?
 
                                             <td>
-                                                <Link to="/listmembers" className="btn btn-sm btn-danger mx-2" onClick={() => { deleteMember(member._id, member.user._id) }}><i className="bi bi-trash"></i></Link>
+                                                <Link to="/listmembers" className="btn btn-sm btn-danger mx-2" onClick={() => { deleteMember(member._id, member.user._id, member.memberName) }}><i className="bi bi-trash"></i></Link>
                                                 <Link to={`/updateMember/${member.user._id}/${member._id}`} className="btn btn-sm btn-primary"><i className="bi bi-pencil"></i></Link>
                                             </td> : <></>}
                                     </tr>
@@ -232,7 +236,7 @@ export const ListMembersAPI = () => {
                                             {localStorage.getItem('roleName') === 'Chairman' || localStorage.getItem('roleName') === 'ADMIN' ?
 
                                                 <td>
-                                                    <Link to="/listmembers" className="btn btn-sm btn-danger mx-2" onClick={() => { deleteMember(sortedMember._id, sortedMember.user._id) }}><i className="bi bi-trash"></i></Link>
+                                                    <Link to="/listmembers" className="btn btn-sm btn-danger mx-2" onClick={() => { deleteMember(sortedMember._id, sortedMember.user._id, member.memberName) }}><i className="bi bi-trash"></i></Link>
                                                     <Link to={`/updateMember/${sortedMember.user._id}/${sortedMember._id}`} className="btn btn-sm btn-primary"><i className="bi bi-pencil"></i></Link>
                                                 </td> : <></>}
                                         </tr>

@@ -32,27 +32,31 @@ export const ListGuardsAPI = () => {
         })
     }
 
-    const deleteGuard = async (guardID) => {
+    const deleteGuard = async (guardID, name) => {
         //console.log("value : ",value)
-        console.log(guardID)
+        var confirmationResult = window.confirm(`Are you sure you want to delete the record of ${name}?`)
+        if (confirmationResult)     //if confirmationResult===true
+        {
+            console.log(guardID)
 
-        //delete guard
-        await axios.delete(`http://localhost:4000/guards/` + guardID).then(res => {
-            console.log(res)
-        })
+            //delete guard
+            await axios.delete(`http://localhost:4000/guards/` + guardID).then(res => {
+                console.log(res)
+            })
 
-        //delete user
-        await axios.delete(`http://localhost:4000/users/` + userId).then(res => {
-            console.log(res)
-            console.log("user is deleted successfully");
-        })
+            //delete user
+            await axios.delete(`http://localhost:4000/users/` + userId).then(res => {
+                console.log(res)
+                console.log("user is deleted successfully");
+            })
 
-        //delete guardattendances
-        console.log("guardid " + guardID)
-        await axios.delete(`http://localhost:4000/dropguardAttendances/` + guardID).then(res => {
-            console.log(res)
-            console.log("all attendances of given guard are deleted");
-        })
+            //delete guardattendances
+            console.log("guardid " + guardID)
+            await axios.delete(`http://localhost:4000/dropguardAttendances/` + guardID).then(res => {
+                console.log(res)
+                console.log("all attendances of given guard are deleted");
+            })
+        }
     }
 
     const getSecurityGuard = async () => {
@@ -83,15 +87,9 @@ export const ListGuardsAPI = () => {
             console.log("======attendanceList of clicked guard : ", res.data.data)
             setGuardAttendance(res.data.data)
             console.log(guardAttendance)
-
         })
-
-
-
     }
     const getGuardAttendance = () => {
-
-
 
         GuardList.forEach(guard => {
             //  console.log("in for each guard id : ",guard._id)
@@ -195,7 +193,7 @@ export const ListGuardsAPI = () => {
 
 
                                                 <td>
-                                                    <Link to="/listguards" className="btn btn-sm btn-danger mx-1" value={guard.user} onChange={getSecurityGuardByID(guard._id)} onClick={() => { deleteGuard(guard._id) }}><i className="bi bi-trash"></i></Link>
+                                                    <Link to="/listguards" className="btn btn-sm btn-danger mx-1" value={guard.user} onChange={getSecurityGuardByID(guard._id, guard.guardName)} onClick={() => { deleteGuard(guard._id) }}><i className="bi bi-trash"></i></Link>
                                                     <Link to={`/listguards/update/${guard._id}`} className="btn btn-sm btn-primary" value={guard._id}><i className="bi bi-pencil"></i></Link>
                                                 </td> : ""}
                                         </tr>
@@ -218,7 +216,7 @@ export const ListGuardsAPI = () => {
                                                 {localStorage.getItem('roleName') === 'Chairman' || localStorage.getItem('roleName') === 'ADMIN' ?
 
                                                     <td>
-                                                        <Link to="/listguards" className="btn btn-sm btn-danger mx-1" onClick={() => { deleteGuard(guard._id) }}><i className="bi bi-trash"></i></Link>
+                                                        <Link to="/listguards" className="btn btn-sm btn-danger mx-1" onClick={() => { deleteGuard(guard._id, guard.guardName) }}><i className="bi bi-trash"></i></Link>
                                                         <Link to={`/listguards/update/${guard._id}`} className="btn btn-sm btn-primary" value={guard._id}><i className="bi bi-pencil"></i></Link>
                                                     </td> : ""}
                                             </tr>
@@ -236,8 +234,8 @@ export const ListGuardsAPI = () => {
                     <div className='mycard my-5 '>
                         <div className="align-items-center">
 
-                            <div className="form-horizontal" align="center" style={{ width: "500px", height: "500px", overflowY: "scroll", overflowX:"hidden" }} >
-                                <h3><Link to="/listguards" onClick={(e) => { setGuardSelected(false) }} style={{ marginLeft: "400px" , color:"red" }}><i className="bi bi-x-square mr-5"  ></i>
+                            <div className="form-horizontal" align="center" style={{ width: "500px", height: "500px", overflowY: "scroll", overflowX: "hidden" }} >
+                                <h3><Link to="/listguards" onClick={(e) => { setGuardSelected(false) }} style={{ marginLeft: "400px", color: "red" }}><i className="bi bi-x-square mr-5"  ></i>
                                 </Link></h3>
 
                                 <h3 className="align-title my-5"><strong>Detailed Attendance</strong>

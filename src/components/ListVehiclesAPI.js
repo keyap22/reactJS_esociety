@@ -23,11 +23,15 @@ export const ListvehiclesAPI = () => {
         getData()
     }, [])
 
-    const deleteVehicle = (id) => {
+    const deleteVehicle = (id, vehicleNo) => {
 
-        axios.delete(`http://localhost:4000/vehicles/` + id).then(res => {
-            console.log(res)
-        })
+        var confirmationResult = window.confirm(`Are you sure you want to delete the record of ${vehicleNo}?`)
+        if (confirmationResult)     //if confirmationResult===true
+        {
+            axios.delete(`http://localhost:4000/vehicles/` + id).then(res => {
+                console.log(res)
+            })
+        }
     }
 
     var counter = 0
@@ -71,7 +75,7 @@ export const ListvehiclesAPI = () => {
                                     {localStorage.getItem('roleName') === 'Chairman' || localStorage.getItem('roleName') === 'ADMIN' ?
 
                                         <td>
-                                            <Link to="/listvehicle" className="btn btn-sm btn-danger mx-1" onClick={() => { deleteVehicle(vehicle._id) }}><i className="bi bi-trash"></i></Link>
+                                            <Link to="/listvehicle" className="btn btn-sm btn-danger mx-1" onClick={() => { deleteVehicle(vehicle._id, vehicle.vehicleNo) }}><i className="bi bi-trash"></i></Link>
                                             <Link to={`/listvehicle/update/${vehicle._id}`} className="btn btn-sm btn-primary" value={vehicle._id}><i className="bi bi-pencil"></i></Link>
                                         </td> : ""}
                                 </tr>
@@ -96,7 +100,7 @@ export const ListvehiclesAPI = () => {
                                         {localStorage.getItem('roleName') === 'Chairman' || localStorage.getItem('roleName') === 'ADMIN' ?
 
                                             <td>
-                                                <Link to="/listvehicle" className="btn btn-sm btn-danger mx-1" onClick={() => { deleteVehicle(vehicle._id) }}><i className="bi bi-trash"></i></Link>
+                                                <Link to="/listvehicle" className="btn btn-sm btn-danger mx-1" onClick={() => { deleteVehicle(vehicle._id, vehicle.vehicleNo) }}><i className="bi bi-trash"></i></Link>
                                                 <Link to={`/listvehicle/update/${vehicle._id}`} className="btn btn-sm btn-primary" value={vehicle._id}><i className="bi bi-pencil"></i></Link>
                                             </td> : ""}
                                     </tr>

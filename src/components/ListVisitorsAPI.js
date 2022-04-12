@@ -14,13 +14,17 @@ export const ListVisitorsAPI = () => {
     var direction = 'ascending'
     var counter = 0
 
-    const deleteVisitor = (visitorID) => {
+    const deleteVisitor = (visitorID, visitorName) => {
 
-        console.log(visitorID)
+        var confirmationResult = window.confirm(`Are you sure you want to delete the record of ${visitorName}?`)
+        if (confirmationResult)     //if confirmationResult===true
+        {
+            console.log(visitorID)
 
-        axios.delete(`http://localhost:4000/visitors/` + visitorID).then(res => {
-            console.log(res)
-        })
+            axios.delete(`http://localhost:4000/visitors/` + visitorID).then(res => {
+                console.log(res)
+            })
+        }
     }
 
     const getData = () => {
@@ -43,6 +47,7 @@ export const ListVisitorsAPI = () => {
             setIsPreSched(true)
         }
     }
+
     const exportPDF = () => {
         const unit = "pt";
         const size = "A4"; // Use A1, A2, A3 or A4
@@ -56,18 +61,17 @@ export const ListVisitorsAPI = () => {
         const title = "Visitor Report";
         const headers = [["Sr. No.", "Visitor Name", "Date", "Entry Time", "Exit Time", "Allowed", "Prescheduled", "Image", "House", "Category"
             , "Purpose", "Contact No."]];
-            var data=""
-if(myVisitors==="")
-{
-         data = visitorList.map(visitor => [counter, visitor.visitorName, visitor.date, visitor.entryTime, visitor.exitTime,
-            visitor.isAllowed, visitor.isPreScheduled, visitor.profilePhoto, visitor.house.houseTitle, visitor.visitorCategory.categoryName,
-            visitor.purpose, visitor.mobileNo], counter = counter + 1);
-        }
-        else{
-             data = myVisitors.map(visitor => [counter, visitor.visitorName, visitor.date, visitor.entryTime, visitor.exitTime,
+        var data = ""
+        if (myVisitors === "") {
+            data = visitorList.map(visitor => [counter, visitor.visitorName, visitor.date, visitor.entryTime, visitor.exitTime,
                 visitor.isAllowed, visitor.isPreScheduled, visitor.profilePhoto, visitor.house.houseTitle, visitor.visitorCategory.categoryName,
                 visitor.purpose, visitor.mobileNo], counter = counter + 1);
-           
+        }
+        else {
+            data = myVisitors.map(visitor => [counter, visitor.visitorName, visitor.date, visitor.entryTime, visitor.exitTime,
+                visitor.isAllowed, visitor.isPreScheduled, visitor.profilePhoto, visitor.house.houseTitle, visitor.visitorCategory.categoryName,
+                visitor.purpose, visitor.mobileNo], counter = counter + 1);
+
         }
 
         let content = {
@@ -130,79 +134,46 @@ if(myVisitors==="")
     }
 
     return (
-    <div>
-        {({ myVisitors } === "") ?
-            <div className="container table-responsive-md" style={{ maxWidth: "1320px" }}>
-                <div>
-                    <button className="btn-centre" style={{ marginLeft: "20px", width: "17%" }} onClick={() => exportPDF()}>Generate Report</button>
-                    <button className="btn-centre my-2 mx-5" style={{ marginLeft: "80px", width: "17%" }} onClick={() => listPreSched()}>{isPreSched ? "Display all visitors" : "Display presch visitors"}</button>
+        <div>
+            {({ myVisitors } === "") ?
+                <div className="container table-responsive-md" style={{ maxWidth: "1320px" }}>
+                    <div>
+                        <button className="btn-centre" style={{ marginLeft: "20px", width: "17%" }} onClick={() => exportPDF()}>Generate Report</button>
+                        <button className="btn-centre my-2 mx-5" style={{ marginLeft: "80px", width: "17%" }} onClick={() => listPreSched()}>{isPreSched ? "Display all visitors" : "Display presch visitors"}</button>
 
 
-                    <div className="input-group mb-3 ">
-                        <span className="input-group-text my-3 ml-8" id="basic-addon1"><i className="bi bi-search " ></i></span>
+                        <div className="input-group mb-3 ">
+                            <span className="input-group-text my-3 ml-8" id="basic-addon1"><i className="bi bi-search " ></i></span>
 
-                        <input id="search" type="search" placeholder="Search" className="form-control col-md-3 my-3 ml-8" aria-label="Search" onChange={(e) => handleSearch(e)} />
+                            <input id="search" type="search" placeholder="Search" className="form-control col-md-3 my-3 ml-8" aria-label="Search" onChange={(e) => handleSearch(e)} />
 
+                        </div>
                     </div>
-                </div>
-                {!isPreSched ?
-                    <table className="table table-hover my-2">
-                        <thead className="table_head">
-                            <tr>
-                                <th scope="col" className=''>Sr. No.</th>
-                                <th scope="col">Visitor Name</th>
-                                <th scope="col">Date<i className="bi bi-arrow-down" onClick={(e) => sortDate(e, "ascending")}></i><i className="bi bi-arrow-up" onClick={(e) => sortDate(e, "descending")}></i></th>
-                                <th scope="col">Entry Time</th>
-                                <th scope="col">Exit Time</th>
-                                <th scope="col">Allowed<i className="bi bi-arrow-down" onClick={(e) => sortIsallowed(e, "ascending")}></i><i className="bi bi-arrow-up" onClick={(e) => sortIsallowed(e, "descending")}></i></th>
-                                <th scope="col">Prescheduled</th>
-                                <th scope="col">Image</th>
-                                <th scope="col">House</th>
-                                <th scope="col">Category</th>
-                                <th scope="col">Purpose</th>
-                                <th scope="col">Contact No.</th>
-                                {localStorage.getItem('roleName') === 'Society Member' ?
-                                    <th scope="col">Action</th> : ""}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {search === "" || SortedData === "" ?
-                                visitorList.map((visitor) => {
-                                    console.log("search : " + search)
-                                    counter += 1
-                                    return (
-                                        <tr key={visitor._id}>
-                                            <th scope="row">{counter}</th>
-                                            <td>{visitor.visitorName}</td>
-                                            <td>{visitor.date}</td>
-                                            <td>{visitor.entryTime}</td>
-                                            <td>{visitor.exitTime}</td>
-                                            <td>{visitor.isAllowed ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
-                                            <td>{visitor.isPreScheduled ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
-                                            <td><img src={visitor.profilePhoto} style={{ height: "80px", width: "80px" }}></img></td>
-                                            <td>{visitor.house.houseTitle}</td>
-                                            <td>{visitor.visitorCategory.categoryName}</td>
-                                            <td>{visitor.purpose}</td>
-                                            <td>{visitor.mobileNo}</td>
-                                            {localStorage.getItem('roleName') === 'Society Member' ?
-                                                <td>
-                                                    <Link to="/listvisitors" className="btn btn-sm btn-danger" onClick={() => { deleteVisitor(visitor._id) }}><i className="bi bi-trash"></i></Link>
-                                                    <Link to={`/updateVisitor/${visitor._id}`} className="btn btn-sm btn-primary my-1" value={visitor._id}><i className="bi bi-pencil"></i></Link>
-                                                </td> : ""}
-                                        </tr>
-                                    )
-                                }) :
-                                visitorList.map((visitor) => {
-                                    console.log("search : " + search)
-                                    counter += 1
-                                    console.log("filter")
-                                    if ((visitor.visitorName).includes(search) || (visitor.date).includes(search) ||
-                                        (visitor.entryTime).includes(search) || (visitor.exitTime).includes(search) ||
-                                        (visitor.house.houseTitle).includes(search) || (visitor.visitorCategory.categoryName).includes(search)
-                                        || (visitor.purpose).includes(search) || (visitor.mobileNo).includes(search))
-
-                                        //(visitor.isAllowed).includes(search)
-
+                    {!isPreSched ?
+                        <table className="table table-hover my-2">
+                            <thead className="table_head">
+                                <tr>
+                                    <th scope="col" className=''>Sr. No.</th>
+                                    <th scope="col">Visitor Name</th>
+                                    <th scope="col">Date<i className="bi bi-arrow-down" onClick={(e) => sortDate(e, "ascending")}></i><i className="bi bi-arrow-up" onClick={(e) => sortDate(e, "descending")}></i></th>
+                                    <th scope="col">Entry Time</th>
+                                    <th scope="col">Exit Time</th>
+                                    <th scope="col">Allowed<i className="bi bi-arrow-down" onClick={(e) => sortIsallowed(e, "ascending")}></i><i className="bi bi-arrow-up" onClick={(e) => sortIsallowed(e, "descending")}></i></th>
+                                    <th scope="col">Prescheduled</th>
+                                    <th scope="col">Image</th>
+                                    <th scope="col">House</th>
+                                    <th scope="col">Category</th>
+                                    <th scope="col">Purpose</th>
+                                    <th scope="col">Contact No.</th>
+                                    {localStorage.getItem('roleName') === 'Society Member' ?
+                                        <th scope="col">Action</th> : ""}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {search === "" || SortedData === "" ?
+                                    visitorList.map((visitor) => {
+                                        console.log("search : " + search)
+                                        counter += 1
                                         return (
                                             <tr key={visitor._id}>
                                                 <th scope="row">{counter}</th>
@@ -219,94 +190,13 @@ if(myVisitors==="")
                                                 <td>{visitor.mobileNo}</td>
                                                 {localStorage.getItem('roleName') === 'Society Member' ?
                                                     <td>
-                                                        <Link to="/listvisitors" className="btn btn-sm btn-danger" onClick={() => { deleteVisitor(visitor._id) }}><i className="bi bi-trash"></i></Link>
+                                                        <Link to="/listvisitors" className="btn btn-sm btn-danger" onClick={() => { deleteVisitor(visitor._id, visitor.visitorName) }}><i className="bi bi-trash"></i></Link>
                                                         <Link to={`/updateVisitor/${visitor._id}`} className="btn btn-sm btn-primary my-1" value={visitor._id}><i className="bi bi-pencil"></i></Link>
                                                     </td> : ""}
                                             </tr>
                                         )
-                                    else if (SortedData !== "") {
-                                        counter += 1
-                                        console.log("sorted data")
-                                        SortedData.map((sortedVisitor) => {
-                                            console.log("sorted member : " + sortedVisitor)
-                                            return (
-                                                <tr key={sortedVisitor._id}>
-                                                    <td>{sortedVisitor.visitorName}</td>
-                                                    <td>{sortedVisitor.date}</td>
-                                                    <td>{sortedVisitor.entryTime}</td>
-                                                    <td>{sortedVisitor.exitTime}</td>
-                                                    <td>{sortedVisitor.isAllowed ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
-                                                    <td>{sortedVisitor.isPreScheduled ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
-                                                    <td><img src={sortedVisitor.profilePhoto} style={{ height: "80px", width: "80px" }}></img></td>
-                                                    <td>{sortedVisitor.house.houseTitle}</td>
-                                                    <td>{sortedVisitor.visitorCategory.categoryName}</td>
-                                                    <td>{sortedVisitor.purpose}</td>
-                                                    <td>{sortedVisitor.mobileNo}</td>
-                                                    {localStorage.getItem('roleName') === 'Society Member' ?
-                                                        <td>
-                                                            <Link to="/listvisitors" className="btn btn-sm btn-danger" onClick={() => { deleteVisitor(sortedVisitor._id) }}><i className="bi bi-trash"></i></Link>
-                                                            <Link to={`/updateVisitor/${sortedVisitor._id}`} className="btn btn-sm btn-primary my-1" value={sortedVisitor._id}><i className="bi bi-pencil"></i></Link>
-                                                        </td> : ""}
-                                                </tr>
-                                            )
-                                        })
-                                    }
-                                    else {
-                                        // return(<tr>No data found</tr>)
-                                    }
-                                })
-                            }
-                        </tbody>
-                    </table> :
-
-                    <table className="table table-hover my-2">
-                        <thead className="table_head">
-                            <tr>
-                                <th scope="col" className=''>Sr. No.</th>
-                                <th scope="col">Visitor Name</th>
-                                <th scope="col">Date<i className="bi bi-arrow-down" onClick={(e) => sortDate(e, "ascending")}></i><i className="bi bi-arrow-up" onClick={(e) => sortDate(e, "descending")}></i></th>
-                                <th scope="col">Entry Time</th>
-                                <th scope="col">Exit Time</th>
-                                <th scope="col">Allowed<i className="bi bi-arrow-down" onClick={(e) => sortIsallowed(e, "ascending")}></i><i className="bi bi-arrow-up" onClick={(e) => sortIsallowed(e, "descending")}></i></th>
-                                <th scope="col">Image</th>
-                                <th scope="col">House</th>
-                                <th scope="col">Category</th>
-                                <th scope="col">Purpose</th>
-                                <th scope="col">Contact No.</th>
-                                {localStorage.getItem('roleName') === 'Society Member' ?
-                                <th scope="col">Action</th> : "" }
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {search === "" || sortedData === "" ?
-                                visitorList.map((visitor) => {
-                                    if (visitor.isPreScheduled === true) {
-                                        console.log("search : " + search)
-                                        counter += 1
-                                        return (
-                                            <tr key={visitor._id}>
-                                                <th scope="row">{counter}</th>
-                                                <td>{visitor.visitorName}</td>
-                                                <td>{visitor.date}</td>
-                                                <td>{visitor.entryTime}</td>
-                                                <td>{visitor.exitTime}</td>
-                                                <td>{visitor.isAllowed ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
-                                                <td><img src={visitor.profilePhoto} style={{ height: "80px", width: "80px" }}></img></td>
-                                                <td>{visitor.house.houseTitle}</td>
-                                                <td>{visitor.visitorCategory.categoryName}</td>
-                                                <td>{visitor.purpose}</td>
-                                                <td>{visitor.mobileNo}</td>
-                                                {localStorage.getItem('roleName') === 'Society Member' ?
-                                                    <td>
-                                                        <Link to="/listvisitors" className="btn btn-sm btn-danger" onClick={() => { deleteVisitor(visitor._id) }}><i className="bi bi-trash"></i></Link>
-                                                        <Link to={`/updateVisitor/${visitor._id}`} className="btn btn-sm btn-primary my-1" value={visitor._id}><i className="bi bi-pencil"></i></Link>
-                                                    </td> : ""}
-                                            </tr>
-                                        )
-                                    }
-                                }) :
-                                visitorList.map((visitor) => {
-                                    if (visitor.isPreScheduled === true) {
+                                    }) :
+                                    visitorList.map((visitor) => {
                                         console.log("search : " + search)
                                         counter += 1
                                         console.log("filter")
@@ -314,6 +204,8 @@ if(myVisitors==="")
                                             (visitor.entryTime).includes(search) || (visitor.exitTime).includes(search) ||
                                             (visitor.house.houseTitle).includes(search) || (visitor.visitorCategory.categoryName).includes(search)
                                             || (visitor.purpose).includes(search) || (visitor.mobileNo).includes(search))
+
+                                            //(visitor.isAllowed).includes(search)
 
                                             return (
                                                 <tr key={visitor._id}>
@@ -323,6 +215,7 @@ if(myVisitors==="")
                                                     <td>{visitor.entryTime}</td>
                                                     <td>{visitor.exitTime}</td>
                                                     <td>{visitor.isAllowed ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
+                                                    <td>{visitor.isPreScheduled ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
                                                     <td><img src={visitor.profilePhoto} style={{ height: "80px", width: "80px" }}></img></td>
                                                     <td>{visitor.house.houseTitle}</td>
                                                     <td>{visitor.visitorCategory.categoryName}</td>
@@ -330,7 +223,7 @@ if(myVisitors==="")
                                                     <td>{visitor.mobileNo}</td>
                                                     {localStorage.getItem('roleName') === 'Society Member' ?
                                                         <td>
-                                                            <Link to="/listvisitors" className="btn btn-sm btn-danger" onClick={() => { deleteVisitor(visitor._id) }}><i className="bi bi-trash"></i></Link>
+                                                            <Link to="/listvisitors" className="btn btn-sm btn-danger" onClick={() => { deleteVisitor(visitor._id, visitor.visitorName) }}><i className="bi bi-trash"></i></Link>
                                                             <Link to={`/updateVisitor/${visitor._id}`} className="btn btn-sm btn-primary my-1" value={visitor._id}><i className="bi bi-pencil"></i></Link>
                                                         </td> : ""}
                                                 </tr>
@@ -355,7 +248,7 @@ if(myVisitors==="")
                                                         <td>{sortedVisitor.mobileNo}</td>
                                                         {localStorage.getItem('roleName') === 'Society Member' ?
                                                             <td>
-                                                                <Link to="/listvisitors" className="btn btn-sm btn-danger" onClick={() => { deleteVisitor(sortedVisitor._id) }}><i className="bi bi-trash"></i></Link>
+                                                                <Link to="/listvisitors" className="btn btn-sm btn-danger" onClick={() => { deleteVisitor(sortedVisitor._id, sortedVisitor.visitorName) }}><i className="bi bi-trash"></i></Link>
                                                                 <Link to={`/updateVisitor/${sortedVisitor._id}`} className="btn btn-sm btn-primary my-1" value={sortedVisitor._id}><i className="bi bi-pencil"></i></Link>
                                                             </td> : ""}
                                                     </tr>
@@ -365,79 +258,163 @@ if(myVisitors==="")
                                         else {
                                             // return(<tr>No data found</tr>)
                                         }
-                                    }
-                                })
-                            }
-                        </tbody>
-                    </table>
-                }
-            </div>
-            :
-            <div className="container table-responsive-md" style={{ maxWidth: "1320px" }}>
-                <div>
-                <button className="btn-centre" style={{ marginLeft: "20px", width: "17%" }} onClick={() => exportPDF()}>Generate Report</button>
-                   
-                    <button className="btn-centre my-2 mx-5" style={{ marginLeft: "80px", width: "17%" }} onClick={() => listPreSched()}>{isPreSched ? "Display all visitors" : "Display presch visitors"}</button>
+                                    })
+                                }
+                            </tbody>
+                        </table> :
 
+                        <table className="table table-hover my-2">
+                            <thead className="table_head">
+                                <tr>
+                                    <th scope="col" className=''>Sr. No.</th>
+                                    <th scope="col">Visitor Name</th>
+                                    <th scope="col">Date<i className="bi bi-arrow-down" onClick={(e) => sortDate(e, "ascending")}></i><i className="bi bi-arrow-up" onClick={(e) => sortDate(e, "descending")}></i></th>
+                                    <th scope="col">Entry Time</th>
+                                    <th scope="col">Exit Time</th>
+                                    <th scope="col">Allowed<i className="bi bi-arrow-down" onClick={(e) => sortIsallowed(e, "ascending")}></i><i className="bi bi-arrow-up" onClick={(e) => sortIsallowed(e, "descending")}></i></th>
+                                    <th scope="col">Image</th>
+                                    <th scope="col">House</th>
+                                    <th scope="col">Category</th>
+                                    <th scope="col">Purpose</th>
+                                    <th scope="col">Contact No.</th>
+                                    {localStorage.getItem('roleName') === 'Society Member' ?
+                                        <th scope="col">Action</th> : ""}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {search === "" || sortedData === "" ?
+                                    visitorList.map((visitor) => {
+                                        if (visitor.isPreScheduled === true) {
+                                            console.log("search : " + search)
+                                            counter += 1
+                                            return (
+                                                <tr key={visitor._id}>
+                                                    <th scope="row">{counter}</th>
+                                                    <td>{visitor.visitorName}</td>
+                                                    <td>{visitor.date}</td>
+                                                    <td>{visitor.entryTime}</td>
+                                                    <td>{visitor.exitTime}</td>
+                                                    <td>{visitor.isAllowed ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
+                                                    <td><img src={visitor.profilePhoto} style={{ height: "80px", width: "80px" }}></img></td>
+                                                    <td>{visitor.house.houseTitle}</td>
+                                                    <td>{visitor.visitorCategory.categoryName}</td>
+                                                    <td>{visitor.purpose}</td>
+                                                    <td>{visitor.mobileNo}</td>
+                                                    {localStorage.getItem('roleName') === 'Society Member' ?
+                                                        <td>
+                                                            <Link to="/listvisitors" className="btn btn-sm btn-danger" onClick={() => { deleteVisitor(visitor._id, visitor.visitorName) }}><i className="bi bi-trash"></i></Link>
+                                                            <Link to={`/updateVisitor/${visitor._id}`} className="btn btn-sm btn-primary my-1" value={visitor._id}><i className="bi bi-pencil"></i></Link>
+                                                        </td> : ""}
+                                                </tr>
+                                            )
+                                        }
+                                    }) :
+                                    visitorList.map((visitor) => {
+                                        if (visitor.isPreScheduled === true) {
+                                            console.log("search : " + search)
+                                            counter += 1
+                                            console.log("filter")
+                                            if ((visitor.visitorName).includes(search) || (visitor.date).includes(search) ||
+                                                (visitor.entryTime).includes(search) || (visitor.exitTime).includes(search) ||
+                                                (visitor.house.houseTitle).includes(search) || (visitor.visitorCategory.categoryName).includes(search)
+                                                || (visitor.purpose).includes(search) || (visitor.mobileNo).includes(search))
 
-                    <div className="input-group mb-3 ">
-                        <span className="input-group-text my-3 ml-8" id="basic-addon1"><i className="bi bi-search " ></i></span>
-
-                        <input id="search" type="search" placeholder="Search" className="form-control col-md-3 my-3 ml-8" aria-label="Search" onChange={(e) => handleSearch(e)} />
-
-                    </div>
+                                                return (
+                                                    <tr key={visitor._id}>
+                                                        <th scope="row">{counter}</th>
+                                                        <td>{visitor.visitorName}</td>
+                                                        <td>{visitor.date}</td>
+                                                        <td>{visitor.entryTime}</td>
+                                                        <td>{visitor.exitTime}</td>
+                                                        <td>{visitor.isAllowed ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
+                                                        <td><img src={visitor.profilePhoto} style={{ height: "80px", width: "80px" }}></img></td>
+                                                        <td>{visitor.house.houseTitle}</td>
+                                                        <td>{visitor.visitorCategory.categoryName}</td>
+                                                        <td>{visitor.purpose}</td>
+                                                        <td>{visitor.mobileNo}</td>
+                                                        {localStorage.getItem('roleName') === 'Society Member' ?
+                                                            <td>
+                                                                <Link to="/listvisitors" className="btn btn-sm btn-danger" onClick={() => { deleteVisitor(visitor._id, visitor.visitorName) }}><i className="bi bi-trash"></i></Link>
+                                                                <Link to={`/updateVisitor/${visitor._id}`} className="btn btn-sm btn-primary my-1" value={visitor._id}><i className="bi bi-pencil"></i></Link>
+                                                            </td> : ""}
+                                                    </tr>
+                                                )
+                                            else if (SortedData !== "") {
+                                                counter += 1
+                                                console.log("sorted data")
+                                                SortedData.map((sortedVisitor) => {
+                                                    console.log("sorted member : " + sortedVisitor)
+                                                    return (
+                                                        <tr key={sortedVisitor._id}>
+                                                            <td>{sortedVisitor.visitorName}</td>
+                                                            <td>{sortedVisitor.date}</td>
+                                                            <td>{sortedVisitor.entryTime}</td>
+                                                            <td>{sortedVisitor.exitTime}</td>
+                                                            <td>{sortedVisitor.isAllowed ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
+                                                            <td>{sortedVisitor.isPreScheduled ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
+                                                            <td><img src={sortedVisitor.profilePhoto} style={{ height: "80px", width: "80px" }}></img></td>
+                                                            <td>{sortedVisitor.house.houseTitle}</td>
+                                                            <td>{sortedVisitor.visitorCategory.categoryName}</td>
+                                                            <td>{sortedVisitor.purpose}</td>
+                                                            <td>{sortedVisitor.mobileNo}</td>
+                                                            {localStorage.getItem('roleName') === 'Society Member' ?
+                                                                <td>
+                                                                    <Link to="/listvisitors" className="btn btn-sm btn-danger" onClick={() => { deleteVisitor(sortedVisitor._id, sortedVisitor.visitorName) }}><i className="bi bi-trash"></i></Link>
+                                                                    <Link to={`/updateVisitor/${sortedVisitor._id}`} className="btn btn-sm btn-primary my-1" value={sortedVisitor._id}><i className="bi bi-pencil"></i></Link>
+                                                                </td> : ""}
+                                                        </tr>
+                                                    )
+                                                })
+                                            }
+                                            else {
+                                                // return(<tr>No data found</tr>)
+                                            }
+                                        }
+                                    })
+                                }
+                            </tbody>
+                        </table>
+                    }
                 </div>
-                {!isPreSched ?
-                    <table className="table table-hover my-2">
-                        <thead className="table_head">
-                            <tr>
-                                <th scope="col" className=''>Sr. No.</th>
-                                <th scope="col">Visitor Name</th>
-                                <th scope="col">Date<i className="bi bi-arrow-down" onClick={(e) => sortDate(e, "ascending")}></i><i className="bi bi-arrow-up" onClick={(e) => sortDate(e, "descending")}></i></th>
-                                <th scope="col">Entry Time</th>
-                                <th scope="col">Exit Time</th>
-                                <th scope="col">Allowed<i className="bi bi-arrow-down" onClick={(e) => sortIsallowed(e, "ascending")}></i><i className="bi bi-arrow-up" onClick={(e) => sortIsallowed(e, "descending")}></i></th>
-                                <th scope="col">Prescheduled</th>
-                                <th scope="col">Image</th>
-                                <th scope="col">House</th>
-                                <th scope="col">Category</th>
-                                <th scope="col">Purpose</th>
-                                <th scope="col">Contact No.</th>
+                :
+                <div className="container table-responsive-md" style={{ maxWidth: "1320px" }}>
+                    <div>
+                        <button className="btn-centre" style={{ marginLeft: "20px", width: "17%" }} onClick={() => exportPDF()}>Generate Report</button>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {search === "" || sortedData === "" ?
-                                myVisitors.map((visitor) => {
-                                    console.log("search : " + search)
-                                    counter += 1
-                                    return (
-                                        <tr key={visitor._id}>
-                                            <th scope="row">{counter}</th>
-                                            <td>{visitor.visitorName}</td>
-                                            <td>{visitor.date}</td>
-                                            <td>{visitor.entryTime}</td>
-                                            <td>{visitor.exitTime}</td>
-                                            <td>{visitor.isAllowed ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
-                                            <td>{visitor.isPreScheduled ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
-                                            <td><img src={visitor.profilePhoto} style={{ height: "80px", width: "80px" }}></img></td>
-                                            <td>{visitor.house.houseTitle}</td>
-                                            <td>{visitor.visitorCategory.categoryName}</td>
-                                            <td>{visitor.purpose}</td>
-                                            <td>{visitor.mobileNo}</td>
+                        <button className="btn-centre my-2 mx-5" style={{ marginLeft: "80px", width: "17%" }} onClick={() => listPreSched()}>{isPreSched ? "Display all visitors" : "Display presch visitors"}</button>
 
-                                        </tr>
-                                    )
-                                }) :
-                                myVisitors.map((visitor) => {
-                                    console.log("search : " + search)
-                                    counter += 1
-                                    console.log("filter")
-                                    if ((visitor.visitorName).includes(search) || (visitor.date).includes(search) ||
-                                        (visitor.entryTime).includes(search) || (visitor.exitTime).includes(search) ||
-                                        (visitor.house.houseTitle).includes(search) || (visitor.visitorCategory.categoryName).includes(search)
-                                        || (visitor.purpose).includes(search) || (visitor.mobileNo).includes(search))
 
+                        <div className="input-group mb-3 ">
+                            <span className="input-group-text my-3 ml-8" id="basic-addon1"><i className="bi bi-search " ></i></span>
+
+                            <input id="search" type="search" placeholder="Search" className="form-control col-md-3 my-3 ml-8" aria-label="Search" onChange={(e) => handleSearch(e)} />
+
+                        </div>
+                    </div>
+                    {!isPreSched ?
+                        <table className="table table-hover my-2">
+                            <thead className="table_head">
+                                <tr>
+                                    <th scope="col" className=''>Sr. No.</th>
+                                    <th scope="col">Visitor Name</th>
+                                    <th scope="col">Date<i className="bi bi-arrow-down" onClick={(e) => sortDate(e, "ascending")}></i><i className="bi bi-arrow-up" onClick={(e) => sortDate(e, "descending")}></i></th>
+                                    <th scope="col">Entry Time</th>
+                                    <th scope="col">Exit Time</th>
+                                    <th scope="col">Allowed<i className="bi bi-arrow-down" onClick={(e) => sortIsallowed(e, "ascending")}></i><i className="bi bi-arrow-up" onClick={(e) => sortIsallowed(e, "descending")}></i></th>
+                                    <th scope="col">Prescheduled</th>
+                                    <th scope="col">Image</th>
+                                    <th scope="col">House</th>
+                                    <th scope="col">Category</th>
+                                    <th scope="col">Purpose</th>
+                                    <th scope="col">Contact No.</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {search === "" || sortedData === "" ?
+                                    myVisitors.map((visitor) => {
+                                        console.log("search : " + search)
+                                        counter += 1
                                         return (
                                             <tr key={visitor._id}>
                                                 <th scope="row">{counter}</th>
@@ -455,84 +432,8 @@ if(myVisitors==="")
 
                                             </tr>
                                         )
-                                    else if (SortedData !== "") {
-                                        counter += 1
-                                        console.log("sorted data")
-                                        SortedData.map((sortedVisitor) => {
-                                            console.log("sorted member : " + sortedVisitor)
-                                            return (
-                                                <tr key={sortedVisitor._id}>
-                                                    <td>{sortedVisitor.visitorName}</td>
-                                                    <td>{sortedVisitor.date}</td>
-                                                    <td>{sortedVisitor.entryTime}</td>
-                                                    <td>{sortedVisitor.exitTime}</td>
-                                                    <td>{sortedVisitor.isAllowed ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
-                                                    <td>{sortedVisitor.isPreScheduled ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
-                                                    <td><img src={sortedVisitor.profilePhoto} style={{ height: "80px", width: "80px" }}></img></td>
-                                                    <td>{sortedVisitor.house.houseTitle}</td>
-                                                    <td>{sortedVisitor.visitorCategory.categoryName}</td>
-                                                    <td>{sortedVisitor.purpose}</td>
-                                                    <td>{sortedVisitor.mobileNo}</td>
-                                                    {localStorage.getItem('roleName') === 'Society Member' ?
-                                                        <td>
-                                                            <Link to="/listvisitors" className="btn btn-sm btn-danger" onClick={() => { deleteVisitor(sortedVisitor._id) }}><i className="bi bi-trash"></i></Link>
-                                                            <Link to={`/updateVisitor/${sortedVisitor._id}`} className="btn btn-sm btn-primary my-1" value={sortedVisitor._id}><i className="bi bi-pencil"></i></Link>
-                                                        </td> : ""}
-                                                </tr>
-                                            )
-                                        })
-                                    }
-                                    else {
-                                        // return(<tr>No data found</tr>)
-                                    }
-                                })
-                            }
-                        </tbody>
-                    </table> :
-
-                    <table className="table table-hover my-2">
-                        <thead className="table_head">
-                            <tr>
-                                <th scope="col" className=''>Sr. No.</th>
-                                <th scope="col">Visitor Name</th>
-                                <th scope="col">Date<i className="bi bi-arrow-down" onClick={(e) => sortDate(e, "ascending")}></i><i className="bi bi-arrow-up" onClick={(e) => sortDate(e, "descending")}></i></th>
-                                <th scope="col">Entry Time</th>
-                                <th scope="col">Exit Time</th>
-                                <th scope="col">Allowed<i className="bi bi-arrow-down" onClick={(e) => sortIsallowed(e, "ascending")}></i><i className="bi bi-arrow-up" onClick={(e) => sortIsallowed(e, "descending")}></i></th>
-                                <th scope="col">Image</th>
-                                <th scope="col">House</th>
-                                <th scope="col">Category</th>
-                                <th scope="col">Purpose</th>
-                                <th scope="col">Contact No.</th>
-                                
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {search === "" || sortedData === "" ?
-                                myVisitors.map((visitor) => {
-                                    if (visitor.isPreScheduled === true) {
-                                        console.log("search : " + search)
-                                        counter += 1
-                                        return (
-                                            <tr key={visitor._id}>
-                                                <th scope="row">{counter}</th>
-                                                <td>{visitor.visitorName}</td>
-                                                <td>{visitor.date}</td>
-                                                <td>{visitor.entryTime}</td>
-                                                <td>{visitor.exitTime}</td>
-                                                <td>{visitor.isAllowed ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
-                                                <td><img src={visitor.profilePhoto} style={{ height: "80px", width: "80px" }}></img></td>
-                                                <td>{visitor.house.houseTitle}</td>
-                                                <td>{visitor.visitorCategory.categoryName}</td>
-                                                <td>{visitor.purpose}</td>
-                                                <td>{visitor.mobileNo}</td>
-
-                                            </tr>
-                                        )
-                                    }
-                                }) :
-                                myVisitors.map((visitor) => {
-                                    if (visitor.isPreScheduled === true) {
+                                    }) :
+                                    myVisitors.map((visitor) => {
                                         console.log("search : " + search)
                                         counter += 1
                                         console.log("filter")
@@ -549,6 +450,7 @@ if(myVisitors==="")
                                                     <td>{visitor.entryTime}</td>
                                                     <td>{visitor.exitTime}</td>
                                                     <td>{visitor.isAllowed ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
+                                                    <td>{visitor.isPreScheduled ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
                                                     <td><img src={visitor.profilePhoto} style={{ height: "80px", width: "80px" }}></img></td>
                                                     <td>{visitor.house.houseTitle}</td>
                                                     <td>{visitor.visitorCategory.categoryName}</td>
@@ -575,7 +477,11 @@ if(myVisitors==="")
                                                         <td>{sortedVisitor.visitorCategory.categoryName}</td>
                                                         <td>{sortedVisitor.purpose}</td>
                                                         <td>{sortedVisitor.mobileNo}</td>
-                                                        
+                                                        {localStorage.getItem('roleName') === 'Society Member' ?
+                                                            <td>
+                                                                <Link to="/listvisitors" className="btn btn-sm btn-danger" onClick={() => { deleteVisitor(sortedVisitor._id, sortedVisitor.visitorName) }}><i className="bi bi-trash"></i></Link>
+                                                                <Link to={`/updateVisitor/${sortedVisitor._id}`} className="btn btn-sm btn-primary my-1" value={sortedVisitor._id}><i className="bi bi-pencil"></i></Link>
+                                                            </td> : ""}
                                                     </tr>
                                                 )
                                             })
@@ -583,14 +489,112 @@ if(myVisitors==="")
                                         else {
                                             // return(<tr>No data found</tr>)
                                         }
-                                    }
-                                })
-                            }
-                        </tbody>
-                    </table>
-                }
-            </div>
-        }
-    </div>
+                                    })
+                                }
+                            </tbody>
+                        </table> :
+
+                        <table className="table table-hover my-2">
+                            <thead className="table_head">
+                                <tr>
+                                    <th scope="col" className=''>Sr. No.</th>
+                                    <th scope="col">Visitor Name</th>
+                                    <th scope="col">Date<i className="bi bi-arrow-down" onClick={(e) => sortDate(e, "ascending")}></i><i className="bi bi-arrow-up" onClick={(e) => sortDate(e, "descending")}></i></th>
+                                    <th scope="col">Entry Time</th>
+                                    <th scope="col">Exit Time</th>
+                                    <th scope="col">Allowed<i className="bi bi-arrow-down" onClick={(e) => sortIsallowed(e, "ascending")}></i><i className="bi bi-arrow-up" onClick={(e) => sortIsallowed(e, "descending")}></i></th>
+                                    <th scope="col">Image</th>
+                                    <th scope="col">House</th>
+                                    <th scope="col">Category</th>
+                                    <th scope="col">Purpose</th>
+                                    <th scope="col">Contact No.</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {search === "" || sortedData === "" ?
+                                    myVisitors.map((visitor) => {
+                                        if (visitor.isPreScheduled === true) {
+                                            console.log("search : " + search)
+                                            counter += 1
+                                            return (
+                                                <tr key={visitor._id}>
+                                                    <th scope="row">{counter}</th>
+                                                    <td>{visitor.visitorName}</td>
+                                                    <td>{visitor.date}</td>
+                                                    <td>{visitor.entryTime}</td>
+                                                    <td>{visitor.exitTime}</td>
+                                                    <td>{visitor.isAllowed ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
+                                                    <td><img src={visitor.profilePhoto} style={{ height: "80px", width: "80px" }}></img></td>
+                                                    <td>{visitor.house.houseTitle}</td>
+                                                    <td>{visitor.visitorCategory.categoryName}</td>
+                                                    <td>{visitor.purpose}</td>
+                                                    <td>{visitor.mobileNo}</td>
+
+                                                </tr>
+                                            )
+                                        }
+                                    }) :
+                                    myVisitors.map((visitor) => {
+                                        if (visitor.isPreScheduled === true) {
+                                            console.log("search : " + search)
+                                            counter += 1
+                                            console.log("filter")
+                                            if ((visitor.visitorName).includes(search) || (visitor.date).includes(search) ||
+                                                (visitor.entryTime).includes(search) || (visitor.exitTime).includes(search) ||
+                                                (visitor.house.houseTitle).includes(search) || (visitor.visitorCategory.categoryName).includes(search)
+                                                || (visitor.purpose).includes(search) || (visitor.mobileNo).includes(search))
+
+                                                return (
+                                                    <tr key={visitor._id}>
+                                                        <th scope="row">{counter}</th>
+                                                        <td>{visitor.visitorName}</td>
+                                                        <td>{visitor.date}</td>
+                                                        <td>{visitor.entryTime}</td>
+                                                        <td>{visitor.exitTime}</td>
+                                                        <td>{visitor.isAllowed ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
+                                                        <td><img src={visitor.profilePhoto} style={{ height: "80px", width: "80px" }}></img></td>
+                                                        <td>{visitor.house.houseTitle}</td>
+                                                        <td>{visitor.visitorCategory.categoryName}</td>
+                                                        <td>{visitor.purpose}</td>
+                                                        <td>{visitor.mobileNo}</td>
+
+                                                    </tr>
+                                                )
+                                            else if (SortedData !== "") {
+                                                counter += 1
+                                                console.log("sorted data")
+                                                SortedData.map((sortedVisitor) => {
+                                                    console.log("sorted member : " + sortedVisitor)
+                                                    return (
+                                                        <tr key={sortedVisitor._id}>
+                                                            <td>{sortedVisitor.visitorName}</td>
+                                                            <td>{sortedVisitor.date}</td>
+                                                            <td>{sortedVisitor.entryTime}</td>
+                                                            <td>{sortedVisitor.exitTime}</td>
+                                                            <td>{sortedVisitor.isAllowed ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
+                                                            <td>{sortedVisitor.isPreScheduled ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
+                                                            <td><img src={sortedVisitor.profilePhoto} style={{ height: "80px", width: "80px" }}></img></td>
+                                                            <td>{sortedVisitor.house.houseTitle}</td>
+                                                            <td>{sortedVisitor.visitorCategory.categoryName}</td>
+                                                            <td>{sortedVisitor.purpose}</td>
+                                                            <td>{sortedVisitor.mobileNo}</td>
+
+                                                        </tr>
+                                                    )
+                                                })
+                                            }
+                                            else {
+                                                // return(<tr>No data found</tr>)
+                                            }
+                                        }
+                                    })
+                                }
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            }
+        </div>
     )
 }
