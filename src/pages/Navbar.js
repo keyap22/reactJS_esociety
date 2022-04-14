@@ -68,7 +68,7 @@ export const Navbar = () => {
 
                   <li>{localStorage.getItem("role") === "620dd50cbaf661b44817ee61" ? "" : <Link className="nav-link" to="/contact">Contact</Link>}</li>
 
-                  <li>{localStorage.getItem("role") === "620dd50cbaf661b44817ee61" ? <Link className="nav-link" to="">View Submitted Contact Form</Link> : ""}</li>
+                  {/* <li>{localStorage.getItem("role") === "620dd50cbaf661b44817ee61" ? <Link className="nav-link" to="">View Submitted Contact Form</Link> : ""}</li> */}
 
                   {/* <li><Link to="/profile" style={{ textDecoration: "none" }}>Profile</Link></li> */}
                   <li>{localStorage.getItem('email') === null ? <Link className="getstarted scrollto" to="/login" style={{ textDecoration: "none" }}>Login</Link> :
