@@ -122,8 +122,10 @@ export const LoginForm = () => {
                         //finding security guard id from userID 
                         postSecurityGuard()
                         navigation('/profile')
+                        window.location.reload();
                     }
                     navigation('/profile')
+                    window.location.reload();
                 }
                 else {
                     JSON.parse(localStorage.getItem("email"))
