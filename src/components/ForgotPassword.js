@@ -74,17 +74,13 @@ export const ForgotPassword = () => {
     }
     else {
       var user = {
-        email: userList.email,
+        
         password: password,
-        mobileNo: userList.mobileNo,
-        firstName: userList.firstName,
-        lastName: userList.lastName,
-        role: userList.role,
-        profilePhoto: userList.profilePhoto
+        
       }
       console.log("===================================" + userId)
-      console.log(`http://localhost:4000/users/` + userId)
-      axios.put(`http://localhost:4000/users/` + userId, user).then(res => {
+      
+      axios.put(`http://localhost:4000/resetpwd/` + userId, user).then(res => {
         console.log(res.status)
         console.log("user updation status :", res.data.data)
         console.log("user in put method : ", user)

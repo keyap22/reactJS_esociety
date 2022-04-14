@@ -2,7 +2,6 @@ imp tasks -
 
 accept or reject runtime visitor - when security guard add visitor it will be sent to all the members having same house
 - added size attribute in loader in profile page - check
-- added speed multiplier in loader component - check
 
 Tasks -
 
@@ -12,8 +11,7 @@ Tasks -
 added in post,get api : update api required ?
 as of now ,commented 'required' in model
 
-
-- set loader speed multiplier, radius
+- set loader radius
 
 - resend otp in email
 - contact form integrate
