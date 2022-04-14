@@ -148,11 +148,11 @@ function App() {
 
         {(localStorage.getItem("roleName") === "Society Member" || "Security Guard") && localStorage.getItem('email') !== null ? "" : <Route path="/addvehicle" element={<VehicleForm />}></Route>}
 
-        {(localStorage.getItem("roleName") !== "ADMIN" || localStorage.getItem("roleName") !== "Security Guard") && localStorage.getItem('email') !== null ? <Route path="/childschedule" element={<ChildScheduleForm />}></Route> : ""}
+        {(localStorage.getItem("roleName") === "Society Member") && localStorage.getItem('email') !== null ? <Route path="/childschedule" element={<ChildScheduleForm />}></Route> : ""}
 
         {localStorage.getItem('email') !== null ? <Route path='/listvisitors' element={<ListVisitorsAPI />}></Route> : ""}
 
-        {localStorage.getItem('email') !== null ? <Route path='/listguards' element={<ListGuardsAPI />}></Route> : "" }
+        {localStorage.getItem('email') !== null ? <Route path='/listguards' element={<ListGuardsAPI />}></Route> : ""}
 
         {localStorage.getItem('roleName') === 'Society Member' && localStorage.getItem('email') !== null ? "" : <Route path='/updateVisitor/:id' element={<UpdateVisitorForm />}></Route>}
 

@@ -33,35 +33,35 @@ export const Navbar = () => {
                   <li><Link className="nav-link scrollto active" to="/home">Home</Link></li>
                   {/* <li><a className="nav-link scrollto " href="#portfolio">Visitor Tracking</a></li>
                 <li><a className="nav-link scrollto" href="#team">Add Pre-request</a></li>*/}
-                {localStorage.getItem('email') !== null ? 
-                  <li className="dropdown"><Link to="" style={{ textDecoration: "none" }}><span>Edit</span> <i className="bi bi-chevron-down"></i></Link>
-                    <ul>
-                      <li className="dropdown"><Link to="" style={{ textDecoration: "none" }}><span>ADD</span> <i className="bi bi-chevron-right"> </i> </Link>
+                  {localStorage.getItem('email') !== null ?
+                    <li className="dropdown"><Link to="" style={{ textDecoration: "none" }}><span>Edit</span> <i className="bi bi-chevron-down"></i></Link>
+                      <ul>
+                        <li className="dropdown"><Link to="" style={{ textDecoration: "none" }}><span>ADD</span> <i className="bi bi-chevron-right"> </i> </Link>
 
-                        <ul>
-                          <li className="dropdown">{localStorage.getItem("roleName") === "Society Member" || "Security Guard" ? "" : <Link to="addvehicle" style={{ textDecoration: "none" }}><span>Vehicle</span></Link>}</li>
-                          <li className="dropdown">{localStorage.getItem("roleName") !== "ADMIN" || "Security Guard" ?  <Link to="childschedule" style={{ textDecoration: "none" }}>Child Schedule</Link> : ""}</li>
-                          <li className="dropdown">{localStorage.getItem("roleName") === "ADMIN" ? "" : <Link to="addvisitor" style={{ textDecoration: "none" }}><span>Visitor</span></Link>}</li>
-                        </ul>
+                          <ul>
+                            <li className="dropdown">{localStorage.getItem("roleName") === "Society Member" || localStorage.getItem("roleName") === "Security Guard" ? "" : <Link to="addvehicle" style={{ textDecoration: "none" }}><span>Vehicle</span></Link>}</li>
+                            <li className="dropdown">{localStorage.getItem("roleName") === "Society Member" ? <Link to="childschedule" style={{ textDecoration: "none" }}>Child Schedule</Link> : ""}</li>
+                            <li className="dropdown">{localStorage.getItem("roleName") === "ADMIN" ? "" : <Link to="addvisitor" style={{ textDecoration: "none" }}><span>Visitor</span></Link>}</li>
+                          </ul>
 
-                      </li>
+                        </li>
 
-                      <li className="dropdown"><Link to="" style={{ textDecoration: "none" }}><span>DISPLAY</span> <i className="bi bi-chevron-right"> </i> </Link>
+                        <li className="dropdown"><Link to="" style={{ textDecoration: "none" }}><span>DISPLAY</span> <i className="bi bi-chevron-right"> </i> </Link>
 
-                        <ul>
-                          <li><Link to="listvehicles" style={{ textDecoration: "none" }}>Vehicles</Link></li>
-                          <li><Link to="listvisitors" style={{ textDecoration: "none" }}>Visitors</Link></li>
-                          <li><Link to="listdeliverables" style={{ textDecoration: "none" }}>Deliverables</Link></li>
-                          <li><Link to="listmembers" style={{ textDecoration: "none" }}>Society Members</Link></li>
-                          <li><Link to="listguards" style={{ textDecoration: "none" }}>Security Guards</Link></li>
-                          <li><Link to="listchildren" style={{ textDecoration: "none" }}>Child Schedule</Link></li>
+                          <ul>
+                            <li><Link to="listvehicles" style={{ textDecoration: "none" }}>Vehicles</Link></li>
+                            <li><Link to="listvisitors" style={{ textDecoration: "none" }}>Visitors</Link></li>
+                            <li><Link to="listdeliverables" style={{ textDecoration: "none" }}>Deliverables</Link></li>
+                            <li><Link to="listmembers" style={{ textDecoration: "none" }}>Society Members</Link></li>
+                            <li><Link to="listguards" style={{ textDecoration: "none" }}>Security Guards</Link></li>
+                            <li><Link to="listchildren" style={{ textDecoration: "none" }}>Child Schedule</Link></li>
 
 
-                        </ul>
+                          </ul>
 
-                      </li>
-                    </ul>
-                  </li> : "" }
+                        </li>
+                      </ul>
+                    </li> : ""}
 
                   <li>{localStorage.getItem("role") === "620dd50cbaf661b44817ee61" ? "" : <Link className="nav-link scrollto" to="/about">About</Link>}</li>
                   <li>{localStorage.getItem("role") === "620dd50cbaf661b44817ee61" ? "" : <Link className="nav-link scrollto" to="/services">Services</Link>}</li>

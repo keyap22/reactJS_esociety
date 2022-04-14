@@ -215,6 +215,7 @@ export const Profile = () => {
 
                 console.log("guard attendances : ", GuardAttendances)
                 console.log("in post guard id : ", GuardAttendances.guard)
+                alert("Attendance recorded successfully")
             })
         }
         else {
@@ -252,7 +253,7 @@ export const Profile = () => {
         <section id="services" className="services section-bg">
             {isLoading ? <div align="center" style={{
                 marginBottom: "50px", marginTop: "50px", paddingBottom: "50px"
-            }}><FadeLoader color="#009970" ></FadeLoader></div> :
+            }}><FadeLoader color="#009970" size={150}></FadeLoader></div> :
                 <div>
 
                     <div>
@@ -292,7 +293,9 @@ export const Profile = () => {
                                                     <a className="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
                                                 </li>
                                                 <li className="nav-item">
-                                                    <a className="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Details</a>
+                                                    {localStorage.getItem('roleName') === 'Society Member' || localStorage.getItem('roleName') === 'Security Guard' ?
+                                                        <a className="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Details</a>
+                                                        : ""}
                                                 </li>
                                             </ul>
                                         </div>
@@ -361,15 +364,7 @@ export const Profile = () => {
                                                         <p>{user.mobileNo}</p>
                                                     </div>
                                                 </div>
-                                                {localStorage.getItem("roleName") === "Society Member" || localStorage.getItem('roleName') === "Chairman" ?
-                                                    <div className="row">
-                                                        <div className="col-md-6">
-                                                            <label>House No.</label>
-                                                        </div>
-                                                        <div className="col-md-6">
-                                                            <p>{member.house.houseTitle}</p>
-                                                        </div>
-                                                    </div> : ""}
+
 
                                                 <div className="row">
                                                     <div className="col-md-6">
@@ -423,6 +418,24 @@ export const Profile = () => {
                                                     </div>
                                                 </div> */}
                                                 {/* : <></> }  */}
+                                                {localStorage.getItem("roleName") === "Society Member" || localStorage.getItem('roleName') === "Chairman" ?
+                                                    <>
+                                                        <div className="row">
+                                                            <div className="col-md-6">
+                                                                <label>House No.</label>
+                                                            </div>
+                                                            <div className="col-md-6">
+                                                                <p>{member.house.houseTitle}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="row">
+                                                            <div className="col-md-6">
+                                                                <label>Age</label>
+                                                            </div>
+                                                            <div className="col-md-6">
+                                                                <p>{member.age}</p>
+                                                            </div>
+                                                        </div></> : ""}
                                                 {localStorage.getItem('roleName') === 'Security Guard' ?
                                                     <>
                                                         <div className="row">
