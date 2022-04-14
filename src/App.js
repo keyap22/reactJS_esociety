@@ -158,6 +158,8 @@ function App() {
 
         {(localStorage.getItem('roleName') === 'Chairman' || localStorage.getItem('roleName') === 'ADMIN') && localStorage.getItem('email') !== null ? "" : <Route path='/updateMember/:id1/:id2' element={<UpdateForm />}></Route>}
 
+        <Route path='/updateUser/:id1' element={<UpdateForm />}></Route>
+
         {localStorage.getItem('email') !== null ? <Route path='/listchildren' element={<ListChildrenAPI />}></Route> : ""}
 
         {localStorage.getItem('email') !== null ? <Route path='/listvehicles' element={<ListvehiclesAPI />}></Route> : ""}

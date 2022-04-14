@@ -228,7 +228,7 @@ export const Profile = () => {
 
     const editProfile = (e) => {
         e.preventDefault()
-        alert("You don't have access to edit the details. Contact Admin or Chairman. Thank You.")
+        alert("You don't have access to edit the details. Contact Admin. Thank You.")
     }
 
     const setImage = async () => {
@@ -304,8 +304,8 @@ export const Profile = () => {
                                     </div>
 
                                     <div className="col-md-2">
-                                        <Link className="profile-edit-btn" name="btnAddMore" to={`/updateMember/${user._id}/${member._id}`}
-                                            onClick={localStorage.getItem('roleName') === 'Chairman' || localStorage.getItem('roleName') === 'ADMIN' ? "" : e => editProfile(e)}>Edit Profile</Link>
+                                        <Link className="profile-edit-btn" name="btnAddMore" to={`/updateUser/${user._id}`}
+                                            onClick={localStorage.getItem('roleName') === 'ADMIN' ? "" : e => editProfile(e)}>Edit Profile</Link>
                                     </div>
                                 </div>
                                 <div className="row">

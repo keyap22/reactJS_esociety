@@ -498,7 +498,8 @@ export const UpdateForm = () => {
                             </div>
                         </div>
 
-
+                        {localStorage.getItem("roleName") === "Society Member" || localStorage.getItem("role") === "Chairman" ?
+                        <>
                         <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>Role  </strong></label>
                             <div className="col-sm-10">
@@ -520,6 +521,9 @@ export const UpdateForm = () => {
                                     placeholder="Enter your age" onChange={(e => { setAge(e.target.value) })} />
                             </div>
                         </div>
+                        </>
+
+                        : "" }
 
 
 
