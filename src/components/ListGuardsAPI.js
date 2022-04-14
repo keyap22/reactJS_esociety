@@ -57,6 +57,7 @@ export const ListGuardsAPI = () => {
                 console.log("all attendances of given guard are deleted");
             })
         }
+        setGuardSelected(false)
     }
 
     const getSecurityGuard = async () => {
