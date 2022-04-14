@@ -413,7 +413,7 @@ export const ListVisitorsAPI = () => {
                             <thead className="table_head">
                                 <tr>
                                     <th scope="col" className=''>Sr. No.</th>
-                                    <th scope="col">Visitors Name</th>
+                                    <th scope="col">Visitor Name</th>
                                     <th scope="col">Date<i className="bi bi-arrow-down" onClick={(e) => sortDate(e, "ascending")}></i><i className="bi bi-arrow-up" onClick={(e) => sortDate(e, "descending")}></i></th>
                                     <th scope="col">Entry Time</th>
                                     <th scope="col">Exit Time</th>
