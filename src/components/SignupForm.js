@@ -432,7 +432,7 @@ export const SignupForm = () => {
                                 <input type="password" id="Password2" className="form-control" name="Password2" autoComplete="off"
                                     placeholder="Re-enter password" required onChange={(e) => { setPassword2(e.target.value) }} />
                                 {
-                                    password2 !== password ? "Does not match password" : ""
+                                    password2 !== password ? <p style={{ color: "red" }}>Does not match password</p> : ""
                                 }
 
                             </div>
