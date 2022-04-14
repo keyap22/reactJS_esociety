@@ -127,7 +127,7 @@ export const Profile = () => {
         localStorage.removeItem('myVisitors')
         getGuardAttendances()
         navigation('/login')
-       
+        window.location.reload();
         
     }
 
