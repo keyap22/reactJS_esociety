@@ -30,7 +30,10 @@ export const ListVisitorsAPI = () => {
     const getData = () => {
         axios.get("http://localhost:4000/visitors/").then(res => {
             console.log(res.data.data)
-            setVisitorList(res.data.data)
+            
+            var list = res.data.data;
+            setVisitorList(list)
+            console.log(visitorList)
         })
     }
 
@@ -90,10 +93,13 @@ export const ListVisitorsAPI = () => {
     useEffect(() => {
         console.log("use effect hook implemented")
         getData()
+        if(localStorage.getItem('myVisitors')!==null)
+        {
         var list = JSON.parse(localStorage.getItem('myVisitors'))
         console.log(list)
         setmyVisitors(list)
         console.log(myVisitors)
+        }
 
     }, [])
 
@@ -173,6 +179,7 @@ export const ListVisitorsAPI = () => {
                                 {search === "" || SortedData === "" ?
                                     visitorList.map((visitor) => {
                                         console.log("search : " + search)
+                                        console.log(visitor)
                                         counter += 1
                                         return (
                                             <tr key={visitor._id}>
