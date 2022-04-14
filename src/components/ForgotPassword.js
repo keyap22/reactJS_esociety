@@ -13,8 +13,13 @@ export const ForgotPassword = () => {
   const [email, setEmail] = useState('')
   const [userId, setUserId] = useState('')
   const [userList, setUserList] = useState('')
+  var [emailotp, setemailotp] = useState('')
+  const [sysotp, setSysotp] = useState(Math.floor((Math.random() * 1000000) + 1)) //emailotp
+  var [validOtp, setValidOtp] = useState()
+   
   const [haveEmail, setHaveEmail] = useState(false)
   var [pwdError, setPwdError] = useState(false);
+  const [isSubmitted , setIsSubmitted] = useState(false)
    
 
   const validPassword = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,14})');
@@ -68,29 +73,33 @@ export const ForgotPassword = () => {
       alert("Please enter password of atleast 8 characters!")
     }
     else {
-      var user = {
-        email: userList.email,
-        password: password,
-        mobileNo: userList.mobileNo,
-        firstName: userList.firstName,
-        lastName: userList.lastName,
-        role: userList.role,
-        profilePhoto: userList.profilePhoto
-      }
-      console.log("===================================" + userId)
-      console.log(`http://localhost:4000/users/` + userId)
-      axios.put(`http://localhost:4000/users/` + userId, user).then(res => {
-        console.log(res.status)
-        console.log("user updation status :", res.data.data)
-        console.log("user in put method : ", user)
-        alert("Password updated successfully!")
-        navigation('/login')
-      })
+      // var user = {
+      //   email: userList.email,
+      //   password: password,
+      //   mobileNo: userList.mobileNo,
+      //   firstName: userList.firstName,
+      //   lastName: userList.lastName,
+      //   role: userList.role,
+      //   profilePhoto: userList.profilePhoto
+      // }
+      // console.log("===================================" + userId)
+      // console.log(`http://localhost:4000/users/` + userId)
+      // axios.put(`http://localhost:4000/users/` + userId, user).then(res => {
+      //   console.log(res.status)
+      //   console.log("user updation status :", res.data.data)
+      //   console.log("user in put method : ", user)
+      //   alert("Password updated successfully!")
+      //   navigation('/login')
+      // })
+      var isSubmit =true
+      setIsSubmitted(isSubmit);
+
+      sendMail(e);
     }
     console.log("submit called.....")
     console.log(`password : ${password},password2 : ${password2}`)
 
-    navigation('/login')
+    // navigation('/login')
   }
 
   const getEmail = (e) => {
@@ -105,11 +114,67 @@ export const ForgotPassword = () => {
     //navigation('/login')
   }
 
+
+  const sendMail = async (e) => {
+    //6 digit random otp number
+    console.log("sysotp : ", sysotp)
+
+    var data = {
+        email: email,
+        otp: sysotp
+    }
+
+    await axios.post("http://localhost:4000/sendmail/", data)
+        .then(res => {
+            console.log("send mail status : ", res.data.data)
+        });
+}
+
+
+  const verifyemail = async (e) => {
+    e.preventDefault()
+
+    console.log("otp entered by user : ", emailotp)
+    console.log("system generated otp : ", sysotp)
+     console.log("valid otp use state var in verify email method : ", validOtp)
+
+
+    if (emailotp.toString() === sysotp.toString()) {
+        console.log("correct otp")
+        var user = {
+          email: userList.email,
+          password: password,
+          mobileNo: userList.mobileNo,
+          firstName: userList.firstName,
+          lastName: userList.lastName,
+          role: userList.role,
+          profilePhoto: userList.profilePhoto
+        }
+        console.log("===================================" + userId)
+        console.log(`http://localhost:4000/users/` + userId)
+        axios.put(`http://localhost:4000/users/` + userId, user).then(res => {
+          console.log(res.status)
+          console.log("user updation status :", res.data.data)
+          console.log("user in put method : ", user)
+          alert("Password updated successfully!")
+          navigation('/login')
+        })
+  
+    }
+
+    else {
+        alert("incorrect otp")
+        
+        //return false
+    }
+}
+
+
   return (
     <>
 
       <section id="services" className="services section-bg">
-
+{!isSubmitted?
         <div className='mycard my-5 '>
           <div className="align-items-center">
 
@@ -185,7 +250,29 @@ export const ForgotPassword = () => {
 
             </form> : ""}
           </div>
+        </div> :
+        <form className="form-horizontal" align="center" id="checkemailForm"
+        style={{ height: "380px" }} onSubmit={verifyemail}>
+
+        <h3 className="align-title my-5"><strong>VERIFY EMAIL</strong></h3>
+        <div className="form-row"></div>
+
+        <div className="form-group row my-3 mr-2 mb-3">
+            <label className="col-sm-2 col-form-label"><strong>Enter OTP  </strong></label>
+            <div className="col-sm-10">
+                <input type="text" id="otpEmail" className="form-control" name="OtpEmail"
+                    placeholder="Enter otp received in your email" required onChange={(e) => { setemailotp(e.target.value) }} />
+            </div>
         </div>
+
+        <div className="form-grp row my-5" style={{ marginLeft: "150px" }}>
+            <div className="col-sm-10">
+                <input type="submit" className='btn-centre' value="Verify" />
+            </div>
+        </div>
+
+    </form>
+        }
       </section>
     </>
   )
