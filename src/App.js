@@ -146,7 +146,7 @@ function App() {
 
         {localStorage.getItem("roleName") === "ADMIN" && localStorage.getItem('email') !== null ? "" : <Route path="/addvisitor" element={<VisitorForm />}></Route>}
 
-        {(localStorage.getItem("roleName") === "Society Member" || "Security Guard") && localStorage.getItem('email') !== null ? "" : <Route path="/addvehicle" element={<VehicleForm />}></Route>}
+        {(localStorage.getItem("roleName") === "Society Member" || localStorage.getItem("roleName") === "Security Guard") && localStorage.getItem('email') !== null ? "" : <Route path="/addvehicle" element={<VehicleForm />}></Route>}
 
         {(localStorage.getItem("roleName") === "Society Member") && localStorage.getItem('email') !== null ? <Route path="/childschedule" element={<ChildScheduleForm />}></Route> : ""}
 
