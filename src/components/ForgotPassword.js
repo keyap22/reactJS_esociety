@@ -73,28 +73,27 @@ export const ForgotPassword = () => {
       alert("Please enter password of atleast 8 characters!")
     }
     else {
-      // var user = {
-      //   email: userList.email,
-      //   password: password,
-      //   mobileNo: userList.mobileNo,
-      //   firstName: userList.firstName,
-      //   lastName: userList.lastName,
-      //   role: userList.role,
-      //   profilePhoto: userList.profilePhoto
-      // }
-      // console.log("===================================" + userId)
-      // console.log(`http://localhost:4000/users/` + userId)
-      // axios.put(`http://localhost:4000/users/` + userId, user).then(res => {
-      //   console.log(res.status)
-      //   console.log("user updation status :", res.data.data)
-      //   console.log("user in put method : ", user)
-      //   alert("Password updated successfully!")
-      //   navigation('/login')
-      // })
-      var isSubmit = true
-      setIsSubmitted(isSubmit);
+      var user = {
+        email: userList.email,
+        password: password,
+        mobileNo: userList.mobileNo,
+        firstName: userList.firstName,
+        lastName: userList.lastName,
+        role: userList.role,
+        profilePhoto: userList.profilePhoto
+      }
+      console.log("===================================" + userId)
+      console.log(`http://localhost:4000/users/` + userId)
+      axios.put(`http://localhost:4000/users/` + userId, user).then(res => {
+        console.log(res.status)
+        console.log("user updation status :", res.data.data)
+        console.log("user in put method : ", user)
+        alert("Password updated successfully!")
+        navigation('/login')
+      })
+      
 
-      sendMail(e);
+      
     }
     console.log("submit called.....")
     console.log(`password : ${password},password2 : ${password2}`)
@@ -110,6 +109,7 @@ export const ForgotPassword = () => {
 
     console.log("email id received.....")
     console.log("email passed : ", email)
+    sendMail(e);
 
     //navigation('/login')
   }
@@ -141,20 +141,22 @@ export const ForgotPassword = () => {
 
     if (emailotp.toString() === sysotp.toString()) {
       console.log("correct otp")
-      var user = {
+      // var user = {
         
-        password: password,
+      //   password: password,
         
-      }
-      console.log("===================================" + userId)
-      console.log(`http://localhost:4000/resetpwd/` + userId)
-      axios.put(`http://localhost:4000/resetpwd/` + userId, user).then(res => {
-        console.log(res.status)
-        console.log("user updation status :", res.data.data)
-        console.log("user in put method : ", user)
-        alert("Password updated successfully!")
-        navigation('/login')
-      })
+      // }
+      // console.log("===================================" + userId)
+      // console.log(`http://localhost:4000/resetpwd/` + userId)
+      // axios.put(`http://localhost:4000/resetpwd/` + userId, user).then(res => {
+      //   console.log(res.status)
+      //   console.log("user updation status :", res.data.data)
+      //   console.log("user in put method : ", user)
+      //   alert("Password updated successfully!")
+      //   navigation('/login')
+      // })
+      var isSubmit = true
+      setIsSubmitted(isSubmit);
 
     }
 
@@ -202,52 +204,7 @@ export const ForgotPassword = () => {
                 </div>
               </form>
 
-              {haveEmail ? <form className="form-horizontal" align="center" id="passwordForm" style={{ height: "480px", display: `${haveEmail ? "block" : "none"}` }} onSubmit={submit}>
-
-                <h3 className="align-title my-5"><strong>RESET PASSWORD</strong></h3>
-
-
-                <div className="form-group row my-3 mr-2 mb-3">
-                  <label className="col-sm-2 col-form-label"><strong>Password  </strong></label>
-                  <div className="col-sm-10">
-                    <input type="password" id="Password1" className="form-control" name="Password1" autoComplete="off"
-                      placeholder="Create a strong password" required onChange={(e) => { passwordHandler(e) }} />
-                    <small id="passwordHelpBlock" className="form-text text-muted">
-                      Your password  MUST contain at least 8 characters,at least one uppercase letter,at least one number and at least one special character.
-                </small>
-                    {/* {
-                    password.length > 0 && password.length < 8 ? "please enter password of atleast 8 characters" : ""
-                  } */}
-                    {pwdError && <p>Your password is invalid</p>}
-
-                  </div>
-                </div>
-
-                <div className="form-group row my-3 mr-2 mb-3">
-                  <label className="col-sm-2 col-form-label"><strong>Confirm Password  </strong></label>
-                  <div className="col-sm-10">
-                    <input type="password" id="Password2" className="form-control" name="Password2" autoComplete="off"
-                      placeholder="Re-enter password" required onChange={(e) => { confirmpasswordHandler(e) }} />
-                  </div>
-                </div>
-
-                <div className="form-grp row my-5" style={{ marginLeft: "150px" }}>
-                  <div className="col-sm-10">
-                    <input type="submit" className='btn-centre' value="Update Password" />
-                  </div>
-                </div>
-
-                <div className="form-grp row">
-                  <div className="col-sm-12">
-                    Remember Password?
-                                <Link to="/login"> Login</Link>
-                  </div>
-                </div>
-
-              </form> : ""}
-            </div>
-          </div> :
-          <form className="form-horizontal" align="center" id="checkemailForm"
+              {haveEmail ? <form className="form-horizontal" align="center" id="checkemailForm"
             style={{ height: "380px" }} onSubmit={verifyemail}>
 
             <h3 className="align-title my-5"><strong>VERIFY EMAIL</strong></h3>
@@ -267,7 +224,52 @@ export const ForgotPassword = () => {
               </div>
             </div>
 
-          </form>
+          </form> : ""}
+            </div>
+          </div> :
+         <form className="form-horizontal" align="center" id="passwordForm" style={{ height: "480px", display: `${haveEmail ? "block" : "none"}` }} onSubmit={submit}>
+
+         <h3 className="align-title my-5"><strong>RESET PASSWORD</strong></h3>
+
+
+         <div className="form-group row my-3 mr-2 mb-3">
+           <label className="col-sm-2 col-form-label"><strong>Password  </strong></label>
+           <div className="col-sm-10">
+             <input type="password" id="Password1" className="form-control" name="Password1" autoComplete="off"
+               placeholder="Create a strong password" required onChange={(e) => { passwordHandler(e) }} />
+             <small id="passwordHelpBlock" className="form-text text-muted">
+               Your password  MUST contain at least 8 characters,at least one uppercase letter,at least one number and at least one special character.
+         </small>
+             {/* {
+             password.length > 0 && password.length < 8 ? "please enter password of atleast 8 characters" : ""
+           } */}
+             {pwdError && <p>Your password is invalid</p>}
+
+           </div>
+         </div>
+
+         <div className="form-group row my-3 mr-2 mb-3">
+           <label className="col-sm-2 col-form-label"><strong>Confirm Password  </strong></label>
+           <div className="col-sm-10">
+             <input type="password" id="Password2" className="form-control" name="Password2" autoComplete="off"
+               placeholder="Re-enter password" required onChange={(e) => { confirmpasswordHandler(e) }} />
+           </div>
+         </div>
+
+         <div className="form-grp row my-5" style={{ marginLeft: "150px" }}>
+           <div className="col-sm-10">
+             <input type="submit" className='btn-centre' value="Update Password" />
+           </div>
+         </div>
+
+         <div className="form-grp row">
+           <div className="col-sm-12">
+             Remember Password?
+                         <Link to="/login"> Login</Link>
+           </div>
+         </div>
+
+       </form>
         }
       </section>
     </>
