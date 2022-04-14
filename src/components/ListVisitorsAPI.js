@@ -100,6 +100,7 @@ export const ListVisitorsAPI = () => {
         setmyVisitors(list)
         console.log(myVisitors)
         }
+        console.log(localStorage.getItem('myVisitors'))
 
     }, [])
 
@@ -141,7 +142,7 @@ export const ListVisitorsAPI = () => {
 
     return (
         <div>
-            {({ myVisitors } === "") ?
+            {(localStorage.getItem('myVisitors') === null) ?
                 <div className="container table-responsive-md" style={{ maxWidth: "1320px" }}>
                     <div>
                         <button className="btn-centre" style={{ marginLeft: "20px", width: "17%" }} onClick={() => exportPDF()}>Generate Report</button>
@@ -159,6 +160,7 @@ export const ListVisitorsAPI = () => {
                         <table className="table table-hover my-2">
                             <thead className="table_head">
                                 <tr>
+                                   
                                     <th scope="col" className=''>Sr. No.</th>
                                     <th scope="col">Visitor Name</th>
                                     <th scope="col">Date<i className="bi bi-arrow-down" onClick={(e) => sortDate(e, "ascending")}></i><i className="bi bi-arrow-up" onClick={(e) => sortDate(e, "descending")}></i></th>
@@ -171,6 +173,7 @@ export const ListVisitorsAPI = () => {
                                     <th scope="col">Category</th>
                                     <th scope="col">Purpose</th>
                                     <th scope="col">Contact No.</th>
+                                    
                                     {localStorage.getItem('roleName') === 'Society Member' ?
                                         <th scope="col">Action</th> : ""}
                                 </tr>
@@ -207,6 +210,7 @@ export const ListVisitorsAPI = () => {
                                         console.log("search : " + search)
                                         counter += 1
                                         console.log("filter")
+                                        console.log(visitor)
                                         if ((visitor.visitorName).includes(search) || (visitor.date).includes(search) ||
                                             (visitor.entryTime).includes(search) || (visitor.exitTime).includes(search) ||
                                             (visitor.house.houseTitle).includes(search) || (visitor.visitorCategory.categoryName).includes(search)
@@ -238,6 +242,7 @@ export const ListVisitorsAPI = () => {
                                         else if (SortedData !== "") {
                                             counter += 1
                                             console.log("sorted data")
+                                            console.log(visitor)
                                             SortedData.map((sortedVisitor) => {
                                                 console.log("sorted member : " + sortedVisitor)
                                                 return (
@@ -293,6 +298,7 @@ export const ListVisitorsAPI = () => {
                                     visitorList.map((visitor) => {
                                         if (visitor.isPreScheduled === true) {
                                             console.log("search : " + search)
+                                            console.log(visitor)
                                             counter += 1
                                             return (
                                                 <tr key={visitor._id}>
@@ -319,6 +325,7 @@ export const ListVisitorsAPI = () => {
                                     visitorList.map((visitor) => {
                                         if (visitor.isPreScheduled === true) {
                                             console.log("search : " + search)
+                                            console.log(visitor)
                                             counter += 1
                                             console.log("filter")
                                             if ((visitor.visitorName).includes(search) || (visitor.date).includes(search) ||
@@ -349,6 +356,7 @@ export const ListVisitorsAPI = () => {
                                             else if (SortedData !== "") {
                                                 counter += 1
                                                 console.log("sorted data")
+                                                console.log(visitor)
                                                 SortedData.map((sortedVisitor) => {
                                                     console.log("sorted member : " + sortedVisitor)
                                                     return (
@@ -383,7 +391,8 @@ export const ListVisitorsAPI = () => {
                         </table>
                     }
                 </div>
-                :
+                :""}
+                {(localStorage.getItem('myVisitors') !== null) ?
                 <div className="container table-responsive-md" style={{ maxWidth: "1320px" }}>
                     <div>
                         <button className="btn-centre" style={{ marginLeft: "20px", width: "17%" }} onClick={() => exportPDF()}>Generate Report</button>
@@ -398,12 +407,13 @@ export const ListVisitorsAPI = () => {
 
                         </div>
                     </div>
+                   
                     {!isPreSched ?
                         <table className="table table-hover my-2">
                             <thead className="table_head">
                                 <tr>
                                     <th scope="col" className=''>Sr. No.</th>
-                                    <th scope="col">Visitor Name</th>
+                                    <th scope="col">Visitors Name</th>
                                     <th scope="col">Date<i className="bi bi-arrow-down" onClick={(e) => sortDate(e, "ascending")}></i><i className="bi bi-arrow-up" onClick={(e) => sortDate(e, "descending")}></i></th>
                                     <th scope="col">Entry Time</th>
                                     <th scope="col">Exit Time</th>
@@ -421,6 +431,7 @@ export const ListVisitorsAPI = () => {
                                 {search === "" || sortedData === "" ?
                                     myVisitors.map((visitor) => {
                                         console.log("search : " + search)
+                                        console.log(visitor)
                                         counter += 1
                                         return (
                                             <tr key={visitor._id}>
@@ -442,6 +453,7 @@ export const ListVisitorsAPI = () => {
                                     }) :
                                     myVisitors.map((visitor) => {
                                         console.log("search : " + search)
+                                        console.log(visitor)
                                         counter += 1
                                         console.log("filter")
                                         if ((visitor.visitorName).includes(search) || (visitor.date).includes(search) ||
@@ -469,6 +481,7 @@ export const ListVisitorsAPI = () => {
                                         else if (SortedData !== "") {
                                             counter += 1
                                             console.log("sorted data")
+                                            console.log(visitor)
                                             SortedData.map((sortedVisitor) => {
                                                 console.log("sorted member : " + sortedVisitor)
                                                 return (
@@ -523,6 +536,7 @@ export const ListVisitorsAPI = () => {
                                     myVisitors.map((visitor) => {
                                         if (visitor.isPreScheduled === true) {
                                             console.log("search : " + search)
+                                            console.log(visitor)
                                             counter += 1
                                             return (
                                                 <tr key={visitor._id}>
@@ -545,6 +559,7 @@ export const ListVisitorsAPI = () => {
                                     myVisitors.map((visitor) => {
                                         if (visitor.isPreScheduled === true) {
                                             console.log("search : " + search)
+                                            console.log(visitor)
                                             counter += 1
                                             console.log("filter")
                                             if ((visitor.visitorName).includes(search) || (visitor.date).includes(search) ||
@@ -600,7 +615,8 @@ export const ListVisitorsAPI = () => {
                             </tbody>
                         </table>
                     }
-                </div>
+                    
+                </div>: ""
             }
         </div>
     )
