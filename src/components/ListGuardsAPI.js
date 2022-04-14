@@ -194,7 +194,7 @@ export const ListGuardsAPI = () => {
 
 
                                                 <td>
-                                                    <Link to="/listguards" className="btn btn-sm btn-danger mx-1" value={guard.user} onChange={getSecurityGuardByID(guard._id, guard.guardName)} onClick={() => { deleteGuard(guard._id) }}><i className="bi bi-trash"></i></Link>
+                                                    <Link to="/listguards" className="btn btn-sm btn-danger mx-1" value={guard.user} onChange={getSecurityGuardByID(guard._id)} onClick={() => { deleteGuard(guard._id, guard.guardName) }}><i className="bi bi-trash"></i></Link>
                                                     <Link to={`/listguards/update/${guard._id}`} className="btn btn-sm btn-primary" value={guard._id}><i className="bi bi-pencil"></i></Link>
                                                 </td> : ""}
                                         </tr>
