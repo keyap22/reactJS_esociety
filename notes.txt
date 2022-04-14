@@ -1,5 +1,5 @@
 imp tasks -
-email verification for reset password
+
 accept or reject runtime visitor - when security guard add visitor it will be sent to all the members having same house
 - added size attribute in loader in profile page - check
 - added speed multiplier in loader component - check
@@ -12,7 +12,7 @@ Tasks -
 added in post,get api : update api required ?
 as of now ,commented 'required' in model
 
-- email verification for reset password  *
+
 - set loader speed multiplier, radius
 
 - resend otp in email
