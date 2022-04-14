@@ -1,7 +1,6 @@
 imp tasks -
-
 accept or reject runtime visitor - when security guard add visitor it will be sent to all the members having same house
-- added size attribute in loader in profile page - check
+- delete security guard - simultaneously remove user and all attendance record of that user : done : check 
 
 Tasks -
 
@@ -12,16 +11,14 @@ added in post,get api : update api required ?
 as of now ,commented 'required' in model
 
 - set loader radius
-
 - resend otp in email
 - contact form integrate
+-delete security guard - simultaneously remove user and all attendance record of that user : done : check 
+- (push notification) : runtime visitor request form, pwd/details updation notification 
 
 SITE KEY - 6Ldw7j8fAAAAAH-bGG_ubTRvVFwXh5zpryvfTgwy - used in the client
 SECRET KEY - 6Ldw7j8fAAAAAJ8DclrU1CAsY_o7dXR7fJqX0jtl - used in the backend
 
--delete security guard - simultaneously remove user and all attendance record of that user : done : check 
-
-- (push notification) : runtime visitor request form, pwd/details updation notification 
 
 reference : 
 https://www.youtube.com/watch?v=rqBh4YP_CwM   : -> for firebase 8 -> already coded but version difference so not working
@@ -39,9 +36,9 @@ Navbar
 -------- 
 admin :  except contact, services , add visitor/deliverables/childsch /presched 
 
-member: add child sched, add visitors, list members , display visitors/deliverables(house specific) ,  list child sched (house specific), list guards *
+member: add child sched, add visitors, list members , display visitors/deliverables(house specific) ,  list child sched (house specific), list guards 
 
-guard : presched visitors, child sched, vehicle list, add visitor , all visitor list /deliverables, list    members(to identify guests) *
+guard : presched visitors, child sched, vehicle list, add visitor , all visitor list /deliverables, list    members(to identify guests) 
 
 
 -----------------------------------------
