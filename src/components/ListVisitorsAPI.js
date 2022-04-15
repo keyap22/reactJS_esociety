@@ -62,17 +62,17 @@ export const ListVisitorsAPI = () => {
         doc.setFontSize(12);
 
         const title = "Visitor Report";
-        const headers = [["Sr. No.", "Visitor Name", "Date", "Entry Time", "Exit Time", "Allowed", "Prescheduled", "Image", "House", "Category"
+        const headers = [["Sr. No.", "Visitor Name", "Date", "Entry Time", "Exit Time", "Allowed", "Prescheduled", "House", "Category"
             , "Purpose", "Contact No."]];
        
         if (localStorage.getItem('myVisitors')=== null) {
             var data = visitorList.map(visitor => [counter, visitor.visitorName, visitor.date, visitor.entryTime, visitor.exitTime,
-                visitor.isAllowed, visitor.isPreScheduled, visitor.profilePhoto, visitor.house.houseTitle, visitor.visitorCategory.categoryName,
+                visitor.isAllowed, visitor.isPreScheduled, visitor.house.houseTitle, visitor.visitorCategory.categoryName,
                 visitor.purpose, visitor.mobileNo], counter = counter + 1);
         }
         else {
             var data = myVisitors.map(visitor => [counter, visitor.visitorName, visitor.date, visitor.entryTime, visitor.exitTime,
-                visitor.isAllowed, visitor.isPreScheduled, visitor.profilePhoto, visitor.house.houseTitle, visitor.visitorCategory.categoryName,
+                visitor.isAllowed, visitor.isPreScheduled, visitor.house.houseTitle, visitor.visitorCategory.categoryName,
                 visitor.purpose, visitor.mobileNo], counter = counter + 1);
 
         }
