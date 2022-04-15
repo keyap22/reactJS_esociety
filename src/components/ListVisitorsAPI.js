@@ -64,14 +64,14 @@ export const ListVisitorsAPI = () => {
         const title = "Visitor Report";
         const headers = [["Sr. No.", "Visitor Name", "Date", "Entry Time", "Exit Time", "Allowed", "Prescheduled", "Image", "House", "Category"
             , "Purpose", "Contact No."]];
-        var data = ""
-        if (myVisitors === "") {
-            data = visitorList.map(visitor => [counter, visitor.visitorName, visitor.date, visitor.entryTime, visitor.exitTime,
+       
+        if (localStorage.getItem('myVisitors')=== null) {
+            var data = visitorList.map(visitor => [counter, visitor.visitorName, visitor.date, visitor.entryTime, visitor.exitTime,
                 visitor.isAllowed, visitor.isPreScheduled, visitor.profilePhoto, visitor.house.houseTitle, visitor.visitorCategory.categoryName,
                 visitor.purpose, visitor.mobileNo], counter = counter + 1);
         }
         else {
-            data = myVisitors.map(visitor => [counter, visitor.visitorName, visitor.date, visitor.entryTime, visitor.exitTime,
+            var data = myVisitors.map(visitor => [counter, visitor.visitorName, visitor.date, visitor.entryTime, visitor.exitTime,
                 visitor.isAllowed, visitor.isPreScheduled, visitor.profilePhoto, visitor.house.houseTitle, visitor.visitorCategory.categoryName,
                 visitor.purpose, visitor.mobileNo], counter = counter + 1);
 
