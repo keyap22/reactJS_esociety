@@ -30,7 +30,7 @@ export const ListVisitorsAPI = () => {
     const getData = () => {
         axios.get("http://localhost:4000/visitors/").then(res => {
             console.log(res.data.data)
-            
+
             var list = res.data.data;
             setVisitorList(list)
             console.log(visitorList)
@@ -64,8 +64,8 @@ export const ListVisitorsAPI = () => {
         const title = "Visitor Report";
         const headers = [["Sr. No.", "Visitor Name", "Date", "Entry Time", "Exit Time", "Allowed", "Prescheduled", "House", "Category"
             , "Purpose", "Contact No."]];
-       
-        if (localStorage.getItem('myVisitors')=== null) {
+
+        if (localStorage.getItem('myVisitors') === null) {
             var data = visitorList.map(visitor => [counter, visitor.visitorName, visitor.date, visitor.entryTime, visitor.exitTime,
                 visitor.isAllowed, visitor.isPreScheduled, visitor.house.houseTitle, visitor.visitorCategory.categoryName,
                 visitor.purpose, visitor.mobileNo], counter = counter + 1);
@@ -93,12 +93,11 @@ export const ListVisitorsAPI = () => {
     useEffect(() => {
         console.log("use effect hook implemented")
         getData()
-        if(localStorage.getItem('myVisitors')!==null)
-        {
-        var list = JSON.parse(localStorage.getItem('myVisitors'))
-        console.log(list)
-        setmyVisitors(list)
-        console.log(myVisitors)
+        if (localStorage.getItem('myVisitors') !== null) {
+            var list = JSON.parse(localStorage.getItem('myVisitors'))
+            console.log(list)
+            setmyVisitors(list)
+            console.log(myVisitors)
         }
         console.log(localStorage.getItem('myVisitors'))
 
@@ -145,7 +144,7 @@ export const ListVisitorsAPI = () => {
             {(localStorage.getItem('myVisitors') === null) ?
                 <div className="container table-responsive-md" style={{ maxWidth: "1320px" }}>
                     <div>
-                        <button className="btn-centre" style={{ marginLeft: "20px", width: "17%" }} onClick={() => exportPDF()}>Generate Report</button>
+                        {localStorage.getItem("roleName") === "Security Guard" ? "" : <button className="btn-centre" style={{ marginLeft: "20px", width: "17%" }} onClick={() => exportPDF()}>Generate Report</button>}
                         <button className="btn-centre my-2 mx-5" style={{ marginLeft: "80px", width: "17%" }} onClick={() => listPreSched()}>{isPreSched ? "Display all visitors" : "Display presch visitors"}</button>
 
 
@@ -160,7 +159,7 @@ export const ListVisitorsAPI = () => {
                         <table className="table table-hover my-2">
                             <thead className="table_head">
                                 <tr>
-                                   
+
                                     <th scope="col" className=''>Sr. No.</th>
                                     <th scope="col">Visitor Name</th>
                                     <th scope="col">Date<i className="bi bi-arrow-down" onClick={(e) => sortDate(e, "ascending")}></i><i className="bi bi-arrow-up" onClick={(e) => sortDate(e, "descending")}></i></th>
@@ -173,7 +172,7 @@ export const ListVisitorsAPI = () => {
                                     <th scope="col">Category</th>
                                     <th scope="col">Purpose</th>
                                     <th scope="col">Contact No.</th>
-                                    
+
                                     {localStorage.getItem('roleName') === 'Society Member' ?
                                         <th scope="col">Action</th> : ""}
                                 </tr>
@@ -391,11 +390,11 @@ export const ListVisitorsAPI = () => {
                         </table>
                     }
                 </div>
-                :""}
-                {(localStorage.getItem('myVisitors') !== null) ?
+                : ""}
+            {(localStorage.getItem('myVisitors') !== null) ?
                 <div className="container table-responsive-md" style={{ maxWidth: "1320px" }}>
                     <div>
-                        <button className="btn-centre" style={{ marginLeft: "20px", width: "17%" }} onClick={() => exportPDF()}>Generate Report</button>
+                        {localStorage.getItem("roleName") === "Security Guard" ? "" : <button className="btn-centre" style={{ marginLeft: "20px", width: "17%" }} onClick={() => exportPDF()}>Generate Report</button>}
 
                         <button className="btn-centre my-2 mx-5" style={{ marginLeft: "80px", width: "17%" }} onClick={() => listPreSched()}>{isPreSched ? "Display all visitors" : "Display presch visitors"}</button>
 
@@ -407,7 +406,7 @@ export const ListVisitorsAPI = () => {
 
                         </div>
                     </div>
-                   
+
                     {!isPreSched ?
                         <table className="table table-hover my-2">
                             <thead className="table_head">
@@ -615,8 +614,8 @@ export const ListVisitorsAPI = () => {
                             </tbody>
                         </table>
                     }
-                    
-                </div>: ""
+
+                </div> : ""
             }
         </div>
     )

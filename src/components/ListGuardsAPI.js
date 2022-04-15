@@ -140,7 +140,7 @@ export const ListGuardsAPI = () => {
         }
         return () => clearTimeout(timer);
 
-    }, (attendanceList.length < 8 ? [guardList] : [])
+    }, (attendanceList.length < 5 ? [guardList] : [])
     )
 
     return (
@@ -168,7 +168,7 @@ export const ListGuardsAPI = () => {
                                 <th scope="col">Guard Name</th>
                                 <th scope="col">Scheduled Time</th>
                                 <th scope="col">Attendance</th>
-                                {/*<th scope="col">Image</th>*/}
+                                <th scope="col">Image</th>
                                 <th scope="col">Contact No.</th>
                                 {localStorage.getItem('roleName') === 'Chairman' || localStorage.getItem('roleName') === 'ADMIN' ?
 
@@ -188,7 +188,7 @@ export const ListGuardsAPI = () => {
                                             <td>{guard.guardName}</td>
                                             <td>{guard.scheduleTime}</td>
                                             {attendancedisplay ? <td >{attendanceList[counter - 1] !== undefined ? attendanceList[counter - 1] : ""}</td> : <td></td>}
-                                            {/*<td><img src={guard.profilePhoto}></img></td> */}
+                                            <td><img src={guard.user.profilePhoto} style={{ height: "80px", width: "80px" }}></img></td>
                                             <td>{guard.mobileNo}</td>
                                             {localStorage.getItem('roleName') === 'Chairman' || localStorage.getItem('roleName') === 'ADMIN' ?
 
@@ -212,7 +212,7 @@ export const ListGuardsAPI = () => {
                                                 <td>{guard.guardName}</td>
                                                 <td>{guard.scheduleTime}</td>
                                                 {attendancedisplay ? <td >{attendanceList[counter - 1] !== undefined ? attendanceList[counter - 1] : ""}</td> : <td></td>}
-                                                {/*<td><img src={guard.profilePhoto}></img></td> */}
+                                                <td><img src={guard.user.profilePhoto} style={{ height: "80px", width: "80px" }}></img></td>
                                                 <td>{guard.mobileNo}</td>
                                                 {localStorage.getItem('roleName') === 'Chairman' || localStorage.getItem('roleName') === 'ADMIN' ?
 

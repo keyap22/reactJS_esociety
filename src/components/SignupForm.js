@@ -121,7 +121,7 @@ export const SignupForm = () => {
 
     const emailHandler = (e) => {
         findUserByEmail(e.target.value)
-        if (!validMail) {
+        if (!validMail.test(e.target.value)) {
             setEmailError(true);
 
         }
@@ -401,9 +401,9 @@ export const SignupForm = () => {
                                     {/* We'll never share your email with anyone else. */}
                                 </small>
                                 {
-                                    validEmail || email >= 0 ? "" : "Email already exists.Please enter different mail id"
+                                    validEmail || email >= 0 ? "" : <p style={{ color: "red" }}>Email already exists. Please enter different mail id</p>
                                 }
-                                {emailError && <p>Your email is invalid </p>}
+                                {emailError && <p style={{ color: "red" }}>Your email is invalid </p>}
 
                             </div>
                         </div>
