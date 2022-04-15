@@ -50,7 +50,7 @@ export const SignupForm = () => {
 
     const validPassword = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,14})');
     const validMail = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+(?=.)+(?=.[a-zA-Z]$)');
-
+    //const validMail = new RegExp('[a-zA-Z0-9]+)([\.{1}])?([a-zA-Z0-9]+)\@(?:gmail|yahoo)([\.])(?:com|in)')
     //[a-zA-Z0-9]+)([\.{1}])?([a-zA-Z0-9]+)\@(?:gmail|GMAIL)([\.])(?:com|COM) 
 
     var userid = ""
@@ -376,7 +376,7 @@ export const SignupForm = () => {
                                 <input type="text" className="form-control" name="firstName" id="FirstName"
                                     placeholder="Enter Your First Name" required onChange={(e) => { setFirstName(e.target.value) }} />
                                 {
-                                    firstName.length <= 1 && firstName.length > 0 ? <p style={{ color: "red" }}>please enter valid first name</p> : ""
+                                    firstName.length <= 1 && firstName.length > 0 ? <p style={{ color: "red" }}>Please enter valid first name</p> : ""
                                 }
                             </div>
 
@@ -386,7 +386,7 @@ export const SignupForm = () => {
                                 <input type="text" className="form-control" id="LastName" name="lastName"
                                     placeholder="Enter Your Last Name" required onChange={(e) => { setLastName(e.target.value) }} />
                                 {
-                                    lastName.length <= 2 && lastName.length > 0 ? <p style={{ color: "red" }}>please enter valid last name</p> : ""
+                                    lastName.length <= 2 && lastName.length > 0 ? <p style={{ color: "red" }}>Please enter valid last name</p> : ""
                                 }
                             </div>
                         </div>
@@ -421,7 +421,7 @@ export const SignupForm = () => {
                                 {/* {
                                     password.length > 0 && password.length < 8 ? "please enter password of atleast 8 characters" : ""
                                 } */}
-                                {pwdError && <p style={{ color: "red" }}>Your password is weak.Please try with other password</p>}
+                                {pwdError && <p style={{ color: "red" }}>Your password is weak. Please try with other password</p>}
 
                             </div>
                         </div>
@@ -444,6 +444,7 @@ export const SignupForm = () => {
                                 <input type="tel" id="ContactNumber" className="form-control" name="contactNumber"
                                     placeholder="Enter Your Mobile Number" required onChange={(e) => { setContactNumber(e.target.value) }} />
                                 <small id="emailHelp" className="form-text text-muted">Please enter correct details. We'll send you a verification code via text message.</small>
+                                {contactNumber.length < 10 && contactNumber.length > 0 ? <p style={{ color: "red" }}>Must be 10 digit number</p> : ""}
                             </div>
                         </div>
 
