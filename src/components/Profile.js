@@ -127,6 +127,8 @@ export const Profile = () => {
         localStorage.removeItem('roleName')
         localStorage.removeItem('userid')
         localStorage.removeItem('myVisitors')
+        localStorage.removeItem('houseID')
+        
         getGuardAttendances()
         navigation('/login')
         window.location.reload();
