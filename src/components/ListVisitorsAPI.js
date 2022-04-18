@@ -13,6 +13,7 @@ export const ListVisitorsAPI = () => {
     var sortedData = ""
     var direction = 'ascending'
     var counter = 0
+    var houseID = ""
 
     const deleteVisitor = (visitorID, visitorName) => {
 
@@ -49,6 +50,20 @@ export const ListVisitorsAPI = () => {
         else {
             setIsPreSched(true)
         }
+    }
+
+    const getVisitorByHouse = async () =>{
+
+        var formdata ={
+            house : localStorage.getItem('houseID')
+        }
+        await axios.post('http://localhost:4000/findvisitors/', formdata).then(res => {
+            console.log("visitors list  : ", res.data.data)
+            //visitors = res.data.data
+            setmyVisitors(res.data.data)
+            console.log(myVisitors)
+            
+        })
     }
 
     const exportPDF = () => {
@@ -94,12 +109,16 @@ export const ListVisitorsAPI = () => {
         console.log("use effect hook implemented")
         getData()
         if (localStorage.getItem('myVisitors') !== null) {
-            var list = JSON.parse(localStorage.getItem('myVisitors'))
-            console.log(list)
-            setmyVisitors(list)
-            console.log(myVisitors)
+            // var list = JSON.parse(localStorage.getItem('myVisitors'))
+            // console.log(list)
+            // setmyVisitors(list)
+            // console.log(myVisitors)
+            houseID = localStorage.getItem('houseID');
+            console.log(houseID)
+            getVisitorByHouse();
         }
-        console.log(localStorage.getItem('myVisitors'))
+       // console.log(localStorage.getItem('myVisitors'))
+       console.log(localStorage.getItem('houseID'))
 
     }, [])
 

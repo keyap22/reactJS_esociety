@@ -113,7 +113,9 @@ export const Profile = () => {
             localStorage.setItem('myVisitors', JSON.stringify(visitorList));
             console.log(localStorage.getItem('myVisitors'))
             var myVisitors = JSON.parse(localStorage.getItem('myVisitors'))
-            console.log(myVisitors)
+            console.log(houseID._id)
+            localStorage.setItem('houseID', houseID._id)
+            console.log(localStorage.getItem('houseID'))
 
         })
     }
