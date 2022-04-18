@@ -116,6 +116,17 @@ export const VisitorForm = () => {
             console.log(res.data.status)
         })
 
+        if (localStorage.getItem('myVisitors')!==null)
+        {
+            var myVisitors = JSON.parse(localStorage.getItem('myVisitors'))
+            var newVisitorList = myVisitors.push(Visitor)
+            localStorage.setItem('myVisitors', JSON.stringify(newVisitorList));
+            window.location.reload();
+        
+            
+          
+        }
+
         console.log("submit called.....")
         //console.log(`email : ${email}, password : ${password},password2 : ${password2}, first name : ${firstName}, last name : ${lastName}`)
         //console.log(`contact number : ${contactNumber}, role : ${role}, profile photo : ${profilePhoto}`)
