@@ -133,7 +133,7 @@ export const ListDeliverablesAPI = () => {
                 </thead>
                 <tbody>
                     {
-                        search === "" || SortedData === "" ?
+                        search === ""?
 
                             deliverablesList.map((deliverables) => {
                                 console.log("search : " + search)

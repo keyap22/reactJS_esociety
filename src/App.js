@@ -170,8 +170,8 @@ function App() {
       </Routes>
       <Footer />
 
-      {isTokenFound ? "Notification.permission enabled" : "Need notification permission"}
-
+      {/* {isTokenFound ? "Notification.permission enabled" : "Need notification permission"}
+ */}
 
     </div>
   );
