@@ -104,7 +104,8 @@ export const ListVisitorsAPI = () => {
     }, [])
 
     const sortIsallowed = (e, direction) => {
-        sortedData = visitorList
+
+        sortedData = localStorage.getItem('myVisitors')===null ? visitorList:myVisitors
         sortedData.sort((a, b) => {
 
             if (a.isAllowed < b.isAllowed) {
@@ -122,7 +123,7 @@ export const ListVisitorsAPI = () => {
     }
 
     const sortDate = (e, direction) => {
-        sortedData = visitorList
+        sortedData = localStorage.getItem('myVisitors')===null ? visitorList:myVisitors
         sortedData.sort((a, b) => {
 
             if (a.date < b.date) {
