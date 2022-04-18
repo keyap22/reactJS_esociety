@@ -77,17 +77,21 @@ export const ListVisitorsAPI = () => {
         doc.setFontSize(12);
 
         const title = "Visitor Report";
-        const headers = [["Sr. No.", "Visitor Name", "Date", "Entry Time", "Exit Time", "Allowed", "Prescheduled", "House", "Category"
+       
+        if (localStorage.getItem('myVisitors') === null) {
+            var headers = [["Sr. No.", "Visitor Name", "Date", "Entry Time", "Exit Time", "Allowed", "Prescheduled", "House", "Category"
             , "Purpose", "Contact No."]];
 
-        if (localStorage.getItem('myVisitors') === null) {
             var data = visitorList.map(visitor => [counter, visitor.visitorName, visitor.date, visitor.entryTime, visitor.exitTime,
                 visitor.isAllowed, visitor.isPreScheduled, visitor.house.houseTitle, visitor.visitorCategory.categoryName,
                 visitor.purpose, visitor.mobileNo], counter = counter + 1);
         }
         else {
+            var headers = [["Sr. No.", "Visitor Name", "Date", "Entry Time", "Exit Time", "Allowed", "Prescheduled", "Category"
+            , "Purpose", "Contact No."]];
+
             var data = myVisitors.map(visitor => [counter, visitor.visitorName, visitor.date, visitor.entryTime, visitor.exitTime,
-                visitor.isAllowed, visitor.isPreScheduled, visitor.house.houseTitle, visitor.visitorCategory.categoryName,
+                visitor.isAllowed, visitor.isPreScheduled,  visitor.visitorCategory.categoryName,
                 visitor.purpose, visitor.mobileNo], counter = counter + 1);
 
         }
@@ -439,7 +443,7 @@ export const ListVisitorsAPI = () => {
                                     <th scope="col">Allowed<i className="bi bi-arrow-down" onClick={(e) => sortIsallowed(e, "ascending")}></i><i className="bi bi-arrow-up" onClick={(e) => sortIsallowed(e, "descending")}></i></th>
                                     <th scope="col">Prescheduled</th>
                                     <th scope="col">Image</th>
-                                    <th scope="col">House</th>
+                                   
                                     <th scope="col">Category</th>
                                     <th scope="col">Purpose</th>
                                     <th scope="col">Contact No.</th>
@@ -462,7 +466,6 @@ export const ListVisitorsAPI = () => {
                                                 <td>{visitor.isAllowed ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
                                                 <td>{visitor.isPreScheduled ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
                                                 <td><img src={visitor.profilePhoto} style={{ height: "80px", width: "80px" }}></img></td>
-                                                <td>{visitor.house.houseTitle}</td>
                                                 <td>{visitor.visitorCategory.categoryName}</td>
                                                 <td>{visitor.purpose}</td>
                                                 <td>{visitor.mobileNo}</td>
@@ -490,7 +493,6 @@ export const ListVisitorsAPI = () => {
                                                     <td>{visitor.isAllowed ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
                                                     <td>{visitor.isPreScheduled ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
                                                     <td><img src={visitor.profilePhoto} style={{ height: "80px", width: "80px" }}></img></td>
-                                                    <td>{visitor.house.houseTitle}</td>
                                                     <td>{visitor.visitorCategory.categoryName}</td>
                                                     <td>{visitor.purpose}</td>
                                                     <td>{visitor.mobileNo}</td>
@@ -543,7 +545,6 @@ export const ListVisitorsAPI = () => {
                                     <th scope="col">Exit Time</th>
                                     <th scope="col">Allowed<i className="bi bi-arrow-down" onClick={(e) => sortIsallowed(e, "ascending")}></i><i className="bi bi-arrow-up" onClick={(e) => sortIsallowed(e, "descending")}></i></th>
                                     <th scope="col">Image</th>
-                                    <th scope="col">House</th>
                                     <th scope="col">Category</th>
                                     <th scope="col">Purpose</th>
                                     <th scope="col">Contact No.</th>
@@ -566,7 +567,6 @@ export const ListVisitorsAPI = () => {
                                                     <td>{visitor.exitTime}</td>
                                                     <td>{visitor.isAllowed ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
                                                     <td><img src={visitor.profilePhoto} style={{ height: "80px", width: "80px" }}></img></td>
-                                                    <td>{visitor.house.houseTitle}</td>
                                                     <td>{visitor.visitorCategory.categoryName}</td>
                                                     <td>{visitor.purpose}</td>
                                                     <td>{visitor.mobileNo}</td>
@@ -595,8 +595,7 @@ export const ListVisitorsAPI = () => {
                                                         <td>{visitor.exitTime}</td>
                                                         <td>{visitor.isAllowed ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
                                                         <td><img src={visitor.profilePhoto} style={{ height: "80px", width: "80px" }}></img></td>
-                                                        <td>{visitor.house.houseTitle}</td>
-                                                        <td>{visitor.visitorCategory.categoryName}</td>
+                                                         <td>{visitor.visitorCategory.categoryName}</td>
                                                         <td>{visitor.purpose}</td>
                                                         <td>{visitor.mobileNo}</td>
 
@@ -616,8 +615,7 @@ export const ListVisitorsAPI = () => {
                                                             <td>{sortedVisitor.isAllowed ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
                                                             <td>{sortedVisitor.isPreScheduled ? <i className="bi bi-check-lg"></i> : <i className="bi bi-x-lg"></i>}</td>
                                                             <td><img src={sortedVisitor.profilePhoto} style={{ height: "80px", width: "80px" }}></img></td>
-                                                            <td>{sortedVisitor.house.houseTitle}</td>
-                                                            <td>{sortedVisitor.visitorCategory.categoryName}</td>
+                                                             <td>{sortedVisitor.visitorCategory.categoryName}</td>
                                                             <td>{sortedVisitor.purpose}</td>
                                                             <td>{sortedVisitor.mobileNo}</td>
 
