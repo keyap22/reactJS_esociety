@@ -437,7 +437,8 @@ export const UpdateForm = () => {
         //console.log(`role : ${role}`)
         //console.log(e.target)
         alert("Updated successfully!")
-        navigation('/profile')
+        //navigation('/profile')
+        navigation('/listmembers')
 
         //clearing out the details of the form after pressing submit button
         e.target.reset()
@@ -498,7 +499,7 @@ export const UpdateForm = () => {
                             </div>
                         </div>
 
-                        {localStorage.getItem("roleName") === "Society Member" || localStorage.getItem("role") === "Chairman" ?
+                        
                         <>
                         <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>Role  </strong></label>
@@ -523,7 +524,7 @@ export const UpdateForm = () => {
                         </div>
                         </>
 
-                        : "" }
+                        
 
 
 

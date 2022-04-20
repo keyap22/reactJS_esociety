@@ -184,7 +184,7 @@ export const ListMembersAPI = () => {
 
                                         <td>
                                             <Link to="/listmembers" className="btn btn-sm btn-danger mx-2" onClick={() => { deleteMember(member._id, member.user._id, member.memberName) }}><i className="bi bi-trash"></i></Link>
-                                            <Link to={`/updateMember/${member.user._id}/${member._id}`} className="btn btn-sm btn-primary mx-2"><i className="bi bi-pencil"></i></Link>
+                                            <Link to={`/update/${member.user._id}/${member._id}`} className="btn btn-sm btn-primary mx-2"><i className="bi bi-pencil"></i></Link>
                                         </td> : <></>}
                                 </tr>
                             )
@@ -212,7 +212,7 @@ export const ListMembersAPI = () => {
 
                                             <td>
                                                 <Link to="/listmembers" className="btn btn-sm btn-danger mx-2" onClick={() => { deleteMember(member._id, member.user._id, member.memberName) }}><i className="bi bi-trash"></i></Link>
-                                                <Link to={`/updateMember/${member.user._id}/${member._id}`} className="btn btn-sm btn-primary"><i className="bi bi-pencil"></i></Link>
+                                                <Link to={`/update/${member.user._id}/${member._id}`} className="btn btn-sm btn-primary"><i className="bi bi-pencil"></i></Link>
                                             </td> : <></>}
                                     </tr>
                                 )
@@ -237,7 +237,7 @@ export const ListMembersAPI = () => {
 
                                                 <td>
                                                     <Link to="/listmembers" className="btn btn-sm btn-danger mx-2" onClick={() => { deleteMember(sortedMember._id, sortedMember.user._id, member.memberName) }}><i className="bi bi-trash"></i></Link>
-                                                    <Link to={`/updateMember/${sortedMember.user._id}/${sortedMember._id}`} className="btn btn-sm btn-primary"><i className="bi bi-pencil"></i></Link>
+                                                    <Link to={`/update/${sortedMember.user._id}/${sortedMember._id}`} className="btn btn-sm btn-primary"><i className="bi bi-pencil"></i></Link>
                                                 </td> : <></>}
                                         </tr>
                                     )
