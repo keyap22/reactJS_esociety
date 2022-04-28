@@ -8,7 +8,7 @@ export const About = () => {
         <div className="row content">
           <div className="col-lg-6" data-aos="fade-right" data-aos-delay="100">
             <h2>eSociety Management</h2>
-            <h3>Web-based software for a society where accounts are maintained correctly and provides transparency within the society members.</h3>
+            <h5>Web-based software for a society where accounts are maintained correctly and provides transparency within the society members.</h5>
           </div>
           <div className="col-lg-6 pt-4 pt-lg-0" data-aos="fade-left" data-aos-delay="200">
             <p>

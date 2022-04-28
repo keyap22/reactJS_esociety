@@ -222,6 +222,7 @@ export const Profile = () => {
                 console.log("guard attendances : ", GuardAttendances)
                 console.log("in post guard id : ", GuardAttendances.guard)
                 alert("Attendance recorded successfully")
+                window.location.reload();
             })
         }
         else {
