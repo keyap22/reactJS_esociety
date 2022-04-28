@@ -12,7 +12,7 @@ export const ListVisitorsAPI = () => {
     const [SortedData, setSortedData] = useState('');
     var sortedData = ""
     var direction = 'ascending'
-    var counter = 0
+    
     var houseID = ""
 
     const deleteVisitor = (visitorID, visitorName) => {
@@ -70,7 +70,7 @@ export const ListVisitorsAPI = () => {
         const unit = "pt";
         const size = "A4"; // Use A1, A2, A3 or A4
         const orientation = "portrait"; // portrait or landscape
-        var counter = 0
+        let srno_counter = 0
         const marginLeft = 50;
         const doc = new jsPDF(orientation, unit, size);
 
@@ -82,17 +82,17 @@ export const ListVisitorsAPI = () => {
             var headers = [["Sr. No.", "Visitor Name", "Date", "Entry Time", "Exit Time", "Allowed", "Prescheduled", "House", "Category"
             , "Purpose", "Contact No."]];
 
-            var data = visitorList.map(visitor => [counter, visitor.visitorName, visitor.date, visitor.entryTime, visitor.exitTime,
+            var data = visitorList.map(visitor => [++srno_counter, visitor.visitorName, visitor.date, visitor.entryTime, visitor.exitTime,
                 visitor.isAllowed, visitor.isPreScheduled, visitor.house.houseTitle, visitor.visitorCategory.categoryName,
-                visitor.purpose, visitor.mobileNo], counter = counter + 1);
+                visitor.purpose, visitor.mobileNo]);
         }
         else {
             var headers = [["Sr. No.", "Visitor Name", "Date", "Entry Time", "Exit Time", "Allowed", "Prescheduled", "Category"
             , "Purpose", "Contact No."]];
 
-            var data = myVisitors.map(visitor => [counter, visitor.visitorName, visitor.date, visitor.entryTime, visitor.exitTime,
+            var data = myVisitors.map(visitor => [++srno_counter, visitor.visitorName, visitor.date, visitor.entryTime, visitor.exitTime,
                 visitor.isAllowed, visitor.isPreScheduled,  visitor.visitorCategory.categoryName,
-                visitor.purpose, visitor.mobileNo], counter = counter + 1);
+                visitor.purpose, visitor.mobileNo]);
 
         }
 
@@ -110,7 +110,7 @@ export const ListVisitorsAPI = () => {
 
 
     useEffect(() => {
-        console.log("use effect hook implemented")
+
         getData()
         if (localStorage.getItem('myVisitors') !== null) {
             // var list = JSON.parse(localStorage.getItem('myVisitors'))
@@ -162,6 +162,8 @@ export const ListVisitorsAPI = () => {
         setSortedData(sortedData)
         console.log("sorted data : ", sortedData)
     }
+
+    var counter = 0
 
     return (
         <div>
