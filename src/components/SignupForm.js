@@ -415,7 +415,7 @@ export const SignupForm = () => {
                                     placeholder="Create a strong password" required
                                     onChange={(e) => { passwordHandler(e) }} minLength="8" />
                                 <small id="passwordHelpBlock" className="form-text text-muted">
-                                    Your password  MUST contain at least 8 characters, one uppercase and lowercase letter, one number and one special character.
+                                    Your password  MUST contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character.
                                 </small>
                                 {/* {
                                     password.length > 0 && password.length < 8 ? "please enter password of atleast 8 characters" : ""

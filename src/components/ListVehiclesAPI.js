@@ -31,6 +31,7 @@ export const ListvehiclesAPI = () => {
             axios.delete(`http://localhost:4000/vehicles/` + id).then(res => {
                 console.log(res)
             })
+            window.location.reload();
         }
     }
 

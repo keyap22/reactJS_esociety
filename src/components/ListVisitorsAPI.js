@@ -25,6 +25,7 @@ export const ListVisitorsAPI = () => {
             axios.delete(`http://localhost:4000/visitors/` + visitorID).then(res => {
                 console.log(res)
             })
+            window.location.reload();
         }
     }
 

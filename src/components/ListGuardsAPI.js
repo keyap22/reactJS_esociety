@@ -56,6 +56,7 @@ export const ListGuardsAPI = () => {
                 console.log(res)
                 console.log("all attendances of given guard are deleted");
             })
+            window.location.reload();
         }
         setGuardSelected(false)
     }

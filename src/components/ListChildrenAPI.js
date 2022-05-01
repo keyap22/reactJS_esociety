@@ -43,6 +43,7 @@ export const ListChildrenAPI = () => {
             axios.delete(`http://localhost:4000/childSchedules/` + id).then(res => {
                 console.log(res)
             })
+            window.location.reload();
         }
     }
 

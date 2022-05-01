@@ -25,6 +25,7 @@ export const ListMembersAPI = () => {
             axios.delete(`http://localhost:4000/users/` + userID).then(res => {
                 console.log(res)
             })
+            window.location.reload();
         }
     }
 

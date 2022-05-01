@@ -106,6 +106,7 @@ export const ListDeliverablesAPI = () => {
                 console.log(res)
                 alert("Record deleted successfully!")
             })
+            window.location.reload();
         }
     }
 
