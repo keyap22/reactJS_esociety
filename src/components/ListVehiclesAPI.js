@@ -85,9 +85,9 @@ export const ListvehiclesAPI = () => {
                         vehicleList.map((vehicle) => {
                             counter += 1
                             console.log("filter")
-                            if ((vehicle.user.firstName).includes(search) || (vehicle.user.lastName).includes(search) ||
-                                (vehicle.vehicleNo).includes(search) || (vehicle.vehicleType).includes(search) ||
-                                (vehicle.parkingId).includes(search) || (vehicle.user.mobileNo).includes(search)) {
+                            if ((vehicle.user.firstName.toLowerCase()).includes(search.toLowerCase()) || (vehicle.user.lastName.toLowerCase()).includes(search.toLowerCase()) ||
+                                (vehicle.vehicleNo.toLowerCase()).includes(search.toLowerCase()) || (vehicle.vehicleType.toLowerCase()).includes(search.toLowerCase()) ||
+                                (vehicle.parkingId.toLowerCase()).includes(search.toLowerCase()) || (vehicle.user.mobileNo).includes(search)) {
 
                                 return (
                                     <tr key={vehicle._id}>

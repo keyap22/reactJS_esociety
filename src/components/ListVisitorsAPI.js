@@ -205,7 +205,7 @@ export const ListVisitorsAPI = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {search === "" || SortedData === "" ?
+                                {search === "" ?
                                     visitorList.map((visitor) => {
                                         console.log("search : " + search)
                                         console.log(visitor)

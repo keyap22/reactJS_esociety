@@ -32,7 +32,7 @@ export const ListGuardsAPI = () => {
         })
     }
 
-    const deleteGuard = async (guardID, name) => {
+    const deleteGuard = async (guardID, userID, name) => {
         //console.log("value : ",value)
         var confirmationResult = window.confirm(`Are you sure you want to delete the record of ${name}?`)
         if (confirmationResult)     //if confirmationResult===true
@@ -45,7 +45,7 @@ export const ListGuardsAPI = () => {
             })
 
             //delete user
-            await axios.delete(`http://localhost:4000/users/` + userId).then(res => {
+            await axios.delete(`http://localhost:4000/users/` + userID).then(res => {
                 console.log(res)
                 console.log("user is deleted successfully");
             })
@@ -195,7 +195,7 @@ export const ListGuardsAPI = () => {
 
 
                                                 <td>
-                                                    <Link to="/listguards" className="btn btn-sm btn-danger mx-1" value={guard.user} onChange={getSecurityGuardByID(guard._id)} onClick={() => { deleteGuard(guard._id, guard.guardName) }}><i className="bi bi-trash"></i></Link>
+                                                    <Link to="/listguards" className="btn btn-sm btn-danger mx-1" value={guard.user} onChange={getSecurityGuardByID(guard._id)} onClick={() => { deleteGuard(guard._id, guard.user._id ,guard.guardName) }}><i className="bi bi-trash"></i></Link>
                                                     <Link to={`/listguards/update/${guard._id}`} className="btn btn-sm btn-primary" value={guard._id}><i className="bi bi-pencil"></i></Link>
                                                 </td> : ""}
                                         </tr>
@@ -203,7 +203,7 @@ export const ListGuardsAPI = () => {
                                 }) : guardList.map((guard) => {
                                     counter += 1
                                     console.log("filter")
-                                    if ((guard.guardName).includes(search) || (guard.scheduleTime).includes(search) ||
+                                    if ((guard.guardName.toLowerCase()).includes(search.toLowerCase()) || (guard.scheduleTime).includes(search) ||
                                         (guard.mobileNo).includes(search)) {
 
                                         console.log("search : " + search)
@@ -218,7 +218,7 @@ export const ListGuardsAPI = () => {
                                                 {localStorage.getItem('roleName') === 'Chairman' || localStorage.getItem('roleName') === 'ADMIN' ?
 
                                                     <td>
-                                                        <Link to="/listguards" className="btn btn-sm btn-danger mx-1" onClick={() => { deleteGuard(guard._id, guard.guardName) }}><i className="bi bi-trash"></i></Link>
+                                                        <Link to="/listguards" className="btn btn-sm btn-danger mx-1" onClick={() => { deleteGuard(guard._id, guard.user._id ,guard.guardName) }}><i className="bi bi-trash"></i></Link>
                                                         <Link to={`/listguards/update/${guard._id}`} className="btn btn-sm btn-primary" value={guard._id}><i className="bi bi-pencil"></i></Link>
                                                     </td> : ""}
                                             </tr>

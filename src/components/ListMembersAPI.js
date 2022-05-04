@@ -167,7 +167,7 @@ export const ListMembersAPI = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {search === "" || SortedData === "" ?
+                    {search === "" ?
                         memberList.sort((a, b) => a.email - b.email).map((member) => {
                             console.log("search : " + search)
                             counter += 1
@@ -193,8 +193,8 @@ export const ListMembersAPI = () => {
                         memberList.map((member) => {
                             counter += 1
                             console.log("filter")
-                            if ((member.house.houseTitle).includes(search) || (member.user.firstName).includes(search) ||
-                                (member.user.lastName).includes(search) || (member.user.email).includes(search) ||
+                            if ((member.house.houseTitle.toLowerCase()).includes(search.toLowerCase()) || (member.user.firstName.toLowerCase()).includes(search.toLowerCase()) ||
+                                (member.user.lastName.toLowerCase()).includes(search.toLowerCase()) || (member.user.email.toLowerCase()).includes(search.toLowerCase()) ||
                                 (member.user.mobileNo).includes(search)) {
 
                                 console.log("search : " + search)

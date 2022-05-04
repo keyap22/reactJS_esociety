@@ -105,7 +105,7 @@ export const ListChildrenAPI = () => {
                 </thead>
                 <tbody>
                     {
-                        search === "" || SortedData === "" ?
+                        search === ""  ?
                             childrenList.map((child) => {
                                 counter += 1
                                 console.log("search : " + search)
@@ -130,7 +130,7 @@ export const ListChildrenAPI = () => {
                             childrenList.map((child) => {
                                 counter += 1
                                 console.log("filter")
-                                if ((child.house.houseTitle).includes(search) || (child.childName).includes(search) ||
+                                if ((child.house.houseTitle.toLowerCase()).includes(search.toLowerCase()) || (child.childName).includes(search) ||
                                     (child.contactName).includes(search) || (child.contactNo).includes(search)
                                     || (child.allowedStartingTime).includes(search) || (child.allowedEndingTime).includes(search)) {
 

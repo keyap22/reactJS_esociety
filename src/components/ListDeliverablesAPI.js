@@ -156,7 +156,7 @@ export const ListDeliverablesAPI = () => {
                             deliverablesList.map((deliverables) => {
                                 counter += 1
                                 console.log("filter")
-                                if ((deliverables.house.houseTitle).includes(search) || (deliverables.date).includes(search)) {
+                                if ((deliverables.house.houseTitle.toLowerCase()).includes(search.toLowerCase()) || (deliverables.date).includes(search)) {
 
                                     console.log("search : " + search)
                                     return (
