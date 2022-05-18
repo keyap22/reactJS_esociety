@@ -28,6 +28,10 @@ export const ChildScheduleForm = () => {
     const submit = (e) => {
 
         e.preventDefault()
+
+        var finalHouse
+        localStorage.getItem('roleName') === 'Society Member' ? finalHouse = localStorage.getItem('house') : finalHouse = house
+
         var formdata = {
             childName: childName,
             age: age,
@@ -45,20 +49,13 @@ export const ChildScheduleForm = () => {
             console.log(res)
             if (res.data.status === 200) {
                 console.log("schedule added  successfully")
-
-
-
             }
             else if (res.data.status === -1) {
 
                 console.log("Incorrect details.....Please try again")
-
-                //clearing out the details of the form after pressing submit button
-
-
+                e.target.reset()
             }
         })
-        e.target.reset()
         console.log("submit called.....")
     }
 
@@ -126,8 +123,8 @@ export const ChildScheduleForm = () => {
                             <div className="formField col-sm-9 ml-3">
                                 <input type="file" id="profilePhoto" className="form-control md-9" name="profilePhoto"
                                     placeholder="Insert child's photo" onChange={(e) => { setProfilePhoto(e.target.value) }} />
-                                    {
-                                    (profilePhoto.includes(".png") || profilePhoto.includes(".jpg") || profilePhoto.includes(".jpeg")) && profilePhoto!=="" ? "" : "Please enter valid image"
+                                {
+                                    (profilePhoto.includes(".png") || profilePhoto.includes(".jpg") || profilePhoto.includes(".jpeg")) && profilePhoto !== "" ? "" : "Please enter valid image"
                                 }
                                 <div className="md-3"> </div>
 
@@ -137,19 +134,25 @@ export const ChildScheduleForm = () => {
                         <div className="form-group row my-3 mr-2 mb-3">
                             <label htmlFor="house" className="col-sm-2 col-form-label"><strong>House Number</strong></label>
                             <div className="formField col-sm-9 ml-3">
-                                {/* <div className="col-sm-10"> */}
-                                <select className="form-select" id="house" required onClick={(e) => { getHouses(e) }} onChange={(e) => setHouse(e.target.value)}>
-                                    <option>Please Select</option>
-                                    {
-                                        houseList.map((house) => {
 
-                                            return (
-                                                <option value={house._id}>{house.houseTitle}</option>
-                                            )
-                                        })
-                                    }
-                                </select>
-                                {/* </div> */}
+                                {localStorage.getItem('role') === '620dd424e608c720fa0f1be8' ?
+                                    <select className="form-select" id="house" disabled>
+                                        {
+                                            <option value={localStorage.getItem('house')}>{localStorage.getItem('houseTitle')}</option>
+                                        }
+                                    </select> :
+                                    <select className="form-select" id="house" required onClick={(e) => { getHouses(e) }} onChange={(e) => { setHouse(e.target.value) }}>
+                                        <option>Select your house title</option>
+                                        {
+                                            houseList.map((house) => {
+                                                return (
+                                                    <option value={house._id}>{house.houseTitle}</option>
+                                                )
+                                            })
+                                        }
+                                    </select>
+                                }
+
                             </div>
                         </div>
 

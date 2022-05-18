@@ -95,7 +95,8 @@ export const Profile = () => {
                 console.log("useState Member data : ", member)
                 console.log(Member.house.houseTitle)
                 getVisitors(Member.house)
-                localStorage.setItem("house", Member.house._id)
+                localStorage.setItem("houseID", Member.house._id)
+                localStorage.setItem("houseTitle", Member.house.houseTitle)
             })
 
         }
@@ -128,6 +129,7 @@ export const Profile = () => {
         localStorage.removeItem('userid')
         localStorage.removeItem('myVisitors')
         localStorage.removeItem('houseID')
+        localStorage.removeItem("houseTitle")
         
         getGuardAttendances()
         navigation('/login')

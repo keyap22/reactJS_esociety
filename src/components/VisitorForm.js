@@ -75,15 +75,20 @@ export const VisitorForm = () => {
     const profilePhotoHandler = (e) => {
         console.log(e.target.files[0].name)
         setProfilePhoto(e.target.files[0].name)
-        }
+    }
 
     const isPreScheduledHandler = (e) => {
         setIsPreScheduled(e.target.value)
     }
 
     const houseHandler = (e) => {
-        console.log("House id : ", e.target.value)
-        setHouse(e.target.value)
+        if (localStorage.getItem('roleName') === "Society Member") {
+            setHouse(localStorage.getItem('houseID'))
+        }
+        else {
+            console.log("House id : ", e.target.value)
+            setHouse(e.target.value)
+        }
     }
 
     const isAllowedHandler = (e) => {
@@ -116,15 +121,14 @@ export const VisitorForm = () => {
             console.log(res.data.status)
         })
 
-        if (localStorage.getItem('myVisitors')!==null)
-        {
+        if (localStorage.getItem('myVisitors') !== null) {
             var myVisitors = JSON.parse(localStorage.getItem('myVisitors'))
             var newVisitorList = myVisitors.push(Visitor)
             localStorage.setItem('myVisitors', JSON.stringify(newVisitorList));
             window.location.reload();
-        
-            
-          
+
+
+
         }
 
         console.log("submit called.....")
@@ -166,7 +170,7 @@ export const VisitorForm = () => {
             <div className='mycard my-5 '>
                 <div className="align-items-center" >
 
-                    <div className="container my-3" style={{marginLeft : "520px"}}>
+                    <div className="container my-3" style={{ marginLeft: "520px" }}>
                         <input className="radios mx-2" type="radio" name="radios" value="Visitor" onClick={(e) => visitorSelected(e)} />
                         <label className="radios mx-2">ADD VISITOR</label>
 
@@ -197,7 +201,7 @@ export const VisitorForm = () => {
                                 <textarea id="purpose" className="form-control" name="Purpose" rows="4" cols="50"
                                     placeholder="Enter Visitor's Purpose" required maxLength="150"
                                     onChange={(e) => { setPurpose(e.target.value) }} />
-                                    {
+                                {
                                     purpose.length <= 5 && purpose.length > 0 ? "please enter valid purpose" : ""
                                 }
                             </div>
@@ -274,8 +278,8 @@ export const VisitorForm = () => {
                             <div className="col-sm-10">
                                 <input type="file" id="ProfilePhoto" className="form-control-file" name="profilePhoto"
                                     placeholder="Upload Visitor Profile Photo" onChange={(e => { profilePhotoHandler(e) })} />
-                                     {
-                                    profilePhoto.includes(".png") || profilePhoto.includes(".jpg") ||profilePhoto.includes(".jpeg") ?  "":"Please enter valid image" 
+                                {
+                                    profilePhoto.includes(".png") || profilePhoto.includes(".jpg") || profilePhoto.includes(".jpeg") ? "" : "Please enter valid image"
                                 }
                             </div>
                         </div>
@@ -283,24 +287,29 @@ export const VisitorForm = () => {
                         <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>House Title  </strong></label>
                             <div className="col-sm-10">
-                                <select className="form-select" id="house" required onClick={(e) => { displayHouse(e) }} onChange={(e) => { houseHandler(e) }}>
-                                    <option>Select your house title</option>
-                                    {
-                                        houseList.map((house) => {
-
-                                            return (
-                                                <option value={house._id}>{house.houseTitle}</option>
-                                            )
-                                        })
-                                    }
-                                </select>
-
+                                {localStorage.getItem('role') === '620dd424e608c720fa0f1be8' ?
+                                    <select className="form-select" id="house" disabled onChange={(e) => { houseHandler(e) }}>
+                                        {
+                                            <option value={localStorage.getItem('houseID')} selected>{localStorage.getItem('houseTitle')}</option>
+                                        }
+                                    </select> :
+                                    <select className="form-select" id="house" required onClick={(e) => { displayHouse(e) }} onChange={(e) => { houseHandler(e) }}>
+                                        <option>Select your house title</option>
+                                        {
+                                            houseList.map((house) => {
+                                                return (
+                                                    <option value={house._id}>{house.houseTitle}</option>
+                                                )
+                                            })
+                                        }
+                                    </select>
+                                }
                             </div>
                         </div>
 
 
 
-                        <div className="form-grp row my-5" style={{marginLeft : "150px"}}>
+                        <div className="form-grp row my-5" style={{ marginLeft: "150px" }}>
                             <div className="col-sm-10">
                                 <input type="submit" className='btn-centre' value="Add Visitor" />
                             </div>
@@ -322,18 +331,23 @@ export const VisitorForm = () => {
                         <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>House Title  </strong></label>
                             <div className="col-sm-10">
-                                <select className="form-select" id="house" required onClick={(e) => { displayHouse(e) }} onChange={(e) => { houseHandler(e) }}>
-                                    <option>Select your house title</option>
-                                    {
-                                        houseList.map((house) => {
-
-                                            return (
-                                                <option value={house._id}>{house.houseTitle}</option>
-                                            )
-                                        })
-                                    }
-                                </select>
-
+                                {localStorage.getItem('role') === '620dd424e608c720fa0f1be8' ?
+                                    <select className="form-select" id="house" disabled onChange={(e) => { houseHandler(e) }}>
+                                        {
+                                            <option value={localStorage.getItem('houseID')} selected>{localStorage.getItem('houseTitle')}</option>
+                                        }
+                                    </select> :
+                                    <select className="form-select" id="house" required onClick={(e) => { displayHouse(e) }} onChange={(e) => { houseHandler(e) }}>
+                                        <option>Select your house title</option>
+                                        {
+                                            houseList.map((house) => {
+                                                return (
+                                                    <option value={house._id}>{house.houseTitle}</option>
+                                                )
+                                            })
+                                        }
+                                    </select>
+                                }
                             </div>
                         </div>
 
