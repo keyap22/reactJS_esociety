@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import { useEffect } from 'react'
 
 export const VisitorForm = () => {
 
@@ -20,6 +21,14 @@ export const VisitorForm = () => {
     const [houseList, sethouseList] = useState([])
 
     const [isVisitor, setIsVisitor] = useState(true)
+
+    useEffect(() => {
+      console.log(localStorage.getItem("houseID"))
+      if(localStorage.getItem("houseID")!==null){
+          setHouse(localStorage.getItem("houseID"))
+      }
+    }, [])
+    
 
     var Visitor = {
         visitorName: visitorName,
@@ -287,7 +296,7 @@ export const VisitorForm = () => {
                         <div className="form-group row my-3 mr-2 mb-3">
                             <label className="col-sm-2 col-form-label"><strong>House Title  </strong></label>
                             <div className="col-sm-10">
-                                {localStorage.getItem('role') === '620dd424e608c720fa0f1be8' ?
+                                {localStorage.getItem('houseID') !== null ?
                                     <select className="form-select" id="house" disabled onChange={(e) => { houseHandler(e) }}>
                                         {
                                             <option value={localStorage.getItem('houseID')} selected>{localStorage.getItem('houseTitle')}</option>
